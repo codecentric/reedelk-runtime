@@ -1,0 +1,10 @@
+com/reedelk/admin/console/ModuleHotSwap.class
+com/reedelk/admin/console/ModuleDeploy.class
+com/reedelk/admin/console/ModuleList.class
+com/reedelk/admin/console/ModuleUpdate.class
+com/reedelk/admin/console/SystemHealth.class
+com/reedelk/admin/console/AdminConsole.class
+com/reedelk/admin/console/ReadFromResources.class
+com/reedelk/admin/console/ModuleInstallOrUpdate.class
+com/reedelk/admin/console/ModuleUninstall.class
+com/reedelk/admin/console/ByteArrayUtils.class

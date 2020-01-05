@@ -1,0 +1,41 @@
+
+# Maven
+target/
+
+
+# Eclipse files
+.classpath
+.project
+.settings
+/workspace/
+
+# IntelliJ Idea files
+*.iml
+*.ipr
+*.iws
+*.idea
+*.mule_ide/
+
+# Mac
+.DS_Store
+
+# Test remnants
+objectstore/
+.mule/
+*.log
+temp/
+muleEmbeddedDB/
+activemq-data/
+testdir/
+hostkey.ser
+*.h2.db
+*.factorypath
+
+# project-specific
+cache/
+logs/
+dependency-reduced-pom.xml
+src/main/resources/system/runtime-api.jar
+src/main/resources/system/runtime-commons.jar
+src/main/resources/system/runtime-admin.jar
+src/main/resources/system/runtime-esb.jar

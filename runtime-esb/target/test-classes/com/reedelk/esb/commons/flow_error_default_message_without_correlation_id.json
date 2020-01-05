@@ -1,0 +1,8 @@
+{
+  "moduleId": 10,
+  "moduleName": "my-module-name",
+  "flowId": "aabbcc",
+  "flowTitle": "My flow",
+  "errorType": "com.reedelk.esb.MyException",
+  "errorMessage": "An error has occurred"
+}

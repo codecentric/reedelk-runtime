@@ -1,0 +1,15 @@
+{
+  "id": "45a5ce60-5c9d-4075-82ab-d3fa9284f52a",
+  "title": "Flow with components title",
+  "flow": [
+    {
+      "implementor": "com.reedelk.esb.test.utils.TestInboundComponent",
+      "message": "Test inbound message"
+    },
+    {
+      "implementor": "com.reedelk.esb.test.utils.TestComponent",
+      "stringProperty": "Property 1",
+      "longProperty": 23
+    }
+  ]
+}

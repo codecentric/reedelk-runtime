@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.reedelk.esb.services.scriptengine.converter.converterServiceTest
+-------------------------------------------------------------------------------
+Tests run: 55, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.044 s - in com.reedelk.esb.services.scriptengine.converter.converterServiceTest

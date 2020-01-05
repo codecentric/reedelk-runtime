@@ -1,0 +1,6 @@
+{
+  "id": "customer-api-connection-config",
+  "implementor": "com.reedelk.esb.test.utils.TestConfiguration",
+  "port": 8822,
+  "hostname": "localhost"
+}

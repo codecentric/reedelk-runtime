@@ -1,0 +1,14 @@
+{
+  "id": "759794c8-d024-458e-b614-196eabccb8da",
+  "subflow": [
+    {
+      "implementor": "com.reedelk.esb.test.utils.SubFlowComponent",
+      "message": "Test inbound message"
+    },
+    {
+      "implementor": "com.reedelk.esb.test.utils.AnotherSubFlowComponent",
+      "stringProperty": "A string property description",
+      "longProperty": 99871
+    }
+  ]
+}

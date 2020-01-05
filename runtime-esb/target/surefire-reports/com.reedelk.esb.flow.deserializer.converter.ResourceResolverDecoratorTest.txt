@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.reedelk.esb.flow.deserializer.converter.ResourceResolverDecoratorTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.166 s - in com.reedelk.esb.flow.deserializer.converter.ResourceResolverDecoratorTest

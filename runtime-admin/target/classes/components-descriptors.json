@@ -1,0 +1,74 @@
+{
+  "componentDescriptors": [
+    {
+      "hidden": false,
+      "displayName": "Module Deploy",
+      "fullyQualifiedName": "com.reedelk.admin.console.ModuleDeploy",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": []
+    },
+    {
+      "hidden": false,
+      "displayName": "Module hot swap",
+      "fullyQualifiedName": "com.reedelk.admin.console.ModuleHotSwap",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": []
+    },
+    {
+      "hidden": false,
+      "displayName": "Install or update module",
+      "fullyQualifiedName": "com.reedelk.admin.console.ModuleInstallOrUpdate",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": []
+    },
+    {
+      "hidden": false,
+      "displayName": "List modules",
+      "fullyQualifiedName": "com.reedelk.admin.console.ModuleList",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": []
+    },
+    {
+      "hidden": false,
+      "displayName": "Uninstall module",
+      "fullyQualifiedName": "com.reedelk.admin.console.ModuleUninstall",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": []
+    },
+    {
+      "hidden": false,
+      "displayName": "Update module",
+      "fullyQualifiedName": "com.reedelk.admin.console.ModuleUpdate",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": []
+    },
+    {
+      "hidden": false,
+      "displayName": "Read From Resources",
+      "fullyQualifiedName": "com.reedelk.admin.console.ReadFromResources",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": [
+        {
+          "displayName": "Resource file",
+          "propertyName": "resourceFile",
+          "defaultValue": "###USE_DEFAULT_VALUE###",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "com.reedelk.runtime.api.resource.DynamicResource"
+            }
+          },
+          "whenDescriptors": []
+        }
+      ]
+    },
+    {
+      "hidden": false,
+      "displayName": "System health",
+      "fullyQualifiedName": "com.reedelk.admin.console.SystemHealth",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": []
+    }
+  ],
+  "autocompleteContributorDescriptors": []
+}

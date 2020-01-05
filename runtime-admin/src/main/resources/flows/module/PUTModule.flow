@@ -1,0 +1,28 @@
+{
+  "id": "cef5201a-9783-4221-b374-4be81ed43b19",
+  "title": "Module PUT",
+  "description": "PUT Module flow Flow",
+  "flow": [
+    {
+      "implementor": "com.reedelk.rest.component.RestListener",
+      "description": "REST Listener",
+      "configuration": {"ref": "8d689312-0cc5-4e0b-aec6-f17025627aa1"},
+      "path": "/api/module",
+      "method": "PUT",
+      "streaming": "AUTO",
+      "response": {
+        "body": "#[message.payload()]",
+        "status": 200
+      },
+      "errorResponse": {
+        "body": "#[error.getMessage()]",
+        "status": 500,
+        "headers": {"content-type": "application/json"}
+      }
+    },
+    {
+      "implementor": "com.reedelk.admin.console.ModuleUpdate",
+      "description": "Update module"
+    }
+  ]
+}

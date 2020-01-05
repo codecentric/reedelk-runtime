@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.reedelk.esb.graph.ExecutionGraphDirectedTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s - in com.reedelk.esb.graph.ExecutionGraphDirectedTest

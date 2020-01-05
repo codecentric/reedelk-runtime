@@ -1,0 +1,117 @@
+
+.admin-section-row-padding {
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.table tr {
+    cursor: pointer;
+}
+
+.deployed-modules {
+    padding: 10px;
+}
+
+.table {
+    font-size: 13px;
+    line-height: 1.428;
+}
+
+.text-input {
+    font-size: 13px;
+    line-height: 1.428;
+}
+
+.bg-secondary {
+    background-color: #102131 !important;
+}
+
+.bg-primary {
+    background-color: #2086e8 !important;
+}
+
+.bg-tertiary {
+    background-color: #eb5e55;
+}
+
+.text-primary {
+	color: #ffffff !important;
+}
+
+.details-column {
+    padding: 0 !important;
+    border-top: 1pt !important;
+}
+
+.success-color {
+    color: green;
+}
+
+.warn-color {
+    color: orange;
+}
+
+.error-color {
+    color: red;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.module-details-container {
+    padding: 10px;
+}
+
+.module-details-row-item-title {
+    text-align:left; 
+    padding-top:0px;
+}
+.module-details-row-item-content {
+    word-break: break-word;
+    padding-bottom:10px;"
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+.module-action-link {
+    font-size: 1.1em;
+    color: #102131 !important;
+}
+
+.module-action-link:hover {
+    color: #102131 !important;
+    text-decoration: none;
+}
+
+.btn-label {
+    position: relative;
+    left: -9px;
+    display: inline-block;
+    padding: 3px 10px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 0px 0 0 0px;
+}
+
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.btn { 
+    margin-bottom:10px; 
+}
+
+.refreshing-list {
+    text-align: center;
+    font-size: 1.3em;
+}

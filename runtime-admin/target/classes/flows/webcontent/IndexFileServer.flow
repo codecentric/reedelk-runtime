@@ -1,0 +1,28 @@
+{
+  "id": "ee532407-a3f1-41ae-8e5c-0d3bd56eafd2",
+  "title": "Load static index page",
+  "description": "Index File Server Flow",
+  "flow": [
+    {
+      "implementor": "com.reedelk.rest.component.RestListener",
+      "description": "REST Listener",
+      "configuration": {"ref": "8d689312-0cc5-4e0b-aec6-f17025627aa1"},
+      "path": "/console",
+      "method": "GET",
+      "streaming": "AUTO",
+      "response": {
+        "body": "#[message.payload()]",
+        "status": 200
+      },
+      "errorResponse": {
+        "body": "#[error]",
+        "status": 500
+      }
+    },
+    {
+      "implementor": "com.reedelk.runtime.component.FlowReference",
+      "description": "Flow Reference",
+      "ref": "9463ee4a-cf94-47f5-bc33-ae22c112f8e7"
+    }
+  ]
+}
