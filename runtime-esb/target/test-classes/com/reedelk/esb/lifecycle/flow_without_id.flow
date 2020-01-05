@@ -1,8 +1,0 @@
-{
-  "flow": [
-    {
-      "implementor": "com.reedelk.esb.test.utils.TestInboundComponent",
-      "message": "Test inbound message"
-    }
-  ]
-}
