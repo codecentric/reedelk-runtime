@@ -12,6 +12,7 @@ import org.osgi.framework.BundleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -185,7 +186,7 @@ public class DefaultModuleService implements ModuleService {
         public void execute(Bundle toDelete) {
             // The 'toDelete' bundle's  location is a URI, but we need the file path.
             URI uri = URI.create(toDelete.getLocation());
-            String filePath = uri.getPath();
+            String filePath = new File(uri.getPath()).getPath();
 
             // We remove the file if and only if it belongs to the modules directory.
             if (filePath.startsWith(systemProperty.modulesDirectory())) {
