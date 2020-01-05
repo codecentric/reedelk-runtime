@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.reedelk.esb.execution.RouterExecutorTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.705 s - in com.reedelk.esb.execution.RouterExecutorTest

@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.reedelk.esb.services.scriptengine.evaluator.AbstractDynamicValueEvaluatorTest
--------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.1 s - in com.reedelk.esb.services.scriptengine.evaluator.AbstractDynamicValueEvaluatorTest

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1578229188048
+Bnd-LastModified: 1578232809234
 Build-Jdk: 11.0.1
-Built-By: Reedelk
+Built-By: lorenzo
 Bundle-ManifestVersion: 2
 Bundle-Name: runtime-commons
 Bundle-SymbolicName: runtime-commons

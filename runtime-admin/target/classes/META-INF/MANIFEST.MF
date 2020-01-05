@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1578229209891
+Bnd-LastModified: 1578232827053
 Build-Jdk: 11.0.1
-Built-By: Reedelk
+Built-By: lorenzo
 Bundle-ManifestVersion: 2
 Bundle-Name: runtime-admin
 Bundle-SymbolicName: runtime-admin

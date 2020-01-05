@@ -1,6 +1,6 @@
 
 # Maven
-target/
+**/target/
 
 
 # Eclipse files
