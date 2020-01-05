@@ -7,19 +7,10 @@
     <groupId>com.reedelk</groupId>
     <artifactId>runtime</artifactId>
     <packaging>pom</packaging>
-    <version>0.9.0</version>
-
-    <distributionManagement>
-        <repository>
-            <id>reedelk.repo</id>
-            <name>Reedelk Repository</name>
-            <url>http://localhost:8081/repository/reedelk/</url>
-        </repository>
-    </distributionManagement>
+    <version>0.6.0</version>
 
     <properties>
         <assertj.version>3.11.1</assertj.version>
-        <runtime.commons.version>0.9.0</runtime.commons.version>
         <json.version>20190722</json.version>
         <junit.version>RELEASE</junit.version>
         <jacoco.version>0.8.2</jacoco.version>
@@ -36,7 +27,6 @@
         <osgi.service.component.version>1.4.0</osgi.service.component.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <reactor.version>3.2.12.RELEASE</reactor.version>
-        <runtime.api.version>0.9.0</runtime.api.version>
         <sl4j.api.version>1.7.26</sl4j.api.version>
         <log4.version>1.2.17</log4.version>
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
@@ -161,4 +151,15 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8</version>
+                    </plugin>
+                </plugins>
+        </pluginManagement>
+    </build>
 </project>
