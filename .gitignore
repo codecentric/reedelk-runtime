@@ -10,14 +10,14 @@ target/
 /workspace/
 
 # IntelliJ Idea files
-*.iml
-*.ipr
-*.iws
-*.idea
-*.mule_ide/
+**/*.iml
+**/*.ipr
+**/*.iws
+**/*.idea
+**/*.mule_ide/
 
 # Mac
-.DS_Store
+**/.DS_Store
 
 # Test remnants
 objectstore/
