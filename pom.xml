@@ -7,7 +7,7 @@
     <groupId>com.reedelk</groupId>
     <artifactId>runtime</artifactId>
     <packaging>pom</packaging>
-    <version>0.6.0</version>
+    <version>0.6.1-SNAPSHOT</version>
 
     <properties>
         <assertj.version>3.11.1</assertj.version>
