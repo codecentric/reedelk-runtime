@@ -4,7 +4,7 @@ import com.reedelk.esb.commons.SerializationUtils;
 import com.reedelk.runtime.api.message.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 
-import static com.reedelk.runtime.api.commons.Preconditions.checkState;
+import static com.reedelk.runtime.api.commons.Preconditions.checkArgument;
 
 class MessageAndContext {
 
@@ -12,7 +12,8 @@ class MessageAndContext {
     private Message message;
 
     MessageAndContext(Message message, FlowContext flowContext) {
-        checkState(message != null, "message");
+        checkArgument(message != null, "message");
+        checkArgument(flowContext != null, "flowContext");
         this.message = message;
         this.flowContext = flowContext;
     }
@@ -26,7 +27,10 @@ class MessageAndContext {
     }
 
     void replaceWith(Message message) {
-        checkState(message != null, "message");
+        checkArgument(message != null,
+                "Cannot replace current message with a null message: " +
+                        "processors are not allowed to return a null message; " +
+                        "an empty message should be returned instead.");
         this.message = message;
     }
 
