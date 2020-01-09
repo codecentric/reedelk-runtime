@@ -66,12 +66,9 @@
                             com.reedelk.runtime.api.*,
                             com.reedelk.runtime.rest.api.*,
                             com.reedelk.runtime.system.api.*,
-                            org.json,
-                            org.osgi.framework,
-                            org.osgi.service.cm,
-                            org.slf4j,
-                            org.slf4j.helpers,
-                            org.slf4j.spi,
+                            org.json.*,
+                            org.osgi.*,
+                            org.slf4j.*
                         </Import-Package>
                     </instructions>
                 </configuration>

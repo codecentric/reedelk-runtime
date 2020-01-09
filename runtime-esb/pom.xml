@@ -93,19 +93,17 @@
                             com.reedelk.runtime.component.*,
                             com.reedelk.runtime.converter.*,
                             com.reedelk.runtime.system.api.*,
-                            sun.misc,
-                            javax.script,
-                            javax.annotation,
-                            javax.annotation.meta,
-                            jdk.nashorn.api.scripting,
-                            org.json,
-                            org.osgi.framework,
-                            org.osgi.service.cm,
-                            org.slf4j,
-                            org.reactivestreams,
-                            reactor.core,
-                            reactor.core.publisher,
-                            reactor.core.scheduler
+                            org.json.*,
+                            org.osgi.*,
+                            sun.misc.*,
+                            org.w3c.*,
+                            javax.*,
+                            jdk.nashorn.*,
+                            org.slf4j.*,
+                            com.intellij.*,
+                            org.reactivestreams.*,
+                            reactor.*,
+                            org.apache.http.*
                         </Import-Package>
                     </instructions>
                 </configuration>
