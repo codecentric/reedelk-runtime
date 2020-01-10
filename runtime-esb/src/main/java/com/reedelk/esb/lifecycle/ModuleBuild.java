@@ -15,6 +15,7 @@ import com.reedelk.esb.module.DeSerializedModule;
 import com.reedelk.esb.module.Module;
 import com.reedelk.esb.module.ModulesManager;
 import com.reedelk.esb.module.state.ModuleState;
+import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.converter.DeserializerConverter;
 import org.json.JSONObject;
 import org.osgi.framework.Bundle;
@@ -96,8 +97,9 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
             // We are catching throwable because when an Implementor's 'initialize()' method is called it might
             // throw an exception if the bundle configuration is not correct. In order to provide the user a
             // meaningful and clear error message, we wrap the exception with the root cause details.
+            String rootCauseMessage = StackTraceUtils.rootCauseMessageOf(exception);
             String errorMessage = DEFAULT.format(moduleId, module.name(), flowId, flowTitle,
-                    null, exception.getClass().getName(), exception.getMessage());
+                    null, exception.getClass().getName(), rootCauseMessage);
 
             FlowBuildException buildException = new FlowBuildException(errorMessage, exception);
 
