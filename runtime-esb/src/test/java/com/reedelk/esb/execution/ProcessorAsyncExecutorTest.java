@@ -4,6 +4,7 @@ import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorAsync;
+import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.message.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -94,6 +95,28 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
     }
 
     @Test
+    void shouldCorrectlyThrowErrorWhenProcessorAsyncThrowsThrowable() {
+        // Given
+        ExecutionNode processor = newExecutionNode(new ProcessorThrowingThrowableAsync());
+        ExecutionGraph graph = newGraphSequence(inbound, processor, stop);
+        MessageAndContext inputMessageAndContext = newEventWithContent("input");
+
+        Publisher<MessageAndContext> publisher = Flux.just(inputMessageAndContext);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, processor, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .verifyErrorMatches(throwable -> {
+                    // We must make sure that a Throwable not extending 'Exception' is correctly wrapped, so that
+                    // we can correctly bubble up the error and expose the correct error to the user.
+                    return throwable instanceof ESBException &&
+                            throwable.getMessage().equals("java.lang.NoClassDefFoundError: javax.xml");
+                });
+    }
+
+    @Test
     void shouldCorrectlyThrowTimeoutErrorWhenProcessorAsyncWaitsTooLong() {
         // Given
         ExecutionNode processor = newExecutionNode(new ProcessorAsyncTakingTooLong());
@@ -125,7 +148,7 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
                 "Expected processor sync to be followed by one node");
     }
 
-    class ProcessorAsyncTakingTooLong implements ProcessorAsync {
+    static class ProcessorAsyncTakingTooLong implements ProcessorAsync {
         @Override
         public void apply(Message input, FlowContext flowContext, OnResult callback) {
             new Thread(() -> {
@@ -139,14 +162,21 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
         }
     }
 
-    class ProcessorThrowingExceptionAsync implements ProcessorAsync {
+    static class ProcessorThrowingExceptionAsync implements ProcessorAsync {
         @Override
         public void apply(Message input, FlowContext flowContext, OnResult callback) {
             new Thread(() -> callback.onError(new IllegalStateException("Error"), flowContext)).start();
         }
     }
 
-    class AddPostfixAsync implements ProcessorAsync {
+    static class ProcessorThrowingThrowableAsync implements ProcessorAsync {
+        @Override
+        public void apply(Message input, FlowContext flowContext, OnResult callback) {
+            throw new NoClassDefFoundError("javax.xml");
+        }
+    }
+
+    static class AddPostfixAsync implements ProcessorAsync {
 
         private String postfix;
 

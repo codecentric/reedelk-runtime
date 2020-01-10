@@ -180,7 +180,12 @@ class ModuleResolveDependenciesTest {
         Module module = step.run(aModule);
 
         // Then
-        String expectedMessage = "Error de-serializing module with id=[23], name=[test]: Could not deserialize module";
+        String expectedMessage = "{\n" +
+                "  \"moduleName\": \"test\",\n" +
+                "  \"errorMessage\": \"Could not deserialize module\",\n" +
+                "  \"moduleId\": 23,\n" +
+                "  \"errorType\": \"org.json.JSONException\"\n" +
+                "}";
         assertModuleErrorStateWith(module, expectedMessage);
     }
 

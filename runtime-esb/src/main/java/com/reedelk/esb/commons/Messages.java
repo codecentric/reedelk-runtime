@@ -62,8 +62,6 @@ public class Messages {
         START_WITH_TITLE("Flow with id=[%s] and title '%s' started."),
         STOP_WITH_TITLE("Flow with id=[%s] and title '%s' stopped."),
         STOP("Flow with id=[%s] stopped."),
-        BUILD_ERROR("Error building flow with id=[%s]: %s"),
-        BUILD_ERROR_WITH_TITLE("Error building flow with id=[%s] and title '%s': %s"),
         VALIDATION_ID_NOT_UNIQUE("Error validating module with name=[%s]: There are at least two flows with the same ID. Flow IDs must be unique."),
         VALIDATION_ID_NOT_VALID("Error validating module with name=[%s]: The 'id' property must be defined and not empty in any JSON flow definition.");
 
@@ -115,7 +113,6 @@ public class Messages {
 
     public enum Module implements FormattedMessage {
 
-        DESERIALIZATION_ERROR("Error de-serializing module with id=[%d], name=[%s]: %s"),
         FILE_FIND_IO_ERROR("An I/O occurred while reading file=[%s] in module with id=[%d], name=[%s]: %s"),
         START_FAILED("Could not start module named=[%s]"),
         INSTALL_SUCCESS("Module [%s] installed"),

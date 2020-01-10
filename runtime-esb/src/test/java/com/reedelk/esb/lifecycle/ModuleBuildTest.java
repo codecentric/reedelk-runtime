@@ -45,8 +45,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -249,7 +248,12 @@ class ModuleBuildTest {
         Module module = step.run(inputModule);
 
         // Then
-        String expectedMessage = "Error de-serializing module with id=[232], name=[TestModule]: JSON could not be parsed";
+        String expectedMessage = "{\n" +
+                "  \"moduleName\": \"TestModule\",\n" +
+                "  \"errorMessage\": \"JSON could not be parsed\",\n" +
+                "  \"moduleId\": 232,\n" +
+                "  \"errorType\": \"org.json.JSONException\"\n" +
+                "}";
         assertModuleErrorStateWith(module, expectedMessage);
     }
 
@@ -275,19 +279,124 @@ class ModuleBuildTest {
         Module module = step.run(inputModule);
 
         // Then
-        assertModuleErrorStateWith(module, "JSONObject[\"fork\"] not found.");
-        assertModuleErrorStateWith(module, "JSONObject[\"when\"] not found.");
+        assertModuleErrorStateWith(module, "{\n" +
+                "  \"errorMessage\": \"JSONObject[\\\"fork\\\"] not found.\",\n" +
+                "  \"moduleId\": 232,\n" +
+                "  \"flowId\": \"45a5ce60-5c9d-4075-82a7-a1cb3662bbb2a\",\n" +
+                "  \"errorType\": \"org.json.JSONException\"\n" +
+                "}");
+
+        assertModuleErrorStateWith(module, "{\n" +
+                "  \"errorMessage\": \"JSONObject[\\\"when\\\"] not found.\",\n" +
+                "  \"moduleId\": 232,\n" +
+                "  \"flowId\": \"45a5ce60-5c9d-4075-82a7-d3fa9212f52a\",\n" +
+                "  \"errorType\": \"org.json.JSONException\"\n" +
+                "}");
+    }
+
+    @Test
+    void shouldTransitionToErrorStateWhenComponentOnInitializeEventThrowsException() {
+        // Given
+        Module inputModule = Module.builder()
+                .moduleId(moduleId)
+                .name(testModuleName)
+                .version(testVersion)
+                .deserializer(deserializer)
+                .moduleFilePath(testLocation)
+                .build();
+        inputModule.unresolve(unresolvedComponents, resolvedComponents);
+        inputModule.resolve(resolvedComponents);
+
+        Set<JSONObject> flows = new HashSet<>();
+        flows.add(FLOW_WITH_COMPONENTS.parse());
+
+        DeSerializedModule deSerializedModule = new DeSerializedModule(flows, emptySet(), emptySet(), emptySet(), emptySet());
+        doReturn(deSerializedModule).when(deserializer).deserialize();
+
+
+        mockComponentWithServiceReference(TestInboundComponent.class);
+
+        // The component throws an exception when initialized. We want to make sure
+        // that the flow transitions to error state when this happens.
+        TestComponent spyTestComponent = spy(new TestComponent());
+        doThrow(new NullPointerException("x.y.z was null"))
+                .when(spyTestComponent)
+                .initialize();
+        mockComponentWithServiceReference(spyTestComponent, TestComponent.class);
+
+        mockComponent(Stop.class);
+
+        // When
+        Module module = step.run(inputModule);
+
+        // Then
+        assertModuleErrorStateWith(module, "{\n" +
+                "  \"errorMessage\": \"x.y.z was null\",\n" +
+                "  \"flowTitle\": \"Flow with components title\",\n" +
+                "  \"moduleId\": 232,\n" +
+                "  \"flowId\": \"45a5ce60-5c9d-4075-82ab-d3fa9284f52a\",\n" +
+                "  \"errorType\": \"java.lang.NullPointerException\"\n" +
+                "}");
+    }
+
+    @Test
+    void shouldTransitionToErrorStateWhenComponentOnInitializeEventThrowsThrowable() {
+        // Given
+        Module inputModule = Module.builder()
+                .moduleId(moduleId)
+                .name(testModuleName)
+                .version(testVersion)
+                .deserializer(deserializer)
+                .moduleFilePath(testLocation)
+                .build();
+        inputModule.unresolve(unresolvedComponents, resolvedComponents);
+        inputModule.resolve(resolvedComponents);
+
+        Set<JSONObject> flows = new HashSet<>();
+        flows.add(FLOW_WITH_COMPONENTS.parse());
+
+        DeSerializedModule deSerializedModule = new DeSerializedModule(flows, emptySet(), emptySet(), emptySet(), emptySet());
+        doReturn(deSerializedModule).when(deserializer).deserialize();
+
+
+        mockComponentWithServiceReference(TestInboundComponent.class);
+
+        // The component throws a Throwable exception when initialized.
+        // We want to make sure that the flow transitions to error state when this happens.
+        TestComponent spyTestComponent = spy(new TestComponent());
+        doThrow(new NoClassDefFoundError("javax.xml.Transformer"))
+                .when(spyTestComponent)
+                .initialize();
+        mockComponentWithServiceReference(spyTestComponent, TestComponent.class);
+
+        mockComponent(Stop.class);
+
+        // When
+        Module module = step.run(inputModule);
+
+        // Then
+        assertModuleErrorStateWith(module, "{\n" +
+                "  \"errorMessage\": \"javax.xml.Transformer\",\n" +
+                "  \"flowTitle\": \"Flow with components title\",\n" +
+                "  \"moduleId\": 232,\n" +
+                "  \"flowId\": \"45a5ce60-5c9d-4075-82ab-d3fa9284f52a\",\n" +
+                "  \"errorType\": \"java.lang.NoClassDefFoundError\"\n" +
+                "}");
     }
 
     private <T extends Component> void mockComponentWithServiceReference(Class<T> clazz) {
         try {
             T component = clazz.getConstructor().newInstance();
-            ReferencePair<Component> referencePair = new ReferencePair<>(component, serviceReference);
-            ExecutionNode componentExecutionNode = new ExecutionNode(referencePair);
-            mockInstantiateComponent(componentExecutionNode, clazz);
+            mockComponentWithServiceReference(component, clazz);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             fail("mock component with service reference", e);
         }
+    }
+
+    private <T extends Component> void mockComponentWithServiceReference(T component, Class<T> componentClazz) {
+        ReferencePair<Component> referencePair = new ReferencePair<>(component, serviceReference);
+        ExecutionNode componentExecutionNode = new ExecutionNode(referencePair);
+        mockInstantiateComponent(componentExecutionNode, componentClazz);
     }
 
     private <T extends Component> void mockComponent(Class<T> clazz, Class<? extends T> realInstance) {
@@ -312,7 +421,7 @@ class ModuleBuildTest {
         }
     }
 
-    private void mockInstantiateComponent(ExecutionNode componentExecutionNode, Class clazz) {
+    private void mockInstantiateComponent(ExecutionNode componentExecutionNode, Class<?> clazz) {
         doReturn(componentExecutionNode)
                 .when(modulesManager)
                 .instantiateComponent(bundleContext, clazz.getName());

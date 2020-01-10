@@ -31,6 +31,6 @@ class MessageAndContextTest {
         // Then
         assertThat(thrown).isNotNull();
         assertThat(thrown).hasMessage("Cannot replace current message with a null message: " +
-                "processors are not allowed to return a null message; an empty message should be returned instead");
+                "processors are not allowed to return a null message; an empty message should be returned instead.");
     }
 }

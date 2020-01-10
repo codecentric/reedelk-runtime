@@ -90,6 +90,20 @@ abstract class AbstractExecutionTest {
         }
     }
 
+    static class ProcessorThrowingNoClassDefFoundErrorSync implements ProcessorSync {
+
+        private final String missingClazz;
+
+        ProcessorThrowingNoClassDefFoundErrorSync(String missingClazz) {
+            this.missingClazz = missingClazz;
+        }
+
+        @Override
+        public Message apply(Message message, FlowContext flowContext) {
+            throw new NoClassDefFoundError(missingClazz);
+        }
+    }
+
     static class AddPostfixSyncProcessor implements ProcessorSync {
 
         private final String postfix;

@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-import static com.reedelk.esb.commons.Messages.Module.DESERIALIZATION_ERROR;
+import static com.reedelk.esb.commons.Messages.FlowErrorMessage.DEFAULT;
 import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
 
 public abstract class AbstractStep<I, O> implements Step<I, O> {
@@ -76,16 +76,21 @@ public abstract class AbstractStep<I, O> implements Step<I, O> {
      */
     protected Optional<DeSerializedModule> deserialize(Module module) {
         try {
-            return Optional.of(module.deserialize());
-        } catch (Exception exception) {
-            String rootCauseMessage = StackTraceUtils.rootCauseMessageOf(exception);
-            String message = DESERIALIZATION_ERROR.format(
-                    module.id(),
-                    module.name(),
-                    rootCauseMessage);
 
-            ModuleDeserializationException moduleDeserializationException = new ModuleDeserializationException(message, exception);
-            logger.error(EMPTY, moduleDeserializationException);
+            return Optional.of(module.deserialize());
+
+        } catch (Exception exception) {
+
+            String rootCauseMessage = StackTraceUtils.rootCauseMessageOf(exception);
+            String errorMessage = DEFAULT.format(module.id(), module.name(), null, null,
+                    null, exception.getClass().getName(), rootCauseMessage);
+
+            ModuleDeserializationException moduleDeserializationException =
+                    new ModuleDeserializationException(errorMessage, exception);
+
+            if (logger.isErrorEnabled()) {
+                logger.error(EMPTY, moduleDeserializationException);
+            }
 
             module.error(moduleDeserializationException);
             return Optional.empty();

@@ -5,6 +5,7 @@ import com.reedelk.esb.execution.testutils.ForkTestGraphBuilder;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.Join;
+import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.message.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -172,6 +173,32 @@ class ForkExecutorTest extends AbstractExecutionTest {
     }
 
     @Test
+    void shouldThrowExceptionAndStopExecutionWhenJoinProcessorThrowsThrowable() {
+        // Given
+        ExecutionNode joinThrowingNoClassDefFound = newExecutionNode(new JoinThrowingNoClassDefFoundError());
+
+        ExecutionGraph graph = ForkTestGraphBuilder.get()
+                .fork(forkNode)
+                .inbound(inbound)
+                .forkSequence(fork1Node)
+                .forkSequence(fork2Node)
+                .join(joinThrowingNoClassDefFound)
+                .afterForkSequence(nodeFollowingJoin)
+                .build();
+
+        MessageAndContext event = newEventWithContent("ForkTest");
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher =
+                executor.execute(publisher, forkNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .verifyErrorMatches(throwable -> throwable instanceof ESBException);
+    }
+
+    @Test
     void shouldStopExecutionWhenForkNotFollowedByAnyOtherNode() {
         // Given
         ExecutionGraph graph = ForkTestGraphBuilder.get()
@@ -207,6 +234,13 @@ class ForkExecutorTest extends AbstractExecutionTest {
         @Override
         public Message apply(List<Message> messagesToJoin, FlowContext flowContext) {
             throw new IllegalStateException("Join not valid");
+        }
+    }
+
+    static class JoinThrowingNoClassDefFoundError implements Join {
+        @Override
+        public Message apply(List<Message> messagesToJoin, FlowContext flowContext) {
+            throw new NoClassDefFoundError("javax.xml");
         }
     }
 }

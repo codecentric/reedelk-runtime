@@ -1,6 +1,6 @@
 package com.reedelk.esb.lifecycle;
 
-import com.reedelk.esb.commons.Log;
+import com.reedelk.esb.exception.FlowBuildException;
 import com.reedelk.esb.execution.FlowExecutorEngine;
 import com.reedelk.esb.flow.ErrorStateFlow;
 import com.reedelk.esb.flow.Flow;
@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
+import static com.reedelk.esb.commons.Messages.FlowErrorMessage.DEFAULT;
 import static com.reedelk.runtime.commons.JsonParser.Flow.*;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -91,9 +92,22 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
             flowDeserializer.deserialize(flowGraph, flowDefinition);
             return new Flow(module.id(), module.name(), flowId, flowTitle, flowGraph, executionEngine);
 
-        } catch (Exception exception) {
-            Log.buildException(logger, flowDefinition, flowId, exception);
-            return new ErrorStateFlow(module.id(), module.name(), flowId, flowTitle, flowGraph, executionEngine, exception);
+        } catch (Throwable exception) {
+            // We are catching throwable because when an Implementor's 'initialize()' method is called it might
+            // throw an exception if the bundle configuration is not correct. In order to provide the user a
+            // meaningful and clear error message, we wrap the exception with the root cause details.
+            String errorMessage = DEFAULT.format(moduleId, module.name(), flowId, flowTitle,
+                    null, exception.getClass().getName(), exception.getMessage());
+
+            FlowBuildException buildException = new FlowBuildException(errorMessage, exception);
+
+            if (logger.isErrorEnabled()) {
+                logger.error(errorMessage, exception);
+            }
+
+            return new ErrorStateFlow(module.id(), module.name(),
+                    flowId, flowTitle, flowGraph,
+                    executionEngine, buildException);
         }
     }
 }

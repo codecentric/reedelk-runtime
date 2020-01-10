@@ -2,8 +2,6 @@ package com.reedelk.esb.commons;
 
 import com.reedelk.esb.flow.Flow;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
-import com.reedelk.runtime.commons.JsonParser;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 
 import static com.reedelk.esb.commons.Messages.Component;
@@ -12,18 +10,6 @@ import static com.reedelk.esb.commons.Messages.Flow.*;
 public class Log {
 
     private Log() {
-    }
-
-    // Flow JSON definition
-
-    public static void buildException(Logger logger, JSONObject flowDefinition, String flowId, Exception exception) {
-        if (logger.isErrorEnabled()) {
-            String rootCauseMessage = StackTraceUtils.rootCauseMessageOf(exception);
-            String message = JsonParser.Flow.hasTitle(flowDefinition) ?
-                    BUILD_ERROR_WITH_TITLE.format(flowId, JsonParser.Flow.title(flowDefinition), rootCauseMessage) :
-                    BUILD_ERROR.format(flowId, rootCauseMessage);
-            logger.error(message, exception);
-        }
     }
 
     // Flow

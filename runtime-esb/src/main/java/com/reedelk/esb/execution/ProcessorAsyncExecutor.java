@@ -6,6 +6,7 @@ import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorAsync;
+import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.message.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import org.reactivestreams.Publisher;
@@ -67,23 +68,40 @@ public class ProcessorAsyncExecutor implements FlowExecutor {
 
     private static Mono<MessageAndContext> sinkFromCallback(ProcessorAsync processor, MessageAndContext event) {
         return Mono.create(sink -> {
+
+            // Prepare the callback
             OnResult callback = new OnResult() {
                 @Override
                 public void onResult(Message message, FlowContext context) {
                     event.replaceWith(message);
                     sink.success(event);
                 }
-
                 @Override
                 public void onError(Throwable e, FlowContext context) {
                     sink.error(e);
                 }
             };
 
+            // Apply the processor
             try {
                 processor.apply(event.getMessage(), event.getFlowContext(), callback);
-            } catch (Exception e) {
-                sink.error(e);
+
+            } catch (Exception exception) {
+                // Propagate the error occurred while applying the processor
+                sink.error(exception);
+
+            } catch (Throwable throwable) {
+                // If Throwable is 'NoClassDefFoundError' it means that the processor uses a component
+                // which uses a class not imported in the module bundle it belongs to.
+                // The module bundle should correctly add the missing import in the pom.xml configuration:
+                // maven-bundle-plugin > configuration > instructions > Import-Package xml node.
+                // IMPORTANT: This exception must be wrapped because Throwable exceptions are NOT
+                // caught in the com.reedelk.esb.execution.FlowExecutorEngine -> doOnError callback.
+                // They are normally caught at subscribe time however it does not apply because
+                // the FlowExecutorEngine the stream on publishOn(SchedulerProvider.flow())
+                // - i.e on a different thread. Therefore we must wrap 'NoClassDefFoundError' exception.
+                ESBException wrapped = new ESBException(throwable);
+                sink.error(wrapped);
             }
         });
     }

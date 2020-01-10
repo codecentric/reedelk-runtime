@@ -2,6 +2,7 @@ package com.reedelk.esb.execution;
 
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
+import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -72,6 +73,28 @@ class ProcessorSyncExecutorTest extends AbstractExecutionTest {
         StepVerifier.create(endPublisher)
                 .verifyErrorMatches(throwable -> throwable instanceof IllegalStateException &&
                         throwable.getMessage().equals(exceptionThrown + " (input)"));
+    }
+
+    @Test
+    void shouldCorrectlyThrowErrorWhenProcessorThrowsNoClassDefFoundError() {
+        // Given
+        String missingClazz = "javax.xml";
+        ExecutionNode processor = newExecutionNode(new ProcessorThrowingNoClassDefFoundErrorSync(missingClazz));
+        ExecutionGraph graph = newGraphSequence(inbound, processor, stop);
+        Message message = MessageBuilder.get().withText("input").build();
+
+        MessageAndContext inputMessageAndContext = new MessageAndContext(message, DefaultFlowContext.from(message));
+
+        Publisher<MessageAndContext> publisher = Flux.just(inputMessageAndContext);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, processor, graph);
+
+        // Then: we make sure that the Throwable exception is wrapped
+        // as ESBException and then we check the message.
+        StepVerifier.create(endPublisher)
+                .verifyErrorMatches(throwable -> throwable instanceof ESBException &&
+                       throwable.getMessage().equals("java.lang.NoClassDefFoundError: javax.xml"));
     }
 
     // If the processor is the last node, then it must be present a Stop node.

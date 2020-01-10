@@ -43,7 +43,7 @@ public class FlowExecutorEngine {
                     .doOnError(throwable -> onResult.onError(throwable, defaultContext))
                     .subscribe(messageContext -> onResult.onResult(messageContext.getMessage(), defaultContext));
 
-        } catch (Exception exception) {
+        } catch (Throwable exception) {
             onResult.onError(exception, defaultContext);
         }
     }
