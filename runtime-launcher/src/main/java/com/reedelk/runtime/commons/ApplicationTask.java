@@ -32,7 +32,7 @@ public abstract class ApplicationTask implements Runnable {
 
         } catch (Exception e) {
             logger.error(message("runtime.shutdown.error", e.getMessage()));
-            application.stop();
+            System.exit(1);
         }
     }
 

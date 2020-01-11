@@ -57,11 +57,44 @@ public class Launcher {
 
         Application application = new Application();
 
-        application.start();
+        try {
 
+            addShutdownHook(application);
+
+            application.start();
+
+            long end = System.currentTimeMillis();
+
+            float delta = (end - start) / 1000.0f;
+
+            logger.info(message("runtime.started.in", delta));
+
+            LicenseVerifierTask.execute(application);
+
+        } catch (Exception exception) {
+
+            logger.error(message("runtime.start.error", exception.getMessage()));
+
+            System.exit(1);
+
+        }
+    }
+
+    private static Collection<String> validateSystemContext() {
+        Collection<String> validationErrors = new ArrayList<>();
+        List<Validator> validators = asList(
+                new DirectoryExistsValidator(modulesDirectory()),
+                new DirectoryExistsValidator(configDirectory()));
+        validators.forEach(validator -> {
+            if (!validator.validate()) {
+                validationErrors.add(validator.error());
+            }
+        });
+        return validationErrors;
+    }
+
+    private static void addShutdownHook(Application application) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-
-            logger.info(message("runtime.stopping"));
 
             application.stop();
 
@@ -76,26 +109,5 @@ public class Launcher {
 
             logger.info(message("runtime.stopped"));
         }));
-
-        long end = System.currentTimeMillis();
-
-        float delta = (end - start) / 1000.0f;
-
-        logger.info(message("runtime.started.in", delta));
-
-        LicenseVerifierTask.execute(application);
-    }
-
-    private static Collection<String> validateSystemContext() {
-        Collection<String> validationErrors = new ArrayList<>();
-        List<Validator> validators = asList(
-                new DirectoryExistsValidator(modulesDirectory()),
-                new DirectoryExistsValidator(configDirectory()));
-        validators.forEach(validator -> {
-            if (!validator.validate()) {
-                validationErrors.add(validator.error());
-            }
-        });
-        return validationErrors;
     }
 }

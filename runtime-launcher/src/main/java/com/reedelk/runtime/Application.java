@@ -28,36 +28,31 @@ public class Application {
     private final Framework framework;
 
     public Application() {
-        Map<String,String> frameworkConfiguration = RuntimeConfiguration.get();
+        Map<String, String> frameworkConfiguration = RuntimeConfiguration.get();
         framework = createFramework(frameworkConfiguration);
     }
 
-    void start() {
-        try {
+    void start() throws BundleException {
 
-            framework.init();
+        framework.init();
 
-            framework.start();
+        framework.start();
 
-            installSystemBundles();
+        installSystemBundles();
 
-            logger.info(message("runtime.modules.starting"));
+        logger.info(message("runtime.modules.starting"));
 
-            String autoDeployDirectory = SystemConfiguration.modulesDirectory();
+        String autoDeployDirectory = SystemConfiguration.modulesDirectory();
 
-            ModuleInstaller.install(this, autoDeployDirectory);
-
-        } catch (Exception exception) {
-
-            logger.error(message("runtime.start.error", exception.getMessage()));
-
-            stop();
-        }
+        ModuleInstaller.install(this, autoDeployDirectory);
     }
 
     public void stop() {
         try {
-            framework.stop();
+            if (framework.getState() == Bundle.ACTIVE) {
+                logger.info(message("runtime.stopping"));
+                framework.stop();
+            }
         } catch (BundleException exception) {
             logger.error(message("runtime.stop.error", exception.getMessage()));
         }
@@ -96,8 +91,8 @@ public class Application {
         try {
             bundle.start();
         } catch (BundleException exception) {
-            String errorMessage = message("runtime.start.module.error", bundle.getSymbolicName());
-            throw new ESBRuntimeException(errorMessage, exception);
+            String errorMessage = message("runtime.start.module.error", bundle.getSymbolicName(), exception.getMessage());
+            logger.error(errorMessage);
         }
     }
 
