@@ -93,6 +93,17 @@ public class Application {
         } catch (BundleException exception) {
             String errorMessage = message("runtime.start.module.error", bundle.getSymbolicName(), exception.getMessage());
             logger.error(errorMessage);
+
+            try {
+                bundle.uninstall();
+            } catch (BundleException e) {
+                // If an error occurred while starting a module,
+                // we must uninstall it. In this case there is nothing
+                // we can do to recover from this error:
+                // we just log a warning message.
+                String uninstallError = message("runtime.start.error.uninstall.error", bundle.getSymbolicName(), exception.getMessage());
+                logger.warn(uninstallError);
+            }
         }
     }
 
