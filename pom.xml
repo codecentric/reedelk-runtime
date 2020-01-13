@@ -45,6 +45,7 @@
         <module>runtime-esb</module>
         <module>runtime-admin</module>
         <module>runtime-launcher</module>
+        <module>module-parent</module>
         <module>module-descriptor</module>
         <module>module-maven-plugin</module>
     </modules>
@@ -162,6 +163,47 @@
                         <artifactId>maven-deploy-plugin</artifactId>
                         <version>2.8</version>
                     </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>1.1.0</version>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Reedelk Plugin (generates components-descriptors.json) for the module being built -->
+                    <plugin>
+                        <groupId>com.reedelk</groupId>
+                        <artifactId>module-maven-plugin</artifactId>
+                        <version>${revision}</version>
+                        <executions>
+                            <execution>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>generate-module-descriptor</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
         </pluginManagement>
 
@@ -171,30 +213,6 @@
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
