@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.reedelk</groupId>
+        <artifactId>runtime</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <packaging>maven-plugin</packaging>
+    <artifactId>module-maven-plugin</artifactId>
+
+    <properties>
+        <log4.version>1.2.17</log4.version>
+        <maven.plugin.api.version>3.6.3</maven.plugin.api.version>
+        <maven.plugin.plugin.version>3.6.0</maven.plugin.plugin.version>
+        <maven.plugin.annotations.version>3.6.0</maven.plugin.annotations.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.reedelk</groupId>
+            <artifactId>runtime-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.reedelk</groupId>
+            <artifactId>module-descriptor</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${maven.plugin.api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <version>${maven.plugin.annotations.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>${maven.plugin.plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
