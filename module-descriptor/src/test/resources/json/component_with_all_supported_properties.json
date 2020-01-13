@@ -1,0 +1,991 @@
+{
+  "componentDescriptors": [
+    {
+      "hidden": true,
+      "displayName": "Test Processor Component",
+      "fullyQualifiedName": "com.test.component.TestProcessorComponent",
+      "componentType": "PROCESSOR",
+      "componentPropertyDescriptors": [
+        {
+          "hintValue": "true",
+          "displayName": "Property Boolean Object",
+          "propertyName": "propertyBooleanObject",
+          "defaultValue": "true",
+          "propertyInfo": "Property Boolean Object Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.Boolean"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            },
+            {
+              "propertyName": "anotherProperty",
+              "propertyValue": "VALUE2"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "true",
+          "displayName": "Property Boolean",
+          "propertyName": "propertyBoolean",
+          "defaultValue": "true",
+          "propertyInfo": "Property Boolean Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "boolean"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "1111.2222",
+          "displayName": "Property Double Object",
+          "propertyName": "propertyDoubleObject",
+          "defaultValue": "234.54223",
+          "propertyInfo": "Property Double Object Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.Double"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "771.32212",
+          "displayName": "Property Double",
+          "propertyName": "propertyDouble",
+          "defaultValue": "333.8764",
+          "propertyInfo": "Property Double Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "double"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "1.2f",
+          "displayName": "Property Float Object",
+          "propertyName": "propertyFloatObject",
+          "defaultValue": "3.1f",
+          "propertyInfo": "Property Float Object Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.Float"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "7.2f",
+          "displayName": "Property Float",
+          "propertyName": "propertyFloat",
+          "defaultValue": "1.8f",
+          "propertyInfo": "Property Float Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "float"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "809",
+          "displayName": "Property Integer Object",
+          "propertyName": "propertyIntegerObject",
+          "defaultValue": "122",
+          "propertyInfo": "Property Integer Object Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.Integer"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "764",
+          "displayName": "Property Integer",
+          "propertyName": "propertyInteger",
+          "defaultValue": "544",
+          "propertyInfo": "Property Integer Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "int"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "444L",
+          "displayName": "Property Long Object",
+          "propertyName": "propertyLongObject",
+          "defaultValue": "892L",
+          "propertyInfo": "Property Long Object Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.Long"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "4",
+          "displayName": "Property Long",
+          "propertyName": "propertyLong",
+          "defaultValue": "1L",
+          "propertyInfo": "Property Long Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "long"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Test property string hint",
+          "displayName": "Property String",
+          "propertyName": "propertyString",
+          "defaultValue": "Test property string",
+          "propertyInfo": "Property String Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.String"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "1123",
+          "displayName": "Property BigInteger",
+          "propertyName": "propertyBigInteger",
+          "defaultValue": "4222222",
+          "propertyInfo": "Property Big Integer Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.math.BigInteger"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "11.2343",
+          "displayName": "Property BigDecimal",
+          "propertyName": "propertyBigDecimal",
+          "defaultValue": "234.2343",
+          "propertyInfo": "Property Big Decimal Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.math.BigDecimal"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
+          "displayName": "Property Map",
+          "propertyName": "propertyMap",
+          "defaultValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
+          "propertyInfo": "Property Map Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
+            "instance": {
+              "tabGroup": "myTestGroup1",
+              "type": "java.util.Map"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "AUTO",
+          "displayName": "Property Enum",
+          "propertyName": "propertyEnum",
+          "defaultValue": "STREAM",
+          "propertyInfo": "Property Enum Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeEnumDescriptor",
+            "instance": {
+              "nameAndDisplayNameMap": {
+                "AUTO": "Auto",
+                "STREAM": "Stream"
+              },
+              "type": "java.lang.Enum"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "8L",
+          "displayName": "Property Dynamic Long",
+          "propertyName": "propertyDynamicLong",
+          "defaultValue": "432L",
+          "propertyInfo": "Property Dynamic Long Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.Long"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "8.1f",
+          "displayName": "Property Dynamic Float",
+          "propertyName": "propertyDynamicFloat",
+          "defaultValue": "432.23f",
+          "propertyInfo": "Property Dynamic Float Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.Float"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "18.1d",
+          "displayName": "Property Dynamic Double",
+          "propertyName": "propertyDynamicDouble",
+          "defaultValue": "1432.23d",
+          "propertyInfo": "Property Dynamic Double Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.Double"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Test hint",
+          "displayName": "Property Dynamic Object",
+          "propertyName": "propertyDynamicObject",
+          "defaultValue": "Test",
+          "propertyInfo": "Property Dynamic Object Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.Object"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Test string hint",
+          "displayName": "Property Dynamic String",
+          "propertyName": "propertyDynamicString",
+          "defaultValue": "Test string",
+          "propertyInfo": "Property Dynamic String Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.String"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Test boolean hint",
+          "displayName": "Property Dynamic Boolean",
+          "propertyName": "propertyDynamicBoolean",
+          "defaultValue": "true",
+          "propertyInfo": "Property Dynamic Boolean Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.Boolean"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Test integer hint",
+          "displayName": "Property Dynamic Integer",
+          "propertyName": "propertyDynamicInteger",
+          "defaultValue": "4",
+          "propertyInfo": "Property Dynamic Integer Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.Integer"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Test resource hint",
+          "displayName": "Property Dynamic Resource",
+          "propertyName": "propertyDynamicResource",
+          "defaultValue": "#[\u0027my-resource.png\u0027]",
+          "propertyInfo": "Property Dynamic Resource Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.String"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Test byte array hint",
+          "displayName": "Property Dynamic byte array",
+          "propertyName": "propertyDynamicByteArray",
+          "defaultValue": "Test Dynamic Byte Array",
+          "propertyInfo": "Property Dynamic Byte Array Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "[B"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "1199888",
+          "displayName": "Property Dynamic Big Integer",
+          "propertyName": "propertyDynamicBigInteger",
+          "defaultValue": "2348111",
+          "propertyInfo": "Property Dynamic Big Integer Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.math.BigInteger"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "1.199888",
+          "displayName": "Property Dynamic Big Decimal",
+          "propertyName": "propertyDynamicBigDecimal",
+          "defaultValue": "234.8111",
+          "propertyInfo": "Property Dynamic Big Decimal Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.math.BigDecimal"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027}",
+          "displayName": "Property Dynamic String Map",
+          "propertyName": "propertyDynamicStringMap",
+          "defaultValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027,\u0027key2\u0027:\u0027#[\u0027value2\u0027]\u0027}",
+          "propertyInfo": "Property Dynamic String Map Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicMapDescriptor",
+            "instance": {
+              "tabGroup": "myTestGroup2",
+              "type": "java.lang.String"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "#[\u0027Test Hint\u0027]",
+          "displayName": "Property Script",
+          "propertyName": "propertyScript",
+          "defaultValue": "#[\u0027Test\u0027]",
+          "propertyInfo": "Property Script Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeScriptDescriptor",
+            "instance": {
+              "type": "com.reedelk.runtime.api.script.Script"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "Item2",
+          "displayName": "Property Combo",
+          "propertyName": "propertyCombo",
+          "defaultValue": "Item1",
+          "propertyInfo": "Property Combo Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeComboDescriptor",
+            "instance": {
+              "editable": true,
+              "prototype": "XX",
+              "comboValues": [
+                "Item1",
+                "Item2",
+                "Item3"
+              ],
+              "type": "com.reedelk.runtime.api.annotation.Combo"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "my password hint",
+          "displayName": "Property Password",
+          "propertyName": "propertyPassword",
+          "defaultValue": "my password",
+          "propertyInfo": "Property Password Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePasswordDescriptor",
+            "instance": {
+              "type": "com.reedelk.runtime.api.annotation.Password"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "assets/images/my-text.txt",
+          "displayName": "Property Resource Text",
+          "propertyName": "propertyResourceText",
+          "defaultValue": "assets/my-text.txt",
+          "propertyInfo": "Property Resource Text Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeResourceTextDescriptor",
+            "instance": {
+              "type": "com.reedelk.runtime.api.resource.ResourceText"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "assets/images/my-image.png",
+          "displayName": "Property Resource Binary",
+          "propertyName": "propertyResourceBinary",
+          "defaultValue": "assets/my-image.png",
+          "propertyInfo": "Property Resource Binary Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeResourceBinaryDescriptor",
+            "instance": {
+              "type": "com.reedelk.runtime.api.resource.ResourceBinary"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "displayName": "Property Type Object",
+          "propertyName": "propertyTypeObject",
+          "propertyInfo": "Property Type Object Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeObjectDescriptor",
+            "instance": {
+              "shared": "YES",
+              "collapsible": "YES",
+              "typeFullyQualifiedName": "com.reedelk.component.TestImplementor",
+              "objectProperties": [
+                {
+                  "hintValue": "nested property 1 hint",
+                  "displayName": "Nested Property 1",
+                  "propertyName": "nestedProperty1",
+                  "defaultValue": "my nested property 1",
+                  "propertyInfo": "Property Nested 1 Info",
+                  "propertyType": {
+                    "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+                    "instance": {
+                      "type": "java.lang.String"
+                    }
+                  },
+                  "whenDescriptors": [
+                    {
+                      "propertyName": "myProperty",
+                      "propertyValue": "VALUE1"
+                    }
+                  ],
+                  "scriptSignatureDescriptor": {
+                    "arguments": [
+                      "input",
+                      "output"
+                    ]
+                  }
+                },
+                {
+                  "hintValue": "12",
+                  "displayName": "Nested Property 2",
+                  "propertyName": "nestedProperty2",
+                  "defaultValue": "5",
+                  "propertyInfo": "Property Nested 2 Info",
+                  "propertyType": {
+                    "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+                    "instance": {
+                      "type": "int"
+                    }
+                  },
+                  "whenDescriptors": [
+                    {
+                      "propertyName": "myProperty",
+                      "propertyValue": "VALUE1"
+                    }
+                  ],
+                  "scriptSignatureDescriptor": {
+                    "arguments": [
+                      "input",
+                      "output"
+                    ]
+                  }
+                }
+              ],
+              "type": "com.reedelk.module.descriptor.model.TypeObjectDescriptor$TypeObject"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "hidden": true,
+      "displayName": "Test Inbound Component",
+      "fullyQualifiedName": "com.test.component.TestInboundComponent",
+      "componentType": "INBOUND",
+      "componentPropertyDescriptors": [
+        {
+          "hintValue": "Test string with default hint",
+          "displayName": "Property String With Default Value",
+          "propertyName": "propertyStringWithDefaultValue",
+          "defaultValue": "###USE_DEFAULT_VALUE###",
+          "propertyInfo": "Property String With Default Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.String"
+            }
+          },
+          "whenDescriptors": []
+        },
+        {
+          "hintValue": "Test string hint",
+          "displayName": "Property Dynamic String",
+          "propertyName": "propertyDynamicString",
+          "defaultValue": "Test string",
+          "propertyInfo": "Property Dynamic String Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "instance": {
+              "type": "java.lang.String"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        },
+        {
+          "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
+          "displayName": "Property Map",
+          "propertyName": "propertyMap",
+          "defaultValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
+          "propertyInfo": "Property Map Info",
+          "propertyType": {
+            "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
+            "instance": {
+              "tabGroup": "myTestGroup1",
+              "type": "java.util.Map"
+            }
+          },
+          "whenDescriptors": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ],
+          "scriptSignatureDescriptor": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "autocompleteContributorDescriptors": [
+    {
+      "error": true,
+      "message": true,
+      "context": true,
+      "contributions": [
+        "Util[VARIABLE:Util]",
+        "Util.tmpdir()[FUNCTION:String]"
+      ]
+    }
+  ]
+}

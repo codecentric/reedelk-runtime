@@ -1,0 +1,415 @@
+package com.reedelk.module.descriptor.fixture;
+
+import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.runtime.api.annotation.Default;
+
+public class ComponentProperties {
+
+    private ComponentProperties() {
+    }
+
+    public static ComponentPropertyDescriptor propertyBooleanObject =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyBooleanObject")
+                    .defaultValue("true")
+                    .displayName("Property Boolean Object")
+                    .hintValue("true") // In the UI the hint is not applied because it is a checkbox. But we  test it anyway.
+                    .propertyInfo("Property Boolean Object Info")
+                    .type(TypeDescriptors.typeDescriptorBooleanObject)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .when(WhenDescriptors.whenDescriptorAlternative)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyBoolean =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyBoolean")
+                    .defaultValue("true")
+                    .displayName("Property Boolean")
+                    .hintValue("true") // In the UI the hint is not applied because it is a checkbox. But we  test it anyway.
+                    .propertyInfo("Property Boolean Info")
+                    .type(TypeDescriptors.typeDescriptorBoolean)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDoubleObject =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDoubleObject")
+                    .defaultValue("234.54223")
+                    .displayName("Property Double Object")
+                    .hintValue("1111.2222")
+                    .propertyInfo("Property Double Object Info")
+                    .type(TypeDescriptors.typeDescriptorDoubleObject)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDouble =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDouble")
+                    .defaultValue("333.8764")
+                    .displayName("Property Double")
+                    .hintValue("771.32212")
+                    .propertyInfo("Property Double Info")
+                    .type(TypeDescriptors.typeDescriptorDouble)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyFloatObject =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyFloatObject")
+                    .defaultValue("3.1f")
+                    .displayName("Property Float Object")
+                    .hintValue("1.2f")
+                    .propertyInfo("Property Float Object Info")
+                    .type(TypeDescriptors.typeDescriptorFloatObject)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyFloat =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyFloat")
+                    .defaultValue("1.8f")
+                    .displayName("Property Float")
+                    .hintValue("7.2f")
+                    .propertyInfo("Property Float Info")
+                    .type(TypeDescriptors.typeDescriptorFloat)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyIntegerObject =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyIntegerObject")
+                    .defaultValue("122")
+                    .displayName("Property Integer Object")
+                    .hintValue("809")
+                    .propertyInfo("Property Integer Object Info")
+                    .type(TypeDescriptors.typeDescriptorIntegerObject)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyInteger =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyInteger")
+                    .defaultValue("544")
+                    .displayName("Property Integer")
+                    .hintValue("764")
+                    .propertyInfo("Property Integer Info")
+                    .type(TypeDescriptors.typeDescriptorInteger)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyLongObject =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyLongObject")
+                    .defaultValue("892L")
+                    .displayName("Property Long Object")
+                    .hintValue("444L")
+                    .propertyInfo("Property Long Object Info")
+                    .type(TypeDescriptors.typeDescriptorLongObject)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyLong =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyLong")
+                    .defaultValue("1L")
+                    .displayName("Property Long")
+                    .hintValue("4")
+                    .propertyInfo("Property Long Info")
+                    .type(TypeDescriptors.typeDescriptorLong)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyString =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyString")
+                    .defaultValue("Test property string")
+                    .displayName("Property String")
+                    .hintValue("Test property string hint")
+                    .propertyInfo("Property String Info")
+                    .type(TypeDescriptors.typeDescriptorString)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyBigInteger =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyBigInteger")
+                    .defaultValue("4222222")
+                    .displayName("Property BigInteger")
+                    .hintValue("1123")
+                    .propertyInfo("Property Big Integer Info")
+                    .type(TypeDescriptors.typeDescriptorBigInteger)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyBigDecimal =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyBigDecimal")
+                    .defaultValue("234.2343")
+                    .displayName("Property BigDecimal")
+                    .hintValue("11.2343")
+                    .propertyInfo("Property Big Decimal Info")
+                    .type(TypeDescriptors.typeDescriptorBigDecimal)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyMap =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyMap")
+                    .defaultValue("{'key1':'value1','key2':'value2'}")
+                    .displayName("Property Map")
+                    .hintValue("{'key1':'value1','key2':'value2'}")
+                    .propertyInfo("Property Map Info")
+                    .type(TypeDescriptors.typeDescriptorMap)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyEnum =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyEnum")
+                    .defaultValue("STREAM")
+                    .displayName("Property Enum")
+                    .hintValue("AUTO")
+                    .propertyInfo("Property Enum Info")
+                    .type(TypeDescriptors.typeDescriptorEnum)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicLong =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicLong")
+                    .defaultValue("432L")
+                    .displayName("Property Dynamic Long")
+                    .hintValue("8L")
+                    .propertyInfo("Property Dynamic Long Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicLong)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicFloat =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicFloat")
+                    .defaultValue("432.23f")
+                    .displayName("Property Dynamic Float")
+                    .hintValue("8.1f")
+                    .propertyInfo("Property Dynamic Float Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicFloat)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicDouble =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicDouble")
+                    .defaultValue("1432.23d")
+                    .displayName("Property Dynamic Double")
+                    .hintValue("18.1d")
+                    .propertyInfo("Property Dynamic Double Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicDouble)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicObject =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicObject")
+                    .defaultValue("Test")
+                    .displayName("Property Dynamic Object")
+                    .hintValue("Test hint")
+                    .propertyInfo("Property Dynamic Object Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicObject)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicString =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicString")
+                    .defaultValue("Test string")
+                    .displayName("Property Dynamic String")
+                    .hintValue("Test string hint")
+                    .propertyInfo("Property Dynamic String Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicString)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicBoolean =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicBoolean")
+                    .defaultValue("true")
+                    .displayName("Property Dynamic Boolean")
+                    .hintValue("Test boolean hint")
+                    .propertyInfo("Property Dynamic Boolean Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicBoolean)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicInteger =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicInteger")
+                    .defaultValue("4")
+                    .displayName("Property Dynamic Integer")
+                    .hintValue("Test integer hint")
+                    .propertyInfo("Property Dynamic Integer Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicInteger)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicResource =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicResource")
+                    .defaultValue("#['my-resource.png']")
+                    .displayName("Property Dynamic Resource")
+                    .hintValue("Test resource hint")
+                    .propertyInfo("Property Dynamic Resource Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicResource)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicByteArray =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicByteArray")
+                    .defaultValue("Test Dynamic Byte Array")
+                    .displayName("Property Dynamic byte array")
+                    .hintValue("Test byte array hint")
+                    .propertyInfo("Property Dynamic Byte Array Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicByteArray)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicBigInteger =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicBigInteger")
+                    .defaultValue("2348111")
+                    .displayName("Property Dynamic Big Integer")
+                    .hintValue("1199888")
+                    .propertyInfo("Property Dynamic Big Integer Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicBigInteger)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicBigDecimal =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicBigDecimal")
+                    .defaultValue("234.8111")
+                    .displayName("Property Dynamic Big Decimal")
+                    .hintValue("1.199888")
+                    .propertyInfo("Property Dynamic Big Decimal Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicBigDecimal)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyDynamicStringMap =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyDynamicStringMap")
+                    .defaultValue("{'key1':'#['value1']','key2':'#['value2']'}")
+                    .displayName("Property Dynamic String Map")
+                    .hintValue("{'key1':'#['value1']'}")
+                    .propertyInfo("Property Dynamic String Map Info")
+                    .type(TypeDescriptors.typeDescriptorDynamicStringMap)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyScript =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyScript")
+                    .defaultValue("#['Test']")
+                    .displayName("Property Script")
+                    .hintValue("#['Test Hint']")
+                    .propertyInfo("Property Script Info")
+                    .type(TypeDescriptors.typeDescriptorScript)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyCombo =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyCombo")
+                    .defaultValue("Item1")
+                    .displayName("Property Combo")
+                    .hintValue("Item2")
+                    .propertyInfo("Property Combo Info")
+                    .type(TypeDescriptors.typeDescriptorCombo)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyPassword =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyPassword")
+                    .defaultValue("my password")
+                    .displayName("Property Password")
+                    .hintValue("my password hint")
+                    .propertyInfo("Property Password Info")
+                    .type(TypeDescriptors.typeDescriptorPassword)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyResourceText =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyResourceText")
+                    .defaultValue("assets/my-text.txt")
+                    .displayName("Property Resource Text")
+                    .hintValue("assets/images/my-text.txt")
+                    .propertyInfo("Property Resource Text Info")
+                    .type(TypeDescriptors.typeDescriptorResourceText)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyResourceBinary =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyResourceBinary")
+                    .defaultValue("assets/my-image.png")
+                    .displayName("Property Resource Binary")
+                    .hintValue("assets/images/my-image.png")
+                    .propertyInfo("Property Resource Binary Info")
+                    .type(TypeDescriptors.typeDescriptorResourceBinary)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyTypeObject =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyTypeObject")
+                    .displayName("Property Type Object")
+                    .propertyInfo("Property Type Object Info")
+                    .type(TypeDescriptors.typeObjectDescriptor)
+                    .when(WhenDescriptors.whenDescriptorDefault)
+                    .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
+                    .build();
+
+    public static ComponentPropertyDescriptor propertyStringWithDefaultValue =
+            ComponentPropertyDescriptor.builder()
+                    .propertyName("propertyStringWithDefaultValue")
+                    .defaultValue(Default.USE_DEFAULT_VALUE)
+                    .displayName("Property String With Default Value")
+                    .hintValue("Test string with default hint")
+                    .propertyInfo("Property String With Default Info")
+                    .type(TypeDescriptors.typeDescriptorString)
+                    .build();
+}
