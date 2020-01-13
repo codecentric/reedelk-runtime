@@ -1,7 +1,7 @@
 
 # Maven
 target/
-
+.flattened-pom.xml
 
 # Eclipse files
 .classpath
