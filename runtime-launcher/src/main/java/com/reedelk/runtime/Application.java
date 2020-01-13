@@ -119,7 +119,7 @@ public class Application {
                 return Optional.empty();
             }
         } catch (BundleException exception) {
-            String errorMessage = message("runtime.install.module.error", file.toString());
+            String errorMessage = message("runtime.install.module.error", file.toString(), exception.getMessage());
             throw new ESBRuntimeException(errorMessage, exception);
         }
     }
