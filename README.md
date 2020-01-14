@@ -4,12 +4,19 @@ ESB Runtime Project.
 
 #### Installation
 1. git clone https://bitbucket.org/reedelk/runtime.git
-2. git clone https://bitbucket.org/reedelk/commons.git
-3. git clone https://bitbucket.org/reedelk/modules.git
-4. git clone https://bitbucket.org/reedelk/parent.git
-5. cd parent
-6. mvn clean
-7. mvn install
+2. git clone https://bitbucket.org/reedelk/modules.git
+3. git clone https://bitbucket.org/reedelk/module-xml.git
+4. git clone https://bitbucket.org/reedelk/module-file.git
+5. git clone https://bitbucket.org/reedelk/module-core.git
+6. git clone https://bitbucket.org/reedelk/module-rest.git
+7. git clone https://bitbucket.org/reedelk/module-rabbitmq.git
+8. git clone https://bitbucket.org/reedelk/module-scheduler.git
+9. cd runtime
+10. mvn clean
+11. mvn install
+12. cd ../modules
+13. mvn clean
+14. mvn install
 
 #### Importing the project in IntelliJ
 
