@@ -78,7 +78,7 @@
                                     org.w3c.*;resolution:="optional",
                                     javax.*;resolution:="optional",
                                     org.xml.*;resolution:="optional",
-                                    com.intellij.*;resolution:="optional"
+                                    com.intellij.rt.debugger.agent
                                 </Import-Package>
                             </instructions>
                         </configuration>
