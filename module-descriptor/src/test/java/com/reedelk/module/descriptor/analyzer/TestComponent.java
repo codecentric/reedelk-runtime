@@ -97,6 +97,10 @@ public class TestComponent implements ProcessorSync {
     @Default("{'key1':'value1','key2':'value2'}")
     private Map<String, String> mapPropertyWithDefaultValues;
 
+    @Property("Map property with tab placement top")
+    @TabPlacementTop
+    private Map<String,String> mapPropertyWithTabPlacementTop;
+
     @Property("Script property")
     private Script scriptProperty;
 
@@ -183,148 +187,320 @@ public class TestComponent implements ProcessorSync {
         throw new UnsupportedOperationException("not supposed to be called");
     }
 
+    public int getIntegerProperty() {
+        return integerProperty;
+    }
+
     public void setIntegerProperty(int integerProperty) {
         this.integerProperty = integerProperty;
+    }
+
+    public Integer getIntegerObjectProperty() {
+        return integerObjectProperty;
     }
 
     public void setIntegerObjectProperty(Integer integerObjectProperty) {
         this.integerObjectProperty = integerObjectProperty;
     }
 
+    public long getLongProperty() {
+        return longProperty;
+    }
+
     public void setLongProperty(long longProperty) {
         this.longProperty = longProperty;
+    }
+
+    public Long getLongObjectProperty() {
+        return longObjectProperty;
     }
 
     public void setLongObjectProperty(Long longObjectProperty) {
         this.longObjectProperty = longObjectProperty;
     }
 
+    public float getFloatProperty() {
+        return floatProperty;
+    }
+
     public void setFloatProperty(float floatProperty) {
         this.floatProperty = floatProperty;
+    }
+
+    public Float getFloatObjectProperty() {
+        return floatObjectProperty;
     }
 
     public void setFloatObjectProperty(Float floatObjectProperty) {
         this.floatObjectProperty = floatObjectProperty;
     }
 
+    public double getDoubleProperty() {
+        return doubleProperty;
+    }
+
     public void setDoubleProperty(double doubleProperty) {
         this.doubleProperty = doubleProperty;
+    }
+
+    public Double getDoubleObjectProperty() {
+        return doubleObjectProperty;
     }
 
     public void setDoubleObjectProperty(Double doubleObjectProperty) {
         this.doubleObjectProperty = doubleObjectProperty;
     }
 
+    public boolean isBooleanProperty() {
+        return booleanProperty;
+    }
+
     public void setBooleanProperty(boolean booleanProperty) {
         this.booleanProperty = booleanProperty;
+    }
+
+    public Boolean getBooleanObjectProperty() {
+        return booleanObjectProperty;
     }
 
     public void setBooleanObjectProperty(Boolean booleanObjectProperty) {
         this.booleanObjectProperty = booleanObjectProperty;
     }
 
+    public TestEnum getEnumProperty() {
+        return enumProperty;
+    }
+
     public void setEnumProperty(TestEnum enumProperty) {
         this.enumProperty = enumProperty;
+    }
+
+    public String getStringProperty() {
+        return stringProperty;
     }
 
     public void setStringProperty(String stringProperty) {
         this.stringProperty = stringProperty;
     }
 
+    public BigInteger getBigIntegerProperty() {
+        return bigIntegerProperty;
+    }
+
     public void setBigIntegerProperty(BigInteger bigIntegerProperty) {
         this.bigIntegerProperty = bigIntegerProperty;
+    }
+
+    public BigDecimal getBigDecimalProperty() {
+        return bigDecimalProperty;
     }
 
     public void setBigDecimalProperty(BigDecimal bigDecimalProperty) {
         this.bigDecimalProperty = bigDecimalProperty;
     }
 
+    public ResourceText getResourceTextProperty() {
+        return resourceTextProperty;
+    }
+
     public void setResourceTextProperty(ResourceText resourceTextProperty) {
         this.resourceTextProperty = resourceTextProperty;
+    }
+
+    public ResourceBinary getResourceBinaryProperty() {
+        return resourceBinaryProperty;
     }
 
     public void setResourceBinaryProperty(ResourceBinary resourceBinaryProperty) {
         this.resourceBinaryProperty = resourceBinaryProperty;
     }
 
+    public DynamicResource getResourceDynamicProperty() {
+        return resourceDynamicProperty;
+    }
+
     public void setResourceDynamicProperty(DynamicResource resourceDynamicProperty) {
         this.resourceDynamicProperty = resourceDynamicProperty;
+    }
+
+    public String getComboProperty() {
+        return comboProperty;
     }
 
     public void setComboProperty(String comboProperty) {
         this.comboProperty = comboProperty;
     }
 
+    public Map<String, String> getMapProperty() {
+        return mapProperty;
+    }
+
     public void setMapProperty(Map<String, String> mapProperty) {
         this.mapProperty = mapProperty;
+    }
+
+    public Map<String, String> getMapPropertyWithDefaultValues() {
+        return mapPropertyWithDefaultValues;
+    }
+
+    public void setMapPropertyWithDefaultValues(Map<String, String> mapPropertyWithDefaultValues) {
+        this.mapPropertyWithDefaultValues = mapPropertyWithDefaultValues;
+    }
+
+    public Map<String, String> getMapPropertyWithTabPlacementTop() {
+        return mapPropertyWithTabPlacementTop;
+    }
+
+    public void setMapPropertyWithTabPlacementTop(Map<String, String> mapPropertyWithTabPlacementTop) {
+        this.mapPropertyWithTabPlacementTop = mapPropertyWithTabPlacementTop;
+    }
+
+    public Script getScriptProperty() {
+        return scriptProperty;
     }
 
     public void setScriptProperty(Script scriptProperty) {
         this.scriptProperty = scriptProperty;
     }
 
+    public DynamicBigDecimal getDynamicBigDecimalProperty() {
+        return dynamicBigDecimalProperty;
+    }
+
     public void setDynamicBigDecimalProperty(DynamicBigDecimal dynamicBigDecimalProperty) {
         this.dynamicBigDecimalProperty = dynamicBigDecimalProperty;
+    }
+
+    public DynamicBigInteger getDynamicBigIntegerProperty() {
+        return dynamicBigIntegerProperty;
     }
 
     public void setDynamicBigIntegerProperty(DynamicBigInteger dynamicBigIntegerProperty) {
         this.dynamicBigIntegerProperty = dynamicBigIntegerProperty;
     }
 
+    public DynamicBoolean getDynamicBooleanProperty() {
+        return dynamicBooleanProperty;
+    }
+
     public void setDynamicBooleanProperty(DynamicBoolean dynamicBooleanProperty) {
         this.dynamicBooleanProperty = dynamicBooleanProperty;
+    }
+
+    public DynamicByteArray getDynamicByteArrayProperty() {
+        return dynamicByteArrayProperty;
     }
 
     public void setDynamicByteArrayProperty(DynamicByteArray dynamicByteArrayProperty) {
         this.dynamicByteArrayProperty = dynamicByteArrayProperty;
     }
 
+    public DynamicDouble getDynamicDoubleProperty() {
+        return dynamicDoubleProperty;
+    }
+
     public void setDynamicDoubleProperty(DynamicDouble dynamicDoubleProperty) {
         this.dynamicDoubleProperty = dynamicDoubleProperty;
+    }
+
+    public DynamicFloat getDynamicFloatProperty() {
+        return dynamicFloatProperty;
     }
 
     public void setDynamicFloatProperty(DynamicFloat dynamicFloatProperty) {
         this.dynamicFloatProperty = dynamicFloatProperty;
     }
 
+    public DynamicInteger getDynamicIntegerProperty() {
+        return dynamicIntegerProperty;
+    }
+
     public void setDynamicIntegerProperty(DynamicInteger dynamicIntegerProperty) {
         this.dynamicIntegerProperty = dynamicIntegerProperty;
+    }
+
+    public DynamicLong getDynamicLongProperty() {
+        return dynamicLongProperty;
     }
 
     public void setDynamicLongProperty(DynamicLong dynamicLongProperty) {
         this.dynamicLongProperty = dynamicLongProperty;
     }
 
+    public DynamicObject getDynamicObjectProperty() {
+        return dynamicObjectProperty;
+    }
+
     public void setDynamicObjectProperty(DynamicObject dynamicObjectProperty) {
         this.dynamicObjectProperty = dynamicObjectProperty;
+    }
+
+    public DynamicString getDynamicStringProperty() {
+        return dynamicStringProperty;
     }
 
     public void setDynamicStringProperty(DynamicString dynamicStringProperty) {
         this.dynamicStringProperty = dynamicStringProperty;
     }
 
+    public DynamicStringMap getDynamicStringMapProperty() {
+        return dynamicStringMapProperty;
+    }
+
     public void setDynamicStringMapProperty(DynamicStringMap dynamicStringMapProperty) {
         this.dynamicStringMapProperty = dynamicStringMapProperty;
+    }
+
+    public float getWithoutDisplayNameProperty() {
+        return withoutDisplayNameProperty;
     }
 
     public void setWithoutDisplayNameProperty(float withoutDisplayNameProperty) {
         this.withoutDisplayNameProperty = withoutDisplayNameProperty;
     }
 
+    public int getMissingDefaultValueProperty() {
+        return missingDefaultValueProperty;
+    }
+
     public void setMissingDefaultValueProperty(int missingDefaultValueProperty) {
         this.missingDefaultValueProperty = missingDefaultValueProperty;
+    }
+
+    public Double getDoubleObjectPropertyWithoutDefaultValue() {
+        return doubleObjectPropertyWithoutDefaultValue;
     }
 
     public void setDoubleObjectPropertyWithoutDefaultValue(Double doubleObjectPropertyWithoutDefaultValue) {
         this.doubleObjectPropertyWithoutDefaultValue = doubleObjectPropertyWithoutDefaultValue;
     }
 
+    public String getMimeType() {
+        return mimeType;
+    }
+
     public void setMimeType(String mimeType) {
         this.mimeType = mimeType;
     }
 
+    public String getMimeTypeCustom() {
+        return mimeTypeCustom;
+    }
+
     public void setMimeTypeCustom(String mimeTypeCustom) {
         this.mimeTypeCustom = mimeTypeCustom;
+    }
+
+    public DynamicString getPropertyWithAutoCompleteContributor() {
+        return propertyWithAutoCompleteContributor;
+    }
+
+    public void setPropertyWithAutoCompleteContributor(DynamicString propertyWithAutoCompleteContributor) {
+        this.propertyWithAutoCompleteContributor = propertyWithAutoCompleteContributor;
+    }
+
+    public String getStringPropertyWithTooltipInfo() {
+        return stringPropertyWithTooltipInfo;
     }
 
     public void setStringPropertyWithTooltipInfo(String stringPropertyWithTooltipInfo) {

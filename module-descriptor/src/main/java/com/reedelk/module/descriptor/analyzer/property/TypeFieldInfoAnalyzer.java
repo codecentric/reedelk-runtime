@@ -3,10 +3,9 @@ package com.reedelk.module.descriptor.analyzer.property;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
 import com.reedelk.module.descriptor.model.*;
-import com.reedelk.runtime.api.annotation.Combo;
-import com.reedelk.runtime.api.annotation.DisplayName;
-import com.reedelk.runtime.api.annotation.MimeTypeCombo;
-import com.reedelk.runtime.api.annotation.TabGroup;
+import com.reedelk.module.descriptor.model.Collapsible;
+import com.reedelk.module.descriptor.model.Shared;
+import com.reedelk.runtime.api.annotation.*;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import com.reedelk.runtime.api.message.content.MimeType;
 import io.github.classgraph.*;
@@ -106,9 +105,11 @@ public class TypeFieldInfoAnalyzer implements FieldInfoAnalyzer {
 
         } else if (isDynamicMap(clazz)) {
             String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
+            TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
             TypeDynamicMapDescriptor descriptor = new TypeDynamicMapDescriptor();
             descriptor.setType(clazz);
             descriptor.setTabGroup(tabGroup);
+            descriptor.setTabPlacement(tabPlacement);
             return descriptor;
 
         } else if (isScript(clazz)) {
@@ -151,8 +152,10 @@ public class TypeFieldInfoAnalyzer implements FieldInfoAnalyzer {
 
         } else if (isMap(clazz)) {
             String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
+            TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
             TypeMapDescriptor descriptor = new TypeMapDescriptor();
             descriptor.setTabGroup(tabGroup);
+            descriptor.setTabPlacement(tabPlacement);
             return descriptor;
 
         } else {

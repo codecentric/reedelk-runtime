@@ -48,9 +48,10 @@ public class ObjectFactories {
         return descriptor;
     }
 
-    public static TypeMapDescriptor createTypeMapDescriptor(String tabGroup) {
+    public static TypeMapDescriptor createTypeMapDescriptor(String tabGroup, TabPlacement tabPlacement) {
         TypeMapDescriptor descriptor = new TypeMapDescriptor();
         descriptor.setTabGroup(tabGroup);
+        descriptor.setTabPlacement(tabPlacement);
         return descriptor;
     }
 
@@ -59,11 +60,5 @@ public class ObjectFactories {
         descriptor.setType(dynamicMapType);
         descriptor.setTabGroup(tabGroup);
         return descriptor;
-    }
-
-    public static ScriptSignatureDescriptor createScriptSignatureDefinition(List<String> arguments) {
-        ScriptSignatureDescriptor definition = new ScriptSignatureDescriptor();
-        definition.setArguments(arguments);
-        return definition;
     }
 }

@@ -271,7 +271,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMapTypeProperty() {
         // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Test tab group");
+        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Test tab group", TabPlacement.LEFT);
 
         // Expect
         assertThatExistProperty(
@@ -284,7 +284,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMapTypePropertyWithDefaultValues() {
         // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Default values tab group");
+        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Default values tab group", TabPlacement.LEFT);
 
         // Expect
         assertThatExistProperty(
@@ -292,7 +292,19 @@ class ComponentPropertyAnalyzerTest {
                 "Map property with defaults",
                 "{'key1':'value1','key2':'value2'}",
                 TypeDescriptorMatchers.ofTypeMap(typeMap));
+    }
 
+    @Test
+    void shouldCorrectlyAnalyzeMapTypePropertyWithTabPlacementTop() {
+        // Given
+        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor(null, TabPlacement.TOP);
+
+        // Expect
+        assertThatExistProperty(
+                "mapPropertyWithTabPlacementTop",
+                "Map property with tab placement top",
+                Default.USE_DEFAULT_VALUE,
+                TypeDescriptorMatchers.ofTypeMap(typeMap));
     }
 
     @Test

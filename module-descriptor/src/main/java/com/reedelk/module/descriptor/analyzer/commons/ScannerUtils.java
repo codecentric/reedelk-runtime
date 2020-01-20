@@ -2,6 +2,7 @@ package com.reedelk.module.descriptor.analyzer.commons;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
+import com.reedelk.module.descriptor.model.TabPlacement;
 import com.reedelk.runtime.api.annotation.*;
 import com.reedelk.runtime.api.resource.ResourceBinary;
 import com.reedelk.runtime.api.resource.ResourceText;
@@ -167,6 +168,11 @@ public class ScannerUtils {
     public static com.reedelk.module.descriptor.model.Collapsible isCollapsible(ClassInfo classInfo) {
         return classInfo.hasAnnotation(com.reedelk.runtime.api.annotation.Collapsible.class.getName()) ?
                 com.reedelk.module.descriptor.model.Collapsible.YES : com.reedelk.module.descriptor.model.Collapsible.NO;
+    }
+
+    public static TabPlacement tabPlacementOf(FieldInfo fieldInfo) {
+        return hasAnnotation(fieldInfo, TabPlacementTop.class) ?
+                TabPlacement.TOP : TabPlacement.LEFT; // Left placement is the default value
     }
 
     public static boolean isHidden(ClassInfo classInfo) {
