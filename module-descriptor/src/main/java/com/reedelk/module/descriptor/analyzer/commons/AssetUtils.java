@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -21,12 +22,14 @@ import java.util.Optional;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
+import static java.lang.String.format;
+
 public class AssetUtils {
 
     private static final String COMPONENT_IMAGE_NAME_TEMPLATE = "%s.png";
     private static final String COMPONENT_ICON_NAME_TEMPLATE = "%s-icon.png";
 
-    private static final Logger LOG = Logger.getLogger(ComponentDescriptorsJsonFile.class);
+    private static final Logger LOG = Logger.getLogger(AssetUtils.class);
 
     private AssetUtils() {
     }
@@ -56,12 +59,16 @@ public class AssetUtils {
     }
 
     public static Image loadImage(String jarFile, String componentFullyQualifiedName) {
+        String imageName = imageNameFrom(componentFullyQualifiedName);
         try (JarFile file = new JarFile(jarFile)) {
-            ZipEntry componentImage = file.getEntry(imageNameFrom(componentFullyQualifiedName));
+            ZipEntry componentImage = file.getEntry(imageName);
             if (componentImage != null) {
                 InputStream inputStream = file.getInputStream(componentImage);
                 return ImageIO.read(inputStream);
             }
+            return null;
+        } catch (FileNotFoundException fileNotFoundException) {
+            LOG.info(format("Image named=[%s] could not be found: %s", imageName, fileNotFoundException.getMessage()));
             return null;
         } catch (IOException e) {
             LOG.error(e);
@@ -70,12 +77,16 @@ public class AssetUtils {
     }
 
     public static Icon loadIcon(String jarFile, String componentFullyQualifiedName) {
+        String iconName = iconNameFrom(componentFullyQualifiedName);
         try (JarFile file = new JarFile(jarFile)) {
-            ZipEntry componentIcon = file.getEntry(iconNameFrom(componentFullyQualifiedName));
+            ZipEntry componentIcon = file.getEntry(iconName);
             if (componentIcon != null) {
                 InputStream inputStream = file.getInputStream(componentIcon);
                 return new ImageIcon(ImageIO.read(inputStream));
             }
+            return null;
+        } catch (FileNotFoundException fileNotFoundException) {
+            LOG.info(format("Icon named=[%s] could not be found: %s", iconName, fileNotFoundException.getMessage()));
             return null;
         } catch (IOException e) {
             LOG.error(e);
@@ -154,10 +165,10 @@ public class AssetUtils {
     }
 
     private static String imageNameFrom(String componentFullyQualifiedName) {
-        return String.format(COMPONENT_IMAGE_NAME_TEMPLATE, componentFullyQualifiedName);
+        return format(COMPONENT_IMAGE_NAME_TEMPLATE, componentFullyQualifiedName);
     }
 
     private static String iconNameFrom(String componentFullyQualifiedName) {
-        return String.format(COMPONENT_ICON_NAME_TEMPLATE, componentFullyQualifiedName);
+        return format(COMPONENT_ICON_NAME_TEMPLATE, componentFullyQualifiedName);
     }
 }
