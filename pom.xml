@@ -10,10 +10,10 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>0.6.2-SNAPSHOT</revision>
+        <revision>0.7.0-SNAPSHOT</revision>
         <assertj.version>3.11.1</assertj.version>
         <json.version>20190722</json.version>
-        <junit.version>RELEASE</junit.version>
+        <junit.version>5.5.2</junit.version>
         <jacoco.version>0.8.2</jacoco.version>
         <jsonassert.version>1.5.0</jsonassert.version>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -31,7 +31,7 @@
         <sl4j.api.version>1.7.26</sl4j.api.version>
         <log4.version>1.2.17</log4.version>
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
-        <surefire.plugin.version>2.19.1</surefire.plugin.version>
+        <surefire.plugin.version>3.0.0-M4</surefire.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <logback.version>1.2.3</logback.version>
         <license3j.version>3.1.3</license3j.version>
@@ -214,27 +214,14 @@
                 <version>2.8</version>
             </plugin>
 
-
-            <!-- Surefire -->
+            <!-- Surefire - unit tests-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>1.0.3</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.0.3</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
-            <!-- JaCoCo -->
+            <!-- JaCoCo test coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

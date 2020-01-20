@@ -13,10 +13,17 @@ import static com.reedelk.esb.commons.Messages.Resource;
 
 public class DefaultResourceService implements ResourceService {
 
+    public static final int DEFAULT_READ_BUFFER_SIZE = 65536;
+
     private ScriptEngineService scriptEngineService;
 
     public DefaultResourceService(ScriptEngineService scriptEngineService) {
         this.scriptEngineService = scriptEngineService;
+    }
+
+    @Override
+    public ResourceFile<byte[]> find(DynamicResource resource, FlowContext flowContext, Message message) throws ResourceNotFound {
+        return find(resource, DEFAULT_READ_BUFFER_SIZE, flowContext, message);
     }
 
     @Override

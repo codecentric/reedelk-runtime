@@ -45,7 +45,14 @@
         <appender-ref ref="ASYNC_FILE"/>
     </logger>
 
+    <!-- Quartz scheduler -->
     <logger name="org.quartz" level="warn" additivity="false">
+        <appender-ref ref="ASYNC_STDOUT"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </logger>
+
+    <!-- C3PO logging -->
+    <logger name="com.mchange.v2" level="warn" additivity="false">
         <appender-ref ref="ASYNC_STDOUT"/>
         <appender-ref ref="ASYNC_FILE"/>
     </logger>
