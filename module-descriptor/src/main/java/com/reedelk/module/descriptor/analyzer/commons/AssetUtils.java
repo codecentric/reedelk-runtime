@@ -68,7 +68,7 @@ public class AssetUtils {
             }
             return null;
         } catch (FileNotFoundException fileNotFoundException) {
-            LOG.info(format("Image named=[%s] could not be found: %s", imageName, fileNotFoundException.getMessage()));
+            LOG.info(format("Component Image named=[%s] from jar file=[%s] could not be found. Using default instead.", imageName, jarFile));
             return null;
         } catch (IOException e) {
             LOG.error(e);
@@ -86,7 +86,7 @@ public class AssetUtils {
             }
             return null;
         } catch (FileNotFoundException fileNotFoundException) {
-            LOG.info(format("Icon named=[%s] could not be found: %s", iconName, fileNotFoundException.getMessage()));
+            LOG.info(format("Component Icon named=[%s] from jar file=[%s] could not be found. Using default instead.", iconName, jarFile));
             return null;
         } catch (IOException e) {
             LOG.error(e);
@@ -123,6 +123,9 @@ public class AssetUtils {
     public static Icon getIcon(URL iconURL) {
         try (InputStream is = iconURL.openStream()) {
             return getIcon(is);
+        } catch (FileNotFoundException fileNotFoundException) {
+            LOG.info(format("Component Icon from URL=[%s] could not be found. Using default instead.", iconURL.toString()));
+            return null;
         } catch (IOException exception) {
             LOG.error(exception);
             return null;
@@ -132,6 +135,9 @@ public class AssetUtils {
     public static Image getImage(URL imageURL) {
         try (InputStream is = imageURL.openStream()) {
             return getImage(is);
+        } catch (FileNotFoundException fileNotFoundException) {
+            LOG.info(format("Component Image from URL=[%s] could not be found. Using default instead.", imageURL.toString()));
+            return null;
         } catch (IOException e) {
             LOG.error(e);
             return null;
