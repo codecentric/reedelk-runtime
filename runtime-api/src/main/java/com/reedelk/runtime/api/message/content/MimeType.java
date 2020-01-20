@@ -257,6 +257,9 @@ public class MimeType implements Serializable {
 
     public static final String MIME_TYPE_ANY = "*/*";
     public static final String MIME_TYPE_TEXT_PLAIN = "text/plain";
+    public static final String MIME_TYPE_TEXT_XML = "text/xml";
+    public static final String MIME_TYPE_APPLICATION_JSON = "application/json";
+    public static final String MIME_TYPE_APPLICATION_BINARY = "application/octet-stream";
 
     public static final MimeType ANY = of("*", "*");
     public static final MimeType UNKNOWN = of("content", "unknown");
