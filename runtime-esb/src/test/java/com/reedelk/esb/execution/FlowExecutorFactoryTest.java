@@ -89,14 +89,14 @@ class FlowExecutorFactoryTest {
 
     class TestProcessorAsync implements ProcessorAsync, NotRelatedInterface {
         @Override
-        public void apply(Message input, FlowContext flowContext, OnResult callback) {
+        public void apply(FlowContext flowContext, Message input, OnResult callback) {
 
         }
     }
 
     class TestProcessorSync implements ProcessorSync, NotRelatedInterface {
         @Override
-        public Message apply(Message message, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, Message message) {
             return null;
         }
     }

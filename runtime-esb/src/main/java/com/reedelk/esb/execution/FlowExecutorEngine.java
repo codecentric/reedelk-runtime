@@ -40,11 +40,11 @@ public class FlowExecutorEngine {
                     FlowExecutorFactory.get().execute(publisher, nodeAfterRoot, graph);
 
             Mono.from(result)
-                    .doOnError(throwable -> onResult.onError(throwable, defaultContext))
-                    .subscribe(messageContext -> onResult.onResult(messageContext.getMessage(), defaultContext));
+                    .doOnError(throwable -> onResult.onError(defaultContext, throwable))
+                    .subscribe(messageContext -> onResult.onResult(defaultContext, messageContext.getMessage()));
 
         } catch (Throwable exception) {
-            onResult.onError(exception, defaultContext);
+            onResult.onError(defaultContext, exception);
         }
     }
 }

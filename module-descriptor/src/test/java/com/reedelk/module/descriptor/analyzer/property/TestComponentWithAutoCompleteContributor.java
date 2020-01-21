@@ -27,7 +27,7 @@ public class TestComponentWithAutoCompleteContributor implements ProcessorSync {
     private DynamicString propertyWithoutAutoCompleteContributor;
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
         throw new UnsupportedOperationException("not supposed to be called");
     }
 

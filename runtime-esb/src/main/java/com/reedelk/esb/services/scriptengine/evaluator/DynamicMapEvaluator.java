@@ -21,12 +21,12 @@ public class DynamicMapEvaluator extends AbstractDynamicValueEvaluator {
 
     @Override
     public <T> Map<String, T> evaluate(DynamicMap<T> dynamicMap, FlowContext context, Message message) {
-        return evaluateWith(dynamicMap, functionBuilder, message, context);
+        return evaluateWith(dynamicMap, functionBuilder, context, message);
     }
 
     @Override
     public <T> Map<String, T> evaluate(DynamicMap<T> dynamicMap, FlowContext context, Throwable throwable) {
-        return evaluateWith(dynamicMap, errorFunctionBuilder, throwable, context);
+        return evaluateWith(dynamicMap, errorFunctionBuilder, context, throwable);
     }
 
     private <T> Map<String, T> evaluateWith(DynamicMap<T> dynamicMap, FunctionDefinitionBuilder<DynamicMap<T>> functionBuilder, Object... args) {

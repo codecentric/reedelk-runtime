@@ -6,7 +6,7 @@ import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 public class DynamicValueWithMessageAndContext implements FunctionDefinitionBuilder<DynamicValue> {
 
     private static final String TEMPLATE =
-            "function %s(message, context) {\n" +
+            "function %s(context, message) {\n" +
                     "  return %s\n" +
                     "};";
 

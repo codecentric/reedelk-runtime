@@ -9,7 +9,7 @@ import java.util.Map;
 public class DynamicMapWithMessageAndContext implements FunctionDefinitionBuilder<DynamicMap<Object>> {
 
     private static final String TEMPLATE =
-            "function %s(message, context) {\n" +
+            "function %s(context, message) {\n" +
                     "  return %s\n" +
                     "};";
 

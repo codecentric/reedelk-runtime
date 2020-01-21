@@ -3,7 +3,7 @@ package com.reedelk.esb.services.scriptengine.evaluator.function;
 public class DynamicMapWithErrorAndContext extends DynamicMapWithMessageAndContext {
 
     private static final String TEMPLATE =
-            "function %s(error, context) {\n" +
+            "function %s(context, error) {\n" +
                     "  return %s\n" +
                     "};";
 

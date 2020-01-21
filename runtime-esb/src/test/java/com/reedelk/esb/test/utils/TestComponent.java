@@ -24,7 +24,7 @@ public class TestComponent implements ProcessorSync {
     private BigInteger bigIntegerProperty;
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
         throw new UnsupportedOperationException("Test Only ProcessorSync");
     }
 

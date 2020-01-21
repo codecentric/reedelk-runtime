@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface Join extends Component {
 
-    Message apply(List<Message> messagesToJoin, FlowContext flowContext);
+    Message apply(FlowContext flowContext, List<Message> messagesToJoin);
 
 }

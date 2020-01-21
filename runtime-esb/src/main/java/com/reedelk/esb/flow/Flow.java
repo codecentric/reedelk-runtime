@@ -142,12 +142,12 @@ public class Flow implements InboundEventListener {
         }
 
         @Override
-        public void onResult(Message message, FlowContext flowContext) {
-            delegate.onResult(message, flowContext);
+        public void onResult(FlowContext flowContext, Message message) {
+            delegate.onResult(flowContext, message);
         }
 
         @Override
-        public void onError(Throwable throwable, FlowContext flowContext) {
+        public void onError(FlowContext flowContext, Throwable throwable) {
 
             String correlationId = CorrelationID.getOrNull(flowContext);
             String error = DEFAULT.format(moduleId, moduleName, flowId, flowTitle, correlationId, throwable.getClass().getName(), throwable.getMessage());
@@ -157,7 +157,7 @@ public class Flow implements InboundEventListener {
                 logger.error(StackTraceUtils.asString(wrapped));
             }
 
-            delegate.onError(wrapped, flowContext);
+            delegate.onError(flowContext, wrapped);
         }
     }
 }

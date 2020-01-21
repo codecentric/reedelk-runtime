@@ -41,7 +41,7 @@ public class ProcessorSyncExecutor implements FlowExecutor {
 
                 // Apply the input Message to the processor and we
                 // let it process it (transform) to its new value.
-                Message outMessage = processor.apply(input, flowContext);
+                Message outMessage = processor.apply(flowContext, input);
 
                 // We replace in the context the new output message.
                 messageAndContext.replaceWith(outMessage);

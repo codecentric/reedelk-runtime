@@ -12,7 +12,7 @@ public class TestJoinComponent implements Join {
     private long prop2;
 
     @Override
-    public Message apply(List<Message> inputs, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, List<Message> inputs) {
         throw new UnsupportedOperationException("Test Only Join");
     }
 

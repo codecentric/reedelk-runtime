@@ -183,7 +183,7 @@ public class TestComponent implements ProcessorSync {
     private int notExposedProperty;
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
         throw new UnsupportedOperationException("not supposed to be called");
     }
 

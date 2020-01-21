@@ -85,7 +85,7 @@ abstract class AbstractExecutionTest {
         }
 
         @Override
-        public Message apply(Message message, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, Message message) {
             throw new IllegalStateException(errorMessage + " (" + message.payload() + ")");
         }
     }
@@ -99,7 +99,7 @@ abstract class AbstractExecutionTest {
         }
 
         @Override
-        public Message apply(Message message, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, Message message) {
             throw new NoClassDefFoundError(missingClazz);
         }
     }
@@ -113,7 +113,7 @@ abstract class AbstractExecutionTest {
         }
 
         @Override
-        public Message apply(Message message, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, Message message) {
             String inputString = (String) message.getContent().data();
             String outputString = inputString + postfix;
             return MessageBuilder.get().withText(outputString).build();

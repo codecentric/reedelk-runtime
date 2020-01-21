@@ -23,7 +23,7 @@ public class SystemHealth implements ProcessorSync {
     private static final String UP_STATUS = "UP";
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
 
         String resultJson = healthStatus();
 

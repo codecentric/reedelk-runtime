@@ -32,7 +32,7 @@ public class DynamicValueEvaluator extends AbstractDynamicValueEvaluator {
                 Object payload = message.payload();
                 return convert(payload, dynamicValue.getEvaluatedType(), OPTIONAL_PROVIDER);
             } else {
-                return execute(dynamicValue, OPTIONAL_PROVIDER, functionBuilder, message, flowContext);
+                return execute(dynamicValue, OPTIONAL_PROVIDER, functionBuilder, flowContext, message);
             }
         } else {
             // Not a script
@@ -47,7 +47,7 @@ public class DynamicValueEvaluator extends AbstractDynamicValueEvaluator {
             return OPTIONAL_PROVIDER.empty();
         } else if (dynamicValue.isScript()) {
             // Script
-            return execute(dynamicValue, OPTIONAL_PROVIDER, errorFunctionBuilder, exception, flowContext);
+            return execute(dynamicValue, OPTIONAL_PROVIDER, errorFunctionBuilder, flowContext, exception);
         } else {
             // Not a script
             return Optional.ofNullable(dynamicValue.value());
@@ -70,7 +70,7 @@ public class DynamicValueEvaluator extends AbstractDynamicValueEvaluator {
                 Object payload = message.payload();
                 return convert(payload, JavaType.from(mimeType), OPTIONAL_PROVIDER);
             } else {
-                Object evaluationResult = invokeFunction(dynamicValue, functionBuilder, message, flowContext);
+                Object evaluationResult = invokeFunction(dynamicValue, functionBuilder, flowContext, message);
                 return convert(evaluationResult, JavaType.from(mimeType), OPTIONAL_PROVIDER);
             }
         } else {

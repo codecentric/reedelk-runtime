@@ -5,7 +5,7 @@ import com.reedelk.runtime.api.message.Message;
 
 public interface OnResult {
 
-    default void onResult(Message message, FlowContext flowContext) {}
+    default void onResult(FlowContext flowContext, Message message) {}
 
-    default void onError(Throwable throwable, FlowContext flowContext) {}
+    default void onError(FlowContext flowContext, Throwable throwable) {}
 }

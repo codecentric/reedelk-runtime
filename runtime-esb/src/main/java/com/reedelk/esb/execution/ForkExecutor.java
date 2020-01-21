@@ -124,7 +124,7 @@ public class ForkExecutor implements FlowExecutor {
 
     static class EmptyJoin implements Join {
         @Override
-        public Message apply(List<Message> messagesToJoin, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, List<Message> messagesToJoin) {
             Map<String, Serializable> attributes = new HashMap<>();
             MessageAttributes emptyJoinAttributes = new DefaultMessageAttributes(EmptyJoin.class, attributes);
             return MessageBuilder.get().empty().attributes(emptyJoinAttributes).build();
@@ -150,7 +150,7 @@ public class ForkExecutor implements FlowExecutor {
                         .map(MessageAndContext::getMessage)
                         .collect(toList());
 
-                Message outMessage = join.apply(collect, context.getFlowContext());
+                Message outMessage = join.apply(context.getFlowContext(), collect);
 
                 context.replaceWith(outMessage);
 

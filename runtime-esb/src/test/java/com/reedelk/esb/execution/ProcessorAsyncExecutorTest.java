@@ -150,28 +150,28 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
 
     static class ProcessorAsyncTakingTooLong implements ProcessorAsync {
         @Override
-        public void apply(Message input, FlowContext flowContext, OnResult callback) {
+        public void apply(FlowContext flowContext, Message input, OnResult callback) {
             new Thread(() -> {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     // nothing to do
                 }
-                callback.onResult(MessageBuilder.get().withText("hello").build(), flowContext);
+                callback.onResult(flowContext, MessageBuilder.get().withText("hello").build());
             });
         }
     }
 
     static class ProcessorThrowingExceptionAsync implements ProcessorAsync {
         @Override
-        public void apply(Message input, FlowContext flowContext, OnResult callback) {
-            new Thread(() -> callback.onError(new IllegalStateException("Error"), flowContext)).start();
+        public void apply(FlowContext flowContext, Message input, OnResult callback) {
+            new Thread(() -> callback.onError(flowContext, new IllegalStateException("Error"))).start();
         }
     }
 
     static class ProcessorThrowingThrowableAsync implements ProcessorAsync {
         @Override
-        public void apply(Message input, FlowContext flowContext, OnResult callback) {
+        public void apply(FlowContext flowContext, Message input, OnResult callback) {
             throw new NoClassDefFoundError("javax.xml");
         }
     }
@@ -185,12 +185,12 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
         }
 
         @Override
-        public void apply(Message input, FlowContext flowContext, OnResult callback) {
+        public void apply(FlowContext flowContext, Message input, OnResult callback) {
             new Thread(() -> {
                 String inputString = (String) input.getContent().data();
                 String outputString = inputString + postfix;
                 Message out = MessageBuilder.get().withText(outputString).build();
-                callback.onResult(out, flowContext);
+                callback.onResult(flowContext, out);
             }).start();
         }
     }

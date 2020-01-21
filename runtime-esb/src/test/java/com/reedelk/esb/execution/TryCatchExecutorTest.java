@@ -217,7 +217,7 @@ class TryCatchExecutorTest extends AbstractExecutionTest {
 
     class CatchSyncProcessor implements ProcessorSync {
         @Override
-        public Message apply(Message message, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, Message message) {
             Exception thrown = (Exception) message.getContent().data();
             String outputString = thrown.getMessage();
             return MessageBuilder.get().withText(outputString).build();

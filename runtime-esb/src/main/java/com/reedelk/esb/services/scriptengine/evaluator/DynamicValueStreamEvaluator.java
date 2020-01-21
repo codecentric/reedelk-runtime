@@ -7,6 +7,7 @@ import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
 import static com.reedelk.esb.services.scriptengine.evaluator.ValueProviders.STREAM_PROVIDER;
@@ -26,7 +27,8 @@ public class DynamicValueStreamEvaluator extends AbstractDynamicValueEvaluator {
             if (ScriptUtils.isEvaluateMessagePayload(dynamicValue)) {
                 return evaluateMessagePayload(dynamicValue.getEvaluatedType(), message);
             } else {
-                return TypedPublisher.from(execute(dynamicValue, STREAM_PROVIDER, functionBuilder, message, flowContext), dynamicValue.getEvaluatedType());
+                Publisher<T> publisher = execute(dynamicValue, STREAM_PROVIDER, functionBuilder, flowContext, message);
+                return TypedPublisher.from(publisher, dynamicValue.getEvaluatedType());
             }
         } else {
             // Not a script
@@ -42,7 +44,7 @@ public class DynamicValueStreamEvaluator extends AbstractDynamicValueEvaluator {
         } else if (dynamicValue.isScript()) {
             // Script
             return TypedPublisher.from(
-                    execute(dynamicValue, STREAM_PROVIDER, errorFunctionBuilder, throwable, flowContext),
+                    execute(dynamicValue, STREAM_PROVIDER, errorFunctionBuilder, flowContext, throwable),
                     dynamicValue.getEvaluatedType());
         } else {
             // Not a script

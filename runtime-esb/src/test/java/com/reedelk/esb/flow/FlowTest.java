@@ -283,7 +283,7 @@ class FlowTest {
         // When
         flow.onEvent(inMessage, new OnResult() {
             @Override
-            public void onResult(Message actualMessage, FlowContext flowContext) {
+            public void onResult(FlowContext flowContext, Message actualMessage) {
                 // Then
                 assertThat(actualMessage).isEqualTo(inMessage);
                 verify(mockExecutionGraph).getRoot();
@@ -292,7 +292,7 @@ class FlowTest {
             }
 
             @Override
-            public void onError(Throwable throwable, FlowContext flowContext) {
+            public void onError(FlowContext flowContext, Throwable throwable) {
                 fail("Unexpected");
             }
         });

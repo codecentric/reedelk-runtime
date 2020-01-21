@@ -27,7 +27,7 @@ public class ModuleHotSwap implements ProcessorSync {
     private HotSwapService hotSwapService;
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
 
         String payload = message.payload();
 

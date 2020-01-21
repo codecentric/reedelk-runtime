@@ -6,7 +6,7 @@ import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 public class DynamicValueWithErrorAndContext implements FunctionDefinitionBuilder<DynamicValue> {
 
     private static final String TEMPLATE =
-            "function %s(error, context) {\n" +
+            "function %s(context, error) {\n" +
                     "  return %s\n" +
                     "};";
 

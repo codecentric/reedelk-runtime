@@ -38,7 +38,7 @@ public class ModuleDeploy implements ProcessorSync {
     private ModuleService moduleService;
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
 
         Parts parts = message.payload();
 

@@ -72,19 +72,19 @@ public class ProcessorAsyncExecutor implements FlowExecutor {
             // Prepare the callback
             OnResult callback = new OnResult() {
                 @Override
-                public void onResult(Message message, FlowContext context) {
+                public void onResult(FlowContext context, Message message) {
                     event.replaceWith(message);
                     sink.success(event);
                 }
                 @Override
-                public void onError(Throwable e, FlowContext context) {
+                public void onError(FlowContext context, Throwable e) {
                     sink.error(e);
                 }
             };
 
             // Apply the processor
             try {
-                processor.apply(event.getMessage(), event.getFlowContext(), callback);
+                processor.apply(event.getFlowContext(), event.getMessage(), callback);
 
             } catch (Exception exception) {
                 // Propagate the error occurred while applying the processor

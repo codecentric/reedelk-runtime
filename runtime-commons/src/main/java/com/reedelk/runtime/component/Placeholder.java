@@ -11,7 +11,7 @@ import com.reedelk.runtime.api.message.Message;
 public class Placeholder implements ProcessorSync {
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
         return message;
     }
 }

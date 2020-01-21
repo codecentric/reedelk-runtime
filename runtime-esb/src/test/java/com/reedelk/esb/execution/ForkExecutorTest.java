@@ -222,7 +222,7 @@ class ForkExecutorTest extends AbstractExecutionTest {
 
     static class JoinString implements Join {
         @Override
-        public Message apply(List<Message> messages, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, List<Message> messages) {
             String joined = messages.stream()
                     .map(message -> (String) message.getContent().data())
                     .collect(joining(","));
@@ -232,14 +232,14 @@ class ForkExecutorTest extends AbstractExecutionTest {
 
     static class JoinThrowingException implements Join {
         @Override
-        public Message apply(List<Message> messagesToJoin, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, List<Message> messagesToJoin) {
             throw new IllegalStateException("Join not valid");
         }
     }
 
     static class JoinThrowingNoClassDefFoundError implements Join {
         @Override
-        public Message apply(List<Message> messagesToJoin, FlowContext flowContext) {
+        public Message apply(FlowContext flowContext, List<Message> messagesToJoin) {
             throw new NoClassDefFoundError("javax.xml");
         }
     }

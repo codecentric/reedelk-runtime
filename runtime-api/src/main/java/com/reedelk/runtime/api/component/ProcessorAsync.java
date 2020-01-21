@@ -5,6 +5,6 @@ import com.reedelk.runtime.api.message.Message;
 
 public interface ProcessorAsync extends Component {
 
-    void apply(Message input, FlowContext flowContext, OnResult callback);
+    void apply(FlowContext flowContext, Message input, OnResult callback);
 
 }

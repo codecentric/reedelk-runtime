@@ -5,6 +5,6 @@ import com.reedelk.runtime.api.message.Message;
 
 public interface ProcessorSync extends Component {
 
-    Message apply(Message message, FlowContext flowContext);
+    Message apply(FlowContext flowContext, Message message);
 
 }

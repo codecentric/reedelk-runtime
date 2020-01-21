@@ -34,7 +34,7 @@ public class ReadFromResources implements ProcessorSync {
     private DynamicResource resourceFile;
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
         try {
 
             ResourceFile<byte[]> resourceFile = resourceService.find(this.resourceFile, DEFAULT_READ_BUFFER_SIZE, flowContext, message);

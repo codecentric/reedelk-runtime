@@ -17,7 +17,7 @@ public class TestComponentWithScriptSignature implements ProcessorSync {
     private Script scriptPropertyWithoutScriptSignature;
 
     @Override
-    public Message apply(Message message, FlowContext flowContext) {
+    public Message apply(FlowContext flowContext, Message message) {
         throw new UnsupportedOperationException("not supposed to be called");
     }
 
