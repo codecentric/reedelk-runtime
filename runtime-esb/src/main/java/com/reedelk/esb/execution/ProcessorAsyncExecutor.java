@@ -7,7 +7,7 @@ import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorAsync;
 import com.reedelk.runtime.api.exception.ESBException;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;

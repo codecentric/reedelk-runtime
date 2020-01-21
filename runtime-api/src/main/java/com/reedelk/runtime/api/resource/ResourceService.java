@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.resource;
 
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 
 public interface ResourceService {

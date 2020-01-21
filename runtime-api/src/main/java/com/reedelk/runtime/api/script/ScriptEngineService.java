@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.script;
 
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;

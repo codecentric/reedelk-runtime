@@ -1,7 +1,7 @@
 package com.reedelk.esb.services.resource;
 
 import com.reedelk.runtime.api.commons.ModuleContext;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.resource.DynamicResource;
 import com.reedelk.runtime.api.resource.ResourceFile;

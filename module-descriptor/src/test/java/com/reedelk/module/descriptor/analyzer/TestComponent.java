@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.runtime.api.annotation.*;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.resource.DynamicResource;

@@ -4,7 +4,7 @@ import com.reedelk.esb.services.scriptengine.evaluator.function.DynamicValueWith
 import com.reedelk.esb.services.scriptengine.evaluator.function.DynamicValueWithMessageAndContext;
 import com.reedelk.runtime.api.commons.JavaType;
 import com.reedelk.runtime.api.commons.ScriptUtils;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;

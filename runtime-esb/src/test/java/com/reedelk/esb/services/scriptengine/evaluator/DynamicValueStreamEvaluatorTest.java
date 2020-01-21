@@ -4,6 +4,7 @@ import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.*;
 import com.reedelk.runtime.api.message.content.ByteArrayContent;
 import com.reedelk.runtime.api.message.content.MimeType;

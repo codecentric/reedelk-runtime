@@ -9,7 +9,7 @@ import com.reedelk.runtime.api.component.Inbound;
 import com.reedelk.runtime.api.component.InboundEventListener;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.exception.FlowExecutionException;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;

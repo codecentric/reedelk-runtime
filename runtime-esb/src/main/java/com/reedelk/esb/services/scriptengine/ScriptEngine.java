@@ -1,7 +1,7 @@
 package com.reedelk.esb.services.scriptengine;
 
 import com.reedelk.esb.services.scriptengine.evaluator.*;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;

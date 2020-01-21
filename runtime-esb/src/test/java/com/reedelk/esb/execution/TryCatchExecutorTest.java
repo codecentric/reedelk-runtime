@@ -5,7 +5,7 @@ import com.reedelk.esb.execution.testutils.TryCatchTestGraphBuilder;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import org.assertj.core.api.Assertions;

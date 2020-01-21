@@ -1,7 +1,7 @@
 package com.reedelk.esb.test.utils;
 
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 
 public class AnotherTestComponent implements ProcessorSync {
@@ -38,5 +38,4 @@ public class AnotherTestComponent implements ProcessorSync {
     public void setProperty3(String property3) {
         this.property3 = property3;
     }
-
 }

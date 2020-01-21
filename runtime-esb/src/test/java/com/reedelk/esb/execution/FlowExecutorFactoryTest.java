@@ -6,7 +6,7 @@ import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorAsync;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.component.Stop;
 import org.junit.jupiter.api.Assertions;

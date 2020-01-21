@@ -1,7 +1,7 @@
 package com.reedelk.esb.execution;
 
 import com.reedelk.esb.commons.CorrelationID;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageAttributeKey;
 

@@ -5,7 +5,7 @@ import com.reedelk.esb.component.RouterWrapper.PathExpressionPair;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.esb.services.scriptengine.ScriptEngine;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import com.reedelk.runtime.component.Router;

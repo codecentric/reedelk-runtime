@@ -7,7 +7,7 @@ import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.Inbound;
 import com.reedelk.runtime.api.component.OnResult;
-import com.reedelk.runtime.api.message.FlowContext;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.component.Stop;
