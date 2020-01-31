@@ -4,6 +4,7 @@ import com.reedelk.runtime.api.resource.DynamicResource;
 import com.reedelk.runtime.api.resource.ResourceBinary;
 import com.reedelk.runtime.api.resource.ResourceText;
 import com.reedelk.runtime.api.script.Script;
+import com.reedelk.runtime.api.script.dynamicmap.DynamicObjectMap;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicStringMap;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
 import com.reedelk.runtime.converter.json.JsonObjectConverter;
@@ -57,6 +58,7 @@ class DeserializerConverterDefault implements DeserializerConverter {
         tmp.put(DynamicBigInteger.class, new AsDynamicBigInteger());
         tmp.put(DynamicBigDecimal.class, new AsDynamicBigDecimal());
         tmp.put(DynamicStringMap.class, new AsDynamicStringMap());
+        tmp.put(DynamicObjectMap.class, new AsDynamicObjectMap());
 
         // Script type
         tmp.put(Script.class, new AsScript());
@@ -418,6 +420,21 @@ class DeserializerConverterDefault implements DeserializerConverter {
         public DynamicStringMap convert(JSONArray array, int index, DeserializerConverterContext context) {
             Map<String,Object> mapValue = JsonObjectConverter.getInstance().convert(Map.class, array, index);
             return DynamicStringMap.from(mapValue, context.moduleContext());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static class AsDynamicObjectMap implements Converter<DynamicObjectMap> {
+        @Override
+        public DynamicObjectMap convert(JSONObject object, String key, DeserializerConverterContext context) {
+            Map<String,Object> mapValue = JsonObjectConverter.getInstance().convert(Map.class, object, key);
+            return DynamicObjectMap.from(mapValue, context.moduleContext());
+        }
+
+        @Override
+        public DynamicObjectMap convert(JSONArray array, int index, DeserializerConverterContext context) {
+            Map<String,Object> mapValue = JsonObjectConverter.getInstance().convert(Map.class, array, index);
+            return DynamicObjectMap.from(mapValue, context.moduleContext());
         }
     }
 

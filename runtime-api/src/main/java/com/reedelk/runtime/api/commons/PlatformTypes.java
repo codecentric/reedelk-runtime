@@ -6,6 +6,7 @@ import com.reedelk.runtime.api.resource.DynamicResource;
 import com.reedelk.runtime.api.resource.ResourceBinary;
 import com.reedelk.runtime.api.resource.ResourceText;
 import com.reedelk.runtime.api.script.Script;
+import com.reedelk.runtime.api.script.dynamicmap.DynamicObjectMap;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicStringMap;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
 
@@ -56,6 +57,7 @@ public class PlatformTypes {
         tmp.put(DynamicBigInteger.class.getName(), DynamicBigInteger.class);
         tmp.put(DynamicBigDecimal.class.getName(), DynamicBigDecimal.class);
         tmp.put(DynamicStringMap.class.getName(), DynamicStringMap.class);
+        tmp.put(DynamicObjectMap.class.getName(), DynamicObjectMap.class);
 
         tmp.put(Script.class.getName(), Script.class);
         tmp.put(Combo.class.getName(), Combo.class);

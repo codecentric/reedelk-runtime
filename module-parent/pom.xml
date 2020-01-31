@@ -74,6 +74,7 @@
                                     org.slf4j,
                                     org.slf4j.helpers,
                                     org.slf4j.spi,
+                                    org.json.*;resolution:="optional",
                                     sun.misc.*;resolution:="optional",
                                     org.w3c.*;resolution:="optional",
                                     javax.*;resolution:="optional",

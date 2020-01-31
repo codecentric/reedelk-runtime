@@ -3,6 +3,7 @@ package com.reedelk.esb.services.scriptengine.evaluator;
 import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.flow.Disposable;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.*;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicStringMap;
@@ -181,7 +182,14 @@ class DynamicMapEvaluatorTest {
     }
 
 
-    private class TestableFlowContext extends HashMap<String, Serializable> implements FlowContext {
+    private static class TestableFlowContext extends HashMap<String, Serializable> implements FlowContext {
 
+        @Override
+        public void register(Disposable disposable) {
+        }
+
+        @Override
+        public void dispose() {
+        }
     }
 }
