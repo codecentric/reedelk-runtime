@@ -18,7 +18,7 @@ public class JavascriptEngineProvider implements ScriptEngineProvider {
     private final Compilable compilable;
 
     private JavascriptEngineProvider() {
-        this.engine = new NashornScriptEngineFactory().getScriptEngine("--optimistic-types=false");
+        this.engine = new NashornScriptEngineFactory().getScriptEngine("--optimistic-types=false", "--language=es6");
         this.invocable = (Invocable) engine;
         this.compilable = (Compilable) engine;
     }
