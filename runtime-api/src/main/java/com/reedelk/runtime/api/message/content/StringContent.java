@@ -59,7 +59,7 @@ public class StringContent implements TypedContent<String> {
         }
 
         // If not consumed, we  must acquire a lock because a concurrent call to
-        // the method above might consuming it meanwhile.
+        // the method above might consume it meanwhile.
         synchronized (this) {
             if (!consumed) {
                 if (streamReleased) {
