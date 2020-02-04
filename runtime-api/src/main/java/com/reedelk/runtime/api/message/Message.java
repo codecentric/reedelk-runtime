@@ -16,6 +16,7 @@ public class Message implements Serializable {
         this.attributes = attributes;
     }
 
+    // This method is needed by Script engine to access this object's properties.
     public TypedContent<?,?> getContent() {
         return content;
     }
@@ -33,6 +34,7 @@ public class Message implements Serializable {
                 .orElse(null);
     }
 
+    // This method is needed by Script engine to access this object's properties.
     public MessageAttributes getAttributes() {
         return attributes;
     }
