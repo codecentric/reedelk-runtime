@@ -7,7 +7,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 
-// TODO: Fix tests
 public class MessageBuilder {
 
     private MessageAttributes attributes;
@@ -82,23 +81,23 @@ public class MessageBuilder {
 
     // BINARY
 
-    public MessageBuilder withBinary(byte[] bytes, MimeType mimeType) {
-        this.typedContent = new ByteArrayContent(bytes, mimeType);
-        return this;
-    }
-
     public MessageBuilder withBinary(byte[] bytes) {
         this.typedContent = new ByteArrayContent(bytes, MimeType.APPLICATION_BINARY);
         return this;
     }
 
-    public MessageBuilder withBinary(Publisher<byte[]> bytesStream, MimeType mimeType) {
-        this.typedContent = new ByteArrayContent(bytesStream, mimeType);
+    public MessageBuilder withBinary(byte[] bytes, MimeType mimeType) {
+        this.typedContent = new ByteArrayContent(bytes, mimeType);
         return this;
     }
 
     public MessageBuilder withBinary(Publisher<byte[]> bytesStream) {
         this.typedContent = new ByteArrayContent(bytesStream, MimeType.APPLICATION_BINARY);
+        return this;
+    }
+
+    public MessageBuilder withBinary(Publisher<byte[]> bytesStream, MimeType mimeType) {
+        this.typedContent = new ByteArrayContent(bytesStream, mimeType);
         return this;
     }
 
@@ -125,13 +124,13 @@ public class MessageBuilder {
 
     // TYPED PUBLISHER
 
-    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher, MimeType mimeType) {
-        withStream(typedPublisher, typedPublisher.getType(), mimeType);
+    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher) {
+        withStream(typedPublisher, typedPublisher.getType());
         return this;
     }
 
-    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher) {
-        withStream(typedPublisher, typedPublisher.getType());
+    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher, MimeType mimeType) {
+        withStream(typedPublisher, typedPublisher.getType(), mimeType);
         return this;
     }
 

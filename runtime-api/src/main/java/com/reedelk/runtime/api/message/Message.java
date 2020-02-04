@@ -18,14 +18,14 @@ public class Message implements Serializable {
     }
 
     // This method is needed by Script engine to access this object's properties.
-    public TypedContent<?,?> getContent() {
-        return content;
+    public <ItemType,PayloadType,R extends TypedContent<ItemType,PayloadType>> R getContent() {
+        return (R) content;
     }
 
     // This is a 'nice to have' method to make getting the content more readable
     // from the Script language e.g. message.content() instead of message.getContent().
-    public <ItemType,PayloadType> TypedContent<ItemType,PayloadType> content() {
-        return (TypedContent<ItemType, PayloadType>) content;
+    public <ItemType,PayloadType,R extends TypedContent<ItemType,PayloadType>> R content() {
+        return (R) content;
     }
 
     public <PayloadType> PayloadType payload() {
