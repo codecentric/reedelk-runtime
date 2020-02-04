@@ -35,9 +35,7 @@ public class TryCatchExecutor implements FlowExecutor {
 
                 Mono<MessageAndContext> mapped = Mono.just(messageAndContext).map(context -> {
 
-                    ObjectContent content = new ObjectContent(throwable, MimeType.APPLICATION_JAVA);
-
-                    Message messageWithException = MessageBuilder.get().typedContent(content).build();
+                    Message messageWithException = MessageBuilder.get().withJavaObject(throwable).build();
 
                     context.replaceWith(messageWithException);
 

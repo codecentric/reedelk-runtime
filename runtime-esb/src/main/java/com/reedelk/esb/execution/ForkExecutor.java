@@ -50,7 +50,7 @@ public class ForkExecutor implements FlowExecutor {
             // We must consume the message stream if it has not been consumed yet,
             // otherwise we cannot copy (by using serialization) its content and hand
             // it over to the Fork branches in the Message payload.
-            TypedContent<?> content = messageContext.getMessage().content();
+            TypedContent<?,?> content = messageContext.getMessage().content();
             if (!content.isConsumed()) {
                 content.consume();
             }

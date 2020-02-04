@@ -3,7 +3,7 @@ package com.reedelk.runtime.api.message.content;
 import com.reedelk.runtime.api.message.content.utils.TypedMono;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 
-public class EmptyContent implements TypedContent<Void> {
+public class EmptyContent implements TypedContent<Void,Void> {
 
     private final Class<Void> type = Void.class;
     private final MimeType mimeType;
@@ -13,7 +13,7 @@ public class EmptyContent implements TypedContent<Void> {
     }
 
     public EmptyContent() {
-        this(MimeType.ANY);
+        this(null);
     }
 
     @Override

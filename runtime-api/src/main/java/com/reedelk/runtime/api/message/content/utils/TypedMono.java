@@ -87,11 +87,8 @@ public class TypedMono {
 
     // object
 
-    public static TypedPublisher<Object> just(Object data) {
-        return TypedPublisher.fromObject(Mono.justOrEmpty(data));
-    }
-
-    public static TypedPublisher<Object> emptyObject() {
-        return TypedPublisher.fromObject(Mono.empty());
+    public static <T> TypedPublisher<T> just(T data, Class<T> clazz) {
+        Mono<T> mono = Mono.justOrEmpty(data);
+        return TypedPublisher.fromObject(mono, clazz);
     }
 }

@@ -1,14 +1,15 @@
 package com.reedelk.runtime.api.commons;
 
 import com.reedelk.runtime.api.exception.ESBException;
-import com.reedelk.runtime.api.message.content.Parts;
+import com.reedelk.runtime.api.message.content.MimeType;
+import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,20 @@ public class StreamUtils {
 
         public static Publisher<String> asStringStream(Publisher<byte[]> byteArrayStream) {
             return asStringStream(byteArrayStream, Charset.defaultCharset());
+        }
+
+        public static TypedPublisher<?> fromMimeType(Publisher<byte[]> byteArrayStream, MimeType mimeType) {
+            if (String.class == JavaType.from(mimeType)) {
+                // If it  is a String, then we check if the charset is present
+                // in the mime type to be used for the string conversion.
+                Charset charset = mimeType.getCharset().orElse(null);
+                // Map each byte array of the stream to a string
+                Publisher<String> streamAsString = StreamUtils.FromByteArray.asStringStream(byteArrayStream, charset);
+                // The typed publisher is a string type.
+                return TypedPublisher.fromString(streamAsString);
+            } else {
+                return TypedPublisher.fromByteArray(byteArrayStream);
+            }
         }
 
         public static byte[] consume(Publisher<byte[]> stream) {
@@ -69,13 +84,14 @@ public class StreamUtils {
         }
     }
 
-    public static class FromParts {
+    public static class FromObject {
 
-        private FromParts() {
+        private FromObject() {
         }
 
-        public static Parts consume(Publisher<Parts> stream) {
-            return Mono.from(stream).block();
+        public static <T> List<T> consume(Publisher<T> stream) {
+            List<T> result = Flux.from(stream).collectList().block();
+            return result == null ? new ArrayList<>() : result;
         }
     }
 }

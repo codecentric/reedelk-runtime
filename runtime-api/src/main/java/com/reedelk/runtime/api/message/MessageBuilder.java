@@ -1,17 +1,17 @@
 package com.reedelk.runtime.api.message;
 
-import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.TypedContent;
-import com.reedelk.runtime.api.message.content.factory.TypedContentFactory;
+import com.reedelk.runtime.api.message.content.*;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import org.reactivestreams.Publisher;
+import reactor.core.publisher.Mono;
 
+import java.util.Collection;
+
+// TODO: Fix tests
 public class MessageBuilder {
 
-    private Object content;
-    private MimeType mimeType;
-    private TypedContent<?> typedContent;
     private MessageAttributes attributes;
+    private TypedContent<?,?> typedContent;
 
     private MessageBuilder() {
     }
@@ -21,90 +21,173 @@ public class MessageBuilder {
     }
 
     // XML
-    
+
     public MessageBuilder withXml(String xml) {
-        this.mimeType = MimeType.TEXT_XML;
-        this.content = xml;
+        this.typedContent = new StringContent(xml, MimeType.TEXT_XML);
         return this;
     }
 
     public MessageBuilder withXml(Publisher<String> xmlStream) {
-        this.mimeType = MimeType.TEXT_XML;
-        this.content = TypedPublisher.fromString(xmlStream);
+        this.typedContent = new StringContent(xmlStream, MimeType.TEXT_XML);
         return this;
     }
 
     // HTML
-    
+
     public MessageBuilder withHtml(String html) {
-        this.mimeType = MimeType.TEXT_HTML;
-        this.content = html;
+        this.typedContent = new StringContent(html, MimeType.TEXT_HTML);
         return this;
     }
 
     public MessageBuilder withHtml(Publisher<String> htmlStream) {
-        this.mimeType = MimeType.TEXT_HTML;
-        this.content = TypedPublisher.fromString(htmlStream);
+        this.typedContent = new StringContent(htmlStream, MimeType.TEXT_HTML);
         return this;
     }
 
     // TEXT
-    
+
     public MessageBuilder withText(String text) {
-        this.mimeType = MimeType.TEXT;
-        this.content = text;
+        this.typedContent = new StringContent(text, MimeType.TEXT);
         return this;
     }
 
     public MessageBuilder withText(Publisher<String> textStream) {
-        this.mimeType = MimeType.TEXT;
-        this.content = TypedPublisher.fromString(textStream);
+        this.typedContent = new StringContent(textStream, MimeType.TEXT);
         return this;
     }
 
     // JSON
 
     public MessageBuilder withJson(String json) {
-        this.mimeType = MimeType.APPLICATION_JSON;
-        this.content = json;
+        this.typedContent = new StringContent(json, MimeType.APPLICATION_JSON);
         return this;
     }
 
     public MessageBuilder withJson(Publisher<String> jsonStream) {
-        this.mimeType = MimeType.APPLICATION_JSON;
-        this.content = TypedPublisher.fromString(jsonStream);
+        this.typedContent = new StringContent(jsonStream, MimeType.APPLICATION_JSON);
+        return this;
+    }
+
+    // STRING
+
+    public MessageBuilder withString(String value, MimeType mimeType) {
+        this.typedContent = new StringContent(value, mimeType);
+        return this;
+    }
+
+    public MessageBuilder withString(Publisher<String> valueStream, MimeType mimeType) {
+        this.typedContent = new StringContent(valueStream, mimeType);
+        return this;
+    }
+
+    // BINARY
+
+    public MessageBuilder withBinary(byte[] bytes, MimeType mimeType) {
+        this.typedContent = new ByteArrayContent(bytes, mimeType);
         return this;
     }
 
     public MessageBuilder withBinary(byte[] bytes) {
-        this.mimeType = MimeType.APPLICATION_BINARY;
-        this.content = bytes;
+        this.typedContent = new ByteArrayContent(bytes, MimeType.APPLICATION_BINARY);
+        return this;
+    }
+
+    public MessageBuilder withBinary(Publisher<byte[]> bytesStream, MimeType mimeType) {
+        this.typedContent = new ByteArrayContent(bytesStream, mimeType);
         return this;
     }
 
     public MessageBuilder withBinary(Publisher<byte[]> bytesStream) {
-        this.mimeType = MimeType.APPLICATION_BINARY;
-        this.content = TypedPublisher.fromByteArray(bytesStream);
+        this.typedContent = new ByteArrayContent(bytesStream, MimeType.APPLICATION_BINARY);
         return this;
     }
 
+    // TYPED STREAM
+
+    @SuppressWarnings("unchecked")
+    public <ItemType> MessageBuilder withStream(Publisher<ItemType> typedStream, Class<ItemType> clazz, MimeType mimeType) {
+        if (String.class.equals(clazz)) {
+            Publisher<String> stringStream = (Publisher<String>) typedStream;
+            this.typedContent = new StringContent(stringStream, mimeType);
+        } else if (byte[].class.equals(clazz)) {
+            Publisher<byte[]> byteArrayStream = (Publisher<byte[]>) typedStream;
+            this.typedContent = new ByteArrayContent(byteArrayStream, mimeType);
+        } else {
+            this.typedContent = new ObjectCollectionContent<>(typedStream, clazz, mimeType);
+        }
+        return this;
+    }
+
+    public <ItemType> MessageBuilder withStream(Publisher<ItemType> typedStream, Class<ItemType> clazz) {
+        withStream(typedStream, clazz, MimeType.APPLICATION_JAVA);
+        return this;
+    }
+
+    // TYPED PUBLISHER
+
+    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher, MimeType mimeType) {
+        withStream(typedPublisher, typedPublisher.getType(), mimeType);
+        return this;
+    }
+
+    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher) {
+        withStream(typedPublisher, typedPublisher.getType());
+        return this;
+    }
+
+    // JAVA OBJECT
+
     public MessageBuilder withJavaObject(Object object) {
-        this.mimeType = MimeType.APPLICATION_JAVA;
-        this.content = object;
+        withJavaObject(object, MimeType.APPLICATION_JAVA);
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public MessageBuilder withJavaObject(Object object, MimeType mimeType) {
+        if (object == null) {
+            empty();
+        } else if (object instanceof Publisher) {
+            Publisher<Object> objectStream = (Publisher<Object>) object;
+            this.typedContent = new ObjectCollectionContent<>(objectStream, Object.class, mimeType);
+        } else if (object instanceof String) {
+            this.typedContent = new StringContent((String) object, mimeType);
+        } else if (object instanceof byte[]) {
+            this.typedContent = new ByteArrayContent((byte[]) object, mimeType);
+        } else {
+            this.typedContent = new ObjectContent<>(object, mimeType);
+        }
+        return this;
+    }
+
+    public <ItemType> MessageBuilder withJavaObject(Mono<ItemType> monoStream, Class<ItemType> type, MimeType mimeType) {
+        this.typedContent = new ObjectContent<>(monoStream, type, mimeType);
+        return this;
+    }
+
+    public <ItemType> MessageBuilder withJavaObject(Mono<ItemType> monoStream, Class<ItemType> type) {
+        this.typedContent = new ObjectContent<>(monoStream, type, MimeType.APPLICATION_JAVA);
+        return this;
+    }
+
+    // JAVA COLLECTION
+
+    public <ItemType> MessageBuilder withJavaCollection(Collection<ItemType> collection, Class<ItemType> collectionType) {
+        this.typedContent = new ObjectCollectionContent<>(collection, collectionType, MimeType.APPLICATION_JAVA);
+        return this;
+    }
+
+    public <ItemType> MessageBuilder withJavaCollection(Collection<ItemType> collection, Class<ItemType> collectionType, MimeType mimeType) {
+        this.typedContent = new ObjectCollectionContent<>(collection, collectionType, mimeType);
         return this;
     }
 
     public MessageBuilder empty() {
+        this.typedContent = new EmptyContent();
         return this;
     }
 
-    public MessageBuilder mimeType(MimeType mimeType) {
-        this.mimeType = mimeType;
-        return this;
-    }
-
-    public MessageBuilder typedContent(TypedContent typedContent) {
-        this.typedContent = typedContent;
+    public MessageBuilder empty(MimeType mimeType) {
+        this.typedContent = new EmptyContent(mimeType);
         return this;
     }
 
@@ -118,7 +201,7 @@ public class MessageBuilder {
             attributes = DefaultMessageAttributes.empty();
         }
         if (typedContent == null) {
-            typedContent = TypedContentFactory.from(content, mimeType);
+            throw new IllegalStateException("Typed content missing");
         }
         return new Message(typedContent, attributes);
     }

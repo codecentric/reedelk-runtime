@@ -8,21 +8,21 @@ import java.util.Optional;
 
 public class Message implements Serializable {
 
-    private final TypedContent<?> content;
+    private final TypedContent<?,?> content;
     private final MessageAttributes attributes;
 
-    Message(TypedContent<?> content, MessageAttributes attributes) {
+    Message(TypedContent<?,?> content, MessageAttributes attributes) {
         this.content = content;
         this.attributes = attributes;
     }
 
-    public TypedContent<?> getContent() {
+    public TypedContent<?,?> getContent() {
         return content;
     }
 
     // This is a 'nice to have' method to make getting the content more readable
     // from the Script language e.g. message.content() instead of message.getContent().
-    public TypedContent<?> content() {
+    public TypedContent<?,?> content() {
         return content;
     }
 

@@ -8,9 +8,7 @@ import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
-import com.reedelk.runtime.api.message.content.ByteArrayContent;
 import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.TypedContent;
 import com.reedelk.runtime.api.resource.DynamicResource;
 import com.reedelk.runtime.api.resource.ResourceFile;
 import com.reedelk.runtime.api.resource.ResourceNotFound;
@@ -47,9 +45,7 @@ public class ReadFromResources implements ProcessorSync {
 
             Publisher<byte[]> dataStream = resourceFile.data();
 
-            TypedContent<byte[]> content = new ByteArrayContent(dataStream, actualMimeType);
-
-            return MessageBuilder.get().typedContent(content).build();
+            return MessageBuilder.get().withBinary(dataStream, actualMimeType).build();
 
         } catch (ResourceNotFound resourceNotFound) {
             throw new ESBException(resourceNotFound);

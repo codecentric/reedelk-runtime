@@ -4,15 +4,15 @@ import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 
 import java.io.Serializable;
 
-public interface TypedContent<T> extends Serializable {
+public interface TypedContent<ItemType, PayloadType> extends Serializable {
 
-    Class<?> type();
+    Class<ItemType> type();
 
     MimeType mimeType();
 
-    T data();
+    PayloadType data();
 
-    TypedPublisher<T> stream(); // the original stream if it is a stream type
+    TypedPublisher<ItemType> stream(); // the original stream if it is a stream type
 
     default boolean isStream() {
         return false;

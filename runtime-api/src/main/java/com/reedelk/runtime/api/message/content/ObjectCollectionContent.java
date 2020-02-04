@@ -2,40 +2,39 @@ package com.reedelk.runtime.api.message.content;
 
 import com.reedelk.runtime.api.commons.StreamUtils;
 import com.reedelk.runtime.api.exception.ESBException;
-import com.reedelk.runtime.api.message.content.utils.TypedMono;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import org.reactivestreams.Publisher;
+import reactor.core.publisher.Flux;
 
-import static com.reedelk.runtime.api.message.content.MimeType.MULTIPART_FORM_DATA;
-import static java.lang.String.format;
+import java.util.Collection;
 
-public class MultipartContent implements TypedContent<Parts> {
+public class ObjectCollectionContent<T> implements TypedContent<T, Collection<T>> {
 
-    private final transient Publisher<Parts> payloadAsStream;
-    private final Class<Parts> type = Parts.class;
+    private final transient Publisher<T> payloadAsStream;
+    private final Class<T> type;
     private final MimeType mimeType;
-    private Parts payload;
 
+    private Collection<T> payload;
     private boolean consumed;
     private boolean streamReleased = false;
 
-    public MultipartContent(Parts payload, MimeType mimeType) {
-        checkSupportedMimeTypeOrThrow(mimeType);
+    public ObjectCollectionContent(Collection<T> payload, Class<T> clazz, MimeType mimeType) {
         this.payloadAsStream = null;
         this.mimeType = mimeType;
         this.payload = payload;
+        this.type = clazz;
         this.consumed = true;
     }
 
-    public MultipartContent(Publisher<Parts> payloadAsStream, MimeType mimeType) {
-        checkSupportedMimeTypeOrThrow(mimeType);
+    public ObjectCollectionContent(Publisher<T> payloadAsStream, Class<T> type, MimeType mimeType) {
+        this.type = type;
         this.payloadAsStream = payloadAsStream;
         this.mimeType = mimeType;
         this.consumed = false;
     }
 
     @Override
-    public Class<Parts> type() {
+    public Class<T> type() {
         return type;
     }
 
@@ -45,32 +44,34 @@ public class MultipartContent implements TypedContent<Parts> {
     }
 
     @Override
-    public Parts data() {
+    public Collection<T> data() {
         consumeIfNeeded();
         return payload;
     }
 
     @Override
-    public TypedPublisher<Parts> stream() {
+    public TypedPublisher<T> stream() {
         // If it is consumed, we just return the
         // payload as a single item stream.
         if (consumed) {
             // If it is consumed, we know that the state cannot change anymore.
-            return TypedMono.just(payload);
+            // Convert back list to stream.
+            return TypedPublisher.from(Flux.fromStream(payload.stream()), type);
         }
 
         // If not consumed, we  must acquire a lock because a concurrent call to
-        // the method above might consuming it meanwhile.
+        // the method above might consume it meanwhile.
         synchronized (this) {
             if (!consumed) {
                 if (streamReleased) {
                     throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
                 }
                 streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
-                return TypedPublisher.fromParts(payloadAsStream);
+                return TypedPublisher.fromObject(payloadAsStream, type);
             } else {
                 // Meanwhile it has been consumed.
-                return TypedMono.just(payload);
+                // Convert back list to stream.
+                return TypedPublisher.from(Flux.fromStream(payload.stream()), type);
             }
         }
     }
@@ -90,27 +91,6 @@ public class MultipartContent implements TypedContent<Parts> {
         consumeIfNeeded();
     }
 
-    @Override
-    public String toString() {
-        if (consumed) {
-            return "Multipart{" +
-                    "type=" + type.getName() +
-                    ", mimeType=" + mimeType +
-                    ", consumed=" + consumed +
-                    ", streamReleased=" + streamReleased +
-                    ", payload=" + payload +
-                    '}';
-        } else {
-            return "Multipart{" +
-                    "type=" + type.getName() +
-                    ", mimeType=" + mimeType +
-                    ", consumed=" + consumed +
-                    ", streamReleased=" + streamReleased +
-                    ", payload=" + payloadAsStream +
-                    '}';
-        }
-    }
-
     // Stream can only be consumed once.
     private void consumeIfNeeded() {
         if (!consumed) {
@@ -119,16 +99,12 @@ public class MultipartContent implements TypedContent<Parts> {
                     if (streamReleased) {
                         throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
                     }
-                    payload = StreamUtils.FromParts.consume(payloadAsStream);
+                    payload = StreamUtils.FromObject.consume(payloadAsStream);
                     consumed = true;
                 }
             }
         }
     }
 
-    private void checkSupportedMimeTypeOrThrow(MimeType mimeType) {
-        if (!MULTIPART_FORM_DATA.equals(mimeType)) {
-            throw new IllegalArgumentException(format("MultipartContent supports only 'multipart/form-data' mime type. Given mime type was '%s'", mimeType));
-        }
-    }
+    // TODO: Fix to string
 }

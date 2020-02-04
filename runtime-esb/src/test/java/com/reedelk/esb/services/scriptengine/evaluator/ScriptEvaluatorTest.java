@@ -7,7 +7,6 @@ import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
-import com.reedelk.runtime.api.message.content.ByteArrayContent;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import com.reedelk.runtime.api.script.Script;
@@ -225,8 +224,7 @@ class ScriptEvaluatorTest {
         void shouldReturnResolvedStreamWhenMessagePayloadExecuted() {
             // Given
             Flux<byte[]> stream = Flux.just("one".getBytes(), "two".getBytes());
-            ByteArrayContent byteArrayContent = new ByteArrayContent(stream, MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(byteArrayContent).build();
+            Message message = MessageBuilder.get().withBinary(stream, MimeType.TEXT).build();
 
             Script extractStreamScript = scriptFromBody(wrapAsTestFunction("return message.payload()"));
 

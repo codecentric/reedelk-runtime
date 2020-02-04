@@ -7,7 +7,6 @@ import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageAttributes;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.StringContent;
 import com.reedelk.runtime.api.message.content.TypedContent;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
@@ -34,7 +33,7 @@ class MessageCloneTest {
          // Then
          assertThat(message).isNotEqualTo(cloned);
 
-         TypedContent typedContent = cloned.getContent();
+         TypedContent<?,?> typedContent = cloned.getContent();
          assertThat(typedContent.data()).isEqualTo(expectedContent);
          assertThat(typedContent.type()).isEqualTo(String.class);
 
@@ -49,10 +48,9 @@ class MessageCloneTest {
         assertThat((String) attributes.get("ATTR2")).isEqualTo("value2");
     }
 
-    private <T> Message buildMessageWith(MimeType mimeType, String content, Map<String, Serializable> attributes) {
-        TypedContent<String> typedContent = new StringContent(content, mimeType);
+    private Message buildMessageWith(MimeType mimeType, String content, Map<String, Serializable> attributes) {
         return MessageBuilder.get()
-                .typedContent(typedContent)
+                .withString(content, mimeType)
                 .attributes(new DefaultMessageAttributes(TestComponent.class, attributes))
                 .build();
     }

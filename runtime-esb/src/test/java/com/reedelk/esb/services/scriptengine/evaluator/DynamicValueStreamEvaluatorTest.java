@@ -5,11 +5,11 @@ import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.flow.FlowContext;
-import com.reedelk.runtime.api.message.*;
-import com.reedelk.runtime.api.message.content.ByteArrayContent;
+import com.reedelk.runtime.api.message.DefaultMessageAttributes;
+import com.reedelk.runtime.api.message.Message;
+import com.reedelk.runtime.api.message.MessageAttributes;
+import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.StringContent;
-import com.reedelk.runtime.api.message.content.TypedContent;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,8 +81,8 @@ class DynamicValueStreamEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateStreamPayload() {
             // Given
-            TypedContent<String> typedContent = new StringContent(Flux.just("one", "two"), MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Flux<String> textStream = Flux.just("one", "two");
+            Message message = MessageBuilder.get().withText(textStream).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.payload()]", moduleContext);
 
@@ -102,9 +102,7 @@ class DynamicValueStreamEvaluatorTest {
         void shouldCorrectlyConcatenateStreamWithString() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-
-            TypedContent<String> typedContent = new StringContent(content, MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText(content).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.content.data() + ' test.']", moduleContext);
 
@@ -121,8 +119,7 @@ class DynamicValueStreamEvaluatorTest {
         void shouldCorrectlyConcatenateWithString() {
             // Given
             String payload = "Hello, this is just a";
-            TypedContent<String> typedContent = new StringContent(payload, MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText(payload).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.content.data() + ' test.']", moduleContext);
 
@@ -364,8 +361,7 @@ class DynamicValueStreamEvaluatorTest {
         void shouldCorrectlyEvaluateByteArrayFromPayloadByteArrayStream() {
             // Given
             Flux<byte[]> stream = Flux.just("one".getBytes(), "two".getBytes());
-            ByteArrayContent streamContent = new ByteArrayContent(stream, MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(streamContent).build();
+            Message message = MessageBuilder.get().withBinary(stream, MimeType.TEXT).build();
             DynamicByteArray dynamicByteArray = DynamicByteArray.from("#[message.payload()]", moduleContext);
 
             // When
@@ -382,8 +378,7 @@ class DynamicValueStreamEvaluatorTest {
         void shouldCorrectlyEvaluateByteArrayFromPayloadStringStream() {
             // Given
             Flux<String> stream =  Flux.just("one","two");
-            StringContent streamContent = new StringContent(stream, MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(streamContent).build();
+            Message message = MessageBuilder.get().withText(stream).build();
             DynamicByteArray dynamicByteArray = DynamicByteArray.from("#[message.payload()]", moduleContext);
 
             // When
@@ -405,9 +400,7 @@ class DynamicValueStreamEvaluatorTest {
         void shouldCorrectlyEvaluateDynamicObject() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-            TypedContent<String> typedContent = new StringContent(content, MimeType.TEXT);
-
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText(content).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
 
@@ -416,7 +409,7 @@ class DynamicValueStreamEvaluatorTest {
 
             // Then
             StepVerifier.create(publisher)
-                    .expectNext(typedContent)
+                    .expectNext(message.getContent())
                     .verifyComplete();
         }
 
@@ -598,6 +591,6 @@ class DynamicValueStreamEvaluatorTest {
         }
     }
 
-    private class MyObject {
+    private static class MyObject {
     }
 }

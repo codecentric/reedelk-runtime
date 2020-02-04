@@ -11,6 +11,7 @@ import org.reactivestreams.Subscriber;
  * correct desired type.
  * @param <T> the type of the data inside the wrapped stream.
  */
+@SuppressWarnings("PublisherImplementation")
 public class TypedPublisher<T> implements Publisher<T> {
 
     private final Class<T> clazz;
@@ -70,8 +71,8 @@ public class TypedPublisher<T> implements Publisher<T> {
 
     // object
 
-    public static TypedPublisher<Object> fromObject(Publisher<Object> delegate) {
-        return new TypedPublisher<>(delegate, Object.class);
+    public static <T> TypedPublisher<T> fromObject(Publisher<T> delegate, Class<T> clazz) {
+        return new TypedPublisher<>(delegate, clazz);
     }
 
     private TypedPublisher(Publisher<T> delegate, Class<T> clazz) {

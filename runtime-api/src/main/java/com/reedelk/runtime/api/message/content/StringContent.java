@@ -6,7 +6,7 @@ import com.reedelk.runtime.api.message.content.utils.TypedMono;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import org.reactivestreams.Publisher;
 
-public class StringContent implements TypedContent<String> {
+public class StringContent implements TypedContent<String,String> {
 
     // The payload as stream is transient because we never clone streams.
     // For instance, before executing a 'fork' node, the stream is first

@@ -6,10 +6,10 @@ import java.util.Map;
 public class Part {
 
     private final String name;
-    private final TypedContent<?> content;
+    private final TypedContent<?,?> content;
     private final Map<String,String> attributes = new HashMap<>();
 
-    private Part(String name, TypedContent<?> content, Map<String,String> attributes) {
+    private Part(String name, TypedContent<?,?> content, Map<String,String> attributes) {
         this.name = name;
         this.content = content;
         this.attributes.putAll(attributes);
@@ -23,7 +23,7 @@ public class Part {
         return name;
     }
 
-    public TypedContent<?> getContent() {
+    public TypedContent<?,?> getContent() {
         return content;
     }
 
@@ -42,7 +42,7 @@ public class Part {
 
     public static class Builder {
         private String name;
-        private TypedContent<?> content;
+        private TypedContent<?,?> content;
         private Map<String,String> attributes = new HashMap<>();
 
         public Builder name(String name) {
@@ -50,7 +50,7 @@ public class Part {
             return this;
         }
 
-        public Builder content(TypedContent<?> content) {
+        public Builder content(TypedContent<?,?> content) {
             this.content = content;
             return this;
         }

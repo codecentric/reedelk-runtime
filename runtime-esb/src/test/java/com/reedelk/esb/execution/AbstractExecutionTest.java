@@ -57,7 +57,7 @@ abstract class AbstractExecutionTest {
     Consumer<MessageAndContext> assertMessageIsEmptyContent() {
         return event -> {
             Message message = event.getMessage();
-            TypedContent<?> content = message.getContent();
+            TypedContent<?,?> content = message.getContent();
             assertThat(content).isInstanceOf(EmptyContent.class);
             assertThat(content.data()).isNull();
         };

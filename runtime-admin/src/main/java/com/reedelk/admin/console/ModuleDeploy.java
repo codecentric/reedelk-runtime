@@ -77,6 +77,6 @@ public class ModuleDeploy implements ProcessorSync {
 
         moduleService.installOrUpdate(pathAsUri);
 
-        return MessageBuilder.get().build();
+        return MessageBuilder.get().empty().build();
     }
 }

@@ -5,11 +5,13 @@ import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.flow.FlowContext;
-import com.reedelk.runtime.api.message.*;
+import com.reedelk.runtime.api.message.DefaultMessageAttributes;
+import com.reedelk.runtime.api.message.Message;
+import com.reedelk.runtime.api.message.MessageAttributes;
+import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.ObjectContent;
 import com.reedelk.runtime.api.message.content.StringContent;
-import com.reedelk.runtime.api.message.content.TypedContent;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
 import com.reedelk.runtime.commons.ObjectToBytes;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,8 +80,8 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateStreamPayload() {
             // Given
-            TypedContent<String> typedContent = new StringContent(Flux.just("one", "two"), MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Flux<String> textStream = Flux.just("one", "two");
+            Message message = MessageBuilder.get().withText(textStream).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.payload()]", moduleContext);
 
@@ -94,9 +96,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConcatenateStreamWithString() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-
-            TypedContent<String> typedContent = new StringContent(content, MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText(content).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.content.data() + ' test.']", moduleContext);
 
@@ -111,8 +111,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConcatenateWithString() {
             // Given
             String payload = "Hello, this is just a";
-            TypedContent<String> typedContent = new StringContent(payload, MimeType.TEXT);
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText(payload).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.content.data() + ' test.']", moduleContext);
 
@@ -346,9 +345,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyEvaluateDynamicObject() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-            TypedContent<String> typedContent = new StringContent(content, MimeType.TEXT);
-
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText(content).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
 
@@ -356,7 +353,7 @@ class DynamicValueEvaluatorTest {
             Optional<Object> result = evaluator.evaluate(dynamicObject, context, message);
 
             // Then
-            assertThat(result).isPresent().containsSame(typedContent);
+            assertThat(result).isPresent().containsSame(message.content());
         }
 
         @Test
@@ -395,9 +392,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConvertObjectToTextMimeType() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-            TypedContent<String> typedContent = new StringContent(content, MimeType.TEXT);
-
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText(content).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
 
@@ -405,15 +400,13 @@ class DynamicValueEvaluatorTest {
             Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.TEXT, context, message);
 
             // Then
-            assertThat(result).isPresent().contains(typedContent.toString());
+            assertThat(result).isPresent().contains(message.content().toString());
         }
 
         @Test
         void shouldCorrectlyConvertObjectToBinaryMimeType() {
             // Given
-            TypedContent<String> typedContent = new StringContent("my test", MimeType.TEXT);
-
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withText("my test").build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content.type()]", moduleContext);
 
@@ -421,15 +414,13 @@ class DynamicValueEvaluatorTest {
             Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.APPLICATION_BINARY, context, message);
 
             // Then
-            assertThat(result).isPresent().contains(ObjectToBytes.from(typedContent.type()));
+            assertThat(result).isPresent().contains(ObjectToBytes.from(message.content().type()));
         }
 
         @Test
         void shouldThrowExceptionWhenObjectToBinaryMimeTypeButContentNotSerializable() {
             // Given
-            TypedContent<Object> typedContent = new ObjectContent(new NotSerializableContent(), MimeType.TEXT);
-
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withJavaObject(new NotSerializableContent(), MimeType.TEXT).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
 
@@ -490,9 +481,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConvertMessagePayload() {
             // Given
             MyTestObject testObject = new MyTestObject(2345, 4.223f, "my object");
-            TypedContent<?> typedContent = new ObjectContent(testObject, MimeType.ANY);
-
-            Message message = MessageBuilder.get().typedContent(typedContent).build();
+            Message message = MessageBuilder.get().withJavaObject(testObject, MimeType.ANY).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.payload()]", moduleContext);
 
@@ -636,10 +625,10 @@ class DynamicValueEvaluatorTest {
         }
     }
 
-    class NotSerializableContent {
+    static class NotSerializableContent {
         int value;
     }
 
-    private class MyObject {
+    private static class MyObject {
     }
 }

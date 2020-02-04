@@ -1,22 +1,42 @@
 package com.reedelk.runtime.api.message.content;
 
+import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.message.content.utils.TypedMono;
 import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import reactor.core.publisher.Mono;
 
-public class ObjectContent implements TypedContent<Object> {
+import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 
+public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType> {
+
+    private final transient Mono<ItemType> payloadAsStream;
     private final MimeType mimeType;
-    private final Class<?> type;
-    private Object payload;
+    private final Class<ItemType> type;
+    private ItemType payload;
 
-    public ObjectContent(Object payload, MimeType mimeType) {
+    private boolean consumed;
+    private boolean streamReleased = false;
+
+    @SuppressWarnings("unchecked")
+    public ObjectContent(ItemType payload, MimeType mimeType) {
+        checkNotNull(payload,
+                "Cannot create object content with null payload; use empty content instead");
         this.payload = payload;
         this.mimeType = mimeType;
-        this.type = payload.getClass();
+        this.type = (Class<ItemType>) payload.getClass();
+        this.payloadAsStream = null;
+        this.consumed = true;
+    }
+
+    public ObjectContent(Mono<ItemType> monoStream, Class<ItemType> type, MimeType mimeType) {
+        this.type = type;
+        this.mimeType = mimeType;
+        this.payloadAsStream = monoStream;
+        this.consumed = false;
     }
 
     @Override
-    public Class<?> type() {
+    public Class<ItemType> type() {
         return type;
     }
 
@@ -26,13 +46,65 @@ public class ObjectContent implements TypedContent<Object> {
     }
 
     @Override
-    public Object data() {
+    public ItemType data() {
+        consumeIfNeeded();
         return payload;
     }
 
+    // Single element stream.
     @Override
-    public TypedPublisher<Object> stream() {
-        return TypedMono.just(payload);
+    public TypedPublisher<ItemType> stream() {
+        // If it is consumed, we just return the
+        // payload as a single item stream.
+        if (consumed) {
+            // If it is consumed, we know that the state cannot change anymore.
+            return TypedMono.just(payload, type);
+        }
+
+        // If not consumed, we  must acquire a lock because a concurrent call to
+        // the method above might consuming it meanwhile.
+        synchronized (this) {
+            if (!consumed) {
+                if (streamReleased) {
+                    throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
+                }
+                streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
+                return TypedPublisher.fromObject(payloadAsStream, type);
+            } else {
+                // Meanwhile it has been consumed.
+                return TypedMono.just(payload, type);
+            }
+        }
+    }
+
+    @Override
+    public boolean isStream() {
+        return !consumed;
+    }
+
+    @Override
+    public boolean isConsumed() {
+        return consumed;
+    }
+
+    @Override
+    public void consume() {
+        consumeIfNeeded();
+    }
+
+    // Stream can only be consumed once.
+    private void consumeIfNeeded() {
+        if (!consumed) {
+            synchronized (this) {
+                if (!consumed) {
+                    if (streamReleased) {
+                        throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
+                    }
+                    payload = payloadAsStream.block();
+                    consumed = true;
+                }
+            }
+        }
     }
 
     @Override
@@ -43,4 +115,24 @@ public class ObjectContent implements TypedContent<Object> {
                 ", payload=" + payload +
                 '}';
     }
+    // TODO: Fix tos tring.
+    /**
+     *         if (consumed) {
+     *             return "Multipart{" +
+     *                     "type=" + type.getName() +
+     *                     ", mimeType=" + mimeType +
+     *                     ", consumed=" + consumed +
+     *                     ", streamReleased=" + streamReleased +
+     *                     ", payload=" + payload +
+     *                     '}';
+     *         } else {
+     *             return "Multipart{" +
+     *                     "type=" + type.getName() +
+     *                     ", mimeType=" + mimeType +
+     *                     ", consumed=" + consumed +
+     *                     ", streamReleased=" + streamReleased +
+     *                     ", payload=" + payloadAsStream +
+     *                     '}';
+     *         }
+     */
 }

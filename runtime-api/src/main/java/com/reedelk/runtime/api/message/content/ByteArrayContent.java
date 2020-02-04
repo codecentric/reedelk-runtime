@@ -8,7 +8,7 @@ import org.reactivestreams.Publisher;
 
 import java.util.Arrays;
 
-public class ByteArrayContent implements TypedContent<byte[]> {
+public class ByteArrayContent implements TypedContent<byte[],byte[]> {
 
     private final transient Publisher<byte[]> payloadAsStream;
     private final Class<byte[]> type = byte[].class;
