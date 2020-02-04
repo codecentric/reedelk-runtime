@@ -117,7 +117,8 @@ public class Flow implements InboundEventListener {
 
     @Override
     public void onEvent(Message message, OnResult onResult) {
-        executionEngine.onEvent(message, new OnResultFlowExceptionWrapper(onResult));
+        OnResultFlowExceptionWrapper exceptionWrapper = new OnResultFlowExceptionWrapper(onResult);
+        executionEngine.onEvent(message, exceptionWrapper);
     }
 
     // If inbound is not present it means that the flow

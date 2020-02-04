@@ -7,6 +7,8 @@ import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.Inbound;
 import com.reedelk.runtime.api.component.OnResult;
+import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.FlowExecutionException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -294,6 +296,86 @@ class FlowTest {
             @Override
             public void onError(FlowContext flowContext, Throwable throwable) {
                 fail("Unexpected");
+            }
+        });
+    }
+
+    @Test
+    void shouldOnEventWrapErrorResultWithExceptionWrapper() {
+        // Given
+        final String correlationId = UUID.randomUUID().toString();
+        final ESBException thrownException = new ESBException("Error could not find file x.y.z");
+        final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+        final FlowContext mockFlowContext = mock(FlowContext.class);
+
+        doReturn(correlationId).when(mockFlowContext).get("correlationId");
+        doReturn(true).when(mockFlowContext).containsKey("correlationId");
+
+
+        Message inMessage = MessageBuilder.get().withText("test").build();
+
+        Mockito.doAnswer(invocation -> {
+            OnResult callback = invocation.getArgument(1);
+            callback.onError(mockFlowContext, thrownException);
+            return null;
+        }).when(executionEngine).onEvent(Mockito.eq(inMessage), Mockito.any(OnResult.class));
+
+        // Expect
+        flow.onEvent(inMessage, new OnResult() {
+            @Override
+            public void onResult(FlowContext flowContext, Message message) {
+                fail("Expected on error callback to be called instead.");
+            }
+
+            @Override
+            public void onError(FlowContext flowContext, Throwable throwable) {
+                assertThat(throwable).isInstanceOf(FlowExecutionException.class);
+                FlowExecutionException flowExecutionException = (FlowExecutionException) throwable;
+                assertThat(flowExecutionException.getModuleId()).isEqualTo(moduleId);
+                assertThat(flowExecutionException.getModuleName()).isEqualTo(moduleName);
+                assertThat(flowExecutionException.getFlowId()).isEqualTo(flowId);
+                assertThat(flowExecutionException.getFlowTitle()).isEqualTo(flowTitle);
+                assertThat(flowExecutionException.getCorrelationId()).isEqualTo(correlationId);
+                assertThat(flowExecutionException.getCause()).isEqualTo(thrownException);
+                assertThat(flowExecutionException.getMessage()).isEqualTo("{\n" +
+                        "  \"flowTitle\": \"Test flow\",\n" +
+                        "  \"errorType\": \"com.reedelk.runtime.api.exception.ESBException\",\n" +
+                        "  \"moduleName\": \"Test module\",\n" +
+                        "  \"errorMessage\": \"Error could not find file x.y.z\",\n" +
+                        "  \"correlationId\": \"" + correlationId + "\",\n" +
+                        "  \"moduleId\": 10,\n" +
+                        "  \"flowId\": \"" + flowId + "\"\n" +
+                        "}");
+            }
+        });
+    }
+
+    @Test
+    void shouldOnEventDelegateResultOnSuccess() {
+        // Given
+        final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+        final FlowContext mockFlowContext = mock(FlowContext.class);
+
+        Message inMessage = MessageBuilder.get().withText("test").build();
+        Message outMessage = MessageBuilder.get().withText("out").build();
+
+        Mockito.doAnswer(invocation -> {
+            OnResult callback = invocation.getArgument(1);
+            callback.onResult(mockFlowContext, outMessage);
+            return null;
+        }).when(executionEngine).onEvent(Mockito.eq(inMessage), Mockito.any(OnResult.class));
+
+        // Expect
+        flow.onEvent(inMessage, new OnResult() {
+            @Override
+            public void onResult(FlowContext flowContext, Message message) {
+                String payload = message.payload();
+                assertThat(payload).isEqualTo("out");
+            }
+
+            @Override
+            public void onError(FlowContext flowContext, Throwable throwable) {
+                fail("Expected on result callback to be called instead.");
             }
         });
     }
