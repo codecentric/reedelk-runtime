@@ -62,10 +62,10 @@ abstract class AbstractDynamicValueEvaluator extends ScriptEngineServiceAdapter 
      * to the script engine.
      */
     <T> TypedPublisher<T> evaluateMessagePayload(Class<T> targetType, Message message) {
-        if (message.getContent().isStream()) {
+        if (message.content().isStream()) {
             // We don't resolve the stream, but we still might need to
             // map its content from source type to a target type.
-            TypedPublisher<?> stream = message.getContent().stream();
+            TypedPublisher<?> stream = message.content().stream();
             return convert(stream, targetType, STREAM_PROVIDER);
         } else {
             Publisher<T> converted = convert(message.payload(), targetType, STREAM_PROVIDER);

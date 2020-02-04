@@ -224,7 +224,7 @@ class ForkExecutorTest extends AbstractExecutionTest {
         @Override
         public Message apply(FlowContext flowContext, List<Message> messages) {
             String joined = messages.stream()
-                    .map(message -> (String) message.getContent().data())
+                    .map(message -> (String) message.content().data())
                     .collect(joining(","));
             return MessageBuilder.get().withText(joined).build();
         }

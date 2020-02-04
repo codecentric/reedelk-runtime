@@ -14,8 +14,8 @@ public class CorrelationID {
     }
 
     public static String getOrCreate(Message message) {
-        return message.getAttributes().contains(CORRELATION_ID) ?
-                message.getAttributes().get(CORRELATION_ID) :
+        return message.attributes().contains(CORRELATION_ID) ?
+                message.attributes().get(CORRELATION_ID) :
                 UUID.randomUUID().toString();
     }
 

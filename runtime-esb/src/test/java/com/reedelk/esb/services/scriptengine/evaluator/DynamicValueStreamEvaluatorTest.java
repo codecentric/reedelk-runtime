@@ -409,7 +409,7 @@ class DynamicValueStreamEvaluatorTest {
 
             // Then
             StepVerifier.create(publisher)
-                    .expectNext(message.getContent())
+                    .expectNext(message.content())
                     .verifyComplete();
         }
 

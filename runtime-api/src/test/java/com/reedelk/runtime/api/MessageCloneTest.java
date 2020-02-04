@@ -33,7 +33,7 @@ class MessageCloneTest {
          // Then
          assertThat(message).isNotEqualTo(cloned);
 
-         TypedContent<?,?> typedContent = cloned.getContent();
+         TypedContent<?,?> typedContent = cloned.content();
          assertThat(typedContent.data()).isEqualTo(expectedContent);
          assertThat(typedContent.type()).isEqualTo(String.class);
 
@@ -41,9 +41,9 @@ class MessageCloneTest {
 
          assertThat(actualMimeType.getSubType()).isEqualTo(expectedMimeType.getSubType());
          assertThat(actualMimeType.getPrimaryType()).isEqualTo(expectedMimeType.getPrimaryType());
-         assertThat(actualMimeType.getCharset().get()).isEqualTo(expectedMimeType.getCharset().get());
+         assertThat(actualMimeType.getCharset()).hasValue(expectedMimeType.getCharset().get());
 
-        MessageAttributes attributes = cloned.getAttributes();
+        MessageAttributes attributes = cloned.attributes();
         assertThat((String) attributes.get("aTTr1")).isEqualTo("value1");
         assertThat((String) attributes.get("ATTR2")).isEqualTo("value2");
     }

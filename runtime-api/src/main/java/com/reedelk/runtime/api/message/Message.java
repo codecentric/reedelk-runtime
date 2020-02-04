@@ -6,10 +6,11 @@ import com.reedelk.runtime.api.message.content.TypedContent;
 import java.io.Serializable;
 import java.util.Optional;
 
+@SuppressWarnings("unchecked")
 public class Message implements Serializable {
 
-    private final TypedContent<?,?> content;
     private final MessageAttributes attributes;
+    private final TypedContent<?,?> content;
 
     Message(TypedContent<?,?> content, MessageAttributes attributes) {
         this.content = content;
@@ -23,13 +24,12 @@ public class Message implements Serializable {
 
     // This is a 'nice to have' method to make getting the content more readable
     // from the Script language e.g. message.content() instead of message.getContent().
-    public TypedContent<?,?> content() {
-        return content;
+    public <ItemType,PayloadType> TypedContent<ItemType,PayloadType> content() {
+        return (TypedContent<ItemType, PayloadType>) content;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> T payload() {
-        return (T) Optional.ofNullable(content)
+    public <PayloadType> PayloadType payload() {
+        return (PayloadType) Optional.ofNullable(content)
                 .map(TypedContent::data)
                 .orElse(null);
     }

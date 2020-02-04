@@ -215,10 +215,10 @@ class TryCatchExecutorTest extends AbstractExecutionTest {
         Assertions.assertThat(numberOfExecutions.get()).isEqualTo(1);
     }
 
-    class CatchSyncProcessor implements ProcessorSync {
+    static class CatchSyncProcessor implements ProcessorSync {
         @Override
         public Message apply(FlowContext flowContext, Message message) {
-            Exception thrown = (Exception) message.getContent().data();
+            Exception thrown = (Exception) message.content().data();
             String outputString = thrown.getMessage();
             return MessageBuilder.get().withText(outputString).build();
         }
