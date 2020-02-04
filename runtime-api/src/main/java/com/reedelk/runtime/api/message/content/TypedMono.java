@@ -90,4 +90,8 @@ public class TypedMono {
         Mono<T> mono = Mono.justOrEmpty(data);
         return TypedPublisher.fromObject(mono, clazz);
     }
+
+    public static <T> TypedPublisher<T> from(Mono<T> mono, Class<T> clazz) {
+        return TypedPublisher.fromObject(mono, clazz);
+    }
 }

@@ -7,17 +7,17 @@ import reactor.core.publisher.Flux;
 
 import java.util.Collection;
 
-public class ObjectCollectionContent<T> implements TypedContent<T, Collection<T>> {
+public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType, Collection<ItemType>> {
 
-    private final transient Publisher<T> payloadAsStream;
-    private final Class<T> type;
+    private final transient Publisher<ItemType> payloadAsStream;
+    private final Class<ItemType> type;
     private final MimeType mimeType;
 
-    private Collection<T> payload;
+    private Collection<ItemType> payload;
     private boolean consumed;
     private boolean streamReleased = false;
 
-    public ObjectCollectionContent(Collection<T> payload, Class<T> clazz, MimeType mimeType) {
+    public ObjectCollectionContent(Collection<ItemType> payload, Class<ItemType> clazz, MimeType mimeType) {
         this.payloadAsStream = null;
         this.mimeType = mimeType;
         this.payload = payload;
@@ -25,15 +25,15 @@ public class ObjectCollectionContent<T> implements TypedContent<T, Collection<T>
         this.consumed = true;
     }
 
-    public ObjectCollectionContent(Publisher<T> payloadAsStream, Class<T> type, MimeType mimeType) {
+    public ObjectCollectionContent(Publisher<ItemType> payloadAsStream, Class<ItemType> type, MimeType mimeType) {
         this.type = type;
-        this.payloadAsStream = payloadAsStream;
         this.mimeType = mimeType;
+        this.payloadAsStream = payloadAsStream;
         this.consumed = false;
     }
 
     @Override
-    public Class<T> type() {
+    public Class<ItemType> type() {
         return type;
     }
 
@@ -43,13 +43,13 @@ public class ObjectCollectionContent<T> implements TypedContent<T, Collection<T>
     }
 
     @Override
-    public Collection<T> data() {
+    public Collection<ItemType> data() {
         consumeIfNeeded();
         return payload;
     }
 
     @Override
-    public TypedPublisher<T> stream() {
+    public TypedPublisher<ItemType> stream() {
         // If it is consumed, we just return the
         // payload as a single item stream.
         if (consumed) {
@@ -105,5 +105,24 @@ public class ObjectCollectionContent<T> implements TypedContent<T, Collection<T>
         }
     }
 
-    // TODO: Fix to string
+    @Override
+    public String toString() {
+        if (consumed) {
+            return "ObjectCollectionContent{" +
+                    "type=" + type.getName() +
+                    ", mimeType=" + mimeType +
+                    ", consumed=" + consumed +
+                    ", streamReleased=" + streamReleased +
+                    ", payload=" + payload +
+                    '}';
+        } else {
+            return "ObjectCollectionContent{" +
+                    "type=" + type.getName() +
+                    ", mimeType=" + mimeType +
+                    ", consumed=" + consumed +
+                    ", streamReleased=" + streamReleased +
+                    ", payload=" + payloadAsStream +
+                    '}';
+        }
+    }
 }

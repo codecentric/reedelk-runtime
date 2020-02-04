@@ -7,11 +7,14 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 
 public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType> {
 
+    // The payload as stream is transient because we never clone streams.
+    // For components using this content (e.g Fork) the content it is first
+    // resolved before being cloned.
     private final transient Mono<ItemType> payloadAsStream;
-    private final MimeType mimeType;
     private final Class<ItemType> type;
-    private ItemType payload;
+    private final MimeType mimeType;
 
+    private ItemType payload;
     private boolean consumed;
     private boolean streamReleased = false;
 
@@ -67,7 +70,7 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
                     throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
                 }
                 streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
-                return TypedPublisher.fromObject(payloadAsStream, type);
+                return TypedMono.from(payloadAsStream, type);
             } else {
                 // Meanwhile it has been consumed.
                 return TypedMono.just(payload, type);
@@ -107,30 +110,22 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
 
     @Override
     public String toString() {
-        return "ObjectContent{" +
-                "type=" + type.getName() +
-                ", mimeType=" + mimeType +
-                ", payload=" + payload +
-                '}';
+        if (consumed) {
+            return "ObjectContent{" +
+                    "type=" + type.getName() +
+                    ", mimeType=" + mimeType +
+                    ", consumed=" + consumed +
+                    ", streamReleased=" + streamReleased +
+                    ", payload=" + payload +
+                    '}';
+        } else {
+            return "ObjectContent{" +
+                    "type=" + type.getName() +
+                    ", mimeType=" + mimeType +
+                    ", consumed=" + consumed +
+                    ", streamReleased=" + streamReleased +
+                    ", payload=" + payloadAsStream +
+                    '}';
+        }
     }
-    // TODO: Fix tos tring.
-    /**
-     *         if (consumed) {
-     *             return "Multipart{" +
-     *                     "type=" + type.getName() +
-     *                     ", mimeType=" + mimeType +
-     *                     ", consumed=" + consumed +
-     *                     ", streamReleased=" + streamReleased +
-     *                     ", payload=" + payload +
-     *                     '}';
-     *         } else {
-     *             return "Multipart{" +
-     *                     "type=" + type.getName() +
-     *                     ", mimeType=" + mimeType +
-     *                     ", consumed=" + consumed +
-     *                     ", streamReleased=" + streamReleased +
-     *                     ", payload=" + payloadAsStream +
-     *                     '}';
-     *         }
-     */
 }
