@@ -2,7 +2,7 @@ package com.reedelk.runtime.api.commons;
 
 import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 

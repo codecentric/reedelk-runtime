@@ -1,7 +1,5 @@
 package com.reedelk.runtime.api.message.content;
 
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
-
 import java.io.Serializable;
 
 public interface TypedContent<ItemType, PayloadType> extends Serializable {
@@ -18,7 +16,6 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
         return false;
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     default boolean isConsumed() {
         return false;
     }

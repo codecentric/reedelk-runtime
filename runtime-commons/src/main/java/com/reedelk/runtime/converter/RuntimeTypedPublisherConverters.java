@@ -1,6 +1,6 @@
 package com.reedelk.runtime.converter;
 
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.converter.types.ValueConverter;
 import reactor.core.publisher.Flux;
 

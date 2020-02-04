@@ -1,8 +1,5 @@
 package com.reedelk.runtime.api.message.content;
 
-import com.reedelk.runtime.api.message.content.utils.TypedMono;
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
-
 public class EmptyContent implements TypedContent<Void,Void> {
 
     private final Class<Void> type = Void.class;

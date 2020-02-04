@@ -3,7 +3,7 @@ package com.reedelk.esb.services.scriptengine.evaluator;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.api.script.Script;
 import com.reedelk.runtime.api.script.ScriptEngineService;
 import com.reedelk.runtime.api.script.ScriptSource;
@@ -72,5 +72,4 @@ public class ScriptEngineServiceAdapter implements ScriptEngineService {
     public void register(ScriptSource scriptSource) {
         throw new UnsupportedOperationException();
     }
-
 }

@@ -5,7 +5,7 @@ import com.reedelk.esb.services.scriptengine.evaluator.function.DynamicValueWith
 import com.reedelk.runtime.api.commons.ScriptUtils;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;

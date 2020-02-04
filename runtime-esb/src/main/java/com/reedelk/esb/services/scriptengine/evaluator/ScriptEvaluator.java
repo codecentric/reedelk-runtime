@@ -2,7 +2,7 @@ package com.reedelk.esb.services.scriptengine.evaluator;
 
 import com.reedelk.esb.services.scriptengine.evaluator.function.FunctionDefinitionBuilder;
 import com.reedelk.esb.services.scriptengine.evaluator.function.ScriptDefinitionBuilder;
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.api.script.Script;
 import org.reactivestreams.Publisher;
 

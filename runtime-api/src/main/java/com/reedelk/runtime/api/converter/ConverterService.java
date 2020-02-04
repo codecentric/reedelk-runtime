@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.converter;
 
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 
 public interface ConverterService {
 

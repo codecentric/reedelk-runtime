@@ -1,7 +1,7 @@
 package com.reedelk.esb.services.converter;
 
 import com.reedelk.runtime.api.converter.ConverterService;
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.converter.RuntimeConverters;
 import com.reedelk.runtime.converter.RuntimeTypedPublisherConverters;
 

@@ -1,6 +1,5 @@
-package com.reedelk.runtime.api.message.content.utils;
+package com.reedelk.runtime.api.message.content;
 
-import com.reedelk.runtime.api.message.content.Parts;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 

@@ -1,8 +1,6 @@
 package com.reedelk.runtime.api.message.content;
 
 import com.reedelk.runtime.api.exception.ESBException;
-import com.reedelk.runtime.api.message.content.utils.TypedMono;
-import com.reedelk.runtime.api.message.content.utils.TypedPublisher;
 import reactor.core.publisher.Mono;
 
 import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
