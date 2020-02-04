@@ -217,7 +217,8 @@ public class Messages {
 
     public enum Execution implements FormattedMessage {
 
-        ERROR_FIRST_SUCCESSOR_LEADING_TO_END("Could not find first successor of component=[%s], leading to component=[%s]");
+        ERROR_FIRST_SUCCESSOR_LEADING_TO_END("Could not find first successor of component=[%s], leading to component=[%s]"),
+        ERROR_DISPOSING_OBJECT("Could not dispose correctly=[%s], error: %s");
 
         private String msg;
 
