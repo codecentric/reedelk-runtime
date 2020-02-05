@@ -150,7 +150,8 @@ public class Flow implements InboundEventListener {
 
         @Override
         public void onResult(FlowContext flowContext, Message message) {
-            DisposableContextAwareMessage disposableContextAwareMessage = new DisposableContextAwareMessage(flowContext, message);
+            DisposableContextAwareMessage disposableContextAwareMessage =
+                    new DisposableContextAwareMessage(flowContext, message);
             delegate.onResult(flowContext, disposableContextAwareMessage);
 
             // If the inbound processor did not consume the Message content, then it
