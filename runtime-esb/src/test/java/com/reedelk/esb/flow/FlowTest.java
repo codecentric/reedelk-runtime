@@ -12,26 +12,26 @@ import com.reedelk.runtime.api.exception.FlowExecutionException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
+import com.reedelk.runtime.api.message.content.TypedContent;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.component.Stop;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -209,7 +209,7 @@ class FlowTest {
         Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
         doReturn(mockExecutionNode).when(mockExecutionGraph).getRoot();
         doReturn(mockInbound).when(mockExecutionNode).getComponent();
-        InOrder inOrderMockInbound = Mockito.inOrder(mockInbound);
+        InOrder inOrderMockInbound = inOrder(mockInbound);
         flow.start();
 
         // When
@@ -267,120 +267,6 @@ class FlowTest {
     }
 
     @Test
-    void shouldOnEventDelegateExecutionToExecutor() {
-        // Given
-        Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
-        doReturn(mockExecutionNode).when(mockExecutionGraph).getRoot();
-        doReturn(mockInbound).when(mockExecutionNode).getComponent();
-
-        ExecutionNode stopEN = mock(ExecutionNode.class);
-        doReturn(new Stop()).when(stopEN).getComponent();
-
-        Set<ExecutionNode> executionNodes = new HashSet<>();
-        executionNodes.add(stopEN);
-        doReturn(executionNodes).when(mockExecutionGraph).successors(mockExecutionNode);
-        Message inMessage = MessageBuilder.get().withText("test").build();
-
-
-        // When
-        flow.onEvent(inMessage, new OnResult() {
-            @Override
-            public void onResult(FlowContext flowContext, Message actualMessage) {
-                // Then
-                assertThat(actualMessage).isEqualTo(inMessage);
-                verify(mockExecutionGraph).getRoot();
-                verify(mockExecutionGraph).successors(mockExecutionNode);
-                verify(executionEngine).onEvent(inMessage, this);
-            }
-
-            @Override
-            public void onError(FlowContext flowContext, Throwable throwable) {
-                fail("Unexpected");
-            }
-        });
-    }
-
-    @Test
-    void shouldOnEventWrapErrorResultWithExceptionWrapper() {
-        // Given
-        final String correlationId = UUID.randomUUID().toString();
-        final ESBException thrownException = new ESBException("Error could not find file x.y.z");
-        final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
-        final FlowContext mockFlowContext = mock(FlowContext.class);
-
-        doReturn(correlationId).when(mockFlowContext).get("correlationId");
-        doReturn(true).when(mockFlowContext).containsKey("correlationId");
-
-
-        Message inMessage = MessageBuilder.get().withText("test").build();
-
-        Mockito.doAnswer(invocation -> {
-            OnResult callback = invocation.getArgument(1);
-            callback.onError(mockFlowContext, thrownException);
-            return null;
-        }).when(executionEngine).onEvent(Mockito.eq(inMessage), Mockito.any(OnResult.class));
-
-        // Expect
-        flow.onEvent(inMessage, new OnResult() {
-            @Override
-            public void onResult(FlowContext flowContext, Message message) {
-                fail("Expected on error callback to be called instead.");
-            }
-
-            @Override
-            public void onError(FlowContext flowContext, Throwable throwable) {
-                assertThat(throwable).isInstanceOf(FlowExecutionException.class);
-                FlowExecutionException flowExecutionException = (FlowExecutionException) throwable;
-                assertThat(flowExecutionException.getModuleId()).isEqualTo(moduleId);
-                assertThat(flowExecutionException.getModuleName()).isEqualTo(moduleName);
-                assertThat(flowExecutionException.getFlowId()).isEqualTo(flowId);
-                assertThat(flowExecutionException.getFlowTitle()).isEqualTo(flowTitle);
-                assertThat(flowExecutionException.getCorrelationId()).isEqualTo(correlationId);
-                assertThat(flowExecutionException.getCause()).isEqualTo(thrownException);
-                assertThat(flowExecutionException.getMessage()).isEqualTo("{\n" +
-                        "  \"flowTitle\": \"Test flow\",\n" +
-                        "  \"errorType\": \"com.reedelk.runtime.api.exception.ESBException\",\n" +
-                        "  \"moduleName\": \"Test module\",\n" +
-                        "  \"errorMessage\": \"Error could not find file x.y.z\",\n" +
-                        "  \"correlationId\": \"" + correlationId + "\",\n" +
-                        "  \"moduleId\": 10,\n" +
-                        "  \"flowId\": \"" + flowId + "\"\n" +
-                        "}");
-            }
-        });
-    }
-
-    @Test
-    void shouldOnEventDelegateResultOnSuccess() {
-        // Given
-        final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
-        final FlowContext mockFlowContext = mock(FlowContext.class);
-
-        Message inMessage = MessageBuilder.get().withText("test").build();
-        Message outMessage = MessageBuilder.get().withText("out").build();
-
-        Mockito.doAnswer(invocation -> {
-            OnResult callback = invocation.getArgument(1);
-            callback.onResult(mockFlowContext, outMessage);
-            return null;
-        }).when(executionEngine).onEvent(Mockito.eq(inMessage), Mockito.any(OnResult.class));
-
-        // Expect
-        flow.onEvent(inMessage, new OnResult() {
-            @Override
-            public void onResult(FlowContext flowContext, Message message) {
-                String payload = message.payload();
-                assertThat(payload).isEqualTo("out");
-            }
-
-            @Override
-            public void onError(FlowContext flowContext, Throwable throwable) {
-                fail("Expected on result callback to be called instead.");
-            }
-        });
-    }
-
-    @Test
     void shouldFlowBeStartedEvenWhenEmpty() {
         // Given
         Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
@@ -417,5 +303,351 @@ class FlowTest {
 
         // Then
         assertThat(flow.isStarted()).isFalse();
+    }
+
+    @Nested
+    @DisplayName("OnEvent flow tests")
+    class OnEventTests {
+
+        @Test
+        void shouldOnEventDelegateExecutionToExecutor() {
+            // Given
+            Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            doReturn(mockExecutionNode).when(mockExecutionGraph).getRoot();
+            doReturn(mockInbound).when(mockExecutionNode).getComponent();
+
+            ExecutionNode stopEN = mock(ExecutionNode.class);
+            doReturn(new Stop()).when(stopEN).getComponent();
+
+            Set<ExecutionNode> executionNodes = new HashSet<>();
+            executionNodes.add(stopEN);
+            doReturn(executionNodes).when(mockExecutionGraph).successors(mockExecutionNode);
+            Message inMessage = MessageBuilder.get().withText("test").build();
+
+
+            // When
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message actualMessage) {
+                    // Then
+                    assertThat(actualMessage).isEqualTo(inMessage);
+                    verify(mockExecutionGraph).getRoot();
+                    verify(mockExecutionGraph).successors(mockExecutionNode);
+                    verify(executionEngine).onEvent(inMessage, this);
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    fail("Unexpected");
+                }
+            });
+        }
+
+        @Test
+        void shouldOnEventWrapErrorResultWithExceptionWrapper() {
+            // Given
+            final String correlationId = UUID.randomUUID().toString();
+            final ESBException thrownException = new ESBException("Error could not find file x.y.z");
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            doReturn(correlationId).when(mockFlowContext).get("correlationId");
+            doReturn(true).when(mockFlowContext).containsKey("correlationId");
+
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onError(mockFlowContext, thrownException);
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            // Expect
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message message) {
+                    fail("Expected on error callback to be called instead.");
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    assertThat(throwable).isInstanceOf(FlowExecutionException.class);
+                    FlowExecutionException flowExecutionException = (FlowExecutionException) throwable;
+                    assertThat(flowExecutionException.getModuleId()).isEqualTo(moduleId);
+                    assertThat(flowExecutionException.getModuleName()).isEqualTo(moduleName);
+                    assertThat(flowExecutionException.getFlowId()).isEqualTo(flowId);
+                    assertThat(flowExecutionException.getFlowTitle()).isEqualTo(flowTitle);
+                    assertThat(flowExecutionException.getCorrelationId()).isEqualTo(correlationId);
+                    assertThat(flowExecutionException.getCause()).isEqualTo(thrownException);
+                    assertThat(flowExecutionException.getMessage()).isEqualTo("{\n" +
+                            "  \"flowTitle\": \"Test flow\",\n" +
+                            "  \"errorType\": \"com.reedelk.runtime.api.exception.ESBException\",\n" +
+                            "  \"moduleName\": \"Test module\",\n" +
+                            "  \"errorMessage\": \"Error could not find file x.y.z\",\n" +
+                            "  \"correlationId\": \"" + correlationId + "\",\n" +
+                            "  \"moduleId\": 10,\n" +
+                            "  \"flowId\": \"" + flowId + "\"\n" +
+                            "}");
+                }
+            });
+        }
+
+        @Test
+        void shouldOnEventDelegateResultOnSuccess() {
+            // Given
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message outMessage = MessageBuilder.get().withText("out").build();
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onResult(mockFlowContext, outMessage);
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            // Expect
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message message) {
+                    String payload = message.payload();
+                    assertThat(payload).isEqualTo("out");
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    fail("Expected on result callback to be called instead.");
+                }
+            });
+        }
+
+        @Test
+        void shouldOnEventDisposeContextAfterMessageIsConsumed() throws InterruptedException {
+            // Given
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message outMessage = MessageBuilder.get().withText("out").build();
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onResult(mockFlowContext, outMessage);
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            CountDownLatch latch = new CountDownLatch(1);
+
+            // Expect
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message message) {
+                    verify(mockFlowContext, never()).dispose();
+                    String payload = message.payload();
+                    assertThat(payload).isEqualTo("out");
+                    latch.countDown();
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    latch.countDown();
+                    fail("Expected on result callback to be called instead.");
+                }
+            });
+
+            latch.await();
+            verify(mockFlowContext).dispose();
+        }
+
+        @Test
+        void shouldOnEventDisposeContextAfterMessageStreamIsConsumed() throws InterruptedException {
+            // Given
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message outMessage = MessageBuilder.get().withText("out").build();
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onResult(mockFlowContext, outMessage);
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            CountDownLatch latch = new CountDownLatch(1);
+
+            // Expect
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message message) {
+                    verify(mockFlowContext, never()).dispose();
+                    TypedContent<String, String> content = message.content();
+                    TypedPublisher<String> stream = content.stream();
+                    List<String> result = Flux.from(stream).collectList().block();
+                    assertThat(result).containsOnly("out");
+                    latch.countDown();
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    latch.countDown();
+                    fail("Expected on result callback to be called instead.");
+                }
+            });
+
+            latch.await();
+            verify(mockFlowContext).dispose();
+        }
+
+        @Test
+        void shouldOnEventDisposeContextWhenStreamThrowsError() throws InterruptedException {
+            // Given
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+
+            Flux<String> stringFlux = Flux.create(new Consumer<FluxSink<String>>() {
+                int count = 0;
+                @Override
+                public void accept(FluxSink<String> sink) {
+                    while (count < 2) {
+                        sink.next(String.valueOf(count));
+                        count++;
+                    }
+                    sink.error(new ESBException("Error completing the stream!"));
+                }
+            });
+
+            Message outMessage = MessageBuilder.get().withStream(stringFlux, String.class).build();
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onResult(mockFlowContext, outMessage);
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            // Expect
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message message) {
+                    verify(mockFlowContext, never()).dispose();
+                    TypedContent<String, String> content = message.content();
+                    TypedPublisher<String> stream = content.stream();
+                    try {
+                        Flux.from(stream).collectList().block();
+                    } catch (Exception e) {
+                        // The stream throws an exception. We want to make sure that when the stream
+                        // terminated with an error, the context was correctly disposed.
+                        verify(mockFlowContext).dispose();
+                    }
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    fail("Expected on result callback to be called instead.");
+                }
+            });
+        }
+
+        @Test
+        void shouldOnEventDisposeContextWhenMessagePayloadIsNotConsumed() throws InterruptedException {
+            // Given
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message outMessage = MessageBuilder.get().withText("out").build();
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onResult(mockFlowContext, outMessage);
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            CountDownLatch latch = new CountDownLatch(1);
+
+            // Expect
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message message) {
+                    // We don't consume the message.
+                    verify(mockFlowContext, never()).dispose();
+                    latch.countDown();
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    latch.countDown();
+                    fail("Expected on result callback to be called instead.");
+                }
+            });
+
+            latch.await();
+            verify(mockFlowContext).dispose();
+        }
+
+        @Test
+        void shouldOnEventDisposeContextWhenOnError() throws InterruptedException {
+            // Given
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onError(mockFlowContext, new ESBException("An exception!"));
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            CountDownLatch latch = new CountDownLatch(1);
+
+            // Expect
+            flow.onEvent(inMessage, new OnResult() {
+                @Override
+                public void onResult(FlowContext flowContext, Message message) {
+                    // We don't consume the message.
+                    latch.countDown();
+                    fail("Expected on result callback to be called instead.");
+                }
+
+                @Override
+                public void onError(FlowContext flowContext, Throwable throwable) {
+                    verify(mockFlowContext, never()).dispose();
+                    latch.countDown();
+                }
+            });
+
+            latch.await();
+            verify(mockFlowContext).dispose();
+        }
+
+        @Test
+        void shouldOnEventDisposeContextWhenCalledWithoutMessage() throws InterruptedException {
+            // Given
+            final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
+            final FlowContext mockFlowContext = mock(FlowContext.class);
+
+            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message outMessage = MessageBuilder.get().withText("out").build();
+
+            CountDownLatch latch = new CountDownLatch(1);
+
+            doAnswer(invocation -> {
+                OnResult callback = invocation.getArgument(1);
+                callback.onResult(mockFlowContext, outMessage);
+                latch.countDown();
+                return null;
+            }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
+
+            // Expect
+            flow.onEvent(inMessage);
+
+            latch.await();
+            verify(mockFlowContext).dispose();
+        }
     }
 }

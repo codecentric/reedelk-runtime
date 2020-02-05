@@ -72,12 +72,16 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
 
     @Override
     public boolean isStream() {
-        return !consumed;
+        synchronized (this) {
+            return !consumed;
+        }
     }
 
     @Override
     public boolean isConsumed() {
-        return consumed;
+        synchronized (this) {
+            return consumed;
+        }
     }
 
     @Override

@@ -7,6 +7,14 @@ public abstract class AbstractInbound implements Inbound, InboundEventListener {
     private InboundEventListener listener;
 
     @Override
+    public void onEvent(Message message) {
+        if (listener == null) {
+            throw new IllegalStateException("Event listener was not registered!");
+        }
+        listener.onEvent(message);
+    }
+
+    @Override
     public void onEvent(Message message, OnResult onResult) {
         if (listener == null) {
             throw new IllegalStateException("Event listener was not registered!");

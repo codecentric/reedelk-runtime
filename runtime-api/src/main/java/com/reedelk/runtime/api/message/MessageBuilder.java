@@ -202,6 +202,6 @@ public class MessageBuilder {
         if (typedContent == null) {
             throw new IllegalStateException("Typed content missing");
         }
-        return new Message(typedContent, attributes);
+        return new MessageDefault(typedContent, attributes);
     }
 }

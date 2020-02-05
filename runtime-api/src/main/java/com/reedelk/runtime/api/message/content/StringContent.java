@@ -74,12 +74,16 @@ public class StringContent implements TypedContent<String,String> {
 
     @Override
     public boolean isStream() {
-        return !consumed;
+        synchronized (this) {
+            return !consumed;
+        }
     }
 
     @Override
     public boolean isConsumed() {
-        return consumed;
+        synchronized (this) {
+            return consumed;
+        }
     }
 
     @Override

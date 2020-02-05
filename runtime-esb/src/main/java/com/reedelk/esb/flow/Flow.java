@@ -24,6 +24,7 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 public class Flow implements InboundEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(Flow.class);
+    private static final OnResult NO_OP_CALLBACK = new OnResult() {};
 
     private final long moduleId;
     private final String moduleName;
@@ -116,6 +117,11 @@ public class Flow implements InboundEventListener {
     }
 
     @Override
+    public void onEvent(Message message) {
+        onEvent(message, NO_OP_CALLBACK);
+    }
+
+    @Override
     public void onEvent(Message message, OnResult onResult) {
         OnResultFlowExceptionWrapper exceptionWrapper = new OnResultFlowExceptionWrapper(onResult);
         executionEngine.onEvent(message, exceptionWrapper);
@@ -144,12 +150,27 @@ public class Flow implements InboundEventListener {
 
         @Override
         public void onResult(FlowContext flowContext, Message message) {
-            delegate.onResult(flowContext, message);
+            DisposableContextAwareMessage disposableContextAwareMessage = new DisposableContextAwareMessage(flowContext, message);
+            delegate.onResult(flowContext, disposableContextAwareMessage);
+
+            // If the inbound processor did not consume the Message content, then it
+            // means that the disposable resources (e.g database connections) in the
+            // flow context still need to be closed. This might happen when the
+            // inbound processor does not use the body of the message (because for
+            // instance is only interested in the message attributes) or maybe because
+            // it is not needed at all. If this value is false, then it means that the
+            // payload has been consumed by the payload and the Disposable Context Aware Message
+            // has already scheduled the flow context cleanup. This is necessary because if the
+            // message payload is a stream, then the context must be disposed only *after* the stream
+            // has been consumed.
+            boolean shouldDisposeContext = disposableContextAwareMessage.shouldDispose();
+            if (shouldDisposeContext) {
+                flowContext.dispose();
+            }
         }
 
         @Override
         public void onError(FlowContext flowContext, Throwable throwable) {
-
             String correlationId = CorrelationID.getOrNull(flowContext);
             String error = DEFAULT.format(moduleId, moduleName, flowId, flowTitle, correlationId, throwable.getClass().getName(), throwable.getMessage());
             FlowExecutionException wrapped = new FlowExecutionException(moduleId, moduleName, flowId, flowTitle, correlationId, error, throwable);
@@ -159,6 +180,10 @@ public class Flow implements InboundEventListener {
             }
 
             delegate.onError(flowContext, wrapped);
+
+            // An exception occurred and therefore the Message will never be consumed.
+            // The disposable resources (e.g database connections) in the flow context must be closed.
+            flowContext.dispose();
         }
     }
 }

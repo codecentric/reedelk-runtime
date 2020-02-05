@@ -4,52 +4,37 @@ package com.reedelk.runtime.api.message;
 import com.reedelk.runtime.api.message.content.TypedContent;
 
 import java.io.Serializable;
-import java.util.Optional;
 
-@SuppressWarnings("unchecked")
-public class Message implements Serializable {
+public interface Message extends Serializable {
 
-    private final MessageAttributes attributes;
-    private final TypedContent<?,?> content;
+    /**
+     * This method is needed by Script engine to access this object's properties.
+     */
+    <ItemType,PayloadType,R extends TypedContent<ItemType,PayloadType>> R getContent();
 
-    Message(TypedContent<?,?> content, MessageAttributes attributes) {
-        this.content = content;
-        this.attributes = attributes;
-    }
+    /**
+     *
+     * This is a 'nice to have' method to make getting the content more readable
+     * from the Script language e.g. message.content() instead of message.getContent().
+     */
+    <ItemType,PayloadType,R extends TypedContent<ItemType,PayloadType>> R content();
 
-    // This method is needed by Script engine to access this object's properties.
-    public <ItemType,PayloadType,R extends TypedContent<ItemType,PayloadType>> R getContent() {
-        return (R) content;
-    }
+    /**
+     * Returns the message payload. This method automatically resolves the payload.
+     */
+    <PayloadType> PayloadType payload();
 
-    // This is a 'nice to have' method to make getting the content more readable
-    // from the Script language e.g. message.content() instead of message.getContent().
-    public <ItemType,PayloadType,R extends TypedContent<ItemType,PayloadType>> R content() {
-        return (R) content;
-    }
+    /**
+     * This method is needed by Script engine to access this object's properties.
+     * @return the message attributes.
+     */
+    MessageAttributes getAttributes();
 
-    public <PayloadType> PayloadType payload() {
-        return (PayloadType) Optional.ofNullable(content)
-                .map(TypedContent::data)
-                .orElse(null);
-    }
+    /**
+     * This is a 'nice to have' method to make getting the attributes more readable
+     * from the Script language e.g. message.attributes() instead of message.getAttributes().
+     * @return the message attributes.
+     */
+    MessageAttributes attributes();
 
-    // This method is needed by Script engine to access this object's properties.
-    public MessageAttributes getAttributes() {
-        return attributes;
-    }
-
-    // This is a 'nice to have' method to make getting the attributes more readable
-    // from the Script language e.g. message.attributes() instead of message.getAttributes().
-    public MessageAttributes attributes() {
-        return attributes;
-    }
-
-    @Override
-    public String toString() {
-        return "Message{" +
-                "content=" + content +
-                ", attributes=" + attributes +
-                '}';
-    }
 }

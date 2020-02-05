@@ -10,16 +10,16 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
 
     PayloadType data();
 
-    TypedPublisher<ItemType> stream(); // the original stream if it is a stream type
+    TypedPublisher<ItemType> stream();
 
-    default boolean isStream() {
-        return false;
-    }
+    boolean isStream();
 
-    default boolean isConsumed() {
-        return false;
-    }
+    boolean isConsumed();
 
-    default void consume() {
-    } // consumes the stream payload if it has not been consumed yet
+    /**
+     * Consumes the stream payload if it has not been consumed yet. This method might be useful
+     * to call before cloning the message. E.g the fork component uses this method before
+     * invoking fork branches with a copy of the message.
+     */
+    void consume();
 }

@@ -41,7 +41,6 @@ public class FlowExecutorEngine {
 
             Mono.from(result)
                     .doOnError(throwable -> onResult.onError(defaultContext, throwable))
-                    .doOnTerminate(defaultContext::dispose)
                     .subscribe(messageContext -> onResult.onResult(defaultContext, messageContext.getMessage()));
 
         } catch (Throwable exception) {

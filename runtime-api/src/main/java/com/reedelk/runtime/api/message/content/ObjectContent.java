@@ -80,12 +80,16 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
 
     @Override
     public boolean isStream() {
-        return !consumed;
+        synchronized (this) {
+            return !consumed;
+        }
     }
 
     @Override
     public boolean isConsumed() {
-        return consumed;
+        synchronized (this) {
+            return consumed;
+        }
     }
 
     @Override
