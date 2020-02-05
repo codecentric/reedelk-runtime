@@ -48,7 +48,7 @@ public class RuntimeConverters {
         return ConvertersHelper.CONVERTERS;
     }
 
-    private Map<Class<?>, ValueConverter<?,?>> defaults() {
+    static Map<Class<?>, ValueConverter<?,?>> defaults() {
         return ConvertersHelper.DEFAULT;
     }
 
@@ -75,7 +75,9 @@ public class RuntimeConverters {
     }
 
     private <I, O> O convertType(I input, Class<?> inputClass, Class<O> outputClass) {
-        return Optional.ofNullable(converters().getOrDefault(inputClass, defaults()))
+        Map<Class<?>, ValueConverter<?, ?>> fromInputConverters =
+                converters().getOrDefault(inputClass, defaults());
+        return Optional.of(fromInputConverters)
                 .flatMap(fromConverter -> Optional.ofNullable((ValueConverter<I, O>) fromConverter.get(outputClass)))
                 .map(toConverter -> toConverter.from(input))
                 .orElseThrow(converterNotFound(inputClass, outputClass));

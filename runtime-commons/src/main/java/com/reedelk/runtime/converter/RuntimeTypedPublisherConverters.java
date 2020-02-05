@@ -4,6 +4,7 @@ import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.converter.types.ValueConverter;
 import reactor.core.publisher.Flux;
 
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("unchecked")
@@ -23,7 +24,9 @@ public class RuntimeTypedPublisherConverters {
         } else if  (Object.class.equals(outputClass)) {
             return (TypedPublisher<O>) input;
         } else {
-            return Optional.ofNullable(RuntimeConverters.converters().get(input.getType()))
+            Map<Class<?>, ValueConverter<?, ?>> fromInputConverters =
+                    RuntimeConverters.converters().getOrDefault(input.getType(), RuntimeConverters.defaults());
+            return Optional.of(fromInputConverters)
                     .flatMap(fromConverter -> Optional.ofNullable((ValueConverter<I, O>) fromConverter.get(outputClass)))
                     .map(toConverter -> TypedPublisher.from(Flux.from(input).map(toConverter::from), outputClass))
                     .orElseThrow(RuntimeConverters.converterNotFound(input.getType(), outputClass));
