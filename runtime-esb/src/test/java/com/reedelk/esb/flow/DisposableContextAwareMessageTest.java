@@ -70,12 +70,21 @@ class DisposableContextAwareMessageTest {
     }
 
     @Test
-    void shouldDelegateGetAttributes() {
+    void shouldDelegateAttributes() {
         // When
         wrappedMessage.attributes();
 
         // Then
         verify(sampleMessage).attributes();
+    }
+
+    @Test
+    void shouldDelegateGetAttributes() {
+        // When
+        wrappedMessage.getAttributes();
+
+        // Then
+        verify(sampleMessage).getAttributes();
     }
 
     @Test
@@ -88,7 +97,7 @@ class DisposableContextAwareMessageTest {
     }
 
     @Test
-    void shouldDelegateGetContent() {
+    void shouldDelegateContent() {
         // When
         wrappedMessage.content();
 

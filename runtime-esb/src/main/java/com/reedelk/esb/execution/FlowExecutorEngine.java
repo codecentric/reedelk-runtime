@@ -7,6 +7,7 @@ import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.message.Message;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
 
 import static com.reedelk.esb.execution.ExecutionUtils.nextNodeOfOrThrow;
 
@@ -29,8 +30,7 @@ public class FlowExecutorEngine {
 
             MessageAndContext event = new MessageAndContext(message, defaultContext);
 
-            Publisher<MessageAndContext> publisher =
-                    Mono.just(event).publishOn(SchedulerProvider.flow());
+            Publisher<MessageAndContext> publisher = Mono.just(event).publishOn(scheduler());
 
             ExecutionNode root = graph.getRoot();
 
@@ -46,5 +46,9 @@ public class FlowExecutorEngine {
         } catch (Throwable exception) {
             onResult.onError(defaultContext, exception);
         }
+    }
+
+    Scheduler scheduler() {
+        return SchedulerProvider.flow();
     }
 }
