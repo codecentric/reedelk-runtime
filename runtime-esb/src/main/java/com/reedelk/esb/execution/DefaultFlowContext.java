@@ -21,7 +21,7 @@ public class DefaultFlowContext extends ConcurrentHashMap<String, Serializable> 
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultFlowContext.class);
 
-    private transient final List<Disposable> disposableList = new ArrayList<>();
+    private final transient List<Disposable> disposableList = new ArrayList<>();
 
     public static DefaultFlowContext from(Message message) {
         DefaultFlowContext context = new DefaultFlowContext();
