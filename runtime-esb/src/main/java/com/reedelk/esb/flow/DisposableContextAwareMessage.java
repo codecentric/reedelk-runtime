@@ -55,7 +55,7 @@ public class DisposableContextAwareMessage implements Message {
 
     private static class TypedContentWrapper<ItemType,PayloadType> implements TypedContent<ItemType,PayloadType> {
 
-        private final FlowContext context;
+        private transient final FlowContext context;
         private final TypedContent<ItemType, PayloadType> delegate;
 
         private boolean shouldDispose = true;
