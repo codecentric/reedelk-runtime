@@ -42,7 +42,7 @@ public class ExecutionGraph {
     }
 
     public Collection<ExecutionNode> successors(ExecutionNode executionNode) {
-        checkArgument(executionNode != null, "executionNode");
+        checkArgument(executionNode != null, "could not determine successors of null execution node");
         return graph.successors(executionNode);
     }
 

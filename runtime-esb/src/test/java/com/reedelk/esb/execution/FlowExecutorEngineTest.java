@@ -89,6 +89,37 @@ class FlowExecutorEngineTest extends AbstractExecutionTest {
         latch.await();
     }
 
+    @Test
+    void shouldCallOnErrorWhenExecutionGraphIsNotCorrect() throws InterruptedException {
+        // Given
+        Message message = MessageBuilder.get().withText("Sample text").build();
+
+        ExecutionGraph graph = ExecutionGraph.build();
+
+        // When
+        FlowExecutorEngine executorEngine = spy(new FlowExecutorEngine(graph));
+        doReturn(Schedulers.elastic()).when(executorEngine).scheduler();
+
+        CountDownLatch latch = new CountDownLatch(1);
+
+        executorEngine.onEvent(message, new OnResult() {
+            @Override
+            public void onResult(FlowContext flowContext, Message message) {
+                latch.countDown();
+                fail("Not supposed to be called");
+            }
+
+            @Override
+            public void onError(FlowContext flowContext, Throwable throwable) {
+                latch.countDown();
+                throwable.printStackTrace();
+                assertThat(throwable).hasMessage("could not determine successors of null execution node");
+            }
+        });
+
+        latch.await();
+    }
+
     static class PostFixProcessor implements ProcessorSync {
         @Override
         public Message apply(FlowContext flowContext, Message message) {
