@@ -10,7 +10,7 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>0.8.0</revision>
+        <revision>0.8.1-SNAPSHOT</revision>
         <assertj.version>3.11.1</assertj.version>
         <json.version>20190722</json.version>
         <junit.version>5.5.2</junit.version>
