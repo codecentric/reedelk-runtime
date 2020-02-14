@@ -1,7 +1,6 @@
 package com.reedelk.esb.execution;
 
 import com.reedelk.esb.configuration.RuntimeConfigurationProvider;
-import com.reedelk.esb.execution.scheduler.SchedulerProvider;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.OnResult;
@@ -12,7 +11,6 @@ import com.reedelk.runtime.api.message.Message;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
 
 import java.util.Optional;
 
@@ -34,8 +32,7 @@ public class ProcessorAsyncExecutor implements FlowExecutor {
         Publisher<MessageAndContext> parent = Flux.from(publisher).flatMap(event -> {
 
             // Build a Mono out of the async processor callback.
-            Mono<MessageAndContext> callbackMono = sinkFromCallback(processorAsync, event)
-                    .publishOn(flowScheduler());
+            Mono<MessageAndContext> callbackMono = sinkFromCallback(processorAsync, event);
 
             // If a timeout has been defined for the async processor callback,
             // then we set it here.
@@ -47,10 +44,6 @@ public class ProcessorAsyncExecutor implements FlowExecutor {
         ExecutionNode next = nextNodeOfOrThrow(currentNode, graph);
 
         return FlowExecutorFactory.get().execute(parent, next, graph);
-    }
-
-    Scheduler flowScheduler() {
-        return SchedulerProvider.flow();
     }
 
     /**
