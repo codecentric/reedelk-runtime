@@ -57,4 +57,10 @@
         <appender-ref ref="ASYNC_FILE"/>
     </logger>
 
+    <!-- Apache Http Client -->
+    <logger name="org.apache.http.client" level="error" additivity="false">
+        <appender-ref ref="ASYNC_STDOUT"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </logger>
+
 </configuration>
