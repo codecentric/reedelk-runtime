@@ -75,8 +75,7 @@ public class RuntimeConverters {
     }
 
     private <I, O> O convertType(I input, Class<?> inputClass, Class<O> outputClass) {
-        Map<Class<?>, ValueConverter<?, ?>> fromInputConverters =
-                converters().getOrDefault(inputClass, defaults());
+        Map<Class<?>, ValueConverter<?, ?>> fromInputConverters = converters().getOrDefault(inputClass, defaults());
         return Optional.of(fromInputConverters)
                 .flatMap(fromConverter -> Optional.ofNullable((ValueConverter<I, O>) fromConverter.get(outputClass)))
                 .map(toConverter -> toConverter.from(input))
