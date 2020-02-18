@@ -6,11 +6,27 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
 
     Class<ItemType> type();
 
+    default Class<ItemType> getType() {
+        return type();
+    }
+
     MimeType mimeType();
+
+    default MimeType getMimeType() {
+        return mimeType();
+    }
 
     PayloadType data();
 
+    default PayloadType getData() {
+        return data();
+    }
+
     TypedPublisher<ItemType> stream();
+
+    default TypedPublisher<ItemType> getStream() {
+        return stream();
+    }
 
     boolean isStream();
 
