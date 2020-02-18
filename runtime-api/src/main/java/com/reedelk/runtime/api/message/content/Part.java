@@ -1,9 +1,10 @@
 package com.reedelk.runtime.api.message.content;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Part {
+public class Part implements Serializable {
 
     private final String name;
     private final TypedContent<?,?> content;
