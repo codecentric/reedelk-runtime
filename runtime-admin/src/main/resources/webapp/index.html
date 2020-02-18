@@ -24,7 +24,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
     <a class="navbar-brand" href="/">
         <img src="/console/img/reedelk_logo.png" alt="Reedelk logo">
-        &nbsp;&nbsp;Reedelk Integration Platform Administration
+        &nbsp;&nbsp;Reedelk Integration Platform Administration Console v<span id="runtime-version"></span>
     </a>
 </nav>
 
@@ -104,11 +104,13 @@
 <script src="/console/js/html-templates.js"></script>
 <script src="/console/js/messages.js"></script>
 <script src="/console/js/deployment-controller.js"></script>
+<script src="/console/js/version-controller.js"></script>
 <script src="/console/js/toastr.min.js"></script>
 
 <script>
 
     IndexController.ListModules();
+    VersionController.Version();
 
     function onUpdate(moduleName, moduleFilePath) {
         IndexController.UpdateModule(moduleName, moduleFilePath);

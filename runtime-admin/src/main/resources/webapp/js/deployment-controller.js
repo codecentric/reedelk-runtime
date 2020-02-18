@@ -107,15 +107,10 @@ let IndexController = (function () {
     };
 
     return {
-
         ListModules: listModules,
-
         DeployModule: deployModule,
-
         UpdateModule: updateModule,
-
         RemoveModule: removeModule
-
     }
 
 })();
