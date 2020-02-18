@@ -49,6 +49,14 @@ public class ModuleProperties {
         public static final String RESOURCE_DIRECTORY = "/scripts";
     }
 
+    public static class Assets {
+
+        private Assets() {
+        }
+
+        public static final String RESOURCE_DIRECTORY = "/assets";
+    }
+
     public static class Resource {
 
         private Resource() {
