@@ -93,11 +93,12 @@ public class ComponentDescriptor implements Serializable {
 
     @Override
     public String toString() {
-        return "ComponentDefaultDescriptor{" +
+        return "ComponentDescriptor{" +
                 "hidden=" + hidden +
                 ", icon=" + icon +
                 ", image=" + image +
                 ", displayName='" + displayName + '\'' +
+                ", description='" + description + '\'' +
                 ", fullyQualifiedName='" + fullyQualifiedName + '\'' +
                 ", componentType=" + componentType +
                 ", componentPropertyDescriptors=" + componentPropertyDescriptors +
