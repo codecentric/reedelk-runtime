@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class WhenFieldInfoAnalyzer implements FieldInfoAnalyzer {
+public class PropertyWhenAnalyzer implements FieldInfoAnalyzer {
 
-    private static final Logger LOG = Logger.getLogger(WhenFieldInfoAnalyzer.class);
+    private static final Logger LOG = Logger.getLogger(PropertyWhenAnalyzer.class);
 
     @Override
     public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {

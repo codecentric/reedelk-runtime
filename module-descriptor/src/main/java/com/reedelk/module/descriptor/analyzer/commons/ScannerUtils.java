@@ -72,17 +72,20 @@ public class ScannerUtils {
                 (T) parameterValues.getValue(ANNOTATION_DEFAULT_PARAM_NAME);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T annotationParameterValueOrDefaultFrom(FieldInfo fieldInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
         if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
             return defaultValue;
         }
         AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
-        Object parameterValue = getParameterValue(annotationInfo, annotationParamName);
-        if (parameterValue instanceof AnnotationEnumValue) {
-            return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();
+        return getParameterValue(annotationParamName, defaultValue, annotationInfo);
+    }
+
+    public static <T> T annotationParameterValueOrDefaultFrom(ClassInfo classInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
+        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
+            return defaultValue;
         }
-        return parameterValue == null ? defaultValue : (T) parameterValue;
+        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
+        return getParameterValue(annotationParamName, defaultValue, annotationInfo);
     }
 
     /**
@@ -187,6 +190,15 @@ public class ScannerUtils {
             // Otherwise the @PropertyValueConverterFactory class would not even compile.
             throw new UnsupportedType(fullyQualifiedClassName);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T getParameterValue(String annotationParamName, T defaultValue, AnnotationInfo annotationInfo) {
+        Object parameterValue = getParameterValue(annotationInfo, annotationParamName);
+        if (parameterValue instanceof AnnotationEnumValue) {
+            return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();
+        }
+        return parameterValue == null ? defaultValue : (T) parameterValue;
     }
 
     private static Object getParameterValue(AnnotationInfo info, String parameterName) {

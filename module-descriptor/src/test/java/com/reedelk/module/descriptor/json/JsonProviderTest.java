@@ -56,7 +56,7 @@ class JsonProviderTest {
         myProcessorComponent.setIcon(icon);
 
         List<ComponentPropertyDescriptor> myInboundComponentProperties = asList(
-                propertyStringWithDefaultValue,
+                propertyStringWithInitValue,
                 propertyDynamicString,
                 propertyMap);
         myInboundComponent = new ComponentDescriptor();
@@ -148,7 +148,7 @@ class JsonProviderTest {
                         boolean sameHint = Objects.equals(current.getHintValue(), target.getHintValue());
                         boolean sameDisplayName = Objects.equals(current.getDisplayName(), target.getDisplayName());
                         boolean samePropertyName = Objects.equals(current.getPropertyName(), target.getPropertyName());
-                        boolean sameDefaultValue = Objects.equals(current.getDefaultValue(), target.getDefaultValue());
+                        boolean sameInitValue = Objects.equals(current.getInitValue(), target.getInitValue());
                         boolean samePropertyInfo = Objects.equals(current.getPropertyInfo(), target.getPropertyInfo());
                         boolean sameWhenDescriptors = sameWhens(current.getWhenDescriptors(), target.getWhenDescriptors());
                         boolean samePropertyType = sameType(current.getPropertyType(), target.getPropertyType());
@@ -157,7 +157,7 @@ class JsonProviderTest {
                         return sameHint &&
                                 sameDisplayName &&
                                 samePropertyName &&
-                                sameDefaultValue &&
+                                sameInitValue &&
                                 samePropertyInfo &&
                                 samePropertyType &&
                                 sameWhenDescriptors &&

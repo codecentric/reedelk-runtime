@@ -10,7 +10,7 @@ import io.github.classgraph.FieldInfo;
 
 import java.util.List;
 
-public class AutoCompleteContributorFieldInfoAnalyzer implements FieldInfoAnalyzer {
+public class PropertyAutoCompleteContributorAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {

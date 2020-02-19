@@ -282,14 +282,14 @@ class ComponentPropertyAnalyzerTest {
     }
 
     @Test
-    void shouldCorrectlyAnalyzeMapTypePropertyWithDefaultValues() {
+    void shouldCorrectlyAnalyzeMapTypePropertyWithInitValues() {
         // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Default values tab group", TabPlacement.LEFT);
+        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Init values tab group", TabPlacement.LEFT);
 
         // Expect
         assertThatExistProperty(
-                "mapPropertyWithDefaultValues",
-                "Map property with defaults",
+                "mapPropertyWithInitValues",
+                "Map property with init values",
                 "{'key1':'value1','key2':'value2'}",
                 TypeDescriptorMatchers.ofTypeMap(typeMap));
     }
@@ -549,8 +549,8 @@ class ComponentPropertyAnalyzerTest {
 
         // Expect
         assertThatExistProperty(
-                "missingDefaultValueProperty",
-                "Property with missing default value",
+                "missingInitValueProperty",
+                "Property with missing init value",
                 InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofPrimitiveType(typeInteger));
     }
@@ -571,7 +571,7 @@ class ComponentPropertyAnalyzerTest {
         assertThat(descriptor.getPropertyInfo()).isEqualTo("This is the info text");
     }
 
-    private void assertThatExistProperty(String propertyName, String displayName, Object defaultValue, TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
+    private void assertThatExistProperty(String propertyName, String displayName, Object initValue, TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
         // Given
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
@@ -583,7 +583,7 @@ class ComponentPropertyAnalyzerTest {
         ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
         assertThat(descriptor.getPropertyName()).isEqualTo(propertyName);
         assertThat(descriptor.getDisplayName()).isEqualTo(displayName);
-        assertThat(descriptor.getDefaultValue()).isEqualTo(defaultValue);
+        assertThat(descriptor.getInitValue()).isEqualTo(initValue);
         assertThat(matcher.matches(descriptor.getPropertyType())).isTrue();
     }
 }

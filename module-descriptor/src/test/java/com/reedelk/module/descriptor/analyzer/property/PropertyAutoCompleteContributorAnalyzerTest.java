@@ -18,12 +18,12 @@ import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class AutoCompleteContributorFieldInfoAnalyzerTest {
+class PropertyAutoCompleteContributorAnalyzerTest {
 
     @Mock
     private ComponentAnalyzerContext context;
 
-    private AutoCompleteContributorFieldInfoAnalyzer analyzer = new AutoCompleteContributorFieldInfoAnalyzer();
+    private PropertyAutoCompleteContributorAnalyzer analyzer = new PropertyAutoCompleteContributorAnalyzer();
 
     private static ClassInfo componentClassInfo;
 

@@ -6,8 +6,7 @@ import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
-import io.github.classgraph.AnnotationInfo;
-import io.github.classgraph.AnnotationParameterValueList;
+import com.reedelk.runtime.api.commons.StringUtils;
 import io.github.classgraph.ClassInfo;
 
 import java.util.List;
@@ -25,10 +24,12 @@ public class ComponentAnalyzer {
 
     public ComponentDescriptor analyze(ClassInfo classInfo) {
         String displayName = getComponentDisplayName(classInfo);
+        String description = getComponentDescription(classInfo);
         ComponentType componentType = getComponentType(classInfo);
         List<ComponentPropertyDescriptor> propertiesDescriptor = analyzeProperties(classInfo);
         return ComponentDescriptor.create()
                 .displayName(displayName)
+                .description(description)
                 .hidden(ScannerUtils.isHidden(classInfo))
                 .componentType(componentType)
                 .fullyQualifiedName(classInfo.getName())
@@ -46,13 +47,16 @@ public class ComponentAnalyzer {
                 .collect(toList());
     }
 
+    // The ClassInfo component descriptor *must* have the ModuleComponent annotation if we get here.
     private String getComponentDisplayName(ClassInfo componentClassInfo) {
-        // The ClassInfo component descriptor *must* have the ESBComponent annotation if we get here.
-        AnnotationInfo componentDisplayName = componentClassInfo.getAnnotationInfo(ModuleComponent.class.getName());
-        AnnotationParameterValueList parameterValues = componentDisplayName.getParameterValues();
-        return parameterValues.containsName("value") ?
-                (String) parameterValues.getValue("value") :
-                componentClassInfo.getSimpleName();
+        return ScannerUtils.annotationParameterValueOrDefaultFrom(
+                componentClassInfo, ModuleComponent.class, "name", componentClassInfo.getSimpleName());
+    }
+
+    // The ClassInfo component descriptor *must* have the ModuleComponent annotation if we get here.
+    private String getComponentDescription(ClassInfo componentClassInfo) {
+        return ScannerUtils.annotationParameterValueOrDefaultFrom(
+                componentClassInfo, ModuleComponent.class, "description", null);
     }
 
     private ComponentType getComponentType(ClassInfo classInfo) {

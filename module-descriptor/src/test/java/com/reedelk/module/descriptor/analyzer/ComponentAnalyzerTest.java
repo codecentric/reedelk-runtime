@@ -42,8 +42,6 @@ class ComponentAnalyzerTest {
 
         componentClassInfo = scanContext.targetComponentClassInfo;
 
-        ComponentAnalyzerContext context = spy(scanContext.context);
-
         doReturn(of(descriptor1), of(descriptor2), of(descriptor3), empty())
                 .when(propertyAnalyzer).analyze(any(FieldInfo.class));
 

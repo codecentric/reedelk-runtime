@@ -89,6 +89,11 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>com.reedelk</groupId>
+                <artifactId>module-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>

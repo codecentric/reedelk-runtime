@@ -8,15 +8,24 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 
 public class ComponentPropertyDescriptor implements Serializable {
 
+    private String example;
     private String hintValue;
     private String displayName;
     private String propertyName;
-    private String defaultValue;
+    private String initValue;
     private String propertyInfo;
     private TypeDescriptor propertyType;
     private List<WhenDescriptor> whenDescriptors;
     private ScriptSignatureDescriptor scriptSignatureDescriptor;
     private AutoCompleteContributorDescriptor autoCompleteContributorDescriptor;
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
 
     public String getHintValue() {
         return hintValue;
@@ -42,8 +51,8 @@ public class ComponentPropertyDescriptor implements Serializable {
         this.propertyName = propertyName;
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setInitValue(String initValue) {
+        this.initValue = initValue;
     }
 
     public String getPropertyInfo() {
@@ -87,17 +96,18 @@ public class ComponentPropertyDescriptor implements Serializable {
         this.whenDescriptors = whenDescriptors;
     }
 
-    public String getDefaultValue() {
-        return defaultValue;
+    public String getInitValue() {
+        return initValue;
     }
 
     @Override
     public String toString() {
         return "ComponentPropertyDescriptor{" +
-                "hintValue='" + hintValue + '\'' +
+                "example='" + example + '\'' +
+                ", hintValue='" + hintValue + '\'' +
                 ", displayName='" + displayName + '\'' +
                 ", propertyName='" + propertyName + '\'' +
-                ", defaultValue='" + defaultValue + '\'' +
+                ", initValue='" + initValue + '\'' +
                 ", propertyInfo='" + propertyInfo + '\'' +
                 ", propertyType=" + propertyType +
                 ", scriptSignatureDefinition=" + scriptSignatureDescriptor +
@@ -112,16 +122,21 @@ public class ComponentPropertyDescriptor implements Serializable {
 
     public static class Builder {
 
+        private String example;
         private String hintValue;
         private String displayName;
         private String propertyName;
-        private String defaultValue;
+        private String initValue;
         private String propertyInfo;
         private TypeDescriptor propertyType;
         private ScriptSignatureDescriptor scriptSignatureDescriptor;
         private AutoCompleteContributorDescriptor autoCompleteContributionsDefinition;
 
         private List<WhenDescriptor> whenDescriptors = new ArrayList<>();
+
+        public void example(String example) {
+            this.example = example;
+        }
 
         public Builder type(TypeDescriptor type) {
             this.propertyType = type;
@@ -143,8 +158,8 @@ public class ComponentPropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder defaultValue(String defaultValue) {
-            this.defaultValue = defaultValue;
+        public Builder initValue(String initValue) {
+            this.initValue = initValue;
             return this;
         }
 
@@ -173,10 +188,11 @@ public class ComponentPropertyDescriptor implements Serializable {
             checkState(propertyType != null, "propertyType");
 
             ComponentPropertyDescriptor descriptor = new ComponentPropertyDescriptor();
+            descriptor.example = example;
             descriptor.hintValue = hintValue;
+            descriptor.initValue = initValue;
             descriptor.displayName = displayName;
             descriptor.propertyName = propertyName;
-            descriptor.defaultValue = defaultValue;
             descriptor.propertyType = propertyType;
             descriptor.propertyInfo = propertyInfo;
             descriptor.scriptSignatureDescriptor = scriptSignatureDescriptor;

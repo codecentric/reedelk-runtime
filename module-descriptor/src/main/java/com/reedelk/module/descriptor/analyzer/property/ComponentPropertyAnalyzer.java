@@ -17,7 +17,7 @@ public class ComponentPropertyAnalyzer {
 
     public Optional<ComponentPropertyDescriptor> analyze(FieldInfo fieldInfo) {
         return ScannerUtils.isVisibleProperty(fieldInfo) ?
-                Optional.of(FieldInfoAnalyzers.descriptor(fieldInfo, context)) :
+                Optional.of(FieldInfoAnalyzers.analyze(fieldInfo, context)) :
                 Optional.empty();
     }
 }

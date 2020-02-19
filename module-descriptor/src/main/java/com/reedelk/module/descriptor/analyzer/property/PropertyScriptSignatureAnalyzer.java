@@ -10,7 +10,7 @@ import io.github.classgraph.FieldInfo;
 
 import java.util.List;
 
-public class ScriptSignatureFieldInfoAnalyzer implements FieldInfoAnalyzer {
+public class PropertyScriptSignatureAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {

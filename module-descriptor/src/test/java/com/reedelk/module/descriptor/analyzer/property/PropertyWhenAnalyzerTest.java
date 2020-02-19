@@ -18,12 +18,12 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class WhenFieldInfoAnalyzerTest {
+class PropertyWhenAnalyzerTest {
 
     @Mock
     private ComponentAnalyzerContext context;
 
-    private WhenFieldInfoAnalyzer analyzer = new WhenFieldInfoAnalyzer();
+    private PropertyWhenAnalyzer analyzer = new PropertyWhenAnalyzer();
 
     private static ClassInfo componentClassInfo;
 

@@ -13,17 +13,19 @@ public class FieldInfoAnalyzers {
     }
 
     private static final List<FieldInfoAnalyzer> FIELD_INFO_ANALYZERS = Arrays.asList(
-            new PropertyNameFieldInfoAnalyzer(),
-            new PropertyInfoFieldInfoAnalyzer(),
-            new TypeFieldInfoAnalyzer(),
-            new WhenFieldInfoAnalyzer(),
-            new HintFieldInfoAnalyzer(),
-            new DisplayNameFieldInfoAnalyzer(),
-            new DefaultValueFieldInfoAnalyzer(),
-            new ScriptSignatureFieldInfoAnalyzer(),
-            new AutoCompleteContributorFieldInfoAnalyzer());
+            new PropertyNameAnalyzer(),
+            new PropertyDescriptionAnalyzer(),
+            new PropertyTypeAnalyzer(),
+            new PropertyWhenAnalyzer(),
+            new PropertyHintAnalyzer(),
+            new PropertyExampleAnalyzer(),
+            new PropertyDefaultAnalyzer(),
+            new PropertyDisplayNameAnalyzer(),
+            new PropertyInitValueAnalyzer(),
+            new PropertyScriptSignatureAnalyzer(),
+            new PropertyAutoCompleteContributorAnalyzer());
 
-    public static ComponentPropertyDescriptor descriptor(FieldInfo propertyInfo, ComponentAnalyzerContext context) {
+    public static ComponentPropertyDescriptor analyze(FieldInfo propertyInfo, ComponentAnalyzerContext context) {
         ComponentPropertyDescriptor.Builder builder = ComponentPropertyDescriptor.builder();
         FIELD_INFO_ANALYZERS.forEach(handler -> handler.handle(propertyInfo, builder, context));
         return builder.build();

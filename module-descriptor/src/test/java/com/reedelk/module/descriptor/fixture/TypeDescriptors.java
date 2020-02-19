@@ -51,7 +51,7 @@ public class TypeDescriptors {
             "com.reedelk.component.TestImplementor",
             asList(ComponentPropertyDescriptor.builder()
                             .propertyName("nestedProperty1")
-                            .defaultValue("my nested property 1")
+                            .initValue("my nested property 1")
                             .displayName("Nested Property 1")
                             .hintValue("nested property 1 hint")
                             .propertyInfo("Property Nested 1 Info")
@@ -61,7 +61,7 @@ public class TypeDescriptors {
                             .build(),
                     ComponentPropertyDescriptor.builder()
                             .propertyName("nestedProperty2")
-                            .defaultValue("5")
+                            .initValue("5")
                             .displayName("Nested Property 2")
                             .hintValue("12")
                             .propertyInfo("Property Nested 2 Info")

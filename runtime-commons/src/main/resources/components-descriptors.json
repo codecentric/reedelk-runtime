@@ -3,13 +3,16 @@
     {
       "hidden": false,
       "displayName": "Flow Reference",
+      "description": "Executes a given subflow within the current flow. The subflow shares the same context of the calling flow. When completed the result Message of its execution is sent back to the original flow continuing its execution.",
       "fullyQualifiedName": "com.reedelk.runtime.component.FlowReference",
       "componentType": "COMPONENT",
       "componentPropertyDescriptors": [
         {
+          "example": "1edc7e0d-6be9-46d9-8fa4-d64e3ea21de1",
           "displayName": "Subflow Reference",
           "propertyName": "ref",
-          "defaultValue": "###USE_DEFAULT_VALUE###",
+          "initValue": "###USE_DEFAULT_VALUE###",
+          "propertyInfo": "The id of the referenced subflow",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -23,6 +26,7 @@
     {
       "hidden": false,
       "displayName": "Fork",
+      "description": "This components copies the current flow message and sends each copy to every branch following the component. The execution of each branch is performed in parallel and the resulting messages from each execution can be merged by adding a Join component right after the fork scope. If the fork scope is not followed by any branch an empty flow message is set instead.",
       "fullyQualifiedName": "com.reedelk.runtime.component.Fork",
       "componentType": "COMPONENT",
       "componentPropertyDescriptors": []
@@ -37,6 +41,7 @@
     {
       "hidden": false,
       "displayName": "Router",
+      "description": "A router component allows to execute only one of the branches following the component based on a given condition which must be defined for each branch. A default condition is mandatory, which represents the default branch to be executed when no other condition is met. A condition might be a function checking the content of the payload or the presence (or absence) of a specific attribute in the message and so on.",
       "fullyQualifiedName": "com.reedelk.runtime.component.Router",
       "componentType": "COMPONENT",
       "componentPropertyDescriptors": []
@@ -51,6 +56,7 @@
     {
       "hidden": false,
       "displayName": "Try-Catch",
+      "description": "Allows to execute a sequence of components in the try branch and perform another sequence of components in the catch branch whenever an error is thrown by the execution of the components in the try.",
       "fullyQualifiedName": "com.reedelk.runtime.component.TryCatch",
       "componentType": "COMPONENT",
       "componentPropertyDescriptors": []
@@ -64,7 +70,7 @@
         {
           "displayName": "Unknown component",
           "propertyName": "implementor",
-          "defaultValue": "###USE_DEFAULT_VALUE###",
+          "initValue": "###USE_DEFAULT_VALUE###",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {

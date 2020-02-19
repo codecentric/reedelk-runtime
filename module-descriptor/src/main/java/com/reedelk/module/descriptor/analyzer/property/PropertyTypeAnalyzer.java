@@ -19,7 +19,7 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
-public class TypeFieldInfoAnalyzer implements FieldInfoAnalyzer {
+public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {

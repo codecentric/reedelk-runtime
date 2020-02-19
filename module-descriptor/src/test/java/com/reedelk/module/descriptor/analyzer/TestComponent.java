@@ -92,10 +92,10 @@ public class TestComponent implements ProcessorSync {
     @TabGroup("Test tab group")
     private Map<String, String> mapProperty;
 
-    @Property("Map property with defaults")
-    @TabGroup("Default values tab group")
+    @Property("Map property with init values")
+    @TabGroup("Init values tab group")
     @InitValue("{'key1':'value1','key2':'value2'}")
-    private Map<String, String> mapPropertyWithDefaultValues;
+    private Map<String, String> mapPropertyWithInitValues;
 
     @Property("Map property with tab placement top")
     @TabPlacementTop
@@ -154,12 +154,12 @@ public class TestComponent implements ProcessorSync {
     @Property
     private float withoutDisplayNameProperty;
 
-    @Property("Property with missing default value")
+    @Property("Property with missing init value")
     @InitValue
-    private int missingDefaultValueProperty;
+    private int missingInitValueProperty;
 
     @Property("Property object with missing default value")
-    private Double doubleObjectPropertyWithoutDefaultValue;
+    private Double doubleObjectPropertyWithoutInitValue;
 
     @Property("Mime type")
     @MimeTypeCombo
@@ -339,12 +339,12 @@ public class TestComponent implements ProcessorSync {
         this.mapProperty = mapProperty;
     }
 
-    public Map<String, String> getMapPropertyWithDefaultValues() {
-        return mapPropertyWithDefaultValues;
+    public Map<String, String> getMapPropertyWithInitValues() {
+        return mapPropertyWithInitValues;
     }
 
-    public void setMapPropertyWithDefaultValues(Map<String, String> mapPropertyWithDefaultValues) {
-        this.mapPropertyWithDefaultValues = mapPropertyWithDefaultValues;
+    public void setMapPropertyWithInitValues(Map<String, String> mapPropertyWithInitValues) {
+        this.mapPropertyWithInitValues = mapPropertyWithInitValues;
     }
 
     public Map<String, String> getMapPropertyWithTabPlacementTop() {
@@ -459,20 +459,20 @@ public class TestComponent implements ProcessorSync {
         this.withoutDisplayNameProperty = withoutDisplayNameProperty;
     }
 
-    public int getMissingDefaultValueProperty() {
-        return missingDefaultValueProperty;
+    public int getMissingInitValueProperty() {
+        return missingInitValueProperty;
     }
 
-    public void setMissingDefaultValueProperty(int missingDefaultValueProperty) {
-        this.missingDefaultValueProperty = missingDefaultValueProperty;
+    public void setMissingInitValueProperty(int missingInitValueProperty) {
+        this.missingInitValueProperty = missingInitValueProperty;
     }
 
-    public Double getDoubleObjectPropertyWithoutDefaultValue() {
-        return doubleObjectPropertyWithoutDefaultValue;
+    public Double getDoubleObjectPropertyWithoutInitValue() {
+        return doubleObjectPropertyWithoutInitValue;
     }
 
-    public void setDoubleObjectPropertyWithoutDefaultValue(Double doubleObjectPropertyWithoutDefaultValue) {
-        this.doubleObjectPropertyWithoutDefaultValue = doubleObjectPropertyWithoutDefaultValue;
+    public void setDoubleObjectPropertyWithoutInitValue(Double doubleObjectPropertyWithoutInitValue) {
+        this.doubleObjectPropertyWithoutInitValue = doubleObjectPropertyWithoutInitValue;
     }
 
     public String getMimeType() {
