@@ -185,7 +185,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "stringProperty",
                 "String property",
-                "default string value",
+                "init string value",
                 TypeDescriptorMatchers.ofPrimitiveType(typeString));
     }
 

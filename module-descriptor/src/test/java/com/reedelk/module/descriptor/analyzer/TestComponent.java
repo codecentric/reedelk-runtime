@@ -63,7 +63,7 @@ public class TestComponent implements ProcessorSync {
     private TestEnum enumProperty;
 
     @Property("String property")
-    @InitValue("default string value")
+    @InitValue("init string value")
     private String stringProperty;
 
     @Property("Big Integer property")
@@ -158,7 +158,7 @@ public class TestComponent implements ProcessorSync {
     @InitValue
     private int missingInitValueProperty;
 
-    @Property("Property object with missing default value")
+    @Property("Property object with missing init value")
     private Double doubleObjectPropertyWithoutInitValue;
 
     @Property("Mime type")
