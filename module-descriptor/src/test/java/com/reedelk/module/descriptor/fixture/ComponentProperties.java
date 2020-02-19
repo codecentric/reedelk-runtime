@@ -1,7 +1,7 @@
 package com.reedelk.module.descriptor.fixture;
 
 import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
-import com.reedelk.runtime.api.annotation.Default;
+import com.reedelk.runtime.api.annotation.InitValue;
 
 public class ComponentProperties {
 
@@ -406,7 +406,7 @@ public class ComponentProperties {
     public static ComponentPropertyDescriptor propertyStringWithDefaultValue =
             ComponentPropertyDescriptor.builder()
                     .propertyName("propertyStringWithDefaultValue")
-                    .defaultValue(Default.USE_DEFAULT_VALUE)
+                    .defaultValue(InitValue.USE_DEFAULT_VALUE)
                     .displayName("Property String With Default Value")
                     .hintValue("Test string with default hint")
                     .propertyInfo("Property String With Default Info")

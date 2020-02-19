@@ -5,7 +5,7 @@ import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
-import com.reedelk.runtime.api.annotation.ESBComponent;
+import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.AnnotationInfo;
 import io.github.classgraph.AnnotationParameterValueList;
 import io.github.classgraph.ClassInfo;
@@ -48,7 +48,7 @@ public class ComponentAnalyzer {
 
     private String getComponentDisplayName(ClassInfo componentClassInfo) {
         // The ClassInfo component descriptor *must* have the ESBComponent annotation if we get here.
-        AnnotationInfo componentDisplayName = componentClassInfo.getAnnotationInfo(ESBComponent.class.getName());
+        AnnotationInfo componentDisplayName = componentClassInfo.getAnnotationInfo(ModuleComponent.class.getName());
         AnnotationParameterValueList parameterValues = componentDisplayName.getParameterValues();
         return parameterValues.containsName("value") ?
                 (String) parameterValues.getValue("value") :

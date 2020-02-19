@@ -1,6 +1,6 @@
 package com.reedelk.admin.console;
 
-import com.reedelk.runtime.api.annotation.ESBComponent;
+import com.reedelk.runtime.api.annotation.ModuleComponent;
 import com.reedelk.runtime.api.annotation.Property;
 import com.reedelk.runtime.api.commons.FileUtils;
 import com.reedelk.runtime.api.component.ProcessorSync;
@@ -19,7 +19,7 @@ import org.reactivestreams.Publisher;
 
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ESBComponent("Read From Resources")
+@ModuleComponent(name = "Read From Resources")
 @Component(service = ReadFromResources.class, scope = PROTOTYPE)
 public class ReadFromResources implements ProcessorSync {
 

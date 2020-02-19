@@ -17,15 +17,15 @@ import java.math.BigInteger;
 import java.util.Map;
 
 
-@ESBComponent("Test Component")
+@ModuleComponent(name = "Test Component")
 public class TestComponent implements ProcessorSync {
 
     @Property("Integer property")
-    @Default("3")
+    @InitValue("3")
     private int integerProperty;
 
     @Property("Integer object property")
-    @Default("4569")
+    @InitValue("4569")
     private Integer integerObjectProperty;
 
     @Property("Long property")
@@ -35,43 +35,43 @@ public class TestComponent implements ProcessorSync {
     private Long longObjectProperty;
 
     @Property("Float property")
-    @Default("23.23f")
+    @InitValue("23.23f")
     private float floatProperty;
 
     @Property("Float object property")
-    @Default("13.23f")
+    @InitValue("13.23f")
     private Float floatObjectProperty;
 
     @Property("Double property")
-    @Default("234.5322343d")
+    @InitValue("234.5322343d")
     private double doubleProperty;
 
     @Property("Double object property")
-    @Default("234.12d")
+    @InitValue("234.12d")
     private Double doubleObjectProperty;
 
     @Property("Boolean property")
-    @Default("true")
+    @InitValue("true")
     private boolean booleanProperty;
 
     @Property("Boolean object property")
-    @Default("true")
+    @InitValue("true")
     private Boolean booleanObjectProperty;
 
     @Property("Enum Property")
-    @Default("VALUE2")
+    @InitValue("VALUE2")
     private TestEnum enumProperty;
 
     @Property("String property")
-    @Default("default string value")
+    @InitValue("default string value")
     private String stringProperty;
 
     @Property("Big Integer property")
-    @Default("6723823")
+    @InitValue("6723823")
     private BigInteger bigIntegerProperty;
 
     @Property("Big Decimal property")
-    @Default("342.14823")
+    @InitValue("342.14823")
     private BigDecimal bigDecimalProperty;
 
     @Property("Resource text property")
@@ -84,7 +84,7 @@ public class TestComponent implements ProcessorSync {
     private DynamicResource resourceDynamicProperty;
 
     @Property("Combo property")
-    @Default("two")
+    @InitValue("two")
     @Combo(editable = true, comboValues = {"one", "two", "three"}, prototype = "XXXXXXXXXXXX")
     private String comboProperty;
 
@@ -94,7 +94,7 @@ public class TestComponent implements ProcessorSync {
 
     @Property("Map property with defaults")
     @TabGroup("Default values tab group")
-    @Default("{'key1':'value1','key2':'value2'}")
+    @InitValue("{'key1':'value1','key2':'value2'}")
     private Map<String, String> mapPropertyWithDefaultValues;
 
     @Property("Map property with tab placement top")
@@ -107,39 +107,39 @@ public class TestComponent implements ProcessorSync {
     // Dynamic value types
 
     @Property("Dynamic big decimal")
-    @Default("#[56789.234]")
+    @InitValue("#[56789.234]")
     private DynamicBigDecimal dynamicBigDecimalProperty;
 
     @Property("Dynamic big integer")
-    @Default("56789")
+    @InitValue("56789")
     private DynamicBigInteger dynamicBigIntegerProperty;
 
     @Property("Dynamic boolean")
-    @Default("true")
+    @InitValue("true")
     private DynamicBoolean dynamicBooleanProperty;
 
     @Property("Dynamic byte array")
-    @Default("#[message.payload()]")
+    @InitValue("#[message.payload()]")
     private DynamicByteArray dynamicByteArrayProperty;
 
     @Property("Dynamic double")
-    @Default("234.23d")
+    @InitValue("234.23d")
     private DynamicDouble dynamicDoubleProperty;
 
     @Property("Dynamic float")
-    @Default("#[message.attributes['id']]")
+    @InitValue("#[message.attributes['id']]")
     private DynamicFloat dynamicFloatProperty;
 
     @Property("Dynamic integer")
-    @Default("1233")
+    @InitValue("1233")
     private DynamicInteger dynamicIntegerProperty;
 
     @Property("Dynamic long")
-    @Default("658291")
+    @InitValue("658291")
     private DynamicLong dynamicLongProperty;
 
     @Property("Dynamic object")
-    @Default("my object text")
+    @InitValue("my object text")
     private DynamicObject dynamicObjectProperty;
 
     @Property("Dynamic string")
@@ -155,7 +155,7 @@ public class TestComponent implements ProcessorSync {
     private float withoutDisplayNameProperty;
 
     @Property("Property with missing default value")
-    @Default
+    @InitValue
     private int missingDefaultValueProperty;
 
     @Property("Property object with missing default value")
@@ -163,11 +163,11 @@ public class TestComponent implements ProcessorSync {
 
     @Property("Mime type")
     @MimeTypeCombo
-    @Default(MimeType.MIME_TYPE_ANY)
+    @InitValue(MimeType.MIME_TYPE_ANY)
     private String mimeType;
 
     @Property("Mime type with additional types")
-    @Default("img/xyz")
+    @InitValue("img/xyz")
     @MimeTypeCombo(additionalTypes = "img/xyz,audio/mp13")
     private String mimeTypeCustom;
 
@@ -176,7 +176,7 @@ public class TestComponent implements ProcessorSync {
     private DynamicString propertyWithAutoCompleteContributor;
 
     @Property("String property with info text")
-    @PropertyInfo("This is the info text")
+    @PropertyDescription("This is the info text")
     private String stringPropertyWithTooltipInfo;
 
 

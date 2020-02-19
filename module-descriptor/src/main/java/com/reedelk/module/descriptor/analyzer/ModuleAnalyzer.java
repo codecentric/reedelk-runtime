@@ -13,7 +13,7 @@ import com.reedelk.module.descriptor.model.AutoCompleteContributorDescriptor;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
 import com.reedelk.runtime.api.annotation.AutoCompleteContributor;
-import com.reedelk.runtime.api.annotation.ESBComponent;
+import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.AnnotationInfo;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
@@ -175,7 +175,7 @@ public class ModuleAnalyzer {
     }
 
     private List<ComponentDescriptor> componentDescriptorsFrom(ScanResult scanResult) {
-        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(ESBComponent.class.getName());
+        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(ModuleComponent.class.getName());
         List<ComponentDescriptor> componentDescriptors = new ArrayList<>();
         classInfoList.forEach(classInfo -> {
             try {

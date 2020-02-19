@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer;
 import com.reedelk.module.descriptor.model.*;
-import com.reedelk.runtime.api.annotation.Default;
+import com.reedelk.runtime.api.annotation.InitValue;
 import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.resource.DynamicResource;
@@ -66,7 +66,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "longProperty",
                 "Long property",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofPrimitiveType(typeLong));
     }
 
@@ -79,7 +79,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "longObjectProperty",
                 "Long object property",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofPrimitiveType(typeLongObject));
     }
 
@@ -224,7 +224,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "resourceTextProperty",
                 "Resource text property",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofTypeResourceText(typeResource));
     }
 
@@ -237,7 +237,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "resourceBinaryProperty",
                 "Resource binary property",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofTypeResourceBinary(typeResource));
     }
 
@@ -251,7 +251,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "resourceDynamicProperty",
                 "Resource dynamic property",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofDynamicType(typeDynamicResource));
     }
 
@@ -277,7 +277,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "mapProperty",
                 "Map property",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofTypeMap(typeMap));
     }
 
@@ -303,7 +303,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "mapPropertyWithTabPlacementTop",
                 "Map property with tab placement top",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofTypeMap(typeMap));
     }
 
@@ -316,7 +316,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "scriptProperty",
                 "Script property",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofTypeScript(typeScript));
     }
 
@@ -458,7 +458,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "dynamicStringProperty",
                 "Dynamic string",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofDynamicType(typeDynamicString));
     }
 
@@ -474,7 +474,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "dynamicStringMapProperty",
                 "Dynamic string map",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofDynamicMapType(typeDynamicMapDescriptor));
     }
 
@@ -538,7 +538,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "withoutDisplayNameProperty",
                 "withoutDisplayNameProperty",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofPrimitiveType(typeFloat));
     }
 
@@ -551,7 +551,7 @@ class ComponentPropertyAnalyzerTest {
         assertThatExistProperty(
                 "missingDefaultValueProperty",
                 "Property with missing default value",
-                Default.USE_DEFAULT_VALUE,
+                InitValue.USE_DEFAULT_VALUE,
                 TypeDescriptorMatchers.ofPrimitiveType(typeInteger));
     }
 

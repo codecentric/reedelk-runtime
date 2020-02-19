@@ -46,11 +46,15 @@ public class MimeType implements Serializable {
     }
 
     public static MimeType parse(String mimeType) {
-        if (mimeType == null) return UNKNOWN;
+        return parse(mimeType, UNKNOWN);
+    }
+
+    public static MimeType parse(String mimeType, MimeType defaultMimeType) {
+        if (mimeType == null) return defaultMimeType;
         try {
             return _parse(mimeType);
         } catch (Exception e) {
-            return UNKNOWN;
+            return defaultMimeType;
         }
     }
 
@@ -258,6 +262,7 @@ public class MimeType implements Serializable {
     public static final String MIME_TYPE_ANY = "*/*";
     public static final String MIME_TYPE_TEXT_PLAIN = "text/plain";
     public static final String MIME_TYPE_TEXT_XML = "text/xml";
+    public static final String MIME_TYPE_IMAGE_JPEG = "image/jpeg";
     public static final String MIME_TYPE_APPLICATION_JSON = "application/json";
     public static final String MIME_TYPE_APPLICATION_BINARY = "application/octet-stream";
 

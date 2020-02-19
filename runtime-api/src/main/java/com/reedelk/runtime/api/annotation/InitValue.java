@@ -7,10 +7,10 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
-public @interface Default {
+public @interface InitValue {
     /**
-     * Special value that indicates that the default value should be used
-     * for the property this annotation is referring to.
+     * Special value that indicates that the default init value should
+     * be used for the property this annotation is referring to.
      */
     String USE_DEFAULT_VALUE = "###USE_DEFAULT_VALUE###";
 

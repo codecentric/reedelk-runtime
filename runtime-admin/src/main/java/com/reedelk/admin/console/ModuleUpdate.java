@@ -1,6 +1,6 @@
 package com.reedelk.admin.console;
 
-import com.reedelk.runtime.api.annotation.ESBComponent;
+import com.reedelk.runtime.api.annotation.ModuleComponent;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
@@ -14,7 +14,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ESBComponent("Update module")
+@ModuleComponent(name = "Update module")
 @Component(service = ModuleUpdate.class, scope = PROTOTYPE)
 public class ModuleUpdate implements ProcessorSync {
 

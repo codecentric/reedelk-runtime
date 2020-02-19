@@ -1,6 +1,6 @@
 package com.reedelk.admin.console;
 
-import com.reedelk.runtime.api.annotation.ESBComponent;
+import com.reedelk.runtime.api.annotation.ModuleComponent;
 import com.reedelk.runtime.api.commons.StringUtils;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.exception.ESBException;
@@ -24,7 +24,7 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 import static java.lang.String.format;
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ESBComponent("Module Deploy")
+@ModuleComponent(name = "Module Deploy")
 @Component(service = ModuleDeploy.class, scope = PROTOTYPE)
 public class ModuleDeploy implements ProcessorSync {
 

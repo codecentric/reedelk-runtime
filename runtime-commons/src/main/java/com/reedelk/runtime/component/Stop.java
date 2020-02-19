@@ -1,11 +1,11 @@
 package com.reedelk.runtime.component;
 
 
-import com.reedelk.runtime.api.annotation.ESBComponent;
+import com.reedelk.runtime.api.annotation.ModuleComponent;
 import com.reedelk.runtime.api.annotation.Hidden;
 import com.reedelk.runtime.api.component.Component;
 
 @Hidden
-@ESBComponent("Stop")
+@ModuleComponent(name="Stop")
 public class Stop implements Component {
 }
