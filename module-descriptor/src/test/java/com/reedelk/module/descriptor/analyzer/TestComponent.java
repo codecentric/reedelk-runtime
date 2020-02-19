@@ -175,9 +175,19 @@ public class TestComponent implements ProcessorSync {
     @Property("Property with autocomplete contributor")
     private DynamicString propertyWithAutoCompleteContributor;
 
-    @Property("String property with info text")
-    @PropertyDescription("This is the info text")
-    private String stringPropertyWithTooltipInfo;
+    @Property("String property with description text")
+    @PropertyDescription("This is the description text")
+    private String stringPropertyWithDescription;
+
+    // Property with example annotation
+    @Example("A string example")
+    @Property("Property with example")
+    private String stringPropertyWithExample;
+
+    // Property with default value annotation
+    @DefaultValue("My default value")
+    @Property("Property with default value")
+    private String stringPropertyWithDefaultValue;
 
 
     private int notExposedProperty;
@@ -499,12 +509,12 @@ public class TestComponent implements ProcessorSync {
         this.propertyWithAutoCompleteContributor = propertyWithAutoCompleteContributor;
     }
 
-    public String getStringPropertyWithTooltipInfo() {
-        return stringPropertyWithTooltipInfo;
+    public String getStringPropertyWithDescription() {
+        return stringPropertyWithDescription;
     }
 
-    public void setStringPropertyWithTooltipInfo(String stringPropertyWithTooltipInfo) {
-        this.stringPropertyWithTooltipInfo = stringPropertyWithTooltipInfo;
+    public void setStringPropertyWithDescription(String stringPropertyWithDescription) {
+        this.stringPropertyWithDescription = stringPropertyWithDescription;
     }
 }
 

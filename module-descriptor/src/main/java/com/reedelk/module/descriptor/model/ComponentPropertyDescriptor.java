@@ -12,6 +12,7 @@ public class ComponentPropertyDescriptor implements Serializable {
     private String initValue;
     private String hintValue;
     private String displayName;
+    private String defaultValue;
     private String propertyName;
     private String propertyDescription;
     private TypeDescriptor propertyType;
@@ -41,6 +42,14 @@ public class ComponentPropertyDescriptor implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     public String getPropertyName() {
@@ -106,6 +115,7 @@ public class ComponentPropertyDescriptor implements Serializable {
                 "example='" + example + '\'' +
                 ", hintValue='" + hintValue + '\'' +
                 ", displayName='" + displayName + '\'' +
+                ", defaultValue='" + defaultValue + '\'' +
                 ", propertyName='" + propertyName + '\'' +
                 ", initValue='" + initValue + '\'' +
                 ", propertyDescription='" + propertyDescription + '\'' +
@@ -124,9 +134,10 @@ public class ComponentPropertyDescriptor implements Serializable {
 
         private String example;
         private String hintValue;
+        private String initValue;
         private String displayName;
         private String propertyName;
-        private String initValue;
+        private String defaultValue;
         private String propertyDescription;
         private TypeDescriptor propertyType;
         private ScriptSignatureDescriptor scriptSignatureDescriptor;
@@ -134,12 +145,18 @@ public class ComponentPropertyDescriptor implements Serializable {
 
         private List<WhenDescriptor> whenDescriptors = new ArrayList<>();
 
-        public void example(String example) {
+        public Builder example(String example) {
             this.example = example;
+            return this;
         }
 
         public Builder type(TypeDescriptor type) {
             this.propertyType = type;
+            return this;
+        }
+
+        public Builder defaultValue(String defaultValue) {
+            this.defaultValue = defaultValue;
             return this;
         }
 
@@ -194,6 +211,7 @@ public class ComponentPropertyDescriptor implements Serializable {
             descriptor.displayName = displayName;
             descriptor.propertyName = propertyName;
             descriptor.propertyType = propertyType;
+            descriptor.defaultValue = defaultValue;
             descriptor.propertyDescription = propertyDescription;
             descriptor.scriptSignatureDescriptor = scriptSignatureDescriptor;
             descriptor.autoCompleteContributorDescriptor = autoCompleteContributionsDefinition;

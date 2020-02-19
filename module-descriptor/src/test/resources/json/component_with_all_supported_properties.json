@@ -11,6 +11,7 @@
           "displayName": "Property Boolean Object",
           "propertyName": "propertyBooleanObject",
           "initValue": "true",
+          "example": "false",
           "propertyDescription": "Property Boolean Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
@@ -65,6 +66,8 @@
           "displayName": "Property Double Object",
           "propertyName": "propertyDoubleObject",
           "initValue": "234.54223",
+          "example": "3342.543111",
+          "defaultValue": "11.32",
           "propertyDescription": "Property Double Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
@@ -240,6 +243,8 @@
           "displayName": "Property Long",
           "propertyName": "propertyLong",
           "initValue": "1L",
+          "defaultValue": "2L",
+          "example": "711222L",
           "propertyDescription": "Property Long Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",

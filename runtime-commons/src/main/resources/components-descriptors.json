@@ -9,10 +9,10 @@
       "componentPropertyDescriptors": [
         {
           "example": "1edc7e0d-6be9-46d9-8fa4-d64e3ea21de1",
+          "initValue": "###USE_DEFAULT_VALUE###",
           "displayName": "Subflow Reference",
           "propertyName": "ref",
-          "initValue": "###USE_DEFAULT_VALUE###",
-          "propertyInfo": "The id of the referenced subflow",
+          "propertyDescription": "The id of the referenced subflow",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -68,9 +68,9 @@
       "componentType": "COMPONENT",
       "componentPropertyDescriptors": [
         {
+          "initValue": "###USE_DEFAULT_VALUE###",
           "displayName": "Unknown component",
           "propertyName": "implementor",
-          "initValue": "###USE_DEFAULT_VALUE###",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {

@@ -99,7 +99,7 @@ class JsonProviderTest {
     class FromJsonToModuleDescriptorObject {
 
         @Test
-        void shouldCorrectlyConvertJsonToModuleDescriptor() throws ModuleDescriptorException {
+        void shouldCorrectlyConvertJsonToModuleDescriptor() {
             // Given
             String input = TestJson.COMPONENT_WITH_ALL_SUPPORTED_PROPERTIES.get();
 
@@ -145,25 +145,29 @@ class JsonProviderTest {
 
         private Optional<ComponentPropertyDescriptor> findPropertyDescriptorMatching(List<ComponentPropertyDescriptor> descriptors, ComponentPropertyDescriptor target) {
             return descriptors.stream().filter(current -> {
-                        boolean sameHint = Objects.equals(current.getHintValue(), target.getHintValue());
-                        boolean sameDisplayName = Objects.equals(current.getDisplayName(), target.getDisplayName());
-                        boolean samePropertyName = Objects.equals(current.getPropertyName(), target.getPropertyName());
-                        boolean sameInitValue = Objects.equals(current.getInitValue(), target.getInitValue());
-                        boolean samePropertyDescription = Objects.equals(current.getPropertyDescription(), target.getPropertyDescription());
-                        boolean sameWhenDescriptors = sameWhens(current.getWhenDescriptors(), target.getWhenDescriptors());
-                        boolean samePropertyType = sameType(current.getPropertyType(), target.getPropertyType());
-                        boolean sameScriptSignature = same(current.getScriptSignatureDescriptor(), target.getScriptSignatureDescriptor());
-                        boolean sameAutoCompleteContributor = same(current.getAutoCompleteContributorDescriptor(), target.getAutoCompleteContributorDescriptor());
-                        return sameHint &&
-                                sameDisplayName &&
-                                samePropertyName &&
-                                sameInitValue &&
-                                samePropertyDescription &&
-                                samePropertyType &&
-                                sameWhenDescriptors &&
-                                sameScriptSignature &&
-                                sameAutoCompleteContributor;
-                    }).findFirst();
+                boolean sameExample = Objects.equals(current.getExample(), target.getExample());
+                boolean sameHint = Objects.equals(current.getHintValue(), target.getHintValue());
+                boolean sameDisplayName = Objects.equals(current.getDisplayName(), target.getDisplayName());
+                boolean sameDefaultValue = Objects.equals(current.getDefaultValue(), target.getDefaultValue());
+                boolean samePropertyName = Objects.equals(current.getPropertyName(), target.getPropertyName());
+                boolean sameInitValue = Objects.equals(current.getInitValue(), target.getInitValue());
+                boolean samePropertyDescription = Objects.equals(current.getPropertyDescription(), target.getPropertyDescription());
+                boolean sameWhenDescriptors = sameWhens(current.getWhenDescriptors(), target.getWhenDescriptors());
+                boolean samePropertyType = sameType(current.getPropertyType(), target.getPropertyType());
+                boolean sameScriptSignature = same(current.getScriptSignatureDescriptor(), target.getScriptSignatureDescriptor());
+                boolean sameAutoCompleteContributor = same(current.getAutoCompleteContributorDescriptor(), target.getAutoCompleteContributorDescriptor());
+                return sameHint &&
+                        sameExample &&
+                        sameDisplayName &&
+                        sameDefaultValue &&
+                        samePropertyName &&
+                        sameInitValue &&
+                        samePropertyDescription &&
+                        samePropertyType &&
+                        sameWhenDescriptors &&
+                        sameScriptSignature &&
+                        sameAutoCompleteContributor;
+            }).findFirst();
         }
 
         private boolean sameWhens(List<WhenDescriptor> whens1, List<WhenDescriptor> whens2) {
@@ -181,7 +185,8 @@ class JsonProviderTest {
         }
 
         private boolean same(AutoCompleteContributorDescriptor auto1, AutoCompleteContributorDescriptor auto2) {
-            if (auto1 == null && auto2 == null) return true;
+            if (auto1 == null) return auto2 == null;
+            if (auto2 == null) return false;
             boolean sameIsContext = Objects.equals(auto1.isContext(), auto2.isContext());
             boolean sameIsMessage = Objects.equals(auto1.isMessage(), auto2.isMessage());
             boolean sameIsError = Objects.equals(auto1.isError(), auto2.isError());

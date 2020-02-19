@@ -556,9 +556,9 @@ class ComponentPropertyAnalyzerTest {
     }
 
     @Test
-    void shouldReturnCorrectTooltipInfo() {
+    void shouldReturnCorrectPropertyDescription() {
         // Given
-        FieldInfo property = componentClassInfo.getFieldInfo("stringPropertyWithTooltipInfo");
+        FieldInfo property = componentClassInfo.getFieldInfo("stringPropertyWithDescription");
 
         // When
         Optional<ComponentPropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
@@ -566,12 +566,56 @@ class ComponentPropertyAnalyzerTest {
         // Then
         assertThat(optionalDescriptor).isPresent();
         ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
-        assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithTooltipInfo");
-        assertThat(descriptor.getDisplayName()).isEqualTo("String property with info text");
-        assertThat(descriptor.getPropertyDescription()).isEqualTo("This is the info text");
+        assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithDescription");
+        assertThat(descriptor.getDisplayName()).isEqualTo("String property with description text");
+        assertThat(descriptor.getPropertyDescription()).isEqualTo("This is the description text");
     }
 
-    private void assertThatExistProperty(String propertyName, String displayName, Object initValue, TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
+    @Test
+    void shouldReturnCorrectExample() {
+        // Given
+        FieldInfo property = componentClassInfo.getFieldInfo("stringPropertyWithExample");
+
+        // When
+        Optional<ComponentPropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
+
+        // Then
+        assertThat(optionalDescriptor).isPresent();
+        ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
+        assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithExample");
+        assertThat(descriptor.getDisplayName()).isEqualTo("Property with example");
+        assertThat(descriptor.getExample()).isEqualTo("A string example");
+    }
+
+    @Test
+    void shouldReturnCorrectDefaultValue() {
+        // Given
+        FieldInfo property = componentClassInfo.getFieldInfo("stringPropertyWithDefaultValue");
+
+        // When
+        Optional<ComponentPropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
+
+        // Then
+        assertThat(optionalDescriptor).isPresent();
+        ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
+        assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithDefaultValue");
+        assertThat(descriptor.getDisplayName()).isEqualTo("Property with default value");
+        assertThat(descriptor.getDefaultValue()).isEqualTo("My default value");
+    }
+
+    private void assertThatExistProperty(String propertyName,
+                                         String displayName,
+                                         String initValue,
+                                         TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
+        assertThatExistProperty(propertyName, displayName, initValue, null, null, matcher);
+    }
+
+    private void assertThatExistProperty(String propertyName,
+                                         String displayName,
+                                         String initValue,
+                                         String example,
+                                         String defaultValue,
+                                         TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
         // Given
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
@@ -584,6 +628,8 @@ class ComponentPropertyAnalyzerTest {
         assertThat(descriptor.getPropertyName()).isEqualTo(propertyName);
         assertThat(descriptor.getDisplayName()).isEqualTo(displayName);
         assertThat(descriptor.getInitValue()).isEqualTo(initValue);
+        assertThat(descriptor.getExample()).isEqualTo(example);
+        assertThat(descriptor.getDefaultValue()).isEqualTo(defaultValue);
         assertThat(matcher.matches(descriptor.getPropertyType())).isTrue();
     }
 }
