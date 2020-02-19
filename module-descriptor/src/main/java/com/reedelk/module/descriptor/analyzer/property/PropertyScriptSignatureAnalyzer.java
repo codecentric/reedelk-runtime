@@ -13,9 +13,9 @@ import java.util.List;
 public class PropertyScriptSignatureAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        if (ScannerUtils.hasAnnotation(propertyInfo, ScriptSignature.class)) {
-            AnnotationInfo info = propertyInfo.getAnnotationInfo(ScriptSignature.class.getName());
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+        if (ScannerUtils.hasAnnotation(fieldInfo, ScriptSignature.class)) {
+            AnnotationInfo info = fieldInfo.getAnnotationInfo(ScriptSignature.class.getName());
             List<String> functionSignatureArguments = ScannerUtils.stringListParameterValueFrom(info, "arguments");
             ScriptSignatureDescriptor definition = new ScriptSignatureDescriptor();
             definition.setArguments(functionSignatureArguments);

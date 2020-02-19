@@ -149,7 +149,7 @@ class JsonProviderTest {
                         boolean sameDisplayName = Objects.equals(current.getDisplayName(), target.getDisplayName());
                         boolean samePropertyName = Objects.equals(current.getPropertyName(), target.getPropertyName());
                         boolean sameInitValue = Objects.equals(current.getInitValue(), target.getInitValue());
-                        boolean samePropertyInfo = Objects.equals(current.getPropertyInfo(), target.getPropertyInfo());
+                        boolean samePropertyDescription = Objects.equals(current.getPropertyDescription(), target.getPropertyDescription());
                         boolean sameWhenDescriptors = sameWhens(current.getWhenDescriptors(), target.getWhenDescriptors());
                         boolean samePropertyType = sameType(current.getPropertyType(), target.getPropertyType());
                         boolean sameScriptSignature = same(current.getScriptSignatureDescriptor(), target.getScriptSignatureDescriptor());
@@ -158,7 +158,7 @@ class JsonProviderTest {
                                 sameDisplayName &&
                                 samePropertyName &&
                                 sameInitValue &&
-                                samePropertyInfo &&
+                                samePropertyDescription &&
                                 samePropertyType &&
                                 sameWhenDescriptors &&
                                 sameScriptSignature &&
@@ -190,7 +190,8 @@ class JsonProviderTest {
 
         private boolean same(ScriptSignatureDescriptor s1, ScriptSignatureDescriptor s2) {
             if (s1 == null) return s2 == null;
-            return s1.getArguments().equals(s2.getArguments());
+            if (s2 == null) return false;
+            return Objects.equals(s1.getArguments(), s2.getArguments());
         }
 
         private boolean sameType(TypeDescriptor t1, TypeDescriptor t2) {

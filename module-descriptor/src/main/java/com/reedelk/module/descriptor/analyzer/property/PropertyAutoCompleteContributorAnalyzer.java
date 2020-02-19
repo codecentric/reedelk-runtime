@@ -13,9 +13,9 @@ import java.util.List;
 public class PropertyAutoCompleteContributorAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        if (ScannerUtils.hasAnnotation(propertyInfo, AutoCompleteContributor.class)) {
-            AnnotationInfo info = propertyInfo.getAnnotationInfo(AutoCompleteContributor.class.getName());
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+        if (ScannerUtils.hasAnnotation(fieldInfo, AutoCompleteContributor.class)) {
+            AnnotationInfo info = fieldInfo.getAnnotationInfo(AutoCompleteContributor.class.getName());
 
             boolean isMessage =  ScannerUtils.booleanParameterValueFrom(info, "message", true);
             boolean isError =  ScannerUtils.booleanParameterValueFrom(info, "error", false);

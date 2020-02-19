@@ -6,5 +6,5 @@ import io.github.classgraph.FieldInfo;
 
 public interface FieldInfoAnalyzer {
 
-    void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context);
+    void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context);
 }

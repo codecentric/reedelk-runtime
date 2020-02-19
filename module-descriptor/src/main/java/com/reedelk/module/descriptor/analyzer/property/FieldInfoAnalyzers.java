@@ -25,9 +25,9 @@ public class FieldInfoAnalyzers {
             new PropertyScriptSignatureAnalyzer(),
             new PropertyAutoCompleteContributorAnalyzer());
 
-    public static ComponentPropertyDescriptor analyze(FieldInfo propertyInfo, ComponentAnalyzerContext context) {
+    public static ComponentPropertyDescriptor analyze(FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         ComponentPropertyDescriptor.Builder builder = ComponentPropertyDescriptor.builder();
-        FIELD_INFO_ANALYZERS.forEach(handler -> handler.handle(propertyInfo, builder, context));
+        FIELD_INFO_ANALYZERS.forEach(handler -> handler.handle(fieldInfo, builder, context));
         return builder.build();
     }
 }

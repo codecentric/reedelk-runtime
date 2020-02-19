@@ -9,9 +9,9 @@ import io.github.classgraph.FieldInfo;
 public class PropertyInitValueAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         String initValueAsString =
-                ScannerUtils.annotationValueOrDefaultFrom(propertyInfo, InitValue.class, InitValue.USE_DEFAULT_VALUE);
+                ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, InitValue.class, InitValue.USE_DEFAULT_VALUE);
         builder.initValue(initValueAsString);
     }
 }

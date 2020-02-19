@@ -9,11 +9,11 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 public class ComponentPropertyDescriptor implements Serializable {
 
     private String example;
+    private String initValue;
     private String hintValue;
     private String displayName;
     private String propertyName;
-    private String initValue;
-    private String propertyInfo;
+    private String propertyDescription;
     private TypeDescriptor propertyType;
     private List<WhenDescriptor> whenDescriptors;
     private ScriptSignatureDescriptor scriptSignatureDescriptor;
@@ -55,12 +55,12 @@ public class ComponentPropertyDescriptor implements Serializable {
         this.initValue = initValue;
     }
 
-    public String getPropertyInfo() {
-        return propertyInfo;
+    public String getPropertyDescription() {
+        return propertyDescription;
     }
 
-    public void setPropertyInfo(String propertyInfo) {
-        this.propertyInfo = propertyInfo;
+    public void setPropertyDescription(String propertyDescription) {
+        this.propertyDescription = propertyDescription;
     }
 
     @SuppressWarnings("unchecked")
@@ -108,7 +108,7 @@ public class ComponentPropertyDescriptor implements Serializable {
                 ", displayName='" + displayName + '\'' +
                 ", propertyName='" + propertyName + '\'' +
                 ", initValue='" + initValue + '\'' +
-                ", propertyInfo='" + propertyInfo + '\'' +
+                ", propertyDescription='" + propertyDescription + '\'' +
                 ", propertyType=" + propertyType +
                 ", scriptSignatureDefinition=" + scriptSignatureDescriptor +
                 ", autoCompleteContributorDefinition=" + autoCompleteContributorDescriptor +
@@ -127,7 +127,7 @@ public class ComponentPropertyDescriptor implements Serializable {
         private String displayName;
         private String propertyName;
         private String initValue;
-        private String propertyInfo;
+        private String propertyDescription;
         private TypeDescriptor propertyType;
         private ScriptSignatureDescriptor scriptSignatureDescriptor;
         private AutoCompleteContributorDescriptor autoCompleteContributionsDefinition;
@@ -163,8 +163,8 @@ public class ComponentPropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder propertyInfo(String propertyInfo) {
-            this.propertyInfo = propertyInfo;
+        public Builder propertyDescription(String propertyDescription) {
+            this.propertyDescription = propertyDescription;
             return this;
         }
 
@@ -194,7 +194,7 @@ public class ComponentPropertyDescriptor implements Serializable {
             descriptor.displayName = displayName;
             descriptor.propertyName = propertyName;
             descriptor.propertyType = propertyType;
-            descriptor.propertyInfo = propertyInfo;
+            descriptor.propertyDescription = propertyDescription;
             descriptor.scriptSignatureDescriptor = scriptSignatureDescriptor;
             descriptor.autoCompleteContributorDescriptor = autoCompleteContributionsDefinition;
             descriptor.whenDescriptors = whenDescriptors;

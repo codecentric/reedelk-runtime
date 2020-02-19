@@ -21,9 +21,9 @@ public class PropertyWhenAnalyzer implements FieldInfoAnalyzer {
     private static final Logger LOG = Logger.getLogger(PropertyWhenAnalyzer.class);
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         // Check if there is a single 'when' annotation
-        Collection<AnnotationInfo> whensAnnotations = findWhensAnnotations(propertyInfo);
+        Collection<AnnotationInfo> whensAnnotations = findWhensAnnotations(fieldInfo);
         for (AnnotationInfo info : whensAnnotations) {
             WhenDescriptor variableDefinition = processWhenInfo(info);
             builder.when(variableDefinition);
@@ -32,9 +32,9 @@ public class PropertyWhenAnalyzer implements FieldInfoAnalyzer {
         // More than one 'when' definition
         // Important: be careful here. The Whens is only applied when the class is compiled because
         // the compiler replaces 2 @When with 1 @Whens({@When1,@When2}). This code must not be removed.
-        boolean hasWhenAnnotations = ScannerUtils.hasAnnotation(propertyInfo, Whens.class);
+        boolean hasWhenAnnotations = ScannerUtils.hasAnnotation(fieldInfo, Whens.class);
         if (hasWhenAnnotations) {
-            AnnotationInfo annotationInfo = propertyInfo.getAnnotationInfo(Whens.class.getName());
+            AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(Whens.class.getName());
             AnnotationParameterValueList whensAnnotationList = annotationInfo.getParameterValues();
             Object[] annotationInfos = (Object[]) whensAnnotationList.get(0).getValue();
             for (Object info : annotationInfos) {
@@ -42,7 +42,7 @@ public class PropertyWhenAnalyzer implements FieldInfoAnalyzer {
                     WhenDescriptor whenDescriptor = processWhenInfo((AnnotationInfo) info);
                     builder.when(whenDescriptor);
                 } catch (Exception exception) {
-                    String message  = String.format(Messages.ERROR_WHEN_ANNOTATION, propertyInfo.getName());
+                    String message  = String.format(Messages.ERROR_WHEN_ANNOTATION, fieldInfo.getName());
                     LOG.warn(message, exception);
                 }
             }
@@ -58,9 +58,9 @@ public class PropertyWhenAnalyzer implements FieldInfoAnalyzer {
         return definition;
     }
 
-    private Collection<AnnotationInfo> findWhensAnnotations(FieldInfo propertyInfo) {
+    private Collection<AnnotationInfo> findWhensAnnotations(FieldInfo fieldInfo) {
         List<AnnotationInfo> whenAnnotationInfos = new ArrayList<>();
-        for (AnnotationInfo info : propertyInfo.getAnnotationInfo()) {
+        for (AnnotationInfo info : fieldInfo.getAnnotationInfo()) {
             if (info.getName().equals(When.class.getName())) {
                 whenAnnotationInfos.add(info);
             }

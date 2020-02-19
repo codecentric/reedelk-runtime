@@ -9,8 +9,8 @@ import io.github.classgraph.FieldInfo;
 public class PropertyHintAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String hintValue = ScannerUtils.annotationValueOrDefaultFrom(propertyInfo, Hint.class, null);
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+        String hintValue = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, Hint.class, null);
         builder.hintValue(hintValue);
     }
 }

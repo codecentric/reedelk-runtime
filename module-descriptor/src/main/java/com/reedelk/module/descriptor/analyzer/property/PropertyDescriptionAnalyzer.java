@@ -9,9 +9,9 @@ import io.github.classgraph.FieldInfo;
 public class PropertyDescriptionAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String propertyToolTipInfo =
-                ScannerUtils.annotationValueOrDefaultFrom(propertyInfo, PropertyDescription.class, null);
-        builder.propertyInfo(propertyToolTipInfo);
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+        String propertyDescription =
+                ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, PropertyDescription.class, null);
+        builder.propertyDescription(propertyDescription);
     }
 }

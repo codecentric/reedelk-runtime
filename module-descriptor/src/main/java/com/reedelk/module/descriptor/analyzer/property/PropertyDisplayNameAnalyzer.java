@@ -9,10 +9,10 @@ import io.github.classgraph.FieldInfo;
 public class PropertyDisplayNameAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String displayName = ScannerUtils.annotationValueOrDefaultFrom(propertyInfo, Property.class, propertyInfo.getName());
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+        String displayName = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, Property.class, fieldInfo.getName());
         if (Property.USE_DEFAULT_NAME.equals(displayName)) {
-            String propertyName = propertyInfo.getName();
+            String propertyName = fieldInfo.getName();
             builder.displayName(propertyName);
         } else {
             builder.displayName(displayName);

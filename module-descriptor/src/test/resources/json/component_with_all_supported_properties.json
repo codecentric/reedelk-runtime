@@ -11,7 +11,7 @@
           "displayName": "Property Boolean Object",
           "propertyName": "propertyBooleanObject",
           "initValue": "true",
-          "propertyInfo": "Property Boolean Object Info",
+          "propertyDescription": "Property Boolean Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -40,7 +40,7 @@
           "displayName": "Property Boolean",
           "propertyName": "propertyBoolean",
           "initValue": "true",
-          "propertyInfo": "Property Boolean Info",
+          "propertyDescription": "Property Boolean Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -65,7 +65,7 @@
           "displayName": "Property Double Object",
           "propertyName": "propertyDoubleObject",
           "initValue": "234.54223",
-          "propertyInfo": "Property Double Object Info",
+          "propertyDescription": "Property Double Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -90,7 +90,7 @@
           "displayName": "Property Double",
           "propertyName": "propertyDouble",
           "initValue": "333.8764",
-          "propertyInfo": "Property Double Info",
+          "propertyDescription": "Property Double Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -115,7 +115,7 @@
           "displayName": "Property Float Object",
           "propertyName": "propertyFloatObject",
           "initValue": "3.1f",
-          "propertyInfo": "Property Float Object Info",
+          "propertyDescription": "Property Float Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -140,7 +140,7 @@
           "displayName": "Property Float",
           "propertyName": "propertyFloat",
           "initValue": "1.8f",
-          "propertyInfo": "Property Float Info",
+          "propertyDescription": "Property Float Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -165,7 +165,7 @@
           "displayName": "Property Integer Object",
           "propertyName": "propertyIntegerObject",
           "initValue": "122",
-          "propertyInfo": "Property Integer Object Info",
+          "propertyDescription": "Property Integer Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -190,7 +190,7 @@
           "displayName": "Property Integer",
           "propertyName": "propertyInteger",
           "initValue": "544",
-          "propertyInfo": "Property Integer Info",
+          "propertyDescription": "Property Integer Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -215,7 +215,7 @@
           "displayName": "Property Long Object",
           "propertyName": "propertyLongObject",
           "initValue": "892L",
-          "propertyInfo": "Property Long Object Info",
+          "propertyDescription": "Property Long Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -240,7 +240,7 @@
           "displayName": "Property Long",
           "propertyName": "propertyLong",
           "initValue": "1L",
-          "propertyInfo": "Property Long Info",
+          "propertyDescription": "Property Long Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -265,7 +265,7 @@
           "displayName": "Property String",
           "propertyName": "propertyString",
           "initValue": "Test property string",
-          "propertyInfo": "Property String Info",
+          "propertyDescription": "Property String Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -290,7 +290,7 @@
           "displayName": "Property BigInteger",
           "propertyName": "propertyBigInteger",
           "initValue": "4222222",
-          "propertyInfo": "Property Big Integer Info",
+          "propertyDescription": "Property Big Integer Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -315,7 +315,7 @@
           "displayName": "Property BigDecimal",
           "propertyName": "propertyBigDecimal",
           "initValue": "234.2343",
-          "propertyInfo": "Property Big Decimal Info",
+          "propertyDescription": "Property Big Decimal Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -340,7 +340,7 @@
           "displayName": "Property Map",
           "propertyName": "propertyMap",
           "initValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
-          "propertyInfo": "Property Map Info",
+          "propertyDescription": "Property Map Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
             "instance": {
@@ -366,7 +366,7 @@
           "displayName": "Property Enum",
           "propertyName": "propertyEnum",
           "initValue": "STREAM",
-          "propertyInfo": "Property Enum Info",
+          "propertyDescription": "Property Enum Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeEnumDescriptor",
             "instance": {
@@ -395,7 +395,7 @@
           "displayName": "Property Dynamic Long",
           "propertyName": "propertyDynamicLong",
           "initValue": "432L",
-          "propertyInfo": "Property Dynamic Long Info",
+          "propertyDescription": "Property Dynamic Long Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -420,7 +420,7 @@
           "displayName": "Property Dynamic Float",
           "propertyName": "propertyDynamicFloat",
           "initValue": "432.23f",
-          "propertyInfo": "Property Dynamic Float Info",
+          "propertyDescription": "Property Dynamic Float Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -445,7 +445,7 @@
           "displayName": "Property Dynamic Double",
           "propertyName": "propertyDynamicDouble",
           "initValue": "1432.23d",
-          "propertyInfo": "Property Dynamic Double Info",
+          "propertyDescription": "Property Dynamic Double Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -470,7 +470,7 @@
           "displayName": "Property Dynamic Object",
           "propertyName": "propertyDynamicObject",
           "initValue": "Test",
-          "propertyInfo": "Property Dynamic Object Info",
+          "propertyDescription": "Property Dynamic Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -495,7 +495,7 @@
           "displayName": "Property Dynamic String",
           "propertyName": "propertyDynamicString",
           "initValue": "Test string",
-          "propertyInfo": "Property Dynamic String Info",
+          "propertyDescription": "Property Dynamic String Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -520,7 +520,7 @@
           "displayName": "Property Dynamic Boolean",
           "propertyName": "propertyDynamicBoolean",
           "initValue": "true",
-          "propertyInfo": "Property Dynamic Boolean Info",
+          "propertyDescription": "Property Dynamic Boolean Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -545,7 +545,7 @@
           "displayName": "Property Dynamic Integer",
           "propertyName": "propertyDynamicInteger",
           "initValue": "4",
-          "propertyInfo": "Property Dynamic Integer Info",
+          "propertyDescription": "Property Dynamic Integer Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -570,7 +570,7 @@
           "displayName": "Property Dynamic Resource",
           "propertyName": "propertyDynamicResource",
           "initValue": "#[\u0027my-resource.png\u0027]",
-          "propertyInfo": "Property Dynamic Resource Info",
+          "propertyDescription": "Property Dynamic Resource Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -595,7 +595,7 @@
           "displayName": "Property Dynamic byte array",
           "propertyName": "propertyDynamicByteArray",
           "initValue": "Test Dynamic Byte Array",
-          "propertyInfo": "Property Dynamic Byte Array Info",
+          "propertyDescription": "Property Dynamic Byte Array Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -620,7 +620,7 @@
           "displayName": "Property Dynamic Big Integer",
           "propertyName": "propertyDynamicBigInteger",
           "initValue": "2348111",
-          "propertyInfo": "Property Dynamic Big Integer Info",
+          "propertyDescription": "Property Dynamic Big Integer Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -645,7 +645,7 @@
           "displayName": "Property Dynamic Big Decimal",
           "propertyName": "propertyDynamicBigDecimal",
           "initValue": "234.8111",
-          "propertyInfo": "Property Dynamic Big Decimal Info",
+          "propertyDescription": "Property Dynamic Big Decimal Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -670,7 +670,7 @@
           "displayName": "Property Dynamic String Map",
           "propertyName": "propertyDynamicStringMap",
           "initValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027,\u0027key2\u0027:\u0027#[\u0027value2\u0027]\u0027}",
-          "propertyInfo": "Property Dynamic String Map Info",
+          "propertyDescription": "Property Dynamic String Map Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicMapDescriptor",
             "instance": {
@@ -696,7 +696,7 @@
           "displayName": "Property Script",
           "propertyName": "propertyScript",
           "initValue": "#[\u0027Test\u0027]",
-          "propertyInfo": "Property Script Info",
+          "propertyDescription": "Property Script Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeScriptDescriptor",
             "instance": {
@@ -721,7 +721,7 @@
           "displayName": "Property Combo",
           "propertyName": "propertyCombo",
           "initValue": "Item1",
-          "propertyInfo": "Property Combo Info",
+          "propertyDescription": "Property Combo Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeComboDescriptor",
             "instance": {
@@ -753,7 +753,7 @@
           "displayName": "Property Password",
           "propertyName": "propertyPassword",
           "initValue": "my password",
-          "propertyInfo": "Property Password Info",
+          "propertyDescription": "Property Password Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePasswordDescriptor",
             "instance": {
@@ -778,7 +778,7 @@
           "displayName": "Property Resource Text",
           "propertyName": "propertyResourceText",
           "initValue": "assets/my-text.txt",
-          "propertyInfo": "Property Resource Text Info",
+          "propertyDescription": "Property Resource Text Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeResourceTextDescriptor",
             "instance": {
@@ -803,7 +803,7 @@
           "displayName": "Property Resource Binary",
           "propertyName": "propertyResourceBinary",
           "initValue": "assets/my-image.png",
-          "propertyInfo": "Property Resource Binary Info",
+          "propertyDescription": "Property Resource Binary Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeResourceBinaryDescriptor",
             "instance": {
@@ -826,7 +826,7 @@
         {
           "displayName": "Property Type Object",
           "propertyName": "propertyTypeObject",
-          "propertyInfo": "Property Type Object Info",
+          "propertyDescription": "Property Type Object Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeObjectDescriptor",
             "instance": {
@@ -839,7 +839,7 @@
                   "displayName": "Nested Property 1",
                   "propertyName": "nestedProperty1",
                   "initValue": "my nested property 1",
-                  "propertyInfo": "Property Nested 1 Info",
+                  "propertyDescription": "Property Nested 1 Info",
                   "propertyType": {
                     "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
                     "instance": {
@@ -864,7 +864,7 @@
                   "displayName": "Nested Property 2",
                   "propertyName": "nestedProperty2",
                   "initValue": "5",
-                  "propertyInfo": "Property Nested 2 Info",
+                  "propertyDescription": "Property Nested 2 Info",
                   "propertyType": {
                     "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
                     "instance": {
@@ -914,7 +914,7 @@
           "displayName": "Property String With Init Value",
           "propertyName": "propertyStringWithInitValue",
           "initValue": "###USE_DEFAULT_VALUE###",
-          "propertyInfo": "Property String With Default Info",
+          "propertyDescription": "Property String With Default Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
@@ -928,7 +928,7 @@
           "displayName": "Property Dynamic String",
           "propertyName": "propertyDynamicString",
           "initValue": "Test string",
-          "propertyInfo": "Property Dynamic String Info",
+          "propertyDescription": "Property Dynamic String Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
@@ -953,7 +953,7 @@
           "displayName": "Property Map",
           "propertyName": "propertyMap",
           "initValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
-          "propertyInfo": "Property Map Info",
+          "propertyDescription": "Property Map Info",
           "propertyType": {
             "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
             "instance": {

@@ -22,8 +22,8 @@ import static java.util.stream.Collectors.toMap;
 public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        TypeSignature typeSignature = propertyInfo.getTypeDescriptor();
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+        TypeSignature typeSignature = fieldInfo.getTypeDescriptor();
 
         // Primitive
         if (typeSignature instanceof BaseTypeSignature) {
@@ -35,7 +35,7 @@ public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
             // Non primitive: String, BigDecimal, DynamicString, ...
         } else if (typeSignature instanceof ClassRefTypeSignature) {
             ClassRefTypeSignature classRef = (ClassRefTypeSignature) typeSignature;
-            TypeDescriptor typeDescriptor = processClassRefType(classRef, propertyInfo, context);
+            TypeDescriptor typeDescriptor = processClassRefType(classRef, fieldInfo, context);
             builder.type(typeDescriptor);
 
         } else {

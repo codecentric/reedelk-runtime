@@ -9,8 +9,8 @@ import io.github.classgraph.FieldInfo;
 public class PropertyExampleAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo propertyInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String example = ScannerUtils.annotationValueOrDefaultFrom(propertyInfo, Example.class, null);
+    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+        String example = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, Example.class, null);
         builder.example(example);
     }
 }

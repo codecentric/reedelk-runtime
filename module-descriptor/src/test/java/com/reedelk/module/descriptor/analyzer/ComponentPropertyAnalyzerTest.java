@@ -568,7 +568,7 @@ class ComponentPropertyAnalyzerTest {
         ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
         assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithTooltipInfo");
         assertThat(descriptor.getDisplayName()).isEqualTo("String property with info text");
-        assertThat(descriptor.getPropertyInfo()).isEqualTo("This is the info text");
+        assertThat(descriptor.getPropertyDescription()).isEqualTo("This is the info text");
     }
 
     private void assertThatExistProperty(String propertyName, String displayName, Object initValue, TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
