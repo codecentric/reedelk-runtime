@@ -8,19 +8,26 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 
 public class PropertyDescriptor implements Serializable {
 
+    private String name;
     private String example;
     private String initValue;
     private String hintValue;
+    private String description;
     private String displayName;
     private String defaultValue;
-    private String propertyName;
-    private String propertyDescription;
+    private TypeDescriptor type;
+    private ScriptSignatureDescriptor scriptSignature;
+    private AutoCompleteContributorDescriptor autocompleteContributor;
 
     private List<WhenDescriptor> whens;
 
-    private TypeDescriptor propertyType;
-    private ScriptSignatureDescriptor scriptSignature;
-    private AutoCompleteContributorDescriptor autocompleteContributor;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getExample() {
         return example;
@@ -30,12 +37,28 @@ public class PropertyDescriptor implements Serializable {
         this.example = example;
     }
 
+    public String getInitValue() {
+        return initValue;
+    }
+
+    public void setInitValue(String initValue) {
+        this.initValue = initValue;
+    }
+
     public String getHintValue() {
         return hintValue;
     }
 
     public void setHintValue(String hintValue) {
         this.hintValue = hintValue;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDisplayName() {
@@ -54,33 +77,13 @@ public class PropertyDescriptor implements Serializable {
         this.defaultValue = defaultValue;
     }
 
-    public String getPropertyName() {
-        return propertyName;
-    }
-
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
-    }
-
-    public void setInitValue(String initValue) {
-        this.initValue = initValue;
-    }
-
-    public String getPropertyDescription() {
-        return propertyDescription;
-    }
-
-    public void setPropertyDescription(String propertyDescription) {
-        this.propertyDescription = propertyDescription;
-    }
-
     @SuppressWarnings("unchecked")
-    public <T extends TypeDescriptor> T getPropertyType() {
-        return (T) propertyType;
+    public <T extends TypeDescriptor> T getType() {
+        return (T) type;
     }
 
-    public void setPropertyType(TypeDescriptor propertyType) {
-        this.propertyType = propertyType;
+    public void setType(TypeDescriptor type) {
+        this.type = type;
     }
 
     public ScriptSignatureDescriptor getScriptSignature() {
@@ -107,24 +110,20 @@ public class PropertyDescriptor implements Serializable {
         this.whens = whens;
     }
 
-    public String getInitValue() {
-        return initValue;
-    }
-
     @Override
     public String toString() {
-        return "ComponentPropertyDescriptor{" +
-                "example='" + example + '\'' +
+        return "PropertyDescriptor{" +
+                "name='" + name + '\'' +
+                ", example='" + example + '\'' +
+                ", initValue='" + initValue + '\'' +
                 ", hintValue='" + hintValue + '\'' +
+                ", description='" + description + '\'' +
                 ", displayName='" + displayName + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
-                ", propertyName='" + propertyName + '\'' +
-                ", initValue='" + initValue + '\'' +
-                ", propertyDescription='" + propertyDescription + '\'' +
-                ", propertyType=" + propertyType +
-                ", scriptSignatureDefinition=" + scriptSignature +
-                ", autoCompleteContributorDefinition=" + autocompleteContributor +
-                ", whenDefinitions=" + whens +
+                ", whens=" + whens +
+                ", type=" + type +
+                ", scriptSignature=" + scriptSignature +
+                ", autocompleteContributor=" + autocompleteContributor +
                 '}';
     }
 
@@ -134,14 +133,14 @@ public class PropertyDescriptor implements Serializable {
 
     public static class Builder {
 
+        private String name;
         private String example;
         private String hintValue;
         private String initValue;
+        private String description;
         private String displayName;
-        private String propertyName;
         private String defaultValue;
-        private String propertyDescription;
-        private TypeDescriptor propertyType;
+        private TypeDescriptor type;
         private ScriptSignatureDescriptor scriptSignature;
         private AutoCompleteContributorDescriptor autocompleteContributor;
 
@@ -152,8 +151,13 @@ public class PropertyDescriptor implements Serializable {
             return this;
         }
 
+        public Builder name(String propertyName) {
+            this.name = propertyName;
+            return this;
+        }
+
         public Builder type(TypeDescriptor type) {
-            this.propertyType = type;
+            this.type = type;
             return this;
         }
 
@@ -172,23 +176,18 @@ public class PropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder propertyName(String propertyName) {
-            this.propertyName = propertyName;
-            return this;
-        }
-
         public Builder defaultValue(String defaultValue) {
             this.defaultValue = defaultValue;
             return this;
         }
 
-        public Builder propertyDescription(String propertyDescription) {
-            this.propertyDescription = propertyDescription;
+        public Builder when(WhenDescriptor whenDescriptor) {
+            this.whens.add(whenDescriptor);
             return this;
         }
 
-        public Builder when(WhenDescriptor whenDescriptor) {
-            this.whens.add(whenDescriptor);
+        public Builder description(String propertyDescription) {
+            this.description = propertyDescription;
             return this;
         }
 
@@ -203,21 +202,21 @@ public class PropertyDescriptor implements Serializable {
         }
 
         public PropertyDescriptor build() {
-            checkState(propertyName != null, "propertyName");
-            checkState(propertyType != null, "propertyType");
+            checkState(name != null, "propertyName");
+            checkState(type != null, "propertyType");
 
             PropertyDescriptor descriptor = new PropertyDescriptor();
+            descriptor.name = name;
             descriptor.example = example;
             descriptor.hintValue = hintValue;
             descriptor.initValue = initValue;
+            descriptor.description = description;
             descriptor.displayName = displayName;
-            descriptor.propertyName = propertyName;
-            descriptor.propertyType = propertyType;
             descriptor.defaultValue = defaultValue;
-            descriptor.whens = whens;
+            descriptor.type = type;
             descriptor.scriptSignature = scriptSignature;
-            descriptor.propertyDescription = propertyDescription;
             descriptor.autocompleteContributor = autocompleteContributor;
+            descriptor.whens = whens;
             return descriptor;
         }
     }

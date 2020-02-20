@@ -30,7 +30,7 @@ public class ComponentAnalyzer {
                 .displayName(displayName)
                 .description(description)
                 .hidden(ScannerUtils.isHidden(classInfo))
-                .componentType(componentType)
+                .type(componentType)
                 .fullyQualifiedName(classInfo.getName())
                 .propertyDescriptors(propertiesDescriptor)
                 .build();

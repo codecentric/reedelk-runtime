@@ -41,7 +41,7 @@ class PropertyWhenAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(new TypePrimitiveDescriptor());
 
         // When
@@ -63,7 +63,7 @@ class PropertyWhenAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(new TypePrimitiveDescriptor());
 
         // When
@@ -86,7 +86,7 @@ class PropertyWhenAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(new TypePrimitiveDescriptor());
 
         // When

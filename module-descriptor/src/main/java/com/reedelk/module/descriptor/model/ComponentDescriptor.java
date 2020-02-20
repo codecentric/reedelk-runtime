@@ -14,10 +14,10 @@ public class ComponentDescriptor implements Serializable {
     private transient Image image;
 
     private boolean hidden;
+    private ComponentType type;
     private String displayName;
     private String description;
     private String fullyQualifiedName;
-    private ComponentType componentType;
     private List<PropertyDescriptor> properties = new ArrayList<>();
 
     public boolean isHidden() {
@@ -68,12 +68,12 @@ public class ComponentDescriptor implements Serializable {
         this.fullyQualifiedName = fullyQualifiedName;
     }
 
-    public ComponentType getComponentType() {
-        return componentType;
+    public ComponentType getType() {
+        return type;
     }
 
-    public void setComponentType(ComponentType componentType) {
-        this.componentType = componentType;
+    public void setType(ComponentType type) {
+        this.type = type;
     }
 
     public List<PropertyDescriptor> getProperties() {
@@ -87,7 +87,7 @@ public class ComponentDescriptor implements Serializable {
     public Optional<PropertyDescriptor> getPropertyDescriptor(String propertyName) {
         return properties
                 .stream()
-                .filter(descriptor -> descriptor.getPropertyName().equals(propertyName))
+                .filter(descriptor -> descriptor.getName().equals(propertyName))
                 .findFirst();
     }
 
@@ -100,7 +100,7 @@ public class ComponentDescriptor implements Serializable {
                 ", displayName='" + displayName + '\'' +
                 ", description='" + description + '\'' +
                 ", fullyQualifiedName='" + fullyQualifiedName + '\'' +
-                ", componentType=" + componentType +
+                ", type=" + type +
                 ", properties=" + properties +
                 '}';
     }
@@ -112,10 +112,10 @@ public class ComponentDescriptor implements Serializable {
     public static class Builder {
 
         private boolean hidden;
+        private ComponentType type;
         private String displayName;
         private String description;
         private String fullyQualifiedName;
-        private ComponentType componentType;
         private List<PropertyDescriptor> propertyDescriptors = new ArrayList<>();
 
         public Builder propertyDescriptors(List<PropertyDescriptor> propertyDescriptors) {
@@ -128,8 +128,8 @@ public class ComponentDescriptor implements Serializable {
             return this;
         }
 
-        public Builder componentType(ComponentType componentType) {
-            this.componentType = componentType;
+        public Builder type(ComponentType componentType) {
+            this.type = componentType;
             return this;
         }
 
@@ -150,10 +150,10 @@ public class ComponentDescriptor implements Serializable {
 
         public ComponentDescriptor build() {
             ComponentDescriptor descriptor = new ComponentDescriptor();
+            descriptor.type = type;
             descriptor.hidden = hidden;
             descriptor.displayName = displayName;
             descriptor.description = description;
-            descriptor.componentType = componentType;
             descriptor.fullyQualifiedName = fullyQualifiedName;
             descriptor.properties.addAll(propertyDescriptors);
             return descriptor;

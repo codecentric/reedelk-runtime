@@ -9,6 +9,6 @@ public class PropertyNameAnalyzer implements FieldInfoAnalyzer {
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         String propertyName = fieldInfo.getName();
-        builder.propertyName(propertyName);
+        builder.name(propertyName);
     }
 }

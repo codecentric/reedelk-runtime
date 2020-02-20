@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ModuleDescriptor {
 
-    public static final String RESOURCE_FILE_NAME = "components-descriptors.json"; // TODO: Rename module-descriptor!
+    public static final String RESOURCE_FILE_NAME = "module-descriptor.json";
 
     private List<ComponentDescriptor> components = new ArrayList<>();
     private List<AutoCompleteContributorDescriptor> autocompleteContributors = new ArrayList<>();

@@ -40,7 +40,7 @@ class PropertyScriptSignatureAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(new TypeScriptDescriptor());
 
         // When
@@ -60,7 +60,7 @@ class PropertyScriptSignatureAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(new TypeScriptDescriptor());
 
         // When

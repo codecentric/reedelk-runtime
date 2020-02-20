@@ -47,7 +47,7 @@ class JsonProviderTest {
                 propertyScript, propertyCombo, propertyPassword, propertyResourceText, propertyResourceBinary, propertyTypeObject);
 
         myProcessorComponent = new ComponentDescriptor();
-        myProcessorComponent.setComponentType(ComponentType.PROCESSOR);
+        myProcessorComponent.setType(ComponentType.PROCESSOR);
         myProcessorComponent.setDisplayName("Test Processor Component");
         myProcessorComponent.setFullyQualifiedName("com.test.component.TestProcessorComponent");
         myProcessorComponent.setProperties(myProcessorComponentProperties);
@@ -60,7 +60,7 @@ class JsonProviderTest {
                 propertyDynamicString,
                 propertyMap);
         myInboundComponent = new ComponentDescriptor();
-        myInboundComponent.setComponentType(ComponentType.INBOUND);
+        myInboundComponent.setType(ComponentType.INBOUND);
         myInboundComponent.setDisplayName("Test Inbound Component");
         myInboundComponent.setFullyQualifiedName("com.test.component.TestInboundComponent");
         myInboundComponent.setProperties(myInboundComponentProperties);
@@ -125,7 +125,7 @@ class JsonProviderTest {
 
         private void assertSame(ComponentDescriptor c1, ComponentDescriptor c2) {
             assertThat(c1.getFullyQualifiedName()).isEqualTo(c2.getFullyQualifiedName());
-            assertThat(c1.getComponentType()).isEqualTo(c2.getComponentType());
+            assertThat(c1.getType()).isEqualTo(c2.getType());
             assertThat(c1.getDisplayName()).isEqualTo(c2.getDisplayName());
             assertThat(c1.isHidden()).isEqualTo(c2.isHidden());
             assertSame(c1.getProperties(), c2.getProperties());
@@ -138,7 +138,7 @@ class JsonProviderTest {
                         findPropertyDescriptorMatching(propertyDescriptors1, componentPropertyDescriptor);
                 assertThat(maybeDescriptor)
                         .withFailMessage("Could not find matching descriptor for property: " +
-                                componentPropertyDescriptor.getPropertyName())
+                                componentPropertyDescriptor.getName())
                         .isPresent();
             });
         }
@@ -149,11 +149,11 @@ class JsonProviderTest {
                 boolean sameHint = Objects.equals(current.getHintValue(), target.getHintValue());
                 boolean sameDisplayName = Objects.equals(current.getDisplayName(), target.getDisplayName());
                 boolean sameDefaultValue = Objects.equals(current.getDefaultValue(), target.getDefaultValue());
-                boolean samePropertyName = Objects.equals(current.getPropertyName(), target.getPropertyName());
+                boolean samePropertyName = Objects.equals(current.getName(), target.getName());
                 boolean sameInitValue = Objects.equals(current.getInitValue(), target.getInitValue());
-                boolean samePropertyDescription = Objects.equals(current.getPropertyDescription(), target.getPropertyDescription());
+                boolean samePropertyDescription = Objects.equals(current.getDescription(), target.getDescription());
                 boolean sameWhenDescriptors = sameWhens(current.getWhens(), target.getWhens());
-                boolean samePropertyType = sameType(current.getPropertyType(), target.getPropertyType());
+                boolean samePropertyType = sameType(current.getType(), target.getType());
                 boolean sameScriptSignature = same(current.getScriptSignature(), target.getScriptSignature());
                 boolean sameAutoCompleteContributor = same(current.getAutocompleteContributor(), target.getAutocompleteContributor());
                 return sameHint &&
@@ -200,6 +200,8 @@ class JsonProviderTest {
         }
 
         private boolean sameType(TypeDescriptor t1, TypeDescriptor t2) {
+            if (t1 == null) return t2 == null;
+            if (t2 == null) return false;
             boolean sameType = t1.getType() == t2.getType();
             if (t1 instanceof TypeObjectDescriptor) {
                 return sameType && samePropertyType((TypeObjectDescriptor) t1, (TypeObjectDescriptor) t2);

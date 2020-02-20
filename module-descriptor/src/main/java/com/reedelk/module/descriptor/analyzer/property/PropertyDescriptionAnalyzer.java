@@ -12,6 +12,6 @@ public class PropertyDescriptionAnalyzer implements FieldInfoAnalyzer {
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         String propertyDescription =
                 ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, PropertyDescription.class, null);
-        builder.propertyDescription(propertyDescription);
+        builder.description(propertyDescription);
     }
 }

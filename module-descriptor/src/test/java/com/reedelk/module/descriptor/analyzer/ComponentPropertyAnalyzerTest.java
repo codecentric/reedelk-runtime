@@ -566,9 +566,9 @@ class ComponentPropertyAnalyzerTest {
         // Then
         assertThat(optionalDescriptor).isPresent();
         PropertyDescriptor descriptor = optionalDescriptor.get();
-        assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithDescription");
+        assertThat(descriptor.getName()).isEqualTo("stringPropertyWithDescription");
         assertThat(descriptor.getDisplayName()).isEqualTo("String property with description text");
-        assertThat(descriptor.getPropertyDescription()).isEqualTo("This is the description text");
+        assertThat(descriptor.getDescription()).isEqualTo("This is the description text");
     }
 
     @Test
@@ -582,7 +582,7 @@ class ComponentPropertyAnalyzerTest {
         // Then
         assertThat(optionalDescriptor).isPresent();
         PropertyDescriptor descriptor = optionalDescriptor.get();
-        assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithExample");
+        assertThat(descriptor.getName()).isEqualTo("stringPropertyWithExample");
         assertThat(descriptor.getDisplayName()).isEqualTo("Property with example");
         assertThat(descriptor.getExample()).isEqualTo("A string example");
     }
@@ -598,7 +598,7 @@ class ComponentPropertyAnalyzerTest {
         // Then
         assertThat(optionalDescriptor).isPresent();
         PropertyDescriptor descriptor = optionalDescriptor.get();
-        assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithDefaultValue");
+        assertThat(descriptor.getName()).isEqualTo("stringPropertyWithDefaultValue");
         assertThat(descriptor.getDisplayName()).isEqualTo("Property with default value");
         assertThat(descriptor.getDefaultValue()).isEqualTo("My default value");
     }
@@ -625,11 +625,11 @@ class ComponentPropertyAnalyzerTest {
         // Then
         assertThat(optionalDescriptor).isPresent();
         PropertyDescriptor descriptor = optionalDescriptor.get();
-        assertThat(descriptor.getPropertyName()).isEqualTo(propertyName);
+        assertThat(descriptor.getName()).isEqualTo(propertyName);
         assertThat(descriptor.getDisplayName()).isEqualTo(displayName);
         assertThat(descriptor.getInitValue()).isEqualTo(initValue);
         assertThat(descriptor.getExample()).isEqualTo(example);
         assertThat(descriptor.getDefaultValue()).isEqualTo(defaultValue);
-        assertThat(matcher.matches(descriptor.getPropertyType())).isTrue();
+        assertThat(matcher.matches(descriptor.getType())).isTrue();
     }
 }

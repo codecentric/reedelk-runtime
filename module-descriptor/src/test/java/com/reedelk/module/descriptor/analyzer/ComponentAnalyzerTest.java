@@ -59,7 +59,7 @@ class ComponentAnalyzerTest {
         assertThat(descriptor.isHidden()).isFalse();
         assertThat(descriptor.getProperties().size()).isEqualTo(3);
         assertThat(descriptor.getDisplayName()).isEqualTo("Test Component");
-        assertThat(descriptor.getComponentType()).isEqualTo(ComponentType.PROCESSOR);
+        assertThat(descriptor.getType()).isEqualTo(ComponentType.PROCESSOR);
         assertThat(descriptor.getFullyQualifiedName()).isEqualTo(TestComponent.class.getName());
     }
 }

@@ -205,7 +205,7 @@ public class ModuleAnalyzer {
 
     private static List<ComponentDescriptor> filterOutUnknownClassComponents(List<ComponentDescriptor> componentDescriptorList) {
         return componentDescriptorList.stream()
-                .filter(descriptor -> !ComponentType.UNKNOWN.equals(descriptor.getComponentType()))
+                .filter(descriptor -> !ComponentType.UNKNOWN.equals(descriptor.getType()))
                 .collect(Collectors.toList());
     }
 }

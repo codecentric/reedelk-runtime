@@ -41,7 +41,7 @@ class PropertyAutoCompleteContributorAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
         // When
@@ -61,7 +61,7 @@ class PropertyAutoCompleteContributorAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
         // When
@@ -81,7 +81,7 @@ class PropertyAutoCompleteContributorAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
         // When
@@ -101,7 +101,7 @@ class PropertyAutoCompleteContributorAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
         // When
@@ -121,7 +121,7 @@ class PropertyAutoCompleteContributorAnalyzerTest {
 
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
-                        .propertyName(propertyName)
+                        .name(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
         // When
