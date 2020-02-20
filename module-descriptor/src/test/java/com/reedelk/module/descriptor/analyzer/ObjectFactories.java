@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ObjectFactories {
 
-    public static TypeObjectDescriptor createTypeObjectDescriptor(String fullyQualifiedName, List<ComponentPropertyDescriptor> propertiesDescriptor, Shared shared) {
+    public static TypeObjectDescriptor createTypeObjectDescriptor(String fullyQualifiedName, List<PropertyDescriptor> propertiesDescriptor, Shared shared) {
         TypeObjectDescriptor descriptor = new TypeObjectDescriptor();
         descriptor.setTypeFullyQualifiedName(fullyQualifiedName);
         descriptor.setCollapsible(Collapsible.NO);
@@ -18,7 +18,7 @@ public class ObjectFactories {
         return descriptor;
     }
 
-    public static TypeObjectDescriptor createTypeObjectDescriptor(String fullyQualifiedName, List<ComponentPropertyDescriptor> propertiesDescriptor) {
+    public static TypeObjectDescriptor createTypeObjectDescriptor(String fullyQualifiedName, List<PropertyDescriptor> propertiesDescriptor) {
         return createTypeObjectDescriptor(fullyQualifiedName, propertiesDescriptor, Shared.NO);
     }
 

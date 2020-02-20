@@ -13,7 +13,7 @@ public class TypeObjectDescriptor implements TypeDescriptor {
     private Shared shared;
     private Collapsible collapsible;
     private String typeFullyQualifiedName;
-    private List<ComponentPropertyDescriptor> objectProperties = new ArrayList<>();
+    private List<PropertyDescriptor> objectProperties = new ArrayList<>();
 
     @Override
     public Class<?> getType() {
@@ -44,11 +44,11 @@ public class TypeObjectDescriptor implements TypeDescriptor {
         this.typeFullyQualifiedName = typeFullyQualifiedName;
     }
 
-    public List<ComponentPropertyDescriptor> getObjectProperties() {
+    public List<PropertyDescriptor> getObjectProperties() {
         return objectProperties;
     }
 
-    public void setObjectProperties(List<ComponentPropertyDescriptor> objectProperties) {
+    public void setObjectProperties(List<PropertyDescriptor> objectProperties) {
         this.objectProperties = objectProperties;
     }
 

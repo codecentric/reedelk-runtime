@@ -1,7 +1,7 @@
 package com.reedelk.module.descriptor.analyzer.property;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import io.github.classgraph.FieldInfo;
 
 import java.util.Arrays;
@@ -25,8 +25,8 @@ public class FieldInfoAnalyzers {
             new PropertyScriptSignatureAnalyzer(),
             new PropertyAutoCompleteContributorAnalyzer());
 
-    public static ComponentPropertyDescriptor analyze(FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        ComponentPropertyDescriptor.Builder builder = ComponentPropertyDescriptor.builder();
+    public static PropertyDescriptor analyze(FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+        PropertyDescriptor.Builder builder = PropertyDescriptor.builder();
         FIELD_INFO_ANALYZERS.forEach(handler -> handler.handle(fieldInfo, builder, context));
         return builder.build();
     }

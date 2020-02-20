@@ -49,7 +49,7 @@ public class TypeDescriptors {
     public static final TypeDescriptor typeDescriptorResourceBinary = newTypeDescriptorResourceBinary();
     public static final TypeDescriptor typeObjectDescriptor = newTypeDescriptorObject(
             "com.reedelk.component.TestImplementor",
-            asList(ComponentPropertyDescriptor.builder()
+            asList(PropertyDescriptor.builder()
                             .propertyName("nestedProperty1")
                             .initValue("my nested property 1")
                             .displayName("Nested Property 1")
@@ -59,7 +59,7 @@ public class TypeDescriptors {
                             .when(WhenDescriptors.whenDescriptorDefault)
                             .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                             .build(),
-                    ComponentPropertyDescriptor.builder()
+                    PropertyDescriptor.builder()
                             .propertyName("nestedProperty2")
                             .initValue("5")
                             .displayName("Nested Property 2")
@@ -103,7 +103,7 @@ public class TypeDescriptors {
         return descriptor;
     }
 
-    private static TypeDescriptor newTypeDescriptorObject(String fullyQualifiedName, List<ComponentPropertyDescriptor> properties, Collapsible collapsible, Shared shared) {
+    private static TypeDescriptor newTypeDescriptorObject(String fullyQualifiedName, List<PropertyDescriptor> properties, Collapsible collapsible, Shared shared) {
         TypeObjectDescriptor descriptor = new TypeObjectDescriptor();
         descriptor.setShared(shared);
         descriptor.setCollapsible(collapsible);

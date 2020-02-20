@@ -31,8 +31,8 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
             ModuleDescriptor moduleDescriptor = analyzer.fromClassesFolder(compiledClasses, false);
 
             // We only create the JSON
-            if (!moduleDescriptor.getComponentDescriptors().isEmpty() ||
-            !moduleDescriptor.getAutocompleteContributorDescriptors().isEmpty()) {
+            if (!moduleDescriptor.getComponents().isEmpty() ||
+            !moduleDescriptor.getAutocompleteContributors().isEmpty()) {
 
                 // Convert to JSON
                 String resultJson = JsonProvider.toJson(moduleDescriptor);

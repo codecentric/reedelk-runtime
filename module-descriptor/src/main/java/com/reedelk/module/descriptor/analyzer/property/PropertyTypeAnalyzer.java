@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toMap;
 public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
 
     @Override
-    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+    public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         TypeSignature typeSignature = fieldInfo.getTypeDescriptor();
 
         // Primitive
@@ -65,7 +65,7 @@ public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
             Collapsible collapsible = isCollapsible(classInfo);
             ComponentPropertyAnalyzer propertyAnalyzer = new ComponentPropertyAnalyzer(context);
 
-            List<ComponentPropertyDescriptor> allProperties = classInfo
+            List<PropertyDescriptor> allProperties = classInfo
                     .getFieldInfo()
                     .stream()
                     .map(propertyAnalyzer::analyze)

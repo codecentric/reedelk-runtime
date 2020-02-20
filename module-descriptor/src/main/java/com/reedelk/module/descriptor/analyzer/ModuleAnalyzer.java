@@ -56,7 +56,7 @@ public class ModuleAnalyzer {
                 ModuleDescriptor moduleDescriptor = JsonProvider.fromJson(json);
 
                 // Load icons and images
-                moduleDescriptor.getComponentDescriptors().forEach(componentDescriptor -> {
+                moduleDescriptor.getComponents().forEach(componentDescriptor -> {
                     Icon componentIcon = AssetUtils.loadIcon(targetJarPath, componentDescriptor.getFullyQualifiedName());
                     componentDescriptor.setIcon(componentIcon);
 
@@ -78,7 +78,7 @@ public class ModuleAnalyzer {
                 ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult);
 
                 // Load icons and images
-                moduleDescriptor.getComponentDescriptors().forEach(componentDescriptor -> {
+                moduleDescriptor.getComponents().forEach(componentDescriptor -> {
                     Icon componentIcon = AssetUtils.loadIcon(scanResult, componentDescriptor.getFullyQualifiedName());
                     componentDescriptor.setIcon(componentIcon);
 
@@ -109,7 +109,7 @@ public class ModuleAnalyzer {
             ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult);
 
             if (resolveImages) {
-                moduleDescriptor.getComponentDescriptors().forEach(componentDescriptor -> {
+                moduleDescriptor.getComponents().forEach(componentDescriptor -> {
                     String componentFullyQualifiedName = componentDescriptor.getFullyQualifiedName();
                     componentDescriptor.setImage(AssetUtils.loadImageFromBaseDirectory(classesFolder, componentFullyQualifiedName));
                     componentDescriptor.setIcon(AssetUtils.loadIconFromBaseDirectory(classesFolder, componentFullyQualifiedName));
@@ -132,7 +132,7 @@ public class ModuleAnalyzer {
         ModuleDescriptor moduleDescriptor = JsonProvider.fromURL(resource);
 
         // Load images
-        moduleDescriptor.getComponentDescriptors().forEach(componentDescriptor -> {
+        moduleDescriptor.getComponents().forEach(componentDescriptor -> {
             URL iconURL = systemComponentClazz.getClassLoader().getResource(componentDescriptor.getFullyQualifiedName() + "-icon.png");
             if (iconURL != null) {
                 Icon componentIcon = AssetUtils.getIcon(iconURL);
@@ -145,7 +145,7 @@ public class ModuleAnalyzer {
                 componentDescriptor.setImage(componentImage);
             }
         });
-        return moduleDescriptor.getComponentDescriptors();
+        return moduleDescriptor.getComponents();
     }
 
     private ModuleDescriptor analyzeFrom(ScanResult scanResult) {
@@ -153,8 +153,8 @@ public class ModuleAnalyzer {
         List<ComponentDescriptor> knownComponentDescriptors = filterOutUnknownClassComponents(allComponentDescriptors);
         List<AutoCompleteContributorDescriptor> globalAutocompleteTokens = collectGlobalAutoCompleteTokens(scanResult);
         ModuleDescriptor moduleDescriptor = new ModuleDescriptor();
-        moduleDescriptor.setComponentDescriptors(knownComponentDescriptors);
-        moduleDescriptor.setAutocompleteContributorDescriptors(globalAutocompleteTokens);
+        moduleDescriptor.setComponents(knownComponentDescriptors);
+        moduleDescriptor.setAutocompleteContributors(globalAutocompleteTokens);
         return moduleDescriptor;
     }
 

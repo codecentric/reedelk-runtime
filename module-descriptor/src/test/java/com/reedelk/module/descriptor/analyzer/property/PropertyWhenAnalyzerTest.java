@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.analyzer.property;
 
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.TypePrimitiveDescriptor;
 import com.reedelk.module.descriptor.model.WhenDescriptor;
 import io.github.classgraph.ClassInfo;
@@ -39,8 +39,8 @@ class PropertyWhenAnalyzerTest {
         String propertyName = "property2";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(new TypePrimitiveDescriptor());
 
@@ -48,8 +48,8 @@ class PropertyWhenAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
-        List<WhenDescriptor> whenDescriptors = descriptor.getWhenDescriptors();
+        PropertyDescriptor descriptor = builder.build();
+        List<WhenDescriptor> whenDescriptors = descriptor.getWhens();
         assertThat(whenDescriptors).hasSize(1);
 
         assertThatExistsMatching(whenDescriptors, "property1", "ITEM1");
@@ -61,8 +61,8 @@ class PropertyWhenAnalyzerTest {
         String propertyName = "property3";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(new TypePrimitiveDescriptor());
 
@@ -70,8 +70,8 @@ class PropertyWhenAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
-        List<WhenDescriptor> whenDescriptors = descriptor.getWhenDescriptors();
+        PropertyDescriptor descriptor = builder.build();
+        List<WhenDescriptor> whenDescriptors = descriptor.getWhens();
         assertThat(whenDescriptors).hasSize(2);
 
         assertThatExistsMatching(whenDescriptors, "property1", "ITEM2");
@@ -84,8 +84,8 @@ class PropertyWhenAnalyzerTest {
         String propertyName = "property1";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(new TypePrimitiveDescriptor());
 
@@ -93,8 +93,8 @@ class PropertyWhenAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
-        List<WhenDescriptor> whenDescriptors = descriptor.getWhenDescriptors();
+        PropertyDescriptor descriptor = builder.build();
+        List<WhenDescriptor> whenDescriptors = descriptor.getWhens();
         assertThat(whenDescriptors).isEmpty();
     }
 

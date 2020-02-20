@@ -3,10 +3,9 @@ package com.reedelk.module.descriptor.analyzer.component;
 import com.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
-import com.reedelk.runtime.api.commons.StringUtils;
 import io.github.classgraph.ClassInfo;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class ComponentAnalyzer {
         String displayName = getComponentDisplayName(classInfo);
         String description = getComponentDescription(classInfo);
         ComponentType componentType = getComponentType(classInfo);
-        List<ComponentPropertyDescriptor> propertiesDescriptor = analyzeProperties(classInfo);
+        List<PropertyDescriptor> propertiesDescriptor = analyzeProperties(classInfo);
         return ComponentDescriptor.create()
                 .displayName(displayName)
                 .description(description)
@@ -37,7 +36,7 @@ public class ComponentAnalyzer {
                 .build();
     }
 
-    private List<ComponentPropertyDescriptor> analyzeProperties(ClassInfo classInfo) {
+    private List<PropertyDescriptor> analyzeProperties(ClassInfo classInfo) {
         return classInfo
                 .getFieldInfo()
                 .stream()

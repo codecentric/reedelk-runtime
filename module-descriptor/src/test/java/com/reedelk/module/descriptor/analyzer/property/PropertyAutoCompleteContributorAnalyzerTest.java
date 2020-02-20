@@ -3,7 +3,7 @@ package com.reedelk.module.descriptor.analyzer.property;
 import com.reedelk.module.descriptor.analyzer.ObjectFactories;
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
@@ -39,8 +39,8 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         String propertyName = "propertyWithCustomContributions";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
@@ -48,9 +48,9 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
+        PropertyDescriptor descriptor = builder.build();
         AutoCompleteContributorDefinitionMatchers.AutoCompleteContributorDefinitionMatcher matcher = AutoCompleteContributorDefinitionMatchers.with(true, true, false, asList("messages[VARIABLE:Message[]]", "messages.size()[FUNCTION:int]"));
-        assertThat(matcher.matches(descriptor.getAutoCompleteContributorDescriptor())).isTrue();
+        assertThat(matcher.matches(descriptor.getAutocompleteContributor())).isTrue();
     }
 
     @Test
@@ -59,8 +59,8 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         String propertyName = "propertyWithoutMessageContributions";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
@@ -68,9 +68,9 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
+        PropertyDescriptor descriptor = builder.build();
         AutoCompleteContributorDefinitionMatchers.AutoCompleteContributorDefinitionMatcher matcher = AutoCompleteContributorDefinitionMatchers.with(false,true,false, emptyList());
-        assertThat(matcher.matches(descriptor.getAutoCompleteContributorDescriptor())).isTrue();
+        assertThat(matcher.matches(descriptor.getAutocompleteContributor())).isTrue();
     }
 
     @Test
@@ -79,8 +79,8 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         String propertyName = "propertyWithoutContextContributions";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
@@ -88,9 +88,9 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
+        PropertyDescriptor descriptor = builder.build();
         AutoCompleteContributorDefinitionMatchers.AutoCompleteContributorDefinitionMatcher matcher = AutoCompleteContributorDefinitionMatchers.with(true,false,false, emptyList());
-        assertThat(matcher.matches(descriptor.getAutoCompleteContributorDescriptor())).isTrue();
+        assertThat(matcher.matches(descriptor.getAutocompleteContributor())).isTrue();
     }
 
     @Test
@@ -99,8 +99,8 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         String propertyName = "propertyWithErrorAndWithoutMessageContributions";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
@@ -108,9 +108,9 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
+        PropertyDescriptor descriptor = builder.build();
         AutoCompleteContributorDefinitionMatchers.AutoCompleteContributorDefinitionMatcher matcher = AutoCompleteContributorDefinitionMatchers.with(false, true,true, emptyList());
-        assertThat(matcher.matches(descriptor.getAutoCompleteContributorDescriptor())).isTrue();
+        assertThat(matcher.matches(descriptor.getAutocompleteContributor())).isTrue();
     }
 
     @Test
@@ -119,8 +119,8 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         String propertyName = "propertyWithoutAutoCompleteContributor";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class));
 
@@ -128,7 +128,7 @@ class PropertyAutoCompleteContributorAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
-        assertThat(descriptor.getAutoCompleteContributorDescriptor()).isNull();
+        PropertyDescriptor descriptor = builder.build();
+        assertThat(descriptor.getAutocompleteContributor()).isNull();
     }
 }

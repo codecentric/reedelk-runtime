@@ -8,24 +8,24 @@ import java.util.List;
 
 public class ModuleDescriptor {
 
-    public static final String RESOURCE_FILE_NAME = "components-descriptors.json";
+    public static final String RESOURCE_FILE_NAME = "components-descriptors.json"; // TODO: Rename module-descriptor!
 
-    private List<ComponentDescriptor> componentDescriptors = new ArrayList<>();
-    private List<AutoCompleteContributorDescriptor> autocompleteContributorDescriptors = new ArrayList<>();
+    private List<ComponentDescriptor> components = new ArrayList<>();
+    private List<AutoCompleteContributorDescriptor> autocompleteContributors = new ArrayList<>();
 
-    public List<ComponentDescriptor> getComponentDescriptors() {
-        return componentDescriptors;
+    public List<ComponentDescriptor> getComponents() {
+        return components;
     }
 
-    public void setComponentDescriptors(List<ComponentDescriptor> componentDescriptors) {
-        this.componentDescriptors = componentDescriptors;
+    public void setComponents(List<ComponentDescriptor> components) {
+        this.components = components;
     }
 
-    public List<AutoCompleteContributorDescriptor> getAutocompleteContributorDescriptors() {
-        return autocompleteContributorDescriptors;
+    public List<AutoCompleteContributorDescriptor> getAutocompleteContributors() {
+        return autocompleteContributors;
     }
 
-    public void setAutocompleteContributorDescriptors(List<AutoCompleteContributorDescriptor> autocompleteContributorDescriptors) {
-        this.autocompleteContributorDescriptors = autocompleteContributorDescriptors;
+    public void setAutocompleteContributors(List<AutoCompleteContributorDescriptor> autocompleteContributors) {
+        this.autocompleteContributors = autocompleteContributors;
     }
 }

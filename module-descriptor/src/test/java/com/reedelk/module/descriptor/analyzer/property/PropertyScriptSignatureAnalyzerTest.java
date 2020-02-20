@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.analyzer.property;
 
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.TypeScriptDescriptor;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
@@ -38,8 +38,8 @@ class PropertyScriptSignatureAnalyzerTest {
         String propertyName = "scriptPropertyWithScriptSignature";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(new TypeScriptDescriptor());
 
@@ -47,9 +47,9 @@ class PropertyScriptSignatureAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
+        PropertyDescriptor descriptor = builder.build();
         ScriptSignatureDefinitionMatchers.ScriptSignatureDefinitionMatcher matcher = ScriptSignatureDefinitionMatchers.with(Arrays.asList("arg1", "arg2", "arg3"));
-        assertThat(matcher.matches(descriptor.getScriptSignatureDescriptor())).isTrue();
+        assertThat(matcher.matches(descriptor.getScriptSignature())).isTrue();
     }
 
     @Test
@@ -58,8 +58,8 @@ class PropertyScriptSignatureAnalyzerTest {
         String propertyName = "scriptPropertyWithoutScriptSignature";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
-        ComponentPropertyDescriptor.Builder builder =
-                ComponentPropertyDescriptor.builder()
+        PropertyDescriptor.Builder builder =
+                PropertyDescriptor.builder()
                         .propertyName(propertyName)
                         .type(new TypeScriptDescriptor());
 
@@ -67,7 +67,7 @@ class PropertyScriptSignatureAnalyzerTest {
         analyzer.handle(property, builder, context);
 
         // Then
-        ComponentPropertyDescriptor descriptor = builder.build();
-        assertThat(descriptor.getScriptSignatureDescriptor()).isNull();
+        PropertyDescriptor descriptor = builder.build();
+        assertThat(descriptor.getScriptSignature()).isNull();
     }
 }

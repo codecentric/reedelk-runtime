@@ -36,7 +36,7 @@ class JsonProviderTest {
 
     @BeforeEach
     void setUp() {
-        List<ComponentPropertyDescriptor> myProcessorComponentProperties = asList(
+        List<PropertyDescriptor> myProcessorComponentProperties = asList(
                 propertyBooleanObject, propertyBoolean, propertyDoubleObject, propertyDouble,
                 propertyFloatObject, propertyFloat, propertyIntegerObject, propertyInteger,
                 propertyLongObject, propertyLong, propertyString, propertyBigInteger, propertyBigDecimal,
@@ -50,12 +50,12 @@ class JsonProviderTest {
         myProcessorComponent.setComponentType(ComponentType.PROCESSOR);
         myProcessorComponent.setDisplayName("Test Processor Component");
         myProcessorComponent.setFullyQualifiedName("com.test.component.TestProcessorComponent");
-        myProcessorComponent.setComponentPropertyDescriptors(myProcessorComponentProperties);
+        myProcessorComponent.setProperties(myProcessorComponentProperties);
         myProcessorComponent.setHidden(true);
         myProcessorComponent.setImage(image);
         myProcessorComponent.setIcon(icon);
 
-        List<ComponentPropertyDescriptor> myInboundComponentProperties = asList(
+        List<PropertyDescriptor> myInboundComponentProperties = asList(
                 propertyStringWithInitValue,
                 propertyDynamicString,
                 propertyMap);
@@ -63,7 +63,7 @@ class JsonProviderTest {
         myInboundComponent.setComponentType(ComponentType.INBOUND);
         myInboundComponent.setDisplayName("Test Inbound Component");
         myInboundComponent.setFullyQualifiedName("com.test.component.TestInboundComponent");
-        myInboundComponent.setComponentPropertyDescriptors(myInboundComponentProperties);
+        myInboundComponent.setProperties(myInboundComponentProperties);
         myInboundComponent.setHidden(true);
         myInboundComponent.setImage(image);
         myInboundComponent.setIcon(icon);
@@ -83,8 +83,8 @@ class JsonProviderTest {
         void shouldCorrectlyConvertModuleDescriptorToJson() throws ModuleDescriptorException {
             // Given
             ModuleDescriptor descriptor = new ModuleDescriptor();
-            descriptor.setComponentDescriptors(asList(myProcessorComponent, myInboundComponent));
-            descriptor.setAutocompleteContributorDescriptors(Collections.singletonList(autoCompleteContributorDescriptor));
+            descriptor.setComponents(asList(myProcessorComponent, myInboundComponent));
+            descriptor.setAutocompleteContributors(Collections.singletonList(autoCompleteContributorDescriptor));
 
             // When
             String serialized = JsonProvider.toJson(descriptor);
@@ -110,7 +110,7 @@ class JsonProviderTest {
             assertThat(descriptor).isNotNull();
 
             // Should contain two modules
-            List<ComponentDescriptor> componentDescriptors = descriptor.getComponentDescriptors();
+            List<ComponentDescriptor> componentDescriptors = descriptor.getComponents();
             assertThatExistsComponent(componentDescriptors, myInboundComponent);
             assertThatExistsComponent(componentDescriptors, myProcessorComponent);
         }
@@ -128,13 +128,13 @@ class JsonProviderTest {
             assertThat(c1.getComponentType()).isEqualTo(c2.getComponentType());
             assertThat(c1.getDisplayName()).isEqualTo(c2.getDisplayName());
             assertThat(c1.isHidden()).isEqualTo(c2.isHidden());
-            assertSame(c1.getComponentPropertyDescriptors(), c2.getComponentPropertyDescriptors());
+            assertSame(c1.getProperties(), c2.getProperties());
         }
 
-        private void assertSame(List<ComponentPropertyDescriptor> propertyDescriptors1, List<ComponentPropertyDescriptor> propertyDescriptors2) {
+        private void assertSame(List<PropertyDescriptor> propertyDescriptors1, List<PropertyDescriptor> propertyDescriptors2) {
             assertThat(propertyDescriptors1.size()).isEqualTo(propertyDescriptors2.size());
             propertyDescriptors2.forEach(componentPropertyDescriptor -> {
-                Optional<ComponentPropertyDescriptor> maybeDescriptor =
+                Optional<PropertyDescriptor> maybeDescriptor =
                         findPropertyDescriptorMatching(propertyDescriptors1, componentPropertyDescriptor);
                 assertThat(maybeDescriptor)
                         .withFailMessage("Could not find matching descriptor for property: " +
@@ -143,7 +143,7 @@ class JsonProviderTest {
             });
         }
 
-        private Optional<ComponentPropertyDescriptor> findPropertyDescriptorMatching(List<ComponentPropertyDescriptor> descriptors, ComponentPropertyDescriptor target) {
+        private Optional<PropertyDescriptor> findPropertyDescriptorMatching(List<PropertyDescriptor> descriptors, PropertyDescriptor target) {
             return descriptors.stream().filter(current -> {
                 boolean sameExample = Objects.equals(current.getExample(), target.getExample());
                 boolean sameHint = Objects.equals(current.getHintValue(), target.getHintValue());
@@ -152,10 +152,10 @@ class JsonProviderTest {
                 boolean samePropertyName = Objects.equals(current.getPropertyName(), target.getPropertyName());
                 boolean sameInitValue = Objects.equals(current.getInitValue(), target.getInitValue());
                 boolean samePropertyDescription = Objects.equals(current.getPropertyDescription(), target.getPropertyDescription());
-                boolean sameWhenDescriptors = sameWhens(current.getWhenDescriptors(), target.getWhenDescriptors());
+                boolean sameWhenDescriptors = sameWhens(current.getWhens(), target.getWhens());
                 boolean samePropertyType = sameType(current.getPropertyType(), target.getPropertyType());
-                boolean sameScriptSignature = same(current.getScriptSignatureDescriptor(), target.getScriptSignatureDescriptor());
-                boolean sameAutoCompleteContributor = same(current.getAutoCompleteContributorDescriptor(), target.getAutoCompleteContributorDescriptor());
+                boolean sameScriptSignature = same(current.getScriptSignature(), target.getScriptSignature());
+                boolean sameAutoCompleteContributor = same(current.getAutocompleteContributor(), target.getAutocompleteContributor());
                 return sameHint &&
                         sameExample &&
                         sameDisplayName &&

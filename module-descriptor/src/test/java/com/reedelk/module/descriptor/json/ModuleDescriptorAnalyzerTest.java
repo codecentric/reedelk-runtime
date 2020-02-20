@@ -32,11 +32,11 @@ class ModuleDescriptorAnalyzerTest {
 
         // Then
         List<ComponentDescriptor> componentDescriptors =
-                descriptor.getComponentDescriptors();
+                descriptor.getComponents();
         assertThat(componentDescriptors).hasSize(1);
 
         List<AutoCompleteContributorDescriptor> autocompleteContributorDescriptors =
-                descriptor.getAutocompleteContributorDescriptors();
+                descriptor.getAutocompleteContributors();
         assertThat(autocompleteContributorDescriptors).hasSize(1);
     }
 }

@@ -1,10 +1,9 @@
 package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
-import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
@@ -25,11 +24,11 @@ class ComponentAnalyzerTest {
     @Mock
     private ComponentPropertyAnalyzer propertyAnalyzer;
     @Mock
-    private ComponentPropertyDescriptor descriptor1;
+    private PropertyDescriptor descriptor1;
     @Mock
-    private ComponentPropertyDescriptor descriptor2;
+    private PropertyDescriptor descriptor2;
     @Mock
-    private ComponentPropertyDescriptor descriptor3;
+    private PropertyDescriptor descriptor3;
 
 
     private ComponentAnalyzer analyzer;
@@ -58,7 +57,7 @@ class ComponentAnalyzerTest {
 
         // Then
         assertThat(descriptor.isHidden()).isFalse();
-        assertThat(descriptor.getComponentPropertyDescriptors().size()).isEqualTo(3);
+        assertThat(descriptor.getProperties().size()).isEqualTo(3);
         assertThat(descriptor.getDisplayName()).isEqualTo("Test Component");
         assertThat(descriptor.getComponentType()).isEqualTo(ComponentType.PROCESSOR);
         assertThat(descriptor.getFullyQualifiedName()).isEqualTo(TestComponent.class.getName());

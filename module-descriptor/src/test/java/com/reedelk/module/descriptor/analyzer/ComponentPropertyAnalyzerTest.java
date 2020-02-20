@@ -523,7 +523,7 @@ class ComponentPropertyAnalyzerTest {
                 componentClassInfo.getFieldInfo("notExposedProperty");
 
         // When
-        Optional<ComponentPropertyDescriptor> propertyDescriptor = analyzer.analyze(notExposedProperty);
+        Optional<PropertyDescriptor> propertyDescriptor = analyzer.analyze(notExposedProperty);
 
         // Then
         assertThat(propertyDescriptor).isNotPresent();
@@ -561,11 +561,11 @@ class ComponentPropertyAnalyzerTest {
         FieldInfo property = componentClassInfo.getFieldInfo("stringPropertyWithDescription");
 
         // When
-        Optional<ComponentPropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
+        Optional<PropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
 
         // Then
         assertThat(optionalDescriptor).isPresent();
-        ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
+        PropertyDescriptor descriptor = optionalDescriptor.get();
         assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithDescription");
         assertThat(descriptor.getDisplayName()).isEqualTo("String property with description text");
         assertThat(descriptor.getPropertyDescription()).isEqualTo("This is the description text");
@@ -577,11 +577,11 @@ class ComponentPropertyAnalyzerTest {
         FieldInfo property = componentClassInfo.getFieldInfo("stringPropertyWithExample");
 
         // When
-        Optional<ComponentPropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
+        Optional<PropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
 
         // Then
         assertThat(optionalDescriptor).isPresent();
-        ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
+        PropertyDescriptor descriptor = optionalDescriptor.get();
         assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithExample");
         assertThat(descriptor.getDisplayName()).isEqualTo("Property with example");
         assertThat(descriptor.getExample()).isEqualTo("A string example");
@@ -593,11 +593,11 @@ class ComponentPropertyAnalyzerTest {
         FieldInfo property = componentClassInfo.getFieldInfo("stringPropertyWithDefaultValue");
 
         // When
-        Optional<ComponentPropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
+        Optional<PropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
 
         // Then
         assertThat(optionalDescriptor).isPresent();
-        ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
+        PropertyDescriptor descriptor = optionalDescriptor.get();
         assertThat(descriptor.getPropertyName()).isEqualTo("stringPropertyWithDefaultValue");
         assertThat(descriptor.getDisplayName()).isEqualTo("Property with default value");
         assertThat(descriptor.getDefaultValue()).isEqualTo("My default value");
@@ -620,11 +620,11 @@ class ComponentPropertyAnalyzerTest {
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
         // When
-        Optional<ComponentPropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
+        Optional<PropertyDescriptor> optionalDescriptor = analyzer.analyze(property);
 
         // Then
         assertThat(optionalDescriptor).isPresent();
-        ComponentPropertyDescriptor descriptor = optionalDescriptor.get();
+        PropertyDescriptor descriptor = optionalDescriptor.get();
         assertThat(descriptor.getPropertyName()).isEqualTo(propertyName);
         assertThat(descriptor.getDisplayName()).isEqualTo(displayName);
         assertThat(descriptor.getInitValue()).isEqualTo(initValue);

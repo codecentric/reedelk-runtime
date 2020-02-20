@@ -6,7 +6,7 @@ import java.util.List;
 
 import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 
-public class ComponentPropertyDescriptor implements Serializable {
+public class PropertyDescriptor implements Serializable {
 
     private String example;
     private String initValue;
@@ -15,10 +15,12 @@ public class ComponentPropertyDescriptor implements Serializable {
     private String defaultValue;
     private String propertyName;
     private String propertyDescription;
+
+    private List<WhenDescriptor> whens;
+
     private TypeDescriptor propertyType;
-    private List<WhenDescriptor> whenDescriptors;
-    private ScriptSignatureDescriptor scriptSignatureDescriptor;
-    private AutoCompleteContributorDescriptor autoCompleteContributorDescriptor;
+    private ScriptSignatureDescriptor scriptSignature;
+    private AutoCompleteContributorDescriptor autocompleteContributor;
 
     public String getExample() {
         return example;
@@ -81,28 +83,28 @@ public class ComponentPropertyDescriptor implements Serializable {
         this.propertyType = propertyType;
     }
 
-    public ScriptSignatureDescriptor getScriptSignatureDescriptor() {
-        return scriptSignatureDescriptor;
+    public ScriptSignatureDescriptor getScriptSignature() {
+        return scriptSignature;
     }
 
-    public void setScriptSignatureDescriptor(ScriptSignatureDescriptor scriptSignatureDescriptor) {
-        this.scriptSignatureDescriptor = scriptSignatureDescriptor;
+    public void setScriptSignature(ScriptSignatureDescriptor scriptSignature) {
+        this.scriptSignature = scriptSignature;
     }
 
-    public AutoCompleteContributorDescriptor getAutoCompleteContributorDescriptor() {
-        return autoCompleteContributorDescriptor;
+    public AutoCompleteContributorDescriptor getAutocompleteContributor() {
+        return autocompleteContributor;
     }
 
-    public void setAutoCompleteContributorDescriptor(AutoCompleteContributorDescriptor autoCompleteContributorDescriptor) {
-        this.autoCompleteContributorDescriptor = autoCompleteContributorDescriptor;
+    public void setAutocompleteContributor(AutoCompleteContributorDescriptor autocompleteContributor) {
+        this.autocompleteContributor = autocompleteContributor;
     }
 
-    public List<WhenDescriptor> getWhenDescriptors() {
-        return whenDescriptors;
+    public List<WhenDescriptor> getWhens() {
+        return whens;
     }
 
-    public void setWhenDescriptors(List<WhenDescriptor> whenDescriptors) {
-        this.whenDescriptors = whenDescriptors;
+    public void setWhens(List<WhenDescriptor> whens) {
+        this.whens = whens;
     }
 
     public String getInitValue() {
@@ -120,9 +122,9 @@ public class ComponentPropertyDescriptor implements Serializable {
                 ", initValue='" + initValue + '\'' +
                 ", propertyDescription='" + propertyDescription + '\'' +
                 ", propertyType=" + propertyType +
-                ", scriptSignatureDefinition=" + scriptSignatureDescriptor +
-                ", autoCompleteContributorDefinition=" + autoCompleteContributorDescriptor +
-                ", whenDefinitions=" + whenDescriptors +
+                ", scriptSignatureDefinition=" + scriptSignature +
+                ", autoCompleteContributorDefinition=" + autocompleteContributor +
+                ", whenDefinitions=" + whens +
                 '}';
     }
 
@@ -140,10 +142,10 @@ public class ComponentPropertyDescriptor implements Serializable {
         private String defaultValue;
         private String propertyDescription;
         private TypeDescriptor propertyType;
-        private ScriptSignatureDescriptor scriptSignatureDescriptor;
-        private AutoCompleteContributorDescriptor autoCompleteContributionsDefinition;
+        private ScriptSignatureDescriptor scriptSignature;
+        private AutoCompleteContributorDescriptor autocompleteContributor;
 
-        private List<WhenDescriptor> whenDescriptors = new ArrayList<>();
+        private List<WhenDescriptor> whens = new ArrayList<>();
 
         public Builder example(String example) {
             this.example = example;
@@ -155,8 +157,8 @@ public class ComponentPropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder defaultValue(String defaultValue) {
-            this.defaultValue = defaultValue;
+        public Builder initValue(String initValue) {
+            this.initValue = initValue;
             return this;
         }
 
@@ -175,8 +177,8 @@ public class ComponentPropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder initValue(String initValue) {
-            this.initValue = initValue;
+        public Builder defaultValue(String defaultValue) {
+            this.defaultValue = defaultValue;
             return this;
         }
 
@@ -186,25 +188,25 @@ public class ComponentPropertyDescriptor implements Serializable {
         }
 
         public Builder when(WhenDescriptor whenDescriptor) {
-            this.whenDescriptors.add(whenDescriptor);
+            this.whens.add(whenDescriptor);
             return this;
         }
 
         public Builder scriptSignature(ScriptSignatureDescriptor definition) {
-            this.scriptSignatureDescriptor = definition;
+            this.scriptSignature = definition;
             return this;
         }
 
         public Builder autoCompleteContributor(AutoCompleteContributorDescriptor definition) {
-            this.autoCompleteContributionsDefinition = definition;
+            this.autocompleteContributor = definition;
             return this;
         }
 
-        public ComponentPropertyDescriptor build() {
+        public PropertyDescriptor build() {
             checkState(propertyName != null, "propertyName");
             checkState(propertyType != null, "propertyType");
 
-            ComponentPropertyDescriptor descriptor = new ComponentPropertyDescriptor();
+            PropertyDescriptor descriptor = new PropertyDescriptor();
             descriptor.example = example;
             descriptor.hintValue = hintValue;
             descriptor.initValue = initValue;
@@ -212,10 +214,10 @@ public class ComponentPropertyDescriptor implements Serializable {
             descriptor.propertyName = propertyName;
             descriptor.propertyType = propertyType;
             descriptor.defaultValue = defaultValue;
+            descriptor.whens = whens;
+            descriptor.scriptSignature = scriptSignature;
             descriptor.propertyDescription = propertyDescription;
-            descriptor.scriptSignatureDescriptor = scriptSignatureDescriptor;
-            descriptor.autoCompleteContributorDescriptor = autoCompleteContributionsDefinition;
-            descriptor.whenDescriptors = whenDescriptors;
+            descriptor.autocompleteContributor = autocompleteContributor;
             return descriptor;
         }
     }

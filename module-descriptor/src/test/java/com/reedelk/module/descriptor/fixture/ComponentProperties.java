@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.fixture;
 
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.runtime.api.annotation.InitValue;
 
 public class ComponentProperties {
@@ -8,8 +8,8 @@ public class ComponentProperties {
     private ComponentProperties() {
     }
 
-    public static ComponentPropertyDescriptor propertyBooleanObject =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyBooleanObject =
+            PropertyDescriptor.builder()
                     .propertyName("propertyBooleanObject")
                     .initValue("true")
                     .example("false")
@@ -22,8 +22,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyBoolean =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyBoolean =
+            PropertyDescriptor.builder()
                     .propertyName("propertyBoolean")
                     .initValue("true")
                     .displayName("Property Boolean")
@@ -34,8 +34,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDoubleObject =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDoubleObject =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDoubleObject")
                     .initValue("234.54223")
                     .example("3342.543111")
@@ -48,8 +48,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDouble =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDouble =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDouble")
                     .initValue("333.8764")
                     .displayName("Property Double")
@@ -60,8 +60,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyFloatObject =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyFloatObject =
+            PropertyDescriptor.builder()
                     .propertyName("propertyFloatObject")
                     .initValue("3.1f")
                     .displayName("Property Float Object")
@@ -72,8 +72,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyFloat =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyFloat =
+            PropertyDescriptor.builder()
                     .propertyName("propertyFloat")
                     .initValue("1.8f")
                     .displayName("Property Float")
@@ -84,8 +84,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyIntegerObject =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyIntegerObject =
+            PropertyDescriptor.builder()
                     .propertyName("propertyIntegerObject")
                     .initValue("122")
                     .displayName("Property Integer Object")
@@ -96,8 +96,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyInteger =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyInteger =
+            PropertyDescriptor.builder()
                     .propertyName("propertyInteger")
                     .initValue("544")
                     .displayName("Property Integer")
@@ -108,8 +108,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyLongObject =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyLongObject =
+            PropertyDescriptor.builder()
                     .propertyName("propertyLongObject")
                     .initValue("892L")
                     .displayName("Property Long Object")
@@ -120,8 +120,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyLong =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyLong =
+            PropertyDescriptor.builder()
                     .propertyName("propertyLong")
                     .initValue("1L")
                     .defaultValue("2L")
@@ -134,8 +134,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyString =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyString =
+            PropertyDescriptor.builder()
                     .propertyName("propertyString")
                     .initValue("Test property string")
                     .displayName("Property String")
@@ -146,8 +146,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyBigInteger =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyBigInteger =
+            PropertyDescriptor.builder()
                     .propertyName("propertyBigInteger")
                     .initValue("4222222")
                     .displayName("Property BigInteger")
@@ -158,8 +158,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyBigDecimal =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyBigDecimal =
+            PropertyDescriptor.builder()
                     .propertyName("propertyBigDecimal")
                     .initValue("234.2343")
                     .displayName("Property BigDecimal")
@@ -170,8 +170,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyMap =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyMap =
+            PropertyDescriptor.builder()
                     .propertyName("propertyMap")
                     .initValue("{'key1':'value1','key2':'value2'}")
                     .displayName("Property Map")
@@ -182,8 +182,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyEnum =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyEnum =
+            PropertyDescriptor.builder()
                     .propertyName("propertyEnum")
                     .initValue("STREAM")
                     .displayName("Property Enum")
@@ -194,8 +194,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicLong =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicLong =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicLong")
                     .initValue("432L")
                     .displayName("Property Dynamic Long")
@@ -206,8 +206,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicFloat =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicFloat =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicFloat")
                     .initValue("432.23f")
                     .displayName("Property Dynamic Float")
@@ -218,8 +218,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicDouble =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicDouble =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicDouble")
                     .initValue("1432.23d")
                     .displayName("Property Dynamic Double")
@@ -230,8 +230,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicObject =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicObject =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicObject")
                     .initValue("Test")
                     .displayName("Property Dynamic Object")
@@ -242,8 +242,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicString =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicString =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicString")
                     .initValue("Test string")
                     .displayName("Property Dynamic String")
@@ -254,8 +254,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicBoolean =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicBoolean =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicBoolean")
                     .initValue("true")
                     .displayName("Property Dynamic Boolean")
@@ -266,8 +266,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicInteger =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicInteger =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicInteger")
                     .initValue("4")
                     .displayName("Property Dynamic Integer")
@@ -278,8 +278,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicResource =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicResource =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicResource")
                     .initValue("#['my-resource.png']")
                     .displayName("Property Dynamic Resource")
@@ -290,8 +290,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicByteArray =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicByteArray =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicByteArray")
                     .initValue("Test Dynamic Byte Array")
                     .displayName("Property Dynamic byte array")
@@ -302,8 +302,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicBigInteger =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicBigInteger =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicBigInteger")
                     .initValue("2348111")
                     .displayName("Property Dynamic Big Integer")
@@ -314,8 +314,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicBigDecimal =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicBigDecimal =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicBigDecimal")
                     .initValue("234.8111")
                     .displayName("Property Dynamic Big Decimal")
@@ -326,8 +326,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyDynamicStringMap =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyDynamicStringMap =
+            PropertyDescriptor.builder()
                     .propertyName("propertyDynamicStringMap")
                     .initValue("{'key1':'#['value1']','key2':'#['value2']'}")
                     .displayName("Property Dynamic String Map")
@@ -338,8 +338,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyScript =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyScript =
+            PropertyDescriptor.builder()
                     .propertyName("propertyScript")
                     .initValue("#['Test']")
                     .displayName("Property Script")
@@ -350,8 +350,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyCombo =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyCombo =
+            PropertyDescriptor.builder()
                     .propertyName("propertyCombo")
                     .initValue("Item1")
                     .displayName("Property Combo")
@@ -362,8 +362,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyPassword =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyPassword =
+            PropertyDescriptor.builder()
                     .propertyName("propertyPassword")
                     .initValue("my password")
                     .displayName("Property Password")
@@ -374,8 +374,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyResourceText =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyResourceText =
+            PropertyDescriptor.builder()
                     .propertyName("propertyResourceText")
                     .initValue("assets/my-text.txt")
                     .displayName("Property Resource Text")
@@ -386,8 +386,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyResourceBinary =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyResourceBinary =
+            PropertyDescriptor.builder()
                     .propertyName("propertyResourceBinary")
                     .initValue("assets/my-image.png")
                     .displayName("Property Resource Binary")
@@ -398,8 +398,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyTypeObject =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyTypeObject =
+            PropertyDescriptor.builder()
                     .propertyName("propertyTypeObject")
                     .displayName("Property Type Object")
                     .propertyDescription("Property Type Object Info")
@@ -408,8 +408,8 @@ public class ComponentProperties {
                     .scriptSignature(ScriptSignatureDescriptors.scriptSignatureDescriptorDefault)
                     .build();
 
-    public static ComponentPropertyDescriptor propertyStringWithInitValue =
-            ComponentPropertyDescriptor.builder()
+    public static PropertyDescriptor propertyStringWithInitValue =
+            PropertyDescriptor.builder()
                     .propertyName("propertyStringWithInitValue")
                     .initValue(InitValue.USE_DEFAULT_VALUE)
                     .displayName("Property String With Init Value")

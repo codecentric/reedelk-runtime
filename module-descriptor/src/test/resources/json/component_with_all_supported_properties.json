@@ -1,11 +1,11 @@
 {
-  "componentDescriptors": [
+  "components": [
     {
       "hidden": true,
       "displayName": "Test Processor Component",
       "fullyQualifiedName": "com.test.component.TestProcessorComponent",
       "componentType": "PROCESSOR",
-      "componentPropertyDescriptors": [
+      "properties": [
         {
           "hintValue": "true",
           "displayName": "Property Boolean Object",
@@ -19,7 +19,7 @@
               "type": "java.lang.Boolean"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
@@ -29,7 +29,7 @@
               "propertyValue": "VALUE2"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -48,13 +48,13 @@
               "type": "boolean"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -75,13 +75,13 @@
               "type": "java.lang.Double"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -100,13 +100,13 @@
               "type": "double"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -125,13 +125,13 @@
               "type": "java.lang.Float"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -150,13 +150,13 @@
               "type": "float"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -175,13 +175,13 @@
               "type": "java.lang.Integer"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -200,13 +200,13 @@
               "type": "int"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -225,13 +225,13 @@
               "type": "java.lang.Long"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -252,13 +252,13 @@
               "type": "long"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -277,13 +277,13 @@
               "type": "java.lang.String"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -302,13 +302,13 @@
               "type": "java.math.BigInteger"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -327,13 +327,13 @@
               "type": "java.math.BigDecimal"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -353,13 +353,13 @@
               "type": "java.util.Map"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -382,13 +382,13 @@
               "type": "java.lang.Enum"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -407,13 +407,13 @@
               "type": "java.lang.Long"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -432,13 +432,13 @@
               "type": "java.lang.Float"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -457,13 +457,13 @@
               "type": "java.lang.Double"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -482,13 +482,13 @@
               "type": "java.lang.Object"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -507,13 +507,13 @@
               "type": "java.lang.String"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -532,13 +532,13 @@
               "type": "java.lang.Boolean"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -557,13 +557,13 @@
               "type": "java.lang.Integer"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -582,13 +582,13 @@
               "type": "java.lang.String"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -607,13 +607,13 @@
               "type": "[B"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -632,13 +632,13 @@
               "type": "java.math.BigInteger"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -657,13 +657,13 @@
               "type": "java.math.BigDecimal"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -683,13 +683,13 @@
               "type": "java.lang.String"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -708,13 +708,13 @@
               "type": "com.reedelk.runtime.api.script.Script"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -740,13 +740,13 @@
               "type": "com.reedelk.runtime.api.annotation.Combo"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -765,13 +765,13 @@
               "type": "com.reedelk.runtime.api.annotation.Password"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -790,13 +790,13 @@
               "type": "com.reedelk.runtime.api.resource.ResourceText"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -815,13 +815,13 @@
               "type": "com.reedelk.runtime.api.resource.ResourceBinary"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -851,13 +851,13 @@
                       "type": "java.lang.String"
                     }
                   },
-                  "whenDescriptors": [
+                  "whens": [
                     {
                       "propertyName": "myProperty",
                       "propertyValue": "VALUE1"
                     }
                   ],
-                  "scriptSignatureDescriptor": {
+                  "scriptSignature": {
                     "arguments": [
                       "input",
                       "output"
@@ -876,13 +876,13 @@
                       "type": "int"
                     }
                   },
-                  "whenDescriptors": [
+                  "whens": [
                     {
                       "propertyName": "myProperty",
                       "propertyValue": "VALUE1"
                     }
                   ],
-                  "scriptSignatureDescriptor": {
+                  "scriptSignature": {
                     "arguments": [
                       "input",
                       "output"
@@ -893,13 +893,13 @@
               "type": "com.reedelk.module.descriptor.model.TypeObjectDescriptor$TypeObject"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -913,7 +913,7 @@
       "displayName": "Test Inbound Component",
       "fullyQualifiedName": "com.test.component.TestInboundComponent",
       "componentType": "INBOUND",
-      "componentPropertyDescriptors": [
+      "properties": [
         {
           "hintValue": "Test string with default hint",
           "displayName": "Property String With Init Value",
@@ -926,7 +926,7 @@
               "type": "java.lang.String"
             }
           },
-          "whenDescriptors": []
+          "whens": []
         },
         {
           "hintValue": "Test string hint",
@@ -940,13 +940,13 @@
               "type": "java.lang.String"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -966,13 +966,13 @@
               "type": "java.util.Map"
             }
           },
-          "whenDescriptors": [
+          "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
           ],
-          "scriptSignatureDescriptor": {
+          "scriptSignature": {
             "arguments": [
               "input",
               "output"
@@ -982,7 +982,7 @@
       ]
     }
   ],
-  "autocompleteContributorDescriptors": [
+  "autocompleteContributors": [
     {
       "error": true,
       "message": true,

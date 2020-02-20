@@ -3,7 +3,7 @@ package com.reedelk.module.descriptor.analyzer.property;
 import com.reedelk.module.descriptor.analyzer.commons.Messages;
 import com.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.ComponentPropertyDescriptor;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.WhenDescriptor;
 import com.reedelk.runtime.api.annotation.When;
 import com.reedelk.runtime.api.annotation.Whens;
@@ -21,7 +21,7 @@ public class PropertyWhenAnalyzer implements FieldInfoAnalyzer {
     private static final Logger LOG = Logger.getLogger(PropertyWhenAnalyzer.class);
 
     @Override
-    public void handle(FieldInfo fieldInfo, ComponentPropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
+    public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         // Check if there is a single 'when' annotation
         Collection<AnnotationInfo> whensAnnotations = findWhensAnnotations(fieldInfo);
         for (AnnotationInfo info : whensAnnotations) {
