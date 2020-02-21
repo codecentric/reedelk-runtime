@@ -1,5 +1,6 @@
 package com.reedelk.runtime;
 
+import com.reedelk.runtime.adminconsole.AdminConsoleInstallTask;
 import com.reedelk.runtime.commons.FileUtils;
 import com.reedelk.runtime.license.LicenseVerifierTask;
 import com.reedelk.runtime.properties.SystemConfiguration;
@@ -69,7 +70,8 @@ public class Launcher {
 
             logger.info(message("runtime.started.in", delta));
 
-            LicenseVerifierTask.execute(application);
+            // Launch the Admin console.
+            AdminConsoleInstallTask.execute(application);
 
         } catch (Exception exception) {
 

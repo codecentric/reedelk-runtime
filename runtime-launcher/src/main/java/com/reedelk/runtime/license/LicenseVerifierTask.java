@@ -45,8 +45,5 @@ public class LicenseVerifierTask extends ApplicationTask {
         if (isExpired) {
             throw new ESBRuntimeException(message("runtime.license.expired"));
         }
-
-        // If all went well, we can launch the Admin console.
-        AdminConsoleInstallTask.execute(application);
     }
 }
