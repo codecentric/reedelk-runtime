@@ -1,7 +1,7 @@
 {
   "id": "8d689312-0cc5-4e0b-aec6-f17025627aa1",
   "title": "Admin console listener configuration",
-  "implementor": "com.reedelk.rest.configuration.listener.ListenerConfiguration",
+  "implementor": "com.reedelk.rest.component.RestListenerConfiguration",
   "host": "${admin.console.address}",
   "port": "${admin.console.port}",
   "protocol": "HTTP",
