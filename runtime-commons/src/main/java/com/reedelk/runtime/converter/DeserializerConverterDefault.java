@@ -4,6 +4,7 @@ import com.reedelk.runtime.api.resource.DynamicResource;
 import com.reedelk.runtime.api.resource.ResourceBinary;
 import com.reedelk.runtime.api.resource.ResourceText;
 import com.reedelk.runtime.api.script.Script;
+import com.reedelk.runtime.api.script.dynamicmap.DynamicBooleanMap;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicObjectMap;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicStringMap;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
@@ -57,6 +58,7 @@ class DeserializerConverterDefault implements DeserializerConverter {
         tmp.put(DynamicByteArray.class, new AsDynamicByteArray());
         tmp.put(DynamicBigInteger.class, new AsDynamicBigInteger());
         tmp.put(DynamicBigDecimal.class, new AsDynamicBigDecimal());
+        tmp.put(DynamicBooleanMap.class, new AsDynamicBooleanMap());
         tmp.put(DynamicStringMap.class, new AsDynamicStringMap());
         tmp.put(DynamicObjectMap.class, new AsDynamicObjectMap());
 
@@ -407,6 +409,21 @@ class DeserializerConverterDefault implements DeserializerConverter {
     }
 
     // Dynamic map types
+
+    @SuppressWarnings("unchecked")
+    private static class AsDynamicBooleanMap implements Converter<DynamicBooleanMap> {
+        @Override
+        public DynamicBooleanMap convert(JSONObject object, String key, DeserializerConverterContext context) {
+            Map<String,Object> mapValue = JsonObjectConverter.getInstance().convert(Map.class, object, key);
+            return DynamicBooleanMap.from(mapValue, context.moduleContext());
+        }
+
+        @Override
+        public DynamicBooleanMap convert(JSONArray array, int index, DeserializerConverterContext context) {
+            Map<String,Object> mapValue = JsonObjectConverter.getInstance().convert(Map.class, array, index);
+            return DynamicBooleanMap.from(mapValue, context.moduleContext());
+        }
+    }
 
     @SuppressWarnings("unchecked")
     private static class AsDynamicStringMap implements Converter<DynamicStringMap> {

@@ -44,7 +44,23 @@
       "displayName": "Router",
       "description": "A router component allows to execute only one of the branches following the component based on a given condition which must be defined for each branch. A default condition is mandatory, which represents the default branch to be executed when no other condition is met. A condition might be a function checking the content of the payload or the presence (or absence) of a specific attribute in the message and so on.",
       "fullyQualifiedName": "com.reedelk.runtime.component.Router",
-      "properties": []
+      "properties": [
+        {
+          "name": "conditionAndRouteDefinitions",
+          "example": "\u003ccode\u003emessage.payload().contains(\u0027orders\u0027)\u003c/code\u003e",
+          "initValue": "###USE_DEFAULT_VALUE###",
+          "description": "For each route a dynamic value returning a boolean value must be specified. Each dynamic value is evaluated for each branch of the router to determine which branch has to be executed.",
+          "displayName": "Condition and route definitions",
+          "type": {
+            "classname": "com.reedelk.module.descriptor.model.TypeDynamicMapDescriptor",
+            "instance": {
+              "tabPlacement": "LEFT",
+              "type": "com.reedelk.runtime.api.script.dynamicmap.DynamicBooleanMap"
+            }
+          },
+          "whens": []
+        }
+      ]
     },
     {
       "hidden": true,

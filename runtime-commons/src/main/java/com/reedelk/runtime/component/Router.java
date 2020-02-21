@@ -1,8 +1,11 @@
 package com.reedelk.runtime.component;
 
 import com.reedelk.runtime.api.annotation.Description;
+import com.reedelk.runtime.api.annotation.Example;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
+import com.reedelk.runtime.api.annotation.Property;
 import com.reedelk.runtime.api.component.Component;
+import com.reedelk.runtime.api.script.dynamicmap.DynamicBooleanMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 
 @ModuleComponent("Router")
@@ -14,5 +17,10 @@ import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 public class Router implements Component {
 
     public static final DynamicString DEFAULT_CONDITION = DynamicString.from("otherwise");
+
+    @Property("Condition and route definitions")
+    @Example("<code>message.payload().contains('orders')</code>")
+    @Description("For each route a dynamic value returning a boolean value must be specified. Each dynamic value is evaluated for each branch of the router to determine which branch has to be executed.")
+    private DynamicBooleanMap conditionAndRouteDefinitions = DynamicBooleanMap.empty();
 
 }
