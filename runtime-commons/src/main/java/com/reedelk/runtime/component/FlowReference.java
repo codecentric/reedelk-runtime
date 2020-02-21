@@ -1,10 +1,10 @@
 package com.reedelk.runtime.component;
 
 
+import com.reedelk.runtime.api.annotation.Description;
 import com.reedelk.runtime.api.annotation.Example;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
 import com.reedelk.runtime.api.annotation.Property;
-import com.reedelk.runtime.api.annotation.Description;
 import com.reedelk.runtime.api.component.Component;
 
 @ModuleComponent("Flow Reference")

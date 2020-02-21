@@ -3,8 +3,8 @@ package com.reedelk.module.descriptor.analyzer;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
 import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
-import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
+import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 class ComponentAnalyzerTest {
