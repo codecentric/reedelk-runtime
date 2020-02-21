@@ -10,8 +10,6 @@ import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageAttributes;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.ObjectContent;
-import com.reedelk.runtime.api.message.content.StringContent;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
 import com.reedelk.runtime.commons.ObjectToBytes;
 import org.junit.jupiter.api.BeforeEach;

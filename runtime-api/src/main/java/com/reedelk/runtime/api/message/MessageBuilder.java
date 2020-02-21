@@ -1,7 +1,6 @@
 package com.reedelk.runtime.api.message;
 
 import com.reedelk.runtime.api.message.content.*;
-import com.reedelk.runtime.api.message.content.TypedPublisher;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
