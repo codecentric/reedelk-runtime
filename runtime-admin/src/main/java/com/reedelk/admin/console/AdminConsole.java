@@ -14,6 +14,11 @@ public class AdminConsole {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminConsole.class);
 
+    // IMPORTANT: Keep them in sync with the values provided in the
+    //  AdminConsoleListenerConfig.fconfig file.
+    private static final String DEFAULT_ADDRESS = "localhost";
+    private static final int DEFAULT_PORT = 9988;
+
     // NAME_CONVENTION
     private static final String PROPERTY_ADMIN_CONSOLE_ADDRESS = "admin.console.address";
     // NAME_CONVENTION
@@ -25,9 +30,9 @@ public class AdminConsole {
     @Activate
     public void start() {
 
-        String bindAddress = configurationService.getString(PROPERTY_ADMIN_CONSOLE_ADDRESS);
+        String bindAddress = configurationService.getString(PROPERTY_ADMIN_CONSOLE_ADDRESS, DEFAULT_ADDRESS);
 
-        int bindPort = configurationService.getInt(PROPERTY_ADMIN_CONSOLE_PORT);
+        int bindPort = configurationService.getInt(PROPERTY_ADMIN_CONSOLE_PORT, DEFAULT_PORT);
 
         logger.info(String.format("Admin console listening on http://%s:%d/console", bindAddress, bindPort));
     }
