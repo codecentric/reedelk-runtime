@@ -32,17 +32,17 @@ class ConfigPropertyDecoratorTest {
     @Test
     void shouldDelegateConfigurationServiceWhenPropertyIsConfigProperty() {
         // Given
-        String configKey = "myProperty";
+        String propertyName = "myProperty";
         int expectedValue = 54;
 
         doReturn(expectedValue)
                 .when(configurationService)
                 .get("listener.port", int.class);
         JSONObject componentDefinition = new JSONObject();
-        componentDefinition.put(configKey, "${listener.port}");
+        componentDefinition.put(propertyName, "${listener.port}");
 
         // When
-        Object typeInstance = decorator.convert(int.class, componentDefinition, configKey, deserializerConverterContext);
+        Object typeInstance = decorator.convert(int.class, componentDefinition, propertyName, deserializerConverterContext);
 
         // Then
         assertThat(typeInstance).isEqualTo(expectedValue);
@@ -86,5 +86,26 @@ class ConfigPropertyDecoratorTest {
 
         // Then
         assertThat(instance).isEqualTo(expectedValue);
+    }
+
+    @Test
+    void shouldUseGivenDefaultConfigPropertyValue() {
+        // Given
+        int expectedValue = 3212;
+        String propertyName = "myProperty";
+
+        doReturn(expectedValue)
+                .when(configurationService)
+                .get("listener.port", expectedValue, int.class);
+        JSONObject componentDefinition = new JSONObject();
+        componentDefinition.put(propertyName, "${listener.port:3212}");
+
+        // When
+        Object typeInstance = decorator.convert(int.class, componentDefinition, propertyName, deserializerConverterContext);
+
+        // Then
+        assertThat(typeInstance).isEqualTo(expectedValue);
+        verify(configurationService).get("listener.port", expectedValue, int.class);
+        verifyNoMoreInteractions(configurationService);
     }
 }
