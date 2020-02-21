@@ -49,8 +49,7 @@ public class ESB implements EventListener, HotSwapListener {
         context.addBundleListener(eventDispatcher);
         context.addServiceListener(eventDispatcher);
 
-        servicesManager =
-                new ServicesManager(ESB.this, ESB.this, modulesManager, configurationAdmin);
+        servicesManager = new ServicesManager(ESB.this, ESB.this, modulesManager, configurationAdmin);
         servicesManager.registerServices(context);
 
         ApplyRuntimeConfiguration.from(servicesManager.configurationService());

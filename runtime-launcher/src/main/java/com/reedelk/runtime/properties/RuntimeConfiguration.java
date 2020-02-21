@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 
 import static com.reedelk.runtime.commons.RuntimeMessage.message;
@@ -15,14 +16,14 @@ import static org.osgi.framework.Constants.*;
 
 public class RuntimeConfiguration extends Properties {
 
-    public static final String RUNTIME_CONFIG_PROPERTIES_FILE = "com.reedelk.runtime.properties";
+    public static final String CONFIG_PROPERTIES_FILE = "configuration.properties";
 
     private RuntimeConfiguration() {
-        load();
     }
 
     public static Map<String, String> get() {
         RuntimeConfiguration runtimeConfiguration = new RuntimeConfiguration();
+        runtimeConfiguration.load();
 
         Map<String, String> configuration = new HashMap<>();
         configuration.put("org.osgi.framework.storage", RuntimeConfiguration.cacheDir());
@@ -43,7 +44,15 @@ public class RuntimeConfiguration extends Properties {
     }
 
     private String getSharedSystemPackages() {
-        return getProperty("shared.system.packages", "");
+        String defaultSystemPackages = getProperty("shared.system.packages", SharedSystemPackages.DEFAULT);
+        return getSharedSystemPackagesAdditional()
+                .map(additionalPackages -> defaultSystemPackages + "," + additionalPackages)
+                .orElse(defaultSystemPackages);
+
+    }
+
+    private Optional<String> getSharedSystemPackagesAdditional() {
+        return Optional.ofNullable(getProperty("shared.system.packages.additional", null));
     }
 
     private String getPaxDefaultLogLevel() {
@@ -56,7 +65,7 @@ public class RuntimeConfiguration extends Properties {
 
     private void load() {
         String configDirectory = SystemConfiguration.configDirectory();
-        Path path = Paths.get(configDirectory, RUNTIME_CONFIG_PROPERTIES_FILE);
+        Path path = Paths.get(configDirectory, CONFIG_PROPERTIES_FILE);
         File runtimeConfig = path.toFile();
         try {
             super.load(new FileInputStream(runtimeConfig));

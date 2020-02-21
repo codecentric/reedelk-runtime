@@ -5,7 +5,7 @@ import com.reedelk.runtime.api.configuration.ConfigurationService;
 
 /**
  * Applies the properties from the runtime configuration file. For example
- * it initializes the Flow Executor schedulers with the provided config values.
+ * it initializes the Flow Executor Schedulers with the provided config values.
  */
 public class ApplyRuntimeConfiguration {
 

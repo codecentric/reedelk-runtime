@@ -139,6 +139,10 @@ public class Application {
     }
 
     private Framework createFramework(Map<String, String> config) {
+        if (logger.isDebugEnabled()) {
+            logger.debug(config.toString());
+        }
+
         ServiceLoader<FrameworkFactory> factoryLoader = ServiceLoader.load(FrameworkFactory.class);
         Iterator<FrameworkFactory> iterator = factoryLoader.iterator();
         if (iterator.hasNext()) {

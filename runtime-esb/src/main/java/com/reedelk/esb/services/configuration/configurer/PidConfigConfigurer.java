@@ -8,7 +8,7 @@ import java.util.Properties;
 public class PidConfigConfigurer extends AbstractConfigurer {
 
     @Override
-    public boolean apply(ConfigurationAdmin configService, ConfigFile configFile) {
+    public boolean apply(ConfigurationAdmin configService, ConfigFile<?> configFile) {
         if (configFile instanceof PropertiesConfigFile) {
             String configPid = getConfigPid(configFile);
             PropertiesConfigFile propertiesConfigFile = (PropertiesConfigFile) configFile;
@@ -19,7 +19,7 @@ public class PidConfigConfigurer extends AbstractConfigurer {
         }
     }
 
-    private String getConfigPid(ConfigFile configFile) {
+    private String getConfigPid(ConfigFile<?> configFile) {
         String fileName = configFile.getFileName();
         return fileName.substring(0, FileUtils.indexOfExtension(fileName));
     }
