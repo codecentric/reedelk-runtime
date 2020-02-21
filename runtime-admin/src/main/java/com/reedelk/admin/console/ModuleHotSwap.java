@@ -16,7 +16,7 @@ import org.osgi.service.component.annotations.Reference;
 import static com.reedelk.runtime.rest.api.InternalAPI.HotSwap;
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ModuleComponent(name = "Module hot swap")
+@ModuleComponent("Module hot swap")
 @Component(service = ModuleHotSwap.class, scope = PROTOTYPE)
 public class ModuleHotSwap implements ProcessorSync {
 

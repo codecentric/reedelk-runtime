@@ -48,7 +48,7 @@ class ComponentAnalyzerTest {
     }
 
     @Test
-    void shouldCorrectlyAnalyzeClassInfo() {
+    void shouldCorrectlyBuildComponentDescriptorFromClassInfo() {
         // Given
         ClassInfo testComponentClassInfo = componentClassInfo;
 
@@ -59,6 +59,7 @@ class ComponentAnalyzerTest {
         assertThat(descriptor.isHidden()).isFalse();
         assertThat(descriptor.getProperties().size()).isEqualTo(3);
         assertThat(descriptor.getDisplayName()).isEqualTo("Test Component");
+        assertThat(descriptor.getDescription()).isEqualTo("My test component description");
         assertThat(descriptor.getType()).isEqualTo(ComponentType.PROCESSOR);
         assertThat(descriptor.getFullyQualifiedName()).isEqualTo(TestComponent.class.getName());
     }

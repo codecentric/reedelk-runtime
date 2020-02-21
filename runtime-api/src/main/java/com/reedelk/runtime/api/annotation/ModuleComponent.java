@@ -14,14 +14,6 @@ public @interface ModuleComponent {
      */
     String USE_DEFAULT_NAME = "###USE_DEFAULT_NAME###";
 
-    String name() default USE_DEFAULT_NAME;
-
-    /**
-     * Special value that indicates that the default description should be used
-     * for the component this annotation is referring to.
-     */
-    String USE_DEFAULT_DESCRIPTION = "###USE_DEFAULT_DESCRIPTION###";
-
-    String description() default USE_DEFAULT_DESCRIPTION;
+    String value() default USE_DEFAULT_NAME;
 
 }

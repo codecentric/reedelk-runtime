@@ -59,17 +59,20 @@ public class ScannerUtils {
         return parameterValue == null ? defaultValue : (boolean) parameterValue.getValue();
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T annotationValueOrDefaultFrom(FieldInfo fieldInfo, Class<?> annotationClazz, T defaultValue) {
         if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
             return defaultValue;
         }
         AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
-        AnnotationParameterValueList parameterValues = annotationInfo.getParameterValues();
-        if (parameterValues == null) return defaultValue;
-        return parameterValues.get(ANNOTATION_DEFAULT_PARAM_NAME) == null ?
-                defaultValue :
-                (T) parameterValues.getValue(ANNOTATION_DEFAULT_PARAM_NAME);
+        return annotationValueOrDefaultFrom(defaultValue, annotationInfo);
+    }
+
+    public static <T> T annotationValueOrDefaultFrom(ClassInfo classInfo, Class<?> annotationClazz, T defaultValue) {
+        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
+            return defaultValue;
+        }
+        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
+        return annotationValueOrDefaultFrom(defaultValue, annotationInfo);
     }
 
     public static <T> T annotationParameterValueOrDefaultFrom(FieldInfo fieldInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
@@ -77,14 +80,6 @@ public class ScannerUtils {
             return defaultValue;
         }
         AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
-        return getParameterValue(annotationParamName, defaultValue, annotationInfo);
-    }
-
-    public static <T> T annotationParameterValueOrDefaultFrom(ClassInfo classInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
-        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
-            return defaultValue;
-        }
-        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
         return getParameterValue(annotationParamName, defaultValue, annotationInfo);
     }
 
@@ -205,5 +200,14 @@ public class ScannerUtils {
         AnnotationParameterValueList parameterValues = info.getParameterValues();
         AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
         return parameterValue == null ? parameterValue : parameterValue.getValue();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T annotationValueOrDefaultFrom(T defaultValue, AnnotationInfo annotationInfo) {
+        AnnotationParameterValueList parameterValues = annotationInfo.getParameterValues();
+        if (parameterValues == null) return defaultValue;
+        return parameterValues.get(ANNOTATION_DEFAULT_PARAM_NAME) == null ?
+                defaultValue :
+                (T) parameterValues.getValue(ANNOTATION_DEFAULT_PARAM_NAME);
     }
 }

@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
 
-@ModuleComponent(name = "List modules")
+@ModuleComponent("List modules")
 @Component(service = ModuleList.class, scope = PROTOTYPE)
 public class ModuleList implements ProcessorSync {
 

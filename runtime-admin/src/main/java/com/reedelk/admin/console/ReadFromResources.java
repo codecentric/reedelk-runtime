@@ -19,7 +19,7 @@ import org.reactivestreams.Publisher;
 
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ModuleComponent(name = "Read From Resources")
+@ModuleComponent("Read From Resources")
 @Component(service = ReadFromResources.class, scope = PROTOTYPE)
 public class ReadFromResources implements ProcessorSync {
 

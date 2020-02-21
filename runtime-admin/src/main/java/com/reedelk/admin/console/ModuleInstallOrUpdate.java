@@ -14,7 +14,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ModuleComponent(name = "Install or update module")
+@ModuleComponent("Install or update module")
 @Component(service = ModuleInstallOrUpdate.class, scope = PROTOTYPE)
 public class ModuleInstallOrUpdate implements ProcessorSync {
 

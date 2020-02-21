@@ -5,6 +5,7 @@ import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
+import com.reedelk.runtime.api.annotation.Description;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.ClassInfo;
 
@@ -48,14 +49,14 @@ public class ComponentAnalyzer {
 
     // The ClassInfo component descriptor *must* have the ModuleComponent annotation if we get here.
     private String getComponentDisplayName(ClassInfo componentClassInfo) {
-        return ScannerUtils.annotationParameterValueOrDefaultFrom(
-                componentClassInfo, ModuleComponent.class, "name", componentClassInfo.getSimpleName());
+        return ScannerUtils.annotationValueOrDefaultFrom(
+                componentClassInfo, ModuleComponent.class, componentClassInfo.getSimpleName());
     }
 
     // The ClassInfo component descriptor *must* have the ModuleComponent annotation if we get here.
     private String getComponentDescription(ClassInfo componentClassInfo) {
-        return ScannerUtils.annotationParameterValueOrDefaultFrom(
-                componentClassInfo, ModuleComponent.class, "description", null);
+        return ScannerUtils.annotationValueOrDefaultFrom(
+                componentClassInfo, Description.class, null);
     }
 
     private ComponentType getComponentType(ClassInfo classInfo) {

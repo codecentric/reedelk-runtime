@@ -24,7 +24,7 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 import static java.lang.String.format;
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ModuleComponent(name = "Module Deploy")
+@ModuleComponent("Module Deploy")
 @Component(service = ModuleDeploy.class, scope = PROTOTYPE)
 public class ModuleDeploy implements ProcessorSync {
 

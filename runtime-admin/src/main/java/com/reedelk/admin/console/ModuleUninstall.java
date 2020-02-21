@@ -18,7 +18,7 @@ import java.net.URI;
 
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ModuleComponent(name = "Uninstall module")
+@ModuleComponent("Uninstall module")
 @Component(service = ModuleUninstall.class, scope = PROTOTYPE)
 public class ModuleUninstall implements ProcessorSync {
 

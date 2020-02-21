@@ -6,7 +6,7 @@ import com.reedelk.runtime.api.annotation.Property;
 import com.reedelk.runtime.api.component.Component;
 
 @Hidden
-@ModuleComponent(name="Unknown")
+@ModuleComponent("Unknown")
 public class Unknown implements Component {
 
     @Property("Unknown component")

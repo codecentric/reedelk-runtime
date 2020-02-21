@@ -13,7 +13,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
 
-@ModuleComponent(name = "System health")
+@ModuleComponent("System health")
 @Component(service = SystemHealth.class, scope = PROTOTYPE)
 public class SystemHealth implements ProcessorSync {
 

@@ -7,7 +7,7 @@ import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 
 @Hidden
-@ModuleComponent(name="Placeholder")
+@ModuleComponent("Placeholder")
 public class Placeholder implements ProcessorSync {
 
     @Override
