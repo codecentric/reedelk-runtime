@@ -1,5 +1,6 @@
 package com.reedelk.esb.services.scriptengine;
 
+import com.reedelk.esb.commons.JavaVersion;
 import com.reedelk.esb.services.scriptengine.evaluator.ScriptEngineProvider;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
@@ -18,7 +19,7 @@ public class JavascriptEngineProvider implements ScriptEngineProvider {
     private final Compilable compilable;
 
     private JavascriptEngineProvider() {
-        this.engine = new NashornScriptEngineFactory().getScriptEngine("--optimistic-types=false", "--language=es6");
+        this.engine = new NashornScriptEngineFactory().getScriptEngine(getEngineArgs());
         this.invocable = (Invocable) engine;
         this.compilable = (Compilable) engine;
     }
@@ -95,5 +96,15 @@ public class JavascriptEngineProvider implements ScriptEngineProvider {
     @Override
     public void unDefineFunction(String functionName) {
         engine.getBindings(ENGINE_SCOPE).put(functionName, null);
+    }
+
+    /**
+     * Nashorn engine is deprecated after Java 1.8 and therefore if we are running on JDK > 1.8,
+     * then we suppress the deprecation warning.
+     */
+    private String[] getEngineArgs() {
+        return JavaVersion.isGreaterThan18() ?
+                new String[] {"--optimistic-types=false", "--language=es6", "--no-deprecation-warning"} :
+                new String[] {"--optimistic-types=false", "--language=es6"};
     }
 }
