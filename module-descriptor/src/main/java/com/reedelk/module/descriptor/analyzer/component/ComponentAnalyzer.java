@@ -1,7 +1,7 @@
 package com.reedelk.module.descriptor.analyzer.component;
 
 import com.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
-import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer;
+import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
 import com.reedelk.module.descriptor.model.PropertyDescriptor;
@@ -16,9 +16,9 @@ import static java.util.stream.Collectors.toList;
 
 public class ComponentAnalyzer {
 
-    private final ComponentPropertyAnalyzer propertyAnalyzer;
+    private final PropertyAnalyzer propertyAnalyzer;
 
-    public ComponentAnalyzer(ComponentPropertyAnalyzer propertyAnalyzer) {
+    public ComponentAnalyzer(PropertyAnalyzer propertyAnalyzer) {
         this.propertyAnalyzer = propertyAnalyzer;
     }
 

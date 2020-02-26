@@ -20,7 +20,7 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
-public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
+public class TypeAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
@@ -64,7 +64,7 @@ public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
             }
             Shared shared = isShareable(classInfo);
             Collapsible collapsible = isCollapsible(classInfo);
-            ComponentPropertyAnalyzer propertyAnalyzer = new ComponentPropertyAnalyzer(context);
+            PropertyAnalyzer propertyAnalyzer = new PropertyAnalyzer(context);
 
             List<PropertyDescriptor> allProperties = classInfo
                     .getFieldInfo()

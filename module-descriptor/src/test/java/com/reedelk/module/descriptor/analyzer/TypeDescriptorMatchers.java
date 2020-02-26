@@ -10,11 +10,7 @@ import java.util.Objects;
 
 public class TypeDescriptorMatchers {
 
-    public interface TypeDescriptorMatcher {
-        boolean matches(TypeDescriptor actual);
-    }
-
-    public static TypeDescriptorMatcher ofPrimitiveType(TypePrimitiveDescriptor expected) {
+    public static Matcher<TypeDescriptor> ofPrimitiveType(TypePrimitiveDescriptor expected) {
         return given -> {
             if (given instanceof TypePrimitiveDescriptor) {
                 TypePrimitiveDescriptor actual = (TypePrimitiveDescriptor) given;
@@ -24,7 +20,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static TypeDescriptorMatcher ofTypeEnum(TypeEnumDescriptor expected) {
+    public static Matcher<TypeDescriptor> ofTypeEnum(TypeEnumDescriptor expected) {
         return given -> {
             if (given instanceof TypeEnumDescriptor) {
                 TypeEnumDescriptor actual = (TypeEnumDescriptor) given;
@@ -37,7 +33,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static TypeDescriptorMatcher ofTypeResourceText(TypeResourceTextDescriptor expected) {
+    public static Matcher<TypeDescriptor> ofTypeResourceText(TypeResourceTextDescriptor expected) {
         return given -> {
             if (given instanceof TypeResourceTextDescriptor) {
                 TypeResourceTextDescriptor actual = (TypeResourceTextDescriptor) given;
@@ -47,7 +43,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static TypeDescriptorMatcher ofTypeResourceBinary(TypeResourceBinaryDescriptor expected) {
+    public static Matcher<TypeDescriptor> ofTypeResourceBinary(TypeResourceBinaryDescriptor expected) {
         return given -> {
             if (given instanceof TypeResourceBinaryDescriptor) {
                 TypeResourceBinaryDescriptor actual = (TypeResourceBinaryDescriptor) given;
@@ -57,7 +53,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static TypeDescriptorMatcher ofTypeCombo(TypeComboDescriptor expected) {
+    public static Matcher<TypeDescriptor> ofTypeCombo(TypeComboDescriptor expected) {
         return given -> {
             if (given instanceof TypeComboDescriptor) {
                 TypeComboDescriptor actual = (TypeComboDescriptor) given;
@@ -68,7 +64,7 @@ public class TypeDescriptorMatchers {
                 String expectedPrototype = expected.getPrototype();
                 String actualPrototype = actual.getPrototype();
                 return same(expected, actual) &&
-                        same(expectedPrototype, actualPrototype) &&
+                        Objects.equals(expectedPrototype, actualPrototype) &&
                         expectedEditable == actualEditable &&
                         Arrays.equals(expectedComboValues, actualComboValues);
             }
@@ -76,7 +72,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static TypeDescriptorMatcher ofTypeMap(TypeMapDescriptor expected) {
+    public static Matcher<TypeDescriptor> ofTypeMap(TypeMapDescriptor expected) {
         return given -> {
             if (given instanceof TypeMapDescriptor) {
                 TypeMapDescriptor actual = (TypeMapDescriptor) given;
@@ -85,14 +81,14 @@ public class TypeDescriptorMatchers {
                 TabPlacement expectedTabPlacement = expected.getTabPlacement();
                 TabPlacement actualTabPlacement = actual.getTabPlacement();
                 return same(expected, actual) &&
-                        same(expectedTabGroup,actualTabGroup) &&
-                        same(expectedTabPlacement, actualTabPlacement);
+                        Objects.equals(expectedTabGroup,actualTabGroup) &&
+                        Objects.equals(expectedTabPlacement, actualTabPlacement);
             }
             return false;
         };
     }
 
-    public static TypeDescriptorMatcher ofTypeScript(TypeScriptDescriptor expected) {
+    public static Matcher<TypeDescriptor> ofTypeScript(TypeScriptDescriptor expected) {
         return given -> {
             if (given instanceof TypeScriptDescriptor) {
                 TypeScriptDescriptor actual = (TypeScriptDescriptor) given;
@@ -102,7 +98,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static <T extends DynamicValue<?>> TypeDescriptorMatcher ofDynamicType(TypeDynamicValueDescriptor expected) {
+    public static <T extends DynamicValue<?>> Matcher<TypeDescriptor> ofDynamicType(TypeDynamicValueDescriptor expected) {
         return given -> {
             if (given instanceof TypeDynamicValueDescriptor) {
                 TypeDynamicValueDescriptor actual = (TypeDynamicValueDescriptor) given;
@@ -112,7 +108,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static <T extends DynamicMap<?>> TypeDescriptorMatcher ofDynamicMapType(TypeDynamicMapDescriptor expected) {
+    public static <T extends DynamicMap<?>> Matcher<TypeDescriptor> ofDynamicMapType(TypeDynamicMapDescriptor expected) {
         return given -> {
             if (given instanceof TypeDynamicMapDescriptor) {
                 TypeDynamicMapDescriptor actual = (TypeDynamicMapDescriptor) given;
@@ -128,10 +124,6 @@ public class TypeDescriptorMatchers {
         Class<?> expectedClazzType = expected.getType();
         Class<?> actualClazzType = actual.getType();
         return expectedClazzType.equals(actualClazzType);
-    }
-
-    private static boolean same(Object expected, Object actual) {
-        return Objects.equals(expected, actual);
     }
 }
 

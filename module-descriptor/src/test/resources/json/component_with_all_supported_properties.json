@@ -2,23 +2,30 @@
   "components": [
     {
       "hidden": true,
+      "type": "PROCESSOR",
       "displayName": "Test Processor Component",
       "fullyQualifiedName": "com.test.component.TestProcessorComponent",
-      "type": "PROCESSOR",
       "properties": [
         {
-          "hintValue": "true",
-          "displayName": "Property Boolean Object",
           "name": "propertyBooleanObject",
-          "initValue": "true",
           "example": "false",
+          "initValue": "true",
+          "hintValue": "true",
           "description": "Property Boolean Object Info",
+          "displayName": "Property Boolean Object",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Boolean"
             }
           },
+          "scriptSignature": {
+            "arguments": [
+              "input",
+              "output"
+            ]
+          },
+          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
@@ -28,324 +35,330 @@
               "propertyName": "anotherProperty",
               "propertyValue": "VALUE2"
             }
-          ],
-          "scriptSignature": {
-            "arguments": [
-              "input",
-              "output"
-            ]
-          }
+          ]
         },
         {
-          "hintValue": "true",
-          "displayName": "Property Boolean",
           "name": "propertyBoolean",
           "initValue": "true",
+          "hintValue": "true",
           "description": "Property Boolean Info",
+          "displayName": "Property Boolean",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "boolean"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "1111.2222",
-          "displayName": "Property Double Object",
           "name": "propertyDoubleObject",
-          "initValue": "234.54223",
           "example": "3342.543111",
-          "defaultValue": "11.32",
+          "initValue": "234.54223",
+          "hintValue": "1111.2222",
           "description": "Property Double Object Info",
+          "displayName": "Property Double Object",
+          "defaultValue": "11.32",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Double"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "771.32212",
-          "displayName": "Property Double",
           "name": "propertyDouble",
           "initValue": "333.8764",
+          "hintValue": "771.32212",
           "description": "Property Double Info",
+          "displayName": "Property Double",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "double"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "1.2f",
-          "displayName": "Property Float Object",
           "name": "propertyFloatObject",
           "initValue": "3.1f",
+          "hintValue": "1.2f",
           "description": "Property Float Object Info",
+          "displayName": "Property Float Object",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Float"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "7.2f",
-          "displayName": "Property Float",
           "name": "propertyFloat",
           "initValue": "1.8f",
+          "hintValue": "7.2f",
           "description": "Property Float Info",
+          "displayName": "Property Float",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "float"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "809",
-          "displayName": "Property Integer Object",
           "name": "propertyIntegerObject",
           "initValue": "122",
+          "hintValue": "809",
           "description": "Property Integer Object Info",
+          "displayName": "Property Integer Object",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Integer"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "764",
-          "displayName": "Property Integer",
           "name": "propertyInteger",
           "initValue": "544",
+          "hintValue": "764",
           "description": "Property Integer Info",
+          "displayName": "Property Integer",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "int"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "444L",
-          "displayName": "Property Long Object",
           "name": "propertyLongObject",
           "initValue": "892L",
+          "hintValue": "444L",
           "description": "Property Long Object Info",
+          "displayName": "Property Long Object",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Long"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "4",
-          "displayName": "Property Long",
           "name": "propertyLong",
-          "initValue": "1L",
-          "defaultValue": "2L",
           "example": "711222L",
+          "initValue": "1L",
+          "hintValue": "4",
           "description": "Property Long Info",
+          "displayName": "Property Long",
+          "defaultValue": "2L",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "long"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Test property string hint",
-          "displayName": "Property String",
           "name": "propertyString",
           "initValue": "Test property string",
+          "hintValue": "Test property string hint",
           "description": "Property String Info",
+          "displayName": "Property String",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "1123",
-          "displayName": "Property BigInteger",
           "name": "propertyBigInteger",
           "initValue": "4222222",
+          "hintValue": "1123",
           "description": "Property Big Integer Info",
+          "displayName": "Property BigInteger",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.math.BigInteger"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "11.2343",
-          "displayName": "Property BigDecimal",
           "name": "propertyBigDecimal",
           "initValue": "234.2343",
+          "hintValue": "11.2343",
           "description": "Property Big Decimal Info",
+          "displayName": "Property BigDecimal",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.math.BigDecimal"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
-          "displayName": "Property Map",
           "name": "propertyMap",
           "initValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
+          "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
           "description": "Property Map Info",
+          "displayName": "Property Map",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
             "instance": {
@@ -353,25 +366,26 @@
               "type": "java.util.Map"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "AUTO",
-          "displayName": "Property Enum",
           "name": "propertyEnum",
           "initValue": "STREAM",
+          "hintValue": "AUTO",
           "description": "Property Enum Info",
+          "displayName": "Property Enum",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeEnumDescriptor",
             "instance": {
@@ -382,300 +396,312 @@
               "type": "java.lang.Enum"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "8L",
-          "displayName": "Property Dynamic Long",
           "name": "propertyDynamicLong",
           "initValue": "432L",
+          "hintValue": "8L",
           "description": "Property Dynamic Long Info",
+          "displayName": "Property Dynamic Long",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Long"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "8.1f",
-          "displayName": "Property Dynamic Float",
           "name": "propertyDynamicFloat",
           "initValue": "432.23f",
+          "hintValue": "8.1f",
           "description": "Property Dynamic Float Info",
+          "displayName": "Property Dynamic Float",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Float"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "18.1d",
-          "displayName": "Property Dynamic Double",
           "name": "propertyDynamicDouble",
           "initValue": "1432.23d",
+          "hintValue": "18.1d",
           "description": "Property Dynamic Double Info",
+          "displayName": "Property Dynamic Double",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Double"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Test hint",
-          "displayName": "Property Dynamic Object",
           "name": "propertyDynamicObject",
           "initValue": "Test",
+          "hintValue": "Test hint",
           "description": "Property Dynamic Object Info",
+          "displayName": "Property Dynamic Object",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Object"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Test string hint",
-          "displayName": "Property Dynamic String",
           "name": "propertyDynamicString",
           "initValue": "Test string",
+          "hintValue": "Test string hint",
           "description": "Property Dynamic String Info",
+          "displayName": "Property Dynamic String",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Test boolean hint",
-          "displayName": "Property Dynamic Boolean",
           "name": "propertyDynamicBoolean",
           "initValue": "true",
+          "hintValue": "Test boolean hint",
           "description": "Property Dynamic Boolean Info",
+          "displayName": "Property Dynamic Boolean",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Boolean"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Test integer hint",
-          "displayName": "Property Dynamic Integer",
           "name": "propertyDynamicInteger",
           "initValue": "4",
+          "hintValue": "Test integer hint",
           "description": "Property Dynamic Integer Info",
+          "displayName": "Property Dynamic Integer",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Integer"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Test resource hint",
-          "displayName": "Property Dynamic Resource",
           "name": "propertyDynamicResource",
           "initValue": "#[\u0027my-resource.png\u0027]",
+          "hintValue": "Test resource hint",
           "description": "Property Dynamic Resource Info",
+          "displayName": "Property Dynamic Resource",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Test byte array hint",
-          "displayName": "Property Dynamic byte array",
           "name": "propertyDynamicByteArray",
           "initValue": "Test Dynamic Byte Array",
+          "hintValue": "Test byte array hint",
           "description": "Property Dynamic Byte Array Info",
+          "displayName": "Property Dynamic byte array",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "[B"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "1199888",
-          "displayName": "Property Dynamic Big Integer",
           "name": "propertyDynamicBigInteger",
           "initValue": "2348111",
+          "hintValue": "1199888",
           "description": "Property Dynamic Big Integer Info",
+          "displayName": "Property Dynamic Big Integer",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.math.BigInteger"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "1.199888",
-          "displayName": "Property Dynamic Big Decimal",
           "name": "propertyDynamicBigDecimal",
           "initValue": "234.8111",
+          "hintValue": "1.199888",
           "description": "Property Dynamic Big Decimal Info",
+          "displayName": "Property Dynamic Big Decimal",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.math.BigDecimal"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027}",
-          "displayName": "Property Dynamic String Map",
           "name": "propertyDynamicStringMap",
           "initValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027,\u0027key2\u0027:\u0027#[\u0027value2\u0027]\u0027}",
+          "hintValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027}",
           "description": "Property Dynamic String Map Info",
+          "displayName": "Property Dynamic String Map",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicMapDescriptor",
             "instance": {
@@ -683,50 +709,52 @@
               "type": "java.lang.String"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "#[\u0027Test Hint\u0027]",
-          "displayName": "Property Script",
           "name": "propertyScript",
           "initValue": "#[\u0027Test\u0027]",
+          "hintValue": "#[\u0027Test Hint\u0027]",
           "description": "Property Script Info",
+          "displayName": "Property Script",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeScriptDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.script.Script"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "Item2",
-          "displayName": "Property Combo",
           "name": "propertyCombo",
           "initValue": "Item1",
+          "hintValue": "Item2",
           "description": "Property Combo Info",
+          "displayName": "Property Combo",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeComboDescriptor",
             "instance": {
@@ -740,98 +768,102 @@
               "type": "com.reedelk.runtime.api.annotation.Combo"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "my password hint",
-          "displayName": "Property Password",
           "name": "propertyPassword",
           "initValue": "my password",
+          "hintValue": "my password hint",
           "description": "Property Password Info",
+          "displayName": "Property Password",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePasswordDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.annotation.Password"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "assets/images/my-text.txt",
-          "displayName": "Property Resource Text",
           "name": "propertyResourceText",
           "initValue": "assets/my-text.txt",
+          "hintValue": "assets/images/my-text.txt",
           "description": "Property Resource Text Info",
+          "displayName": "Property Resource Text",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeResourceTextDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.resource.ResourceText"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "assets/images/my-image.png",
-          "displayName": "Property Resource Binary",
           "name": "propertyResourceBinary",
           "initValue": "assets/my-image.png",
+          "hintValue": "assets/images/my-image.png",
           "description": "Property Resource Binary Info",
+          "displayName": "Property Resource Binary",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeResourceBinaryDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.resource.ResourceBinary"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "displayName": "Property Type Object",
           "name": "propertyTypeObject",
           "description": "Property Type Object Info",
+          "displayName": "Property Type Object",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeObjectDescriptor",
             "instance": {
@@ -840,125 +872,130 @@
               "typeFullyQualifiedName": "com.reedelk.component.TestImplementor",
               "objectProperties": [
                 {
-                  "hintValue": "nested property 1 hint",
-                  "displayName": "Nested Property 1",
                   "name": "nestedProperty1",
                   "initValue": "my nested property 1",
+                  "hintValue": "nested property 1 hint",
                   "description": "Property Nested 1 Info",
+                  "displayName": "Nested Property 1",
                   "type": {
                     "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
                     "instance": {
                       "type": "java.lang.String"
                     }
                   },
-                  "whens": [
-                    {
-                      "propertyName": "myProperty",
-                      "propertyValue": "VALUE1"
-                    }
-                  ],
                   "scriptSignature": {
                     "arguments": [
                       "input",
                       "output"
                     ]
-                  }
+                  },
+                  "autocompleteVariables": [],
+                  "whens": [
+                    {
+                      "propertyName": "myProperty",
+                      "propertyValue": "VALUE1"
+                    }
+                  ]
                 },
                 {
-                  "hintValue": "12",
-                  "displayName": "Nested Property 2",
                   "name": "nestedProperty2",
                   "initValue": "5",
+                  "hintValue": "12",
                   "description": "Property Nested 2 Info",
+                  "displayName": "Nested Property 2",
                   "type": {
                     "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
                     "instance": {
                       "type": "int"
                     }
                   },
-                  "whens": [
-                    {
-                      "propertyName": "myProperty",
-                      "propertyValue": "VALUE1"
-                    }
-                  ],
                   "scriptSignature": {
                     "arguments": [
                       "input",
                       "output"
                     ]
-                  }
+                  },
+                  "autocompleteVariables": [],
+                  "whens": [
+                    {
+                      "propertyName": "myProperty",
+                      "propertyValue": "VALUE1"
+                    }
+                  ]
                 }
               ],
               "type": "com.reedelk.module.descriptor.model.TypeObjectDescriptor$TypeObject"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         }
       ]
     },
     {
       "hidden": true,
+      "type": "INBOUND",
       "displayName": "Test Inbound Component",
       "fullyQualifiedName": "com.test.component.TestInboundComponent",
-      "type": "INBOUND",
       "properties": [
         {
-          "hintValue": "Test string with default hint",
-          "displayName": "Property String With Init Value",
           "name": "propertyStringWithInitValue",
           "initValue": "###USE_DEFAULT_VALUE###",
+          "hintValue": "Test string with default hint",
           "description": "Property String With Default Info",
+          "displayName": "Property String With Init Value",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
           },
+          "autocompleteVariables": [],
           "whens": []
         },
         {
-          "hintValue": "Test string hint",
-          "displayName": "Property Dynamic String",
           "name": "propertyDynamicString",
           "initValue": "Test string",
+          "hintValue": "Test string hint",
           "description": "Property Dynamic String Info",
+          "displayName": "Property Dynamic String",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         },
         {
-          "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
-          "displayName": "Property Map",
           "name": "propertyMap",
           "initValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
+          "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
           "description": "Property Map Info",
+          "displayName": "Property Map",
           "type": {
             "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
             "instance": {
@@ -966,31 +1003,41 @@
               "type": "java.util.Map"
             }
           },
-          "whens": [
-            {
-              "propertyName": "myProperty",
-              "propertyValue": "VALUE1"
-            }
-          ],
           "scriptSignature": {
             "arguments": [
               "input",
               "output"
             ]
-          }
+          },
+          "autocompleteVariables": [],
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
         }
       ]
     }
   ],
-  "autocompleteContributors": [
+  "autocompleteItems": [
     {
-      "error": true,
-      "message": true,
-      "context": true,
-      "contributions": [
-        "Util[VARIABLE:Util]",
-        "Util.tmpdir()[FUNCTION:String]"
-      ]
+      "type": "TestClassWithAutocompleteType",
+      "token": "builderMethod",
+      "returnType": "TestClassWithAutocompleteType",
+      "description": "My description",
+      "replaceValue": "builderMethod(\u0027\u0027)",
+      "cursorOffset": 0,
+      "itemType": "FUNCTION"
+    },
+    {
+      "type": "TestClassWithAutocompleteType",
+      "token": "attributes",
+      "returnType": "String",
+      "description": "Returns the attributes",
+      "replaceValue": "attributes()",
+      "cursorOffset": 0,
+      "itemType": "FUNCTION"
     }
   ]
 }

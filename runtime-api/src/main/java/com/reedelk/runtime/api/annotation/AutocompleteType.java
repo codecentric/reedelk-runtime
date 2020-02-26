@@ -6,14 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.TYPE})
-public @interface AutoCompleteContributor {
+@Target({ElementType.TYPE})
+public @interface AutocompleteType {
 
-    boolean error() default false;
+    String USE_DEFAULT_TYPE = "###USE_DEFAULT_TYPE###";
 
-    boolean message() default true;
-
-    boolean context() default true;
-
-    String[] contributions() default {};
+    String value() default USE_DEFAULT_TYPE;
 }

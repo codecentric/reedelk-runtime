@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PropertyWhenAnalyzer implements FieldInfoAnalyzer {
+public class WhenAnalyzer implements FieldInfoAnalyzer {
 
-    private static final Logger LOG = Logger.getLogger(PropertyWhenAnalyzer.class);
+    private static final Logger LOG = Logger.getLogger(WhenAnalyzer.class);
 
+    // TODO: Fix this with find repeatable annotation
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         // Check if there is a single 'when' annotation

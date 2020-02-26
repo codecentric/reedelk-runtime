@@ -1,13 +1,15 @@
 package com.reedelk.maven.plugin;
 
 import com.reedelk.module.descriptor.ModuleDescriptor;
-import com.reedelk.module.descriptor.analyzer.ModuleAnalyzer;
+import com.reedelk.module.descriptor.analyzer.ModuleDescriptorAnalyzer;
 import com.reedelk.module.descriptor.json.JsonProvider;
+import com.reedelk.runtime.api.commons.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.eclipse.sisu.Parameters;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,17 +24,23 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
     private String compiledClasses;
     @Parameter(property = "project.build.resources[0].directory")
     private String resourcesDirectory;
+    @Parameter(property = "project.name")
+    private String projectName;
+    @Parameter(property = "moduleName")
+    private String moduleName;
 
     @Override
     public void execute() throws MojoFailureException {
         try {
+            String finalModuleName = StringUtils.isBlank(moduleName) ? projectName : moduleName;
+
             // Scan the classes
-            ModuleAnalyzer analyzer = new ModuleAnalyzer();
-            ModuleDescriptor moduleDescriptor = analyzer.fromClassesFolder(compiledClasses, false);
+            ModuleDescriptorAnalyzer analyzer = new ModuleDescriptorAnalyzer();
+            ModuleDescriptor moduleDescriptor = analyzer.fromClassesFolder(compiledClasses, finalModuleName, false);
 
             // We only create the JSON
             if (!moduleDescriptor.getComponents().isEmpty() ||
-            !moduleDescriptor.getAutocompleteContributors().isEmpty()) {
+            !moduleDescriptor.getAutocompleteItems().isEmpty()) {
 
                 // Convert to JSON
                 String resultJson = JsonProvider.toJson(moduleDescriptor);

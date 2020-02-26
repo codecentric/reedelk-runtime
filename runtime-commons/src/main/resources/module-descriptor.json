@@ -1,4 +1,5 @@
 {
+  "name": "flow-control",
   "components": [
     {
       "hidden": false,
@@ -19,6 +20,7 @@
               "type": "java.lang.String"
             }
           },
+          "autocompleteVariables": [],
           "whens": []
         }
       ]
@@ -58,6 +60,7 @@
               "type": "com.reedelk.runtime.api.script.dynamicmap.DynamicBooleanMap"
             }
           },
+          "autocompleteVariables": [],
           "whens": []
         }
       ]
@@ -93,10 +96,11 @@
               "type": "java.lang.String"
             }
           },
+          "autocompleteVariables": [],
           "whens": []
         }
       ]
     }
   ],
-  "autocompleteContributors": []
+  "autocompleteItems": []
 }

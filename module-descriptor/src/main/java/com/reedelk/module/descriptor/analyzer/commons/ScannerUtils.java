@@ -42,6 +42,12 @@ public class ScannerUtils {
         return parameterValue != null ? (String) parameterValue.getValue() : null;
     }
 
+    public static String stringParameterValueFrom(AnnotationInfo info, String parameterName, String defaultValue) {
+        AnnotationParameterValueList parameterValues = info.getParameterValues();
+        AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
+        return parameterValue != null ? (String) parameterValue.getValue() : defaultValue;
+    }
+
     public static List<String> stringListParameterValueFrom(AnnotationInfo info, String parameterName) {
         AnnotationParameterValueList parameterValues = info.getParameterValues();
         AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
@@ -188,7 +194,7 @@ public class ScannerUtils {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T getParameterValue(String annotationParamName, T defaultValue, AnnotationInfo annotationInfo) {
+    public static <T> T getParameterValue(String annotationParamName, T defaultValue, AnnotationInfo annotationInfo) {
         Object parameterValue = getParameterValue(annotationInfo, annotationParamName);
         if (parameterValue instanceof AnnotationEnumValue) {
             return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();

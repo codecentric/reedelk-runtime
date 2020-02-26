@@ -17,7 +17,7 @@ public class PropertyDescriptor implements Serializable {
     private String defaultValue;
     private TypeDescriptor type;
     private ScriptSignatureDescriptor scriptSignature;
-    private AutoCompleteContributorDescriptor autocompleteContributor;
+    private List<AutocompleteVariableDescriptor> autocompleteVariables;
 
     private List<WhenDescriptor> whens;
 
@@ -94,12 +94,12 @@ public class PropertyDescriptor implements Serializable {
         this.scriptSignature = scriptSignature;
     }
 
-    public AutoCompleteContributorDescriptor getAutocompleteContributor() {
-        return autocompleteContributor;
+    public List<AutocompleteVariableDescriptor> getAutocompleteVariables() {
+        return autocompleteVariables;
     }
 
-    public void setAutocompleteContributor(AutoCompleteContributorDescriptor autocompleteContributor) {
-        this.autocompleteContributor = autocompleteContributor;
+    public void setAutocompleteVariables(List<AutocompleteVariableDescriptor> autocompleteVariables) {
+        this.autocompleteVariables = autocompleteVariables;
     }
 
     public List<WhenDescriptor> getWhens() {
@@ -123,7 +123,7 @@ public class PropertyDescriptor implements Serializable {
                 ", whens=" + whens +
                 ", type=" + type +
                 ", scriptSignature=" + scriptSignature +
-                ", autocompleteContributor=" + autocompleteContributor +
+                ", autocompleteContributor=" + autocompleteVariables +
                 '}';
     }
 
@@ -142,7 +142,7 @@ public class PropertyDescriptor implements Serializable {
         private String defaultValue;
         private TypeDescriptor type;
         private ScriptSignatureDescriptor scriptSignature;
-        private AutoCompleteContributorDescriptor autocompleteContributor;
+        private List<AutocompleteVariableDescriptor> autocompleteVariables = new ArrayList<>();
 
         private List<WhenDescriptor> whens = new ArrayList<>();
 
@@ -196,8 +196,8 @@ public class PropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder autoCompleteContributor(AutoCompleteContributorDescriptor definition) {
-            this.autocompleteContributor = definition;
+        public Builder autoVariable(AutocompleteVariableDescriptor descriptor) {
+            this.autocompleteVariables.add(descriptor);
             return this;
         }
 
@@ -215,7 +215,7 @@ public class PropertyDescriptor implements Serializable {
             descriptor.defaultValue = defaultValue;
             descriptor.type = type;
             descriptor.scriptSignature = scriptSignature;
-            descriptor.autocompleteContributor = autocompleteContributor;
+            descriptor.autocompleteVariables = autocompleteVariables;
             descriptor.whens = whens;
             return descriptor;
         }

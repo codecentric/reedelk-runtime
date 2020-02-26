@@ -2,6 +2,9 @@ package com.reedelk.module.descriptor.json;
 
 import com.reedelk.module.descriptor.ModuleDescriptor;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
+import com.reedelk.module.descriptor.analyzer.Matcher;
+import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteMatchers;
+import com.reedelk.module.descriptor.analyzer.autocomplete.TestClassWithAutocompleteType;
 import com.reedelk.module.descriptor.fixture.TestJson;
 import com.reedelk.module.descriptor.model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.*;
 
 import static com.reedelk.module.descriptor.fixture.ComponentProperties.*;
+import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
@@ -32,7 +36,24 @@ class JsonProviderTest {
 
     private ComponentDescriptor myProcessorComponent;
     private ComponentDescriptor myInboundComponent;
-    private AutoCompleteContributorDescriptor autoCompleteContributorDescriptor;
+    private AutocompleteItemDescriptor autocompleteItem1 = AutocompleteItemDescriptor.create()
+            .cursorOffset(0)
+            .itemType(FUNCTION)
+            .token("builderMethod")
+            .replaceValue("builderMethod('')")
+            .description("My description")
+            .type(TestClassWithAutocompleteType.class.getSimpleName())
+            .returnType(TestClassWithAutocompleteType.class.getSimpleName())
+            .build();
+    private AutocompleteItemDescriptor autocompleteItem2 = AutocompleteItemDescriptor.create()
+            .cursorOffset(0)
+            .itemType(FUNCTION)
+            .token("attributes")
+            .returnType("String")
+            .replaceValue("attributes()")
+            .type(TestClassWithAutocompleteType.class.getSimpleName())
+            .description("Returns the attributes")
+            .build();
 
     @BeforeEach
     void setUp() {
@@ -67,12 +88,6 @@ class JsonProviderTest {
         myInboundComponent.setHidden(true);
         myInboundComponent.setImage(image);
         myInboundComponent.setIcon(icon);
-
-        autoCompleteContributorDescriptor = new AutoCompleteContributorDescriptor();
-        autoCompleteContributorDescriptor.setContext(true);
-        autoCompleteContributorDescriptor.setError(true);
-        autoCompleteContributorDescriptor.setMessage(true);
-        autoCompleteContributorDescriptor.setContributions(asList("Util[VARIABLE:Util]", "Util.tmpdir()[FUNCTION:String]"));
     }
 
     @Nested
@@ -84,7 +99,7 @@ class JsonProviderTest {
             // Given
             ModuleDescriptor descriptor = new ModuleDescriptor();
             descriptor.setComponents(asList(myProcessorComponent, myInboundComponent));
-            descriptor.setAutocompleteContributors(Collections.singletonList(autoCompleteContributorDescriptor));
+            descriptor.setAutocompleteItems(asList(autocompleteItem1, autocompleteItem2));
 
             // When
             String serialized = JsonProvider.toJson(descriptor);
@@ -113,6 +128,20 @@ class JsonProviderTest {
             List<ComponentDescriptor> componentDescriptors = descriptor.getComponents();
             assertThatExistsComponent(componentDescriptors, myInboundComponent);
             assertThatExistsComponent(componentDescriptors, myProcessorComponent);
+
+            // Should contain two autocomplete items
+            List<AutocompleteItemDescriptor> autocompleteItems = descriptor.getAutocompleteItems();
+            assertThat(autocompleteItems).hasSize(2);
+            assertThatExists(autocompleteItems, autocompleteItem1);
+            assertThatExists(autocompleteItems, autocompleteItem2);
+        }
+
+        private void assertThatExists(List<AutocompleteItemDescriptor> descriptors, AutocompleteItemDescriptor expected) {
+            Matcher<AutocompleteItemDescriptor> matcher = AutocompleteMatchers.ofAutocompleteItemDescriptor(expected);
+            boolean matches = descriptors.stream().anyMatch(matcher::matches);
+            assertThat(matches)
+                    .withFailMessage("Could not find: " + expected + " from collection: " + descriptors)
+                    .isTrue();
         }
 
         private void assertThatExistsComponent(List<ComponentDescriptor> descriptors, ComponentDescriptor wanted) {
@@ -155,7 +184,6 @@ class JsonProviderTest {
                 boolean sameWhenDescriptors = sameWhens(current.getWhens(), target.getWhens());
                 boolean samePropertyType = sameType(current.getType(), target.getType());
                 boolean sameScriptSignature = same(current.getScriptSignature(), target.getScriptSignature());
-                boolean sameAutoCompleteContributor = same(current.getAutocompleteContributor(), target.getAutocompleteContributor());
                 return sameHint &&
                         sameExample &&
                         sameDisplayName &&
@@ -165,8 +193,7 @@ class JsonProviderTest {
                         samePropertyDescription &&
                         samePropertyType &&
                         sameWhenDescriptors &&
-                        sameScriptSignature &&
-                        sameAutoCompleteContributor;
+                        sameScriptSignature;
             }).findFirst();
         }
 
@@ -182,15 +209,6 @@ class JsonProviderTest {
                 boolean samePropertyValue = Objects.equals(current.getPropertyValue(), target.getPropertyValue());
                 return samePropertyName && samePropertyValue;
             }).findFirst();
-        }
-
-        private boolean same(AutoCompleteContributorDescriptor auto1, AutoCompleteContributorDescriptor auto2) {
-            if (auto1 == null) return auto2 == null;
-            if (auto2 == null) return false;
-            boolean sameIsContext = Objects.equals(auto1.isContext(), auto2.isContext());
-            boolean sameIsMessage = Objects.equals(auto1.isMessage(), auto2.isMessage());
-            boolean sameIsError = Objects.equals(auto1.isError(), auto2.isError());
-            return sameIsContext && sameIsMessage && sameIsError;
         }
 
         private boolean same(ScriptSignatureDescriptor s1, ScriptSignatureDescriptor s2) {

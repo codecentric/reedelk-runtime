@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.json;
 
 import com.reedelk.module.descriptor.ModuleDescriptor;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
-import com.reedelk.module.descriptor.analyzer.ModuleAnalyzer;
+import com.reedelk.module.descriptor.analyzer.ModuleDescriptorAnalyzer;
 import com.reedelk.module.descriptor.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +14,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ModuleDescriptorAnalyzerTest {
 
-    private ModuleAnalyzer scanner;
+    private ModuleDescriptorAnalyzer scanner;
 
     @BeforeEach
     void setUp() {
-        scanner = new ModuleAnalyzer();
+        scanner = new ModuleDescriptorAnalyzer();
     }
 
     @Test
@@ -27,7 +27,7 @@ class ModuleDescriptorAnalyzerTest {
         URL targetJarURL = ModuleDescriptorAnalyzerTest.class.getResource("/sample-module-xyz.jar");
 
         // When
-        ModuleDescriptor descriptor = scanner.from(targetJarURL.getPath());
+        ModuleDescriptor descriptor = scanner.from(targetJarURL.getPath(), "sample-module-xyz");
 
         // Then
         List<ComponentDescriptor> componentDescriptors = descriptor.getComponents();
@@ -63,9 +63,6 @@ class ModuleDescriptorAnalyzerTest {
         assertThat(when.getPropertyName()).isEqualTo("myProperty");
         assertThat(when.getPropertyValue()).isEqualTo("VALUE1");
 
-        List<AutoCompleteContributorDescriptor> autocompleteContributorDescriptors =
-                descriptor.getAutocompleteContributors();
-        assertThat(autocompleteContributorDescriptors).hasSize(1);
-
+        // TODO: Fixme with autocomplete testing
     }
 }

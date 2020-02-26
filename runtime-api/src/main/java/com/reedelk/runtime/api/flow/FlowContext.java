@@ -5,6 +5,8 @@ import java.util.Map;
 
 public interface FlowContext extends Map<String, Serializable>, Disposable {
 
+    String TYPE = "FlowContext";
+
     /**
      * Registers a disposable object in the context so that it can
      * be disposed when the flow execution ends. This might be

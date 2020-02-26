@@ -7,6 +7,10 @@ import java.io.Serializable;
 
 public interface Message extends Serializable {
 
+    String TYPE = "Message";
+    String TYPE_ARRAY = "Message[]";
+
+
     /**
      * This method is needed by Script engine to access this object's properties.
      */

@@ -93,6 +93,9 @@
             <plugin>
                 <groupId>com.reedelk</groupId>
                 <artifactId>module-maven-plugin</artifactId>
+                <configuration>
+                    <moduleName>flow-control</moduleName>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -172,7 +172,7 @@ public class TestComponent implements ProcessorSync {
     @MimeTypeCombo(additionalTypes = "img/xyz,audio/mp13")
     private String mimeTypeCustom;
 
-    @AutoCompleteContributor(message = false)
+    @AutocompleteVariable(name = "context", type = FlowContext.TYPE)
     @Property("Property with autocomplete contributor")
     private DynamicString propertyWithAutoCompleteContributor;
 

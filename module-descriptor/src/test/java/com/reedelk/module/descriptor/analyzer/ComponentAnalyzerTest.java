@@ -1,7 +1,7 @@
 package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
-import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer;
+import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
 import com.reedelk.module.descriptor.model.PropertyDescriptor;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.doReturn;
 class ComponentAnalyzerTest {
 
     @Mock
-    private ComponentPropertyAnalyzer propertyAnalyzer;
+    private PropertyAnalyzer propertyAnalyzer;
     @Mock
     private PropertyDescriptor descriptor1;
     @Mock

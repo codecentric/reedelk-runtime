@@ -17,12 +17,12 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class PropertyScriptSignatureAnalyzerTest {
+class ScriptSignatureAnalyzerTest {
 
     @Mock
     private ComponentAnalyzerContext context;
 
-    private PropertyScriptSignatureAnalyzer analyzer = new PropertyScriptSignatureAnalyzer();
+    private ScriptSignatureAnalyzer analyzer = new ScriptSignatureAnalyzer();
 
     private static ClassInfo componentClassInfo;
 

@@ -2,19 +2,17 @@ package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.module.descriptor.ModuleDescriptor;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
+import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteAnalyzer;
 import com.reedelk.module.descriptor.analyzer.commons.AssetUtils;
 import com.reedelk.module.descriptor.analyzer.commons.ComponentDescriptorsJsonFile;
 import com.reedelk.module.descriptor.analyzer.commons.Messages;
-import com.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerFactory;
 import com.reedelk.module.descriptor.json.JsonProvider;
-import com.reedelk.module.descriptor.model.AutoCompleteContributorDescriptor;
+import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
-import com.reedelk.runtime.api.annotation.AutoCompleteContributor;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
-import io.github.classgraph.AnnotationInfo;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -30,9 +28,9 @@ import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
-public class ModuleAnalyzer {
+public class ModuleDescriptorAnalyzer {
 
-    private static final Logger LOG = Logger.getLogger(ModuleAnalyzer.class);
+    private static final Logger LOG = Logger.getLogger(ModuleDescriptorAnalyzer.class);
 
     /**
      * Used by IntelliJ designer to load components definitions from a given Jar. If the Jar
@@ -44,7 +42,7 @@ public class ModuleAnalyzer {
      * @return the ModuleDescriptor.
      * @throws ModuleDescriptorException if the JSON could not be de-serialized.
      */
-    public ModuleDescriptor from(String targetJarPath) throws ModuleDescriptorException {
+    public ModuleDescriptor from(String targetJarPath, String moduleName) throws ModuleDescriptorException {
         Optional<String> componentsDefinitionFromJar = ComponentDescriptorsJsonFile.from(targetJarPath);
 
         LOG.info(format("Analyzing Module from target Jar path=[%s]. Component Descriptors Json file found=[%s] ",
@@ -75,7 +73,7 @@ public class ModuleAnalyzer {
                 // Here there should be a strategy. If the target Jar path contains
                 // the json with the components definitions, then use that one, otherwise scan.
                 ScanResult scanResult = scanResultFrom(targetJarPath);
-                ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult);
+                ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult, moduleName);
 
                 // Load icons and images
                 moduleDescriptor.getComponents().forEach(componentDescriptor -> {
@@ -98,15 +96,17 @@ public class ModuleAnalyzer {
      * into the module/resources directory so that it can later be used by the IntelliJ Designer to load component's
      * definitions.
      *
+     *
      * @param classesFolder the target/classes folder of the compiled module.
+     * @param moduleName the name of the module.
      * @return the ModuleDescriptor build out of the annotations found in the compiled classes.
      */
-    public ModuleDescriptor fromClassesFolder(String classesFolder, boolean resolveImages) throws ModuleDescriptorException {
+    public ModuleDescriptor fromClassesFolder(String classesFolder, String moduleName, boolean resolveImages) throws ModuleDescriptorException {
         try {
             ScanResult scanResult = instantiateScanner()
                     .overrideClasspath(classesFolder)
                     .scan();
-            ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult);
+            ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult, moduleName);
 
             if (resolveImages) {
                 moduleDescriptor.getComponents().forEach(componentDescriptor -> {
@@ -126,7 +126,7 @@ public class ModuleAnalyzer {
      * Used by IntelliJ designer to load info about system components. The system components are a dependency imported
      * in the IntelliJ plugin, hence we use the classloader to load the resources instead of accessing the .jar file.
      */
-    public List<ComponentDescriptor> from(Class<?> systemComponentClazz) {
+    public ModuleDescriptor from(Class<?> systemComponentClazz) {
         URL resource = systemComponentClazz.getClassLoader().getResource(ModuleDescriptor.RESOURCE_FILE_NAME);
 
         ModuleDescriptor moduleDescriptor = JsonProvider.fromURL(resource);
@@ -145,33 +145,26 @@ public class ModuleAnalyzer {
                 componentDescriptor.setImage(componentImage);
             }
         });
-        return moduleDescriptor.getComponents();
+        return moduleDescriptor;
     }
 
-    private ModuleDescriptor analyzeFrom(ScanResult scanResult) {
+    private ModuleDescriptor analyzeFrom(final ScanResult scanResult, final String moduleName) {
         List<ComponentDescriptor> allComponentDescriptors = componentDescriptorsFrom(scanResult);
         List<ComponentDescriptor> knownComponentDescriptors = filterOutUnknownClassComponents(allComponentDescriptors);
-        List<AutoCompleteContributorDescriptor> globalAutocompleteTokens = collectGlobalAutoCompleteTokens(scanResult);
+        List<AutocompleteItemDescriptor> autocompleteItems = analyzeAutocompleteItems(scanResult);
         ModuleDescriptor moduleDescriptor = new ModuleDescriptor();
+        moduleDescriptor.setName(moduleName);
         moduleDescriptor.setComponents(knownComponentDescriptors);
-        moduleDescriptor.setAutocompleteContributors(globalAutocompleteTokens);
+        moduleDescriptor.setAutocompleteItems(autocompleteItems);
         return moduleDescriptor;
     }
 
     /**
      * Scans for Classes annotated with "AutoCompleteContributor" and collects the contributions.
      */
-    private List<AutoCompleteContributorDescriptor> collectGlobalAutoCompleteTokens(ScanResult scanResult) {
-        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(AutoCompleteContributor.class.getName());
-        List<AutoCompleteContributorDescriptor> contributions = new ArrayList<>();
-        classInfoList.forEach(classInfo -> {
-            AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(AutoCompleteContributor.class.getName());
-            List<String> tokensContributions = ScannerUtils.stringListParameterValueFrom(annotationInfo, "contributions");
-            AutoCompleteContributorDescriptor definition = new AutoCompleteContributorDescriptor();
-            definition.setContributions(tokensContributions);
-            contributions.add(definition);
-        });
-        return contributions;
+    private List<AutocompleteItemDescriptor> analyzeAutocompleteItems(ScanResult scanResult) {
+        AutocompleteAnalyzer autocompleteAnalyzer = new AutocompleteAnalyzer(scanResult);
+        return autocompleteAnalyzer.analyze();
     }
 
     private List<ComponentDescriptor> componentDescriptorsFrom(ScanResult scanResult) {
@@ -199,6 +192,7 @@ public class ModuleAnalyzer {
     private static ClassGraph instantiateScanner() {
         return new ClassGraph()
                 .enableFieldInfo()
+                .enableMethodInfo()
                 .enableAnnotationInfo()
                 .ignoreFieldVisibility();
     }

@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.analyzer;
 
-import com.reedelk.module.descriptor.analyzer.property.ComponentPropertyAnalyzer;
+import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
 import com.reedelk.module.descriptor.model.*;
 import com.reedelk.runtime.api.annotation.InitValue;
 import com.reedelk.runtime.api.commons.ImmutableMap;
@@ -17,17 +17,18 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
+import static com.reedelk.module.descriptor.analyzer.TypeDescriptorMatchers.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ComponentPropertyAnalyzerTest {
+class ComponentDisplayNameAnalyzerTest {
 
-    private static ComponentPropertyAnalyzer analyzer;
+    private static PropertyAnalyzer analyzer;
     private static ClassInfo componentClassInfo;
 
     @BeforeAll
     static void beforeAll() {
         ScannerTestUtils.ScanContext scanContext = ScannerTestUtils.scan(TestComponent.class);
-        analyzer = new ComponentPropertyAnalyzer(scanContext.context);
+        analyzer = new PropertyAnalyzer(scanContext.context);
         componentClassInfo = scanContext.targetComponentClassInfo;
     }
 
@@ -41,7 +42,7 @@ class ComponentPropertyAnalyzerTest {
                 "integerProperty",
                 "Integer property",
                 "3",
-                TypeDescriptorMatchers.ofPrimitiveType(typeInteger));
+                ofPrimitiveType(typeInteger));
     }
 
     @Test
@@ -54,7 +55,7 @@ class ComponentPropertyAnalyzerTest {
                 "integerObjectProperty",
                 "Integer object property",
                 "4569",
-                TypeDescriptorMatchers.ofPrimitiveType(typeIntegerObject));
+                ofPrimitiveType(typeIntegerObject));
     }
 
     @Test
@@ -67,7 +68,7 @@ class ComponentPropertyAnalyzerTest {
                 "longProperty",
                 "Long property",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofPrimitiveType(typeLong));
+                ofPrimitiveType(typeLong));
     }
 
     @Test
@@ -80,7 +81,7 @@ class ComponentPropertyAnalyzerTest {
                 "longObjectProperty",
                 "Long object property",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofPrimitiveType(typeLongObject));
+                ofPrimitiveType(typeLongObject));
     }
 
     @Test
@@ -93,7 +94,7 @@ class ComponentPropertyAnalyzerTest {
                 "floatProperty",
                 "Float property",
                 "23.23f",
-                TypeDescriptorMatchers.ofPrimitiveType(typeFloat));
+                ofPrimitiveType(typeFloat));
     }
 
     @Test
@@ -106,7 +107,7 @@ class ComponentPropertyAnalyzerTest {
                 "floatObjectProperty",
                 "Float object property",
                 "13.23f",
-                TypeDescriptorMatchers.ofPrimitiveType(typeFloatObject));
+                ofPrimitiveType(typeFloatObject));
     }
 
     @Test
@@ -119,7 +120,7 @@ class ComponentPropertyAnalyzerTest {
                 "doubleProperty",
                 "Double property",
                 "234.5322343d",
-                TypeDescriptorMatchers.ofPrimitiveType(typeDouble));
+                ofPrimitiveType(typeDouble));
     }
 
     @Test
@@ -132,7 +133,7 @@ class ComponentPropertyAnalyzerTest {
                 "doubleObjectProperty",
                 "Double object property",
                 "234.12d",
-                TypeDescriptorMatchers.ofPrimitiveType(typeDoubleObject));
+                ofPrimitiveType(typeDoubleObject));
     }
 
     @Test
@@ -145,7 +146,7 @@ class ComponentPropertyAnalyzerTest {
                 "booleanProperty",
                 "Boolean property",
                 "true",
-                TypeDescriptorMatchers.ofPrimitiveType(typeBoolean));
+                ofPrimitiveType(typeBoolean));
     }
 
     @Test
@@ -158,7 +159,7 @@ class ComponentPropertyAnalyzerTest {
                 "booleanObjectProperty",
                 "Boolean object property",
                 "true",
-                TypeDescriptorMatchers.ofPrimitiveType(typeBooleanObject));
+                ofPrimitiveType(typeBooleanObject));
     }
 
     @Test
@@ -173,7 +174,7 @@ class ComponentPropertyAnalyzerTest {
                 "enumProperty",
                 "Enum Property",
                 "VALUE2",
-                TypeDescriptorMatchers.ofTypeEnum(typeEnum));
+                ofTypeEnum(typeEnum));
     }
 
     @Test
@@ -186,7 +187,7 @@ class ComponentPropertyAnalyzerTest {
                 "stringProperty",
                 "String property",
                 "init string value",
-                TypeDescriptorMatchers.ofPrimitiveType(typeString));
+                ofPrimitiveType(typeString));
     }
 
     @Test
@@ -199,7 +200,7 @@ class ComponentPropertyAnalyzerTest {
                 "bigIntegerProperty",
                 "Big Integer property",
                 "6723823",
-                TypeDescriptorMatchers.ofPrimitiveType(typeBigInteger));
+                ofPrimitiveType(typeBigInteger));
     }
 
     @Test
@@ -212,7 +213,7 @@ class ComponentPropertyAnalyzerTest {
                 "bigDecimalProperty",
                 "Big Decimal property",
                 "342.14823",
-                TypeDescriptorMatchers.ofPrimitiveType(typeBigDecimal));
+                ofPrimitiveType(typeBigDecimal));
     }
 
     @Test
@@ -225,7 +226,7 @@ class ComponentPropertyAnalyzerTest {
                 "resourceTextProperty",
                 "Resource text property",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofTypeResourceText(typeResource));
+                ofTypeResourceText(typeResource));
     }
 
     @Test
@@ -238,7 +239,7 @@ class ComponentPropertyAnalyzerTest {
                 "resourceBinaryProperty",
                 "Resource binary property",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofTypeResourceBinary(typeResource));
+                ofTypeResourceBinary(typeResource));
     }
 
     @Test
@@ -252,7 +253,7 @@ class ComponentPropertyAnalyzerTest {
                 "resourceDynamicProperty",
                 "Resource dynamic property",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicResource));
+                ofDynamicType(typeDynamicResource));
     }
 
     @Test
@@ -265,7 +266,7 @@ class ComponentPropertyAnalyzerTest {
                 "comboProperty",
                 "Combo property",
                 "two",
-                TypeDescriptorMatchers.ofTypeCombo(typeCombo));
+                ofTypeCombo(typeCombo));
     }
 
     @Test
@@ -278,7 +279,7 @@ class ComponentPropertyAnalyzerTest {
                 "mapProperty",
                 "Map property",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofTypeMap(typeMap));
+                ofTypeMap(typeMap));
     }
 
     @Test
@@ -291,7 +292,7 @@ class ComponentPropertyAnalyzerTest {
                 "mapPropertyWithInitValues",
                 "Map property with init values",
                 "{'key1':'value1','key2':'value2'}",
-                TypeDescriptorMatchers.ofTypeMap(typeMap));
+                ofTypeMap(typeMap));
     }
 
     @Test
@@ -304,7 +305,7 @@ class ComponentPropertyAnalyzerTest {
                 "mapPropertyWithTabPlacementTop",
                 "Map property with tab placement top",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofTypeMap(typeMap));
+                ofTypeMap(typeMap));
     }
 
     @Test
@@ -317,7 +318,7 @@ class ComponentPropertyAnalyzerTest {
                 "scriptProperty",
                 "Script property",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofTypeScript(typeScript));
+                ofTypeScript(typeScript));
     }
 
     // Dynamic value types
@@ -333,7 +334,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicBigDecimalProperty",
                 "Dynamic big decimal",
                 "#[56789.234]",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicBigDecimal));
+                ofDynamicType(typeDynamicBigDecimal));
     }
 
     @Test
@@ -347,7 +348,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicBigIntegerProperty",
                 "Dynamic big integer",
                 "56789",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicBigInteger));
+                ofDynamicType(typeDynamicBigInteger));
     }
 
     @Test
@@ -361,7 +362,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicBooleanProperty",
                 "Dynamic boolean",
                 "true",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicBoolean));
+                ofDynamicType(typeDynamicBoolean));
     }
 
     @Test
@@ -375,7 +376,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicByteArrayProperty",
                 "Dynamic byte array",
                 "#[message.payload()]",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicByteArray));
+                ofDynamicType(typeDynamicByteArray));
     }
 
     @Test
@@ -389,7 +390,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicDoubleProperty",
                 "Dynamic double",
                 "234.23d",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicDouble));
+                ofDynamicType(typeDynamicDouble));
     }
 
     @Test
@@ -403,7 +404,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicFloatProperty",
                 "Dynamic float",
                 "#[message.attributes['id']]",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicFloat));
+                ofDynamicType(typeDynamicFloat));
     }
 
     @Test
@@ -417,7 +418,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicIntegerProperty",
                 "Dynamic integer",
                 "1233",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicInteger));
+                ofDynamicType(typeDynamicInteger));
     }
 
     @Test
@@ -431,7 +432,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicLongProperty",
                 "Dynamic long",
                 "658291",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicLong));
+                ofDynamicType(typeDynamicLong));
     }
 
     @Test
@@ -445,7 +446,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicObjectProperty",
                 "Dynamic object",
                 "my object text",
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicObject));
+                ofDynamicType(typeDynamicObject));
     }
 
     @Test
@@ -459,7 +460,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicStringProperty",
                 "Dynamic string",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofDynamicType(typeDynamicString));
+                ofDynamicType(typeDynamicString));
     }
 
     // Dynamic map types
@@ -475,7 +476,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicStringMapProperty",
                 "Dynamic string map",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofDynamicMapType(typeDynamicMapDescriptor));
+                ofDynamicMapType(typeDynamicMapDescriptor));
     }
 
     // Mime Type Combo
@@ -491,7 +492,7 @@ class ComponentPropertyAnalyzerTest {
                 "mimeType",
                 "Mime type",
                 "*/*",
-                TypeDescriptorMatchers.ofTypeCombo(typeComboDescriptor));
+                ofTypeCombo(typeComboDescriptor));
     }
 
     @Test
@@ -511,7 +512,7 @@ class ComponentPropertyAnalyzerTest {
                 "mimeTypeCustom",
                 "Mime type with additional types",
                 "img/xyz",
-                TypeDescriptorMatchers.ofTypeCombo(typeComboDescriptor));
+                ofTypeCombo(typeComboDescriptor));
     }
 
     // Special cases
@@ -539,7 +540,7 @@ class ComponentPropertyAnalyzerTest {
                 "withoutDisplayNameProperty",
                 "withoutDisplayNameProperty",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofPrimitiveType(typeFloat));
+                ofPrimitiveType(typeFloat));
     }
 
     @Test
@@ -552,7 +553,7 @@ class ComponentPropertyAnalyzerTest {
                 "missingInitValueProperty",
                 "Property with missing init value",
                 InitValue.USE_DEFAULT_VALUE,
-                TypeDescriptorMatchers.ofPrimitiveType(typeInteger));
+                ofPrimitiveType(typeInteger));
     }
 
     @Test
@@ -606,7 +607,7 @@ class ComponentPropertyAnalyzerTest {
     private void assertThatExistProperty(String propertyName,
                                          String displayName,
                                          String initValue,
-                                         TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
+                                         Matcher<TypeDescriptor> matcher) {
         assertThatExistProperty(propertyName, displayName, initValue, null, null, matcher);
     }
 
@@ -615,7 +616,7 @@ class ComponentPropertyAnalyzerTest {
                                          String initValue,
                                          String example,
                                          String defaultValue,
-                                         TypeDescriptorMatchers.TypeDescriptorMatcher matcher) {
+                                         Matcher<TypeDescriptor> matcher) {
         // Given
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 

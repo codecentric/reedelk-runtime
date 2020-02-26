@@ -7,11 +7,11 @@ import io.github.classgraph.FieldInfo;
 
 import java.util.Optional;
 
-public class ComponentPropertyAnalyzer {
+public class PropertyAnalyzer {
 
     private final ComponentAnalyzerContext context;
 
-    public ComponentPropertyAnalyzer(ComponentAnalyzerContext context) {
+    public PropertyAnalyzer(ComponentAnalyzerContext context) {
         this.context = context;
     }
 
