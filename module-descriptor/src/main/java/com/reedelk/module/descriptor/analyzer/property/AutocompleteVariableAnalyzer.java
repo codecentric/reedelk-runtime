@@ -9,6 +9,7 @@ import com.reedelk.runtime.api.annotation.AutocompleteVariables;
 import io.github.classgraph.AnnotationInfo;
 import io.github.classgraph.FieldInfo;
 
+// TODO: Test me!
 public class AutocompleteVariableAnalyzer implements FieldInfoAnalyzer {
 
     @Override
