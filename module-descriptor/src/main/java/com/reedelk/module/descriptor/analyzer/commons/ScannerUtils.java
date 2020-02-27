@@ -11,9 +11,8 @@ import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 import io.github.classgraph.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -29,6 +28,10 @@ public class ScannerUtils {
 
     public static boolean hasAnnotation(FieldInfo fieldInfo, Class<?> clazz) {
         return fieldInfo.hasAnnotation(clazz.getName());
+    }
+
+    public static boolean hasAnnotation(ClassInfo classInfo, Class<?> clazz) {
+        return classInfo.hasAnnotation(clazz.getName());
     }
 
     public static boolean isVisibleProperty(FieldInfo fieldInfo) {
@@ -63,6 +66,48 @@ public class ScannerUtils {
         if (parameterValues == null) return defaultValue;
         AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
         return parameterValue == null ? defaultValue : (boolean) parameterValue.getValue();
+    }
+
+    public static List<AnnotationInfo> repeatableAnnotation(ClassInfo classInfo, Class<?> singleClazz, Class<?> repeatableClass) {
+        List<AnnotationInfo> annotationInfos = new ArrayList<>();
+        for (AnnotationInfo info : classInfo.getAnnotationInfo()) {
+            if (info.getName().equals(singleClazz.getName())) {
+                annotationInfos.add(info);
+            }
+        }
+        if (ScannerUtils.hasAnnotation(classInfo, repeatableClass)) {
+            AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(repeatableClass.getName());
+            if (annotationInfo != null) {
+                AnnotationParameterValueList annotationsList = annotationInfo.getParameterValues();
+                Object[] annotationInfosObjects = (Object[]) annotationsList.get(0).getValue();
+                for (Object info : annotationInfosObjects) {
+                    AnnotationInfo casted = (AnnotationInfo) info;
+                    annotationInfos.add(casted);
+                }
+            }
+        }
+        return annotationInfos;
+    }
+
+    public static List<AnnotationInfo> repeatableAnnotation(FieldInfo fieldInfo, Class<?> singleClazz, Class<?> repeatableClass) {
+        List<AnnotationInfo> annotationInfos = new ArrayList<>();
+        for (AnnotationInfo info : fieldInfo.getAnnotationInfo()) {
+            if (info.getName().equals(singleClazz.getName())) {
+                annotationInfos.add(info);
+            }
+        }
+        if (ScannerUtils.hasAnnotation(fieldInfo, repeatableClass)) {
+            AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(repeatableClass.getName());
+            if (annotationInfo != null) {
+                AnnotationParameterValueList annotationsList = annotationInfo.getParameterValues();
+                Object[] annotationInfosObjects = (Object[]) annotationsList.get(0).getValue();
+                for (Object info : annotationInfosObjects) {
+                    AnnotationInfo casted = (AnnotationInfo) info;
+                    annotationInfos.add(casted);
+                }
+            }
+        }
+        return annotationInfos;
     }
 
     public static <T> T annotationValueOrDefaultFrom(FieldInfo fieldInfo, Class<?> annotationClazz, T defaultValue) {
@@ -198,8 +243,12 @@ public class ScannerUtils {
         Object parameterValue = getParameterValue(annotationInfo, annotationParamName);
         if (parameterValue instanceof AnnotationEnumValue) {
             return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();
+        } else if (parameterValue instanceof AnnotationClassRef) {
+            AnnotationClassRef classRef = ((AnnotationClassRef) parameterValue);
+            return (T) classRef.getName();
+        } else {
+            return parameterValue == null ? defaultValue : (T) parameterValue;
         }
-        return parameterValue == null ? defaultValue : (T) parameterValue;
     }
 
     private static Object getParameterValue(AnnotationInfo info, String parameterName) {

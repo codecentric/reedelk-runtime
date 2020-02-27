@@ -2,12 +2,11 @@ package com.reedelk.module.descriptor.analyzer.autocomplete;
 
 import com.reedelk.runtime.api.annotation.AutocompleteItem;
 import com.reedelk.runtime.api.annotation.AutocompleteType;
-import com.reedelk.runtime.api.autocomplete.ScriptType;
 
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE;
 
 @AutocompleteType
-@AutocompleteItem(token = "correlationId", replaceValue = "correlationId", returnType = ScriptType.STRING, itemType = VARIABLE, description = "Returns the correlation id")
+@AutocompleteItem(token = "correlationId", replaceValue = "correlationId", returnType = String.class, itemType = VARIABLE, description = "Returns the correlation id")
 public class TestClassWithAutocompleteType {
 
     @AutocompleteItem(replaceValue = "attributes()", description = "Returns the attributes")

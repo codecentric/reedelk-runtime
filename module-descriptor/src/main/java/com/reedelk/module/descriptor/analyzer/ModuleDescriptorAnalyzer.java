@@ -97,22 +97,22 @@ public class ModuleDescriptorAnalyzer {
      * definitions.
      *
      *
-     * @param classesFolder the target/classes folder of the compiled module.
+     * @param directory the target/classes folder of the compiled module.
      * @param moduleName the name of the module.
      * @return the ModuleDescriptor build out of the annotations found in the compiled classes.
      */
-    public ModuleDescriptor fromClassesFolder(String classesFolder, String moduleName, boolean resolveImages) throws ModuleDescriptorException {
+    public ModuleDescriptor fromDirectory(String directory, String moduleName, boolean resolveImages) throws ModuleDescriptorException {
         try {
             ScanResult scanResult = instantiateScanner()
-                    .overrideClasspath(classesFolder)
+                    .overrideClasspath(directory)
                     .scan();
             ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult, moduleName);
 
             if (resolveImages) {
                 moduleDescriptor.getComponents().forEach(componentDescriptor -> {
                     String componentFullyQualifiedName = componentDescriptor.getFullyQualifiedName();
-                    componentDescriptor.setImage(AssetUtils.loadImageFromBaseDirectory(classesFolder, componentFullyQualifiedName));
-                    componentDescriptor.setIcon(AssetUtils.loadIconFromBaseDirectory(classesFolder, componentFullyQualifiedName));
+                    componentDescriptor.setImage(AssetUtils.loadImageFromBaseDirectory(directory, componentFullyQualifiedName));
+                    componentDescriptor.setIcon(AssetUtils.loadIconFromBaseDirectory(directory, componentFullyQualifiedName));
                 });
             }
 
@@ -201,5 +201,16 @@ public class ModuleDescriptorAnalyzer {
         return componentDescriptorList.stream()
                 .filter(descriptor -> !ComponentType.UNKNOWN.equals(descriptor.getType()))
                 .collect(Collectors.toList());
+    }
+
+    public ModuleDescriptor fromPackage(String ...whiteListPackages) throws ModuleDescriptorException {
+        try {
+            ScanResult scanResult = instantiateScanner()
+                    .whitelistPackages(whiteListPackages)
+                    .scan();
+            return analyzeFrom(scanResult, "flow-control");
+        } catch (Exception e) {
+            throw new ModuleDescriptorException(e);
+        }
     }
 }

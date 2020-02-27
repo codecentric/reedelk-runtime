@@ -37,4 +37,13 @@ public class ModuleDescriptor {
     public void setAutocompleteItems(List<AutocompleteItemDescriptor> autocompleteItems) {
         this.autocompleteItems = autocompleteItems;
     }
+
+    @Override
+    public String toString() {
+        return "ModuleDescriptor{" +
+                "name='" + name + '\'' +
+                ", components=" + components +
+                ", autocompleteItems=" + autocompleteItems +
+                '}';
+    }
 }

@@ -1,6 +1,8 @@
 package com.reedelk.runtime.api.message.content;
 
 
+import com.reedelk.runtime.api.annotation.AutocompleteType;
+
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.*;
@@ -8,6 +10,7 @@ import java.util.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 
+@AutocompleteType
 public class MimeType implements Serializable {
 
     private static final String CHARSET_PARAM = "charset";

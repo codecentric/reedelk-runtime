@@ -18,7 +18,7 @@ public class JsonProvider {
     private static final String JSON_CHARSET = "UTF-8";
     private static final Gson gson;
     static {
-        GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+        GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(TypeDescriptor.class, new TypeDescriptorSerializer());
         gsonBuilder.registerTypeAdapter(TypeDescriptor.class, new TypeDescriptorDeserializer());
         gson = gsonBuilder.create();

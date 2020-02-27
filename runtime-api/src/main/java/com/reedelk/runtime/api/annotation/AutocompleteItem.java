@@ -9,13 +9,14 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface AutocompleteItem {
 
+    interface UseDefaultReturnType {
+    }
+
     String USE_DEFAULT_TOKEN = "###USE_DEFAULT_TOKEN###";
 
     String token() default USE_DEFAULT_TOKEN;
 
-    String USE_DEFAULT_RETURN_TYPE = "###USE_DEFAULT_RETURN_TYPE###";
-
-    String returnType() default USE_DEFAULT_RETURN_TYPE;
+    Class<?> returnType() default UseDefaultReturnType.class;
 
     String description() default "";
 

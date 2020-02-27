@@ -9,5 +9,5 @@ public @interface AutocompleteVariable {
 
     String name();
 
-    String type();
+    Class<?> type();
 }

@@ -1,9 +1,13 @@
 package com.reedelk.runtime.api.message.content;
 
+import com.reedelk.runtime.api.annotation.AutocompleteItem;
+import com.reedelk.runtime.api.annotation.AutocompleteType;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+@AutocompleteType
 public class Part implements Serializable {
 
     private final String name;
@@ -20,14 +24,17 @@ public class Part implements Serializable {
         return new Builder();
     }
 
+    @AutocompleteItem(replaceValue = "getName()", description = "Returns the name of the part object.")
     public String getName() {
         return name;
     }
 
+    @AutocompleteItem(replaceValue = "getContent()", description = "Returns content of the part object.")
     public TypedContent<?,?> getContent() {
         return content;
     }
 
+    @AutocompleteItem(replaceValue = "getAttributes()", description = "Returns the attributes of the part object.")
     public Map<String, String> getAttributes() {
         return attributes;
     }
@@ -42,6 +49,7 @@ public class Part implements Serializable {
     }
 
     public static class Builder {
+
         private String name;
         private TypedContent<?,?> content;
         private Map<String,String> attributes = new HashMap<>();

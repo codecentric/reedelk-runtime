@@ -95,6 +95,7 @@
                 <artifactId>module-maven-plugin</artifactId>
                 <configuration>
                     <moduleName>flow-control</moduleName>
+                    <scanApi>true</scanApi>
                 </configuration>
             </plugin>
         </plugins>
