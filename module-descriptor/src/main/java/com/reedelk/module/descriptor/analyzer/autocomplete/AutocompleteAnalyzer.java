@@ -6,11 +6,13 @@ import com.reedelk.runtime.api.annotation.AutocompleteItem;
 import com.reedelk.runtime.api.annotation.AutocompleteItems;
 import com.reedelk.runtime.api.annotation.AutocompleteType;
 import com.reedelk.runtime.api.autocomplete.AutocompleteItemType;
+import com.reedelk.runtime.api.commons.StringUtils;
 import io.github.classgraph.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.*;
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;
 import static java.util.stream.Collectors.toList;
 
@@ -22,19 +24,35 @@ public class AutocompleteAnalyzer {
         this.scanResult = scanResult;
     }
 
-    public List<AutocompleteItemDescriptor> analyze() {
+    public List<AutocompleteItemDescriptor> analyzeAutocompleteItems() {
         ClassInfoList classesWithAutocompleteTypeAnnotations = scanResult.getClassesWithAnnotation(AutocompleteType.class.getName());
         List<AutocompleteItemDescriptor> autocomplete = new ArrayList<>();
         classesWithAutocompleteTypeAnnotations.forEach(classInfo -> {
             String type = ScannerUtils.annotationValueOrDefaultFrom(classInfo, AutocompleteType.class, classInfo.getSimpleName());
             if (AutocompleteType.USE_DEFAULT_TYPE.equals(type)) type = classInfo.getSimpleName();
-            List<AutocompleteItemDescriptor> descriptorsForClass = analyze(type, classInfo);
+
+            Boolean global = ScannerUtils.annotationParameterValueOrDefaultFrom(classInfo, AutocompleteType.class, "global", false);
+            if (global) {
+                String description = ScannerUtils.annotationParameterValueOrDefaultFrom(classInfo, AutocompleteType.class, "description", StringUtils.EMPTY);
+                AutocompleteItemDescriptor globalItemDescriptor = AutocompleteItemDescriptor.create()
+                        .type(type)
+                        .token(type)
+                        .global(true)
+                        .returnType(type)
+                        .replaceValue(type)
+                        .itemType(VARIABLE)
+                        .description(description)
+                        .build();
+                autocomplete.add(globalItemDescriptor);
+            }
+
+            List<AutocompleteItemDescriptor> descriptorsForClass = analyzeAutocompleteItems(type, classInfo);
             autocomplete.addAll(descriptorsForClass);
         });
         return autocomplete;
     }
 
-    private List<AutocompleteItemDescriptor> analyze(String type, ClassInfo classWithAutocompleteType) {
+    private List<AutocompleteItemDescriptor> analyzeAutocompleteItems(String type, ClassInfo classWithAutocompleteType) {
         List<AnnotationInfo> annotationInfos = ScannerUtils.repeatableAnnotation(classWithAutocompleteType, AutocompleteItem.class, AutocompleteItems.class);
 
         // Annotations defined in the class

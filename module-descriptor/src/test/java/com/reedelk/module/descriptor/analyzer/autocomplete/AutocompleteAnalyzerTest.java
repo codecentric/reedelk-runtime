@@ -28,7 +28,7 @@ class AutocompleteAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeAutocompleteItems() {
         // When
-        List<AutocompleteItemDescriptor> descriptors = analyzer.analyze();
+        List<AutocompleteItemDescriptor> descriptors = analyzer.analyzeAutocompleteItems();
 
         // Then
         assertThat(descriptors).hasSize(5);

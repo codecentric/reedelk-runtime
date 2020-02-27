@@ -134,6 +134,14 @@ public class ScannerUtils {
         return getParameterValue(annotationParamName, defaultValue, annotationInfo);
     }
 
+    public static <T> T annotationParameterValueOrDefaultFrom(ClassInfo classInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
+        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
+            return defaultValue;
+        }
+        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
+        return getParameterValue(annotationParamName, defaultValue, annotationInfo);
+    }
+
     /**
      * Returns a new Predicate which filters FieldInfo's having type the target
      * class name specified in the argument of this function.

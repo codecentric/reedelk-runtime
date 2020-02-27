@@ -1,6 +1,7 @@
 package com.reedelk.runtime.api.annotation;
 
 import com.reedelk.runtime.api.autocomplete.AutocompleteItemType;
+import com.reedelk.runtime.api.commons.StringUtils;
 
 import java.lang.annotation.*;
 
@@ -18,7 +19,7 @@ public @interface AutocompleteItem {
 
     Class<?> returnType() default UseDefaultReturnType.class;
 
-    String description() default "";
+    String description() default StringUtils.EMPTY;
 
     String replaceValue();
 

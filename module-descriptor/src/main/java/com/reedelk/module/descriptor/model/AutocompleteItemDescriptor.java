@@ -9,6 +9,7 @@ public class AutocompleteItemDescriptor {
     private String returnType;
     private String description;
     private String replaceValue;
+    private boolean global;
     private int cursorOffset;
     private AutocompleteItemType itemType;
 
@@ -52,6 +53,14 @@ public class AutocompleteItemDescriptor {
         this.replaceValue = replaceValue;
     }
 
+    public boolean isGlobal() {
+        return global;
+    }
+
+    public void setGlobal(boolean global) {
+        this.global = global;
+    }
+
     public int getCursorOffset() {
         return cursorOffset;
     }
@@ -92,6 +101,7 @@ public class AutocompleteItemDescriptor {
         private String returnType;
         private String description;
         private String replaceValue;
+        private boolean global;
         private int cursorOffset;
         private AutocompleteItemType itemType;
 
@@ -102,6 +112,11 @@ public class AutocompleteItemDescriptor {
 
         public Builder token(String token) {
             this.token = token;
+            return this;
+        }
+
+        public Builder global(boolean global) {
+            this.global = global;
             return this;
         }
 
@@ -134,11 +149,12 @@ public class AutocompleteItemDescriptor {
             AutocompleteItemDescriptor descriptor = new AutocompleteItemDescriptor();
             descriptor.type = type;
             descriptor.token = token;
+            descriptor.global = global;
+            descriptor.itemType = itemType;
             descriptor.returnType = returnType;
             descriptor.description = description;
             descriptor.replaceValue = replaceValue;
             descriptor.cursorOffset = cursorOffset;
-            descriptor.itemType = itemType;
             return descriptor;
         }
     }

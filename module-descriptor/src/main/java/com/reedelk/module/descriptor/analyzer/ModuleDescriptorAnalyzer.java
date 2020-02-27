@@ -164,7 +164,7 @@ public class ModuleDescriptorAnalyzer {
      */
     private List<AutocompleteItemDescriptor> analyzeAutocompleteItems(ScanResult scanResult) {
         AutocompleteAnalyzer autocompleteAnalyzer = new AutocompleteAnalyzer(scanResult);
-        return autocompleteAnalyzer.analyze();
+        return autocompleteAnalyzer.analyzeAutocompleteItems();
     }
 
     private List<ComponentDescriptor> componentDescriptorsFrom(ScanResult scanResult) {
