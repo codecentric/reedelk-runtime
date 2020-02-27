@@ -1027,6 +1027,7 @@
       "returnType": "TestClassWithAutocompleteType",
       "description": "My description",
       "replaceValue": "builderMethod(\u0027\u0027)",
+      "global": false,
       "cursorOffset": 0,
       "itemType": "FUNCTION"
     },
@@ -1036,6 +1037,7 @@
       "returnType": "String",
       "description": "Returns the attributes",
       "replaceValue": "attributes()",
+      "global": false,
       "cursorOffset": 0,
       "itemType": "FUNCTION"
     }
