@@ -13,8 +13,7 @@ public class WhenAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        ScannerUtils.repeatableAnnotation(fieldInfo, When.class, Whens.class)
-                .forEach(annotationInfo -> {
+        ScannerUtils.repeatableAnnotation(fieldInfo, When.class, Whens.class).forEach(annotationInfo -> {
             WhenDescriptor whenDescriptor = processWhenInfo(annotationInfo);
             builder.when(whenDescriptor);
         });

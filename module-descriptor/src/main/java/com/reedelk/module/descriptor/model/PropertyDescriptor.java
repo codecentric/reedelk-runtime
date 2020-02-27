@@ -196,8 +196,8 @@ public class PropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder autoVariable(AutocompleteVariableDescriptor descriptor) {
-            this.autocompleteVariables.add(descriptor);
+        public Builder autocompleteVariable(AutocompleteVariableDescriptor autocompleteVariable) {
+            this.autocompleteVariables.add(autocompleteVariable);
             return this;
         }
 
@@ -207,16 +207,16 @@ public class PropertyDescriptor implements Serializable {
 
             PropertyDescriptor descriptor = new PropertyDescriptor();
             descriptor.name = name;
+            descriptor.type = type;
+            descriptor.whens = whens;
             descriptor.example = example;
             descriptor.hintValue = hintValue;
             descriptor.initValue = initValue;
             descriptor.description = description;
             descriptor.displayName = displayName;
             descriptor.defaultValue = defaultValue;
-            descriptor.type = type;
             descriptor.scriptSignature = scriptSignature;
             descriptor.autocompleteVariables = autocompleteVariables;
-            descriptor.whens = whens;
             return descriptor;
         }
     }
