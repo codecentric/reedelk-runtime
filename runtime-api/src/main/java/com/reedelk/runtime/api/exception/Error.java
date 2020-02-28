@@ -5,7 +5,7 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 import com.reedelk.runtime.api.autocomplete.AutocompleteItemType;
 
 @AutocompleteType
-@AutocompleteItem(token = "message", replaceValue = "message", itemType = AutocompleteItemType.VARIABLE, description = "Returns the error message.")
+@AutocompleteItem(token = "message", replaceValue = "message", returnType = String.class, itemType = AutocompleteItemType.VARIABLE, description = "Returns the error message.")
 public interface Error {
 
     @AutocompleteItem(replaceValue = "getMessage()", description = "Returns the error message.")
