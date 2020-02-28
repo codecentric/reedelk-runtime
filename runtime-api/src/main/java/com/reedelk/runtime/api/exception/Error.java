@@ -6,6 +6,11 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 @AutocompleteType
 public interface Error {
 
+    @AutocompleteItem(replaceValue = "message()", description = "Returns the error message.")
+    default String message() {
+        return getMessage();
+    }
+
     @AutocompleteItem(replaceValue = "getMessage()", description = "Returns the error message.")
     String getMessage();
 
