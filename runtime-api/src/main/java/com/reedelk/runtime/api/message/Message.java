@@ -10,12 +10,16 @@ import java.io.Serializable;
 @AutocompleteType
 public interface Message extends Serializable {
 
+    /**
+     * Returns the message payload. This method automatically resolves the payload.
+     */
+    @AutocompleteItem(returnType = Object.class, replaceValue = "payload()",
+            description = "Returns the payload data of this message.")
+    <PayloadType> PayloadType payload();
+
     /*
      * This method is needed by Script engine to access this object's properties.
      */
-    @AutocompleteItem(returnType = TypedContent.class, replaceValue = "getContent()",
-            description = "Returns the message content of this message. " +
-                    "The message content contains information about the payload's mime type, data type and stream status.")
     <ItemType,PayloadType, R extends TypedContent<ItemType,PayloadType>> R getContent();
 
     /**
@@ -29,18 +33,9 @@ public interface Message extends Serializable {
     <ItemType,PayloadType, R extends TypedContent<ItemType,PayloadType>> R content();
 
     /**
-     * Returns the message payload. This method automatically resolves the payload.
-     */
-    @AutocompleteItem(returnType = Object.class, replaceValue = "payload()",
-            description = "Returns the payload data of this message.")
-    <PayloadType> PayloadType payload();
-
-    /**
      * This method is needed by Script engine to access this object's properties.
      * @return the message attributes.
      */
-    @AutocompleteItem(replaceValue = "getAttributes()",
-            description = "Returns the attributes belonging to this message.")
     MessageAttributes getAttributes();
 
     /**
