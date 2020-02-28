@@ -11,7 +11,6 @@ public interface Error {
         return getMessage();
     }
 
-    @AutocompleteItem(replaceValue = "getMessage()", description = "Returns the error message.")
     String getMessage();
 
     @AutocompleteItem(replaceValue = "toString()", description = "Returns a string representation of the error.")
