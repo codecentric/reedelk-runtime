@@ -70,7 +70,7 @@ public class MimeType implements Serializable {
         this.fileExtensions = fileExtensions != null ? unmodifiableList(fileExtensions) : emptyList();
     }
 
-    @AutocompleteItem(replaceValue = "getSubType()", description = "Returns the sub-type of the mime type.")
+    @AutocompleteItem(signature = "getSubType()", description = "Returns the sub-type of the mime type.")
     public String getSubType() {
         return subType;
     }
@@ -79,12 +79,12 @@ public class MimeType implements Serializable {
         return Optional.ofNullable(getCharset(charset, params));
     }
 
-    @AutocompleteItem(replaceValue = "getPrimaryType()", description = "Returns the primary type.")
+    @AutocompleteItem(signature = "getPrimaryType()", description = "Returns the primary type.")
     public String getPrimaryType() {
         return primaryType;
     }
 
-    @AutocompleteItem(replaceValue = "getFileExtensions()", description = "Returns a list of file extensions associated to this mime type.")
+    @AutocompleteItem(signature = "getFileExtensions()", description = "Returns a list of file extensions associated to this mime type.")
     public List<String> getFileExtensions() {
         return fileExtensions;
     }

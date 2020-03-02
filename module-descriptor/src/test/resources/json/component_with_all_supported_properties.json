@@ -1027,7 +1027,7 @@
       "example": "MultipartBuilder.builderMethod(\u0027file\u0027)",
       "returnType": "TestClassWithAutocompleteType",
       "description": "My description",
-      "replaceValue": "builderMethod(\u0027\u0027)",
+      "signature": "builderMethod(value: string)",
       "cursorOffset": 0,
       "itemType": "FUNCTION"
     },
@@ -1036,7 +1036,7 @@
       "token": "attributes",
       "returnType": "String",
       "description": "Returns the attributes",
-      "replaceValue": "attributes()",
+      "signature": "attributes()",
       "cursorOffset": 0,
       "itemType": "FUNCTION"
     }

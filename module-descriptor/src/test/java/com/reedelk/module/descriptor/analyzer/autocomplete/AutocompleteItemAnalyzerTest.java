@@ -42,7 +42,7 @@ class AutocompleteItemAnalyzerTest {
                 .token("correlationId")
                 .example(StringUtils.EMPTY)
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
-                .description("Returns the correlation id").replaceValue("correlationId")
+                .description("Returns the correlation id").signature("correlationId")
                 .build();
         assertThatExists(descriptors, expected);
 
@@ -52,7 +52,7 @@ class AutocompleteItemAnalyzerTest {
                 .token("contains")
                 .returnType("boolean")
                 .example(StringUtils.EMPTY)
-                .replaceValue("contains('')")
+                .signature("contains('')")
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
                 .description("Return the message typed content containing metadata")
                 .build();
@@ -64,7 +64,7 @@ class AutocompleteItemAnalyzerTest {
                 .token("attributes")
                 .returnType("String")
                 .example("message.attributes()")
-                .replaceValue("attributes()")
+                .signature("attributes()")
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
                 .description("Returns the attributes")
                 .build();
@@ -75,7 +75,7 @@ class AutocompleteItemAnalyzerTest {
                 .itemType(FUNCTION)
                 .token("builderMethod")
                 .example(StringUtils.EMPTY)
-                .replaceValue("builderMethod('')")
+                .signature("builderMethod('')")
                 .description("My description")
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
                 .returnType(TestClassWithAutocompleteType.class.getSimpleName())
@@ -88,7 +88,7 @@ class AutocompleteItemAnalyzerTest {
                 .token("info")
                 .example(StringUtils.EMPTY)
                 .returnType("void")
-                .replaceValue("info('')")
+                .signature("info('')")
                 .description("Logs a message with INFO level")
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
                 .build();

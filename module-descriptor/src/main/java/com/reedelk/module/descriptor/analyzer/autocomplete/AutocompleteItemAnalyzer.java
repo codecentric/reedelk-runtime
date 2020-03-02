@@ -45,18 +45,18 @@ public class AutocompleteItemAnalyzer {
             String returnType = getReturnTypeFrom(annotationInfo, Void.class.getSimpleName());
             String description = ScannerUtils.stringParameterValueFrom(annotationInfo, "description");
             String example = ScannerUtils.stringParameterValueFrom(annotationInfo, "example");
-            String replaceValue = ScannerUtils.stringParameterValueFrom(annotationInfo, "replaceValue");
+            String signature = ScannerUtils.stringParameterValueFrom(annotationInfo, "signature");
             int cursorOffset = ScannerUtils.getParameterValue("cursorOffset", 0, annotationInfo);
             AutocompleteItemType itemType = ScannerUtils.getParameterValue("itemType", FUNCTION, annotationInfo);
 
             return AutocompleteItemDescriptor.create()
-                    .itemType(itemType)
                     .type(type)
                     .token(token)
                     .example(example)
+                    .itemType(itemType)
+                    .signature(signature)
                     .returnType(returnType)
                     .description(description)
-                    .replaceValue(replaceValue)
                     .cursorOffset(cursorOffset)
                     .build();
         }).collect(toList());
@@ -73,17 +73,17 @@ public class AutocompleteItemAnalyzer {
                     String returnType = getReturnTypeFrom(annotationInfo, getReturnType(methodInfo));
                     String description = ScannerUtils.stringParameterValueFrom(annotationInfo, "description", "");
                     String example = ScannerUtils.stringParameterValueFrom(annotationInfo, "example");
-                    String replaceValue = ScannerUtils.stringParameterValueFrom(annotationInfo, "replaceValue", token + "()");
+                    String signature = ScannerUtils.stringParameterValueFrom(annotationInfo, "signature", token + "()");
                     int cursorOffset = ScannerUtils.getParameterValue("cursorOffset", 0, annotationInfo);
 
                     return AutocompleteItemDescriptor.create()
-                            .itemType(FUNCTION) // Must be a function because it is defined above a method.
                             .type(type)
                             .token(token)
                             .example(example)
+                            .itemType(FUNCTION) // Must be a function because it is defined above a method.
                             .returnType(returnType)
                             .description(description)
-                            .replaceValue(replaceValue)
+                            .signature(signature)
                             .cursorOffset(cursorOffset)
                             .build();
                 }).collect(toList());

@@ -13,7 +13,7 @@ public interface Message extends Serializable {
     /**
      * Returns the message payload. This method automatically resolves the payload.
      */
-    @AutocompleteItem(returnType = Object.class, replaceValue = "payload()",
+    @AutocompleteItem(returnType = Object.class, signature = "payload()",
             description = "Returns the payload data of this message.")
     <PayloadType> PayloadType payload();
 
@@ -27,7 +27,7 @@ public interface Message extends Serializable {
      * This is a 'nice to have' method to make getting the content more readable
      * from the Script language e.g. message.content() instead of message.getContent().
      */
-    @AutocompleteItem(returnType = TypedContent.class, replaceValue = "content()",
+    @AutocompleteItem(returnType = TypedContent.class, signature = "content()",
             description = "Returns the message content of this message. " +
                     "The message content contains information about the payload's mime type, data type and stream status.")
     <ItemType,PayloadType, R extends TypedContent<ItemType,PayloadType>> R content();
@@ -43,7 +43,7 @@ public interface Message extends Serializable {
      * from the Script language e.g. message.attributes() instead of message.getAttributes().
      * @return the message attributes.
      */
-    @AutocompleteItem(replaceValue = "attributes()",
+    @AutocompleteItem(signature = "attributes()",
             description = "Returns the attributes belonging to this message.")
     MessageAttributes attributes();
 

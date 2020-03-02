@@ -24,17 +24,17 @@ public class Part implements Serializable {
         return new Builder();
     }
 
-    @AutocompleteItem(replaceValue = "getName()", description = "Returns the name of the part object.")
+    @AutocompleteItem(signature = "getName()", description = "Returns the name of the part object.")
     public String getName() {
         return name;
     }
 
-    @AutocompleteItem(replaceValue = "getContent()", description = "Returns content of the part object.")
+    @AutocompleteItem(signature = "getContent()", description = "Returns content of the part object.")
     public TypedContent<?,?> getContent() {
         return content;
     }
 
-    @AutocompleteItem(replaceValue = "getAttributes()", description = "Returns the attributes of the part object.")
+    @AutocompleteItem(signature = "getAttributes()", description = "Returns the attributes of the part object.")
     public Map<String, String> getAttributes() {
         return attributes;
     }

@@ -23,7 +23,7 @@ public @interface AutocompleteItem {
 
     String description() default StringUtils.EMPTY;
 
-    String replaceValue();
+    String signature();
 
     int cursorOffset() default 0;
 

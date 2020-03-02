@@ -10,11 +10,11 @@ import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE;
 
 @AutocompleteType
-@AutocompleteItem(itemType = VARIABLE, returnType = String.class, token = "correlationId", replaceValue = "correlationId", description = "Returns the current flow correlation id.")
-@AutocompleteItem(itemType = FUNCTION, returnType = Void.class, token = "put", replaceValue = "put('',)", cursorOffset = 3, description = "Puts a property with the given value into the flow context.")
-@AutocompleteItem(itemType = FUNCTION, returnType = Serializable.class, token = "get", replaceValue = "get('')", cursorOffset = 2, description = "Retrieves a property from the flow context.")
-@AutocompleteItem(itemType = FUNCTION, returnType = boolean.class, token = "contains", replaceValue = "contains('')", cursorOffset = 2,  description = "Checks whether an attribute with the given key exists in the context.")
-@AutocompleteItem(itemType = FUNCTION, returnType = String.class, token = "toString", replaceValue = "toString()", description = "Returns a string representation of the flow context.")
+@AutocompleteItem(itemType = VARIABLE, returnType = String.class, token = "correlationId", signature = "correlationId", description = "Returns the current flow correlation id.")
+@AutocompleteItem(itemType = FUNCTION, returnType = Void.class, token = "put", signature = "put('',)", cursorOffset = 3, description = "Puts a property with the given value into the flow context.")
+@AutocompleteItem(itemType = FUNCTION, returnType = Serializable.class, token = "get", signature = "get('')", cursorOffset = 2, description = "Retrieves a property from the flow context.")
+@AutocompleteItem(itemType = FUNCTION, returnType = boolean.class, token = "contains", signature = "contains('')", cursorOffset = 2,  description = "Checks whether an attribute with the given key exists in the context.")
+@AutocompleteItem(itemType = FUNCTION, returnType = String.class, token = "toString", signature = "toString()", description = "Returns a string representation of the flow context.")
 public interface FlowContext extends Map<String, Serializable>, Disposable {
 
     /**

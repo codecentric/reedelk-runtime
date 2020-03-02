@@ -37,15 +37,7 @@ public class ConfigPropertyDecorator implements DeserializerConverter {
             // A config property could be expressed as ${myConfigProperty} or ${myConfigProperty:myDefaultValue}
             // to use a default value when the config property could not be found.
             if (ConfigurationPropertyUtils.isConfigProperty(propertyValue)) {
-                ConfigPropertyDefinition definition = ConfigPropertyDefinition.from((String) propertyValue);
-                String key = definition.getConfigPropertyKey();
-                Optional<String> optionalDefaultValue = definition.getDefaultValue();
-                if (optionalDefaultValue.isPresent()) {
-                    T convertedDefaultValue = RuntimeConverters.getInstance().convert(optionalDefaultValue.get(), expectedClass);
-                    return configurationService.get(key, convertedDefaultValue, expectedClass);
-                } else {
-                    return configurationService.get(key, expectedClass);
-                }
+                return resolveConfigProperty(expectedClass, (String) propertyValue);
             }
         }
 
@@ -55,15 +47,28 @@ public class ConfigPropertyDecorator implements DeserializerConverter {
 
     @Override
     public <T> T convert(Class<T> expectedClass, JSONArray jsonArray, int index, DeserializerConverterContext context) {
-        Object value = jsonArray.get(index);
-        // If the array value is a string and starts with $[],
-        // then it is a system property, otherwise we just use the default value.
-        if (ConfigurationPropertyUtils.isConfigProperty(value)) {
-            String propertyKey = ConfigurationPropertyUtils.unwrap((String) value);
-            return configurationService.get(propertyKey, expectedClass);
+        Object propertyValue = jsonArray.get(index);
+
+        // If component definition value is a string surrounded by ${...}, then it is a system property.
+        // A config property could be expressed as ${myConfigProperty} or ${myConfigProperty:myDefaultValue}
+        // to use a default value when the config property could not be found.
+        if (ConfigurationPropertyUtils.isConfigProperty(propertyValue)) {
+            return resolveConfigProperty(expectedClass, (String) propertyValue);
         }
 
         // Otherwise we use the default converter.
         return delegate.convert(expectedClass, jsonArray, index, context);
+    }
+
+    private <T> T resolveConfigProperty(Class<T> expectedClass, String propertyValue) {
+        ConfigPropertyDefinition definition = ConfigPropertyDefinition.from(propertyValue);
+        String key = definition.getConfigPropertyKey();
+        Optional<String> optionalDefaultValue = definition.getDefaultValue();
+        if (optionalDefaultValue.isPresent()) {
+            T convertedDefaultValue = RuntimeConverters.getInstance().convert(optionalDefaultValue.get(), expectedClass);
+            return configurationService.get(key, convertedDefaultValue, expectedClass);
+        } else {
+            return configurationService.get(key, expectedClass);
+        }
     }
 }

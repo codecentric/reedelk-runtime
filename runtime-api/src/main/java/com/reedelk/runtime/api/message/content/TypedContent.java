@@ -8,7 +8,7 @@ import java.io.Serializable;
 @AutocompleteType
 public interface TypedContent<ItemType, PayloadType> extends Serializable {
 
-    @AutocompleteItem(replaceValue = "type()",
+    @AutocompleteItem(signature = "type()",
             description = "Returns the type of the content.")
     Class<ItemType> type();
 
@@ -16,7 +16,7 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
         return type();
     }
 
-    @AutocompleteItem(replaceValue = "mimeType()",
+    @AutocompleteItem(signature = "mimeType()",
             description = "Returns the mime type of the content.")
     MimeType mimeType();
 
@@ -24,7 +24,7 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
         return mimeType();
     }
 
-    @AutocompleteItem(returnType = Object.class, replaceValue = "data()",
+    @AutocompleteItem(returnType = Object.class, signature = "data()",
             description = "Returns data of this message.")
     PayloadType data();
 
@@ -38,11 +38,11 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
         return stream();
     }
 
-    @AutocompleteItem(replaceValue = "isStream()",
+    @AutocompleteItem(signature = "isStream()",
             description = "Returns true if this message is a stream, false otherwise.")
     boolean isStream();
 
-    @AutocompleteItem(replaceValue = "isConsumed()",
+    @AutocompleteItem(signature = "isConsumed()",
             description = "Returns true if this message stream has been consumed, false otherwise.")
     boolean isConsumed();
 
@@ -51,7 +51,7 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
      * to call before cloning the message. E.g the fork component uses this method before
      * invoking fork branches with a copy of the message.
      */
-    @AutocompleteItem(replaceValue = "consume()",
+    @AutocompleteItem(signature = "consume()",
             description = "Consumes the payload of this message by loading the entire stream content into memory.")
     void consume();
 }

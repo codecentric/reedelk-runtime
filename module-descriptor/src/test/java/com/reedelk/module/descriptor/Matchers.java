@@ -43,12 +43,12 @@ public class Matchers {
             String actualToken = actual.getToken();
             String expectedExample = expected.getExample();
             String actualExample = actual.getExample();
+            String expectedSignature = expected.getSignature();
+            String actualSignature = actual.getSignature();
             String expectedReturnType = expected.getReturnType();
             String actualReturnType = actual.getReturnType();
             String expectedDescription = expected.getDescription();
             String actualDescription = actual.getDescription();
-            String expectedReplaceValue = expected.getReplaceValue();
-            String actualReplaceValue = actual.getReplaceValue();
             int expectedCursorOffset = expected.getCursorOffset();
             int actualCursorOffset = actual.getCursorOffset();
             AutocompleteItemType expectedAutocompleteItemType = expected.getItemType();
@@ -56,9 +56,9 @@ public class Matchers {
             return Objects.equals(expectedType, actualType) &&
                     Objects.equals(expectedToken, actualToken) &&
                     Objects.equals(expectedExample, actualExample) &&
+                    Objects.equals(expectedSignature, actualSignature) &&
                     Objects.equals(expectedReturnType, actualReturnType) &&
                     Objects.equals(expectedDescription, actualDescription) &&
-                    Objects.equals(expectedReplaceValue, actualReplaceValue) &&
                     Objects.equals(expectedCursorOffset, actualCursorOffset) &&
                     Objects.equals(expectedAutocompleteItemType, actualAutocompleteItemType);
         };

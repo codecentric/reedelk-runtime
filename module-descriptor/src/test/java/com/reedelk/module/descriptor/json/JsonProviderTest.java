@@ -41,7 +41,7 @@ class JsonProviderTest {
             .itemType(FUNCTION)
             .token("builderMethod")
             .example("MultipartBuilder.builderMethod('file')")
-            .replaceValue("builderMethod('')")
+            .signature("builderMethod(value: string)")
             .description("My description")
             .type(TestClassWithAutocompleteType.class.getSimpleName())
             .returnType(TestClassWithAutocompleteType.class.getSimpleName())
@@ -51,7 +51,7 @@ class JsonProviderTest {
             .itemType(FUNCTION)
             .token("attributes")
             .returnType("String")
-            .replaceValue("attributes()")
+            .signature("attributes()")
             .type(TestClassWithAutocompleteType.class.getSimpleName())
             .description("Returns the attributes")
             .build();

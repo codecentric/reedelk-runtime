@@ -9,9 +9,9 @@ import java.util.Map;
 @AutocompleteType
 public interface MessageAttributes extends Map<String, Serializable> {
 
-    @AutocompleteItem(replaceValue = "get('')", cursorOffset = 2, returnType = Serializable.class, description = "Given the key, returns attribute associated with the given key.")
+    @AutocompleteItem(signature = "get('')", cursorOffset = 2, returnType = Serializable.class, description = "Given the key, returns attribute associated with the given key.")
     <T> T get(String key);
 
-    @AutocompleteItem(replaceValue = "contains('')", cursorOffset = 2, description = "If exists an attribute in the message attributes with the given key, returns true, false otherwise.")
+    @AutocompleteItem(signature = "contains('')", cursorOffset = 2, description = "If exists an attribute in the message attributes with the given key, returns true, false otherwise.")
     boolean contains(String key);
 }

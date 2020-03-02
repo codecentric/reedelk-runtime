@@ -7,9 +7,9 @@ public class AutocompleteItemDescriptor {
     private String type;
     private String token;
     private String example;
+    private String signature;
     private String returnType;
     private String description;
-    private String replaceValue;
     private int cursorOffset;
     private AutocompleteItemType itemType;
 
@@ -53,12 +53,12 @@ public class AutocompleteItemDescriptor {
         this.description = description;
     }
 
-    public String getReplaceValue() {
-        return replaceValue;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setReplaceValue(String replaceValue) {
-        this.replaceValue = replaceValue;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     public int getCursorOffset() {
@@ -82,9 +82,10 @@ public class AutocompleteItemDescriptor {
         return "AutocompleteItemDescriptor{" +
                 "type='" + type + '\'' +
                 ", token='" + token + '\'' +
+                ", example='" + example + '\'' +
+                ", signature='" + signature + '\'' +
                 ", returnType='" + returnType + '\'' +
                 ", description='" + description + '\'' +
-                ", replaceValue='" + replaceValue + '\'' +
                 ", cursorOffset=" + cursorOffset +
                 ", itemType=" + itemType +
                 '}';
@@ -99,9 +100,9 @@ public class AutocompleteItemDescriptor {
         private String type;
         private String token;
         private String example;
+        private String signature;
         private String returnType;
         private String description;
-        private String replaceValue;
         private int cursorOffset;
         private AutocompleteItemType itemType;
 
@@ -120,6 +121,11 @@ public class AutocompleteItemDescriptor {
             return this;
         }
 
+        public Builder signature(String signature) {
+            this.signature = signature;
+            return this;
+        }
+
         public Builder returnType(String returnType) {
             this.returnType = returnType;
             return this;
@@ -132,11 +138,6 @@ public class AutocompleteItemDescriptor {
 
         public Builder description(String description) {
             this.description = description;
-            return this;
-        }
-
-        public Builder replaceValue(String replaceValue) {
-            this.replaceValue = replaceValue;
             return this;
         }
 
@@ -153,7 +154,7 @@ public class AutocompleteItemDescriptor {
             descriptor.itemType = itemType;
             descriptor.returnType = returnType;
             descriptor.description = description;
-            descriptor.replaceValue = replaceValue;
+            descriptor.signature = signature;
             descriptor.cursorOffset = cursorOffset;
             return descriptor;
         }
