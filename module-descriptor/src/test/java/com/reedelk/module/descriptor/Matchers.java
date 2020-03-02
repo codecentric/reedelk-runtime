@@ -1,12 +1,24 @@
-package com.reedelk.module.descriptor.analyzer.autocomplete;
+package com.reedelk.module.descriptor;
 
 import com.reedelk.module.descriptor.analyzer.Matcher;
 import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
+import com.reedelk.module.descriptor.model.AutocompleteVariableDescriptor;
 import com.reedelk.runtime.api.autocomplete.AutocompleteItemType;
 
 import java.util.Objects;
 
-public class AutocompleteMatchers {
+public class Matchers {
+
+    public static Matcher<AutocompleteVariableDescriptor> ofAutocompleteVariableDescriptor(AutocompleteVariableDescriptor expected) {
+        return actual -> {
+            String expectedName = expected.getName();
+            String actualName = actual.getName();
+            String expectedType = expected.getType();
+            String actualType = actual.getType();
+            return Objects.equals(expectedName, actualName) &&
+                    Objects.equals(expectedType, actualType);
+        };
+    }
 
     public static Matcher<AutocompleteItemDescriptor> ofAutocompleteItemDescriptor(AutocompleteItemDescriptor expected) {
         return actual -> {

@@ -2,6 +2,7 @@ package com.reedelk.module.descriptor.analyzer.autocomplete;
 
 import com.reedelk.module.descriptor.analyzer.Matcher;
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
+import com.reedelk.module.descriptor.Matchers;
 import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
 import io.github.classgraph.ScanResult;
 import org.junit.jupiter.api.BeforeAll;
@@ -89,7 +90,7 @@ class AutocompleteAnalyzerTest {
     }
 
     private void assertThatExists(List<AutocompleteItemDescriptor> descriptors, AutocompleteItemDescriptor expected) {
-        Matcher<AutocompleteItemDescriptor> matcher = AutocompleteMatchers.ofAutocompleteItemDescriptor(expected);
+        Matcher<AutocompleteItemDescriptor> matcher = Matchers.ofAutocompleteItemDescriptor(expected);
         boolean matches = descriptors.stream().anyMatch(matcher::matches);
         assertThat(matches)
                 .withFailMessage("Could not find: " + expected + " from collection: " + descriptors)

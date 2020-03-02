@@ -17,9 +17,8 @@ public class PropertyDescriptor implements Serializable {
     private String defaultValue;
     private TypeDescriptor type;
     private ScriptSignatureDescriptor scriptSignature;
-    private List<AutocompleteVariableDescriptor> autocompleteVariables;
-
     private List<WhenDescriptor> whens;
+    private List<AutocompleteVariableDescriptor> autocompleteVariables;
 
     public String getName() {
         return name;

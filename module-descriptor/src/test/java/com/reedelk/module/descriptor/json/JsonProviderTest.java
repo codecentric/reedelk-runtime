@@ -3,7 +3,7 @@ package com.reedelk.module.descriptor.json;
 import com.reedelk.module.descriptor.ModuleDescriptor;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
 import com.reedelk.module.descriptor.analyzer.Matcher;
-import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteMatchers;
+import com.reedelk.module.descriptor.Matchers;
 import com.reedelk.module.descriptor.analyzer.autocomplete.TestClassWithAutocompleteType;
 import com.reedelk.module.descriptor.fixture.TestJson;
 import com.reedelk.module.descriptor.model.*;
@@ -137,7 +137,7 @@ class JsonProviderTest {
         }
 
         private void assertThatExists(List<AutocompleteItemDescriptor> descriptors, AutocompleteItemDescriptor expected) {
-            Matcher<AutocompleteItemDescriptor> matcher = AutocompleteMatchers.ofAutocompleteItemDescriptor(expected);
+            Matcher<AutocompleteItemDescriptor> matcher = Matchers.ofAutocompleteItemDescriptor(expected);
             boolean matches = descriptors.stream().anyMatch(matcher::matches);
             assertThat(matches)
                     .withFailMessage("Could not find: " + expected + " from collection: " + descriptors)

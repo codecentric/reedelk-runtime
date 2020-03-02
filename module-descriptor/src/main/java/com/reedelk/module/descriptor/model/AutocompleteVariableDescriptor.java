@@ -1,6 +1,8 @@
 package com.reedelk.module.descriptor.model;
 
-public class AutocompleteVariableDescriptor {
+import java.io.Serializable;
+
+public class AutocompleteVariableDescriptor implements Serializable {
 
     private String name;
     private String type;
@@ -19,5 +21,13 @@ public class AutocompleteVariableDescriptor {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "AutocompleteVariableDescriptor{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }
