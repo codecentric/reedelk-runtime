@@ -9,7 +9,7 @@ import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE
 @AutocompleteItem(token = "correlationId", replaceValue = "correlationId", returnType = String.class, itemType = VARIABLE, description = "Returns the correlation id")
 public class TestClassWithAutocompleteType {
 
-    @AutocompleteItem(replaceValue = "attributes()", description = "Returns the attributes")
+    @AutocompleteItem(replaceValue = "attributes()", example = "message.attributes()", description = "Returns the attributes")
     public String attributes() {
         return "My attributes";
     }

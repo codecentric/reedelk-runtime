@@ -14,6 +14,21 @@
     <packaging>pom</packaging>
     <artifactId>module-parent</artifactId>
 
+    <repositories>
+        <repository>
+            <id>reedelk-repository</id>
+            <name>Reedelk Repository</name>
+            <url>https://www.reedelk.com/maven/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>reedelk-plugin-repository</id>
+            <name>Reedelk Plugin Repository</name>
+            <url>https://www.reedelk.com/maven/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>com.reedelk</groupId>

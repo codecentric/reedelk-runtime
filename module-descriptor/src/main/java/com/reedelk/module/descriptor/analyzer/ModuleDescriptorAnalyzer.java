@@ -2,7 +2,8 @@ package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.module.descriptor.ModuleDescriptor;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
-import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteAnalyzer;
+import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteItemAnalyzer;
+import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteTypeAnalyzer;
 import com.reedelk.module.descriptor.analyzer.commons.AssetUtils;
 import com.reedelk.module.descriptor.analyzer.commons.ComponentDescriptorsJsonFile;
 import com.reedelk.module.descriptor.analyzer.commons.Messages;
@@ -10,6 +11,7 @@ import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerFactory;
 import com.reedelk.module.descriptor.json.JsonProvider;
 import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
+import com.reedelk.module.descriptor.model.AutocompleteTypeDescriptor;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.ComponentType;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
@@ -151,20 +153,24 @@ public class ModuleDescriptorAnalyzer {
     private ModuleDescriptor analyzeFrom(final ScanResult scanResult, final String moduleName) {
         List<ComponentDescriptor> allComponentDescriptors = componentDescriptorsFrom(scanResult);
         List<ComponentDescriptor> knownComponentDescriptors = filterOutUnknownClassComponents(allComponentDescriptors);
+        List<AutocompleteTypeDescriptor> autocompleteTypes = analyzeAutocompleteTypes(scanResult);
         List<AutocompleteItemDescriptor> autocompleteItems = analyzeAutocompleteItems(scanResult);
         ModuleDescriptor moduleDescriptor = new ModuleDescriptor();
         moduleDescriptor.setName(moduleName);
         moduleDescriptor.setComponents(knownComponentDescriptors);
+        moduleDescriptor.setAutocompleteTypes(autocompleteTypes);
         moduleDescriptor.setAutocompleteItems(autocompleteItems);
         return moduleDescriptor;
     }
 
-    /**
-     * Scans for Classes annotated with "AutoCompleteContributor" and collects the contributions.
-     */
+    private List<AutocompleteTypeDescriptor> analyzeAutocompleteTypes(ScanResult scanResult) {
+        AutocompleteTypeAnalyzer analyzer = new AutocompleteTypeAnalyzer(scanResult);
+        return analyzer.analyze();
+    }
+
     private List<AutocompleteItemDescriptor> analyzeAutocompleteItems(ScanResult scanResult) {
-        AutocompleteAnalyzer autocompleteAnalyzer = new AutocompleteAnalyzer(scanResult);
-        return autocompleteAnalyzer.analyzeAutocompleteItems();
+        AutocompleteItemAnalyzer autocompleteItemAnalyzer = new AutocompleteItemAnalyzer(scanResult);
+        return autocompleteItemAnalyzer.analyze();
     }
 
     private List<ComponentDescriptor> componentDescriptorsFrom(ScanResult scanResult) {

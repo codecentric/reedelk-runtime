@@ -40,6 +40,7 @@ class JsonProviderTest {
             .cursorOffset(0)
             .itemType(FUNCTION)
             .token("builderMethod")
+            .example("MultipartBuilder.builderMethod('file')")
             .replaceValue("builderMethod('')")
             .description("My description")
             .type(TestClassWithAutocompleteType.class.getSimpleName())
@@ -53,6 +54,18 @@ class JsonProviderTest {
             .replaceValue("attributes()")
             .type(TestClassWithAutocompleteType.class.getSimpleName())
             .description("Returns the attributes")
+            .build();
+
+    private AutocompleteTypeDescriptor autocompleteType1 = AutocompleteTypeDescriptor.create()
+            .type("Message")
+            .global(false)
+            .description("Test description")
+            .build();
+
+    private AutocompleteTypeDescriptor autocompleteType2 = AutocompleteTypeDescriptor.create()
+            .type("MultipartBuilder")
+            .global(true)
+            .description("Test description")
             .build();
 
     @BeforeEach
@@ -100,6 +113,7 @@ class JsonProviderTest {
             ModuleDescriptor descriptor = new ModuleDescriptor();
             descriptor.setComponents(asList(myProcessorComponent, myInboundComponent));
             descriptor.setAutocompleteItems(asList(autocompleteItem1, autocompleteItem2));
+            descriptor.setAutocompleteTypes(asList(autocompleteType1, autocompleteType2));
 
             // When
             String serialized = JsonProvider.toJson(descriptor);
@@ -134,6 +148,19 @@ class JsonProviderTest {
             assertThat(autocompleteItems).hasSize(2);
             assertThatExists(autocompleteItems, autocompleteItem1);
             assertThatExists(autocompleteItems, autocompleteItem2);
+
+            List<AutocompleteTypeDescriptor> autocompleteTypes = descriptor.getAutocompleteTypes();
+            assertThat(autocompleteTypes).hasSize(2);
+            assertThatExists(autocompleteTypes, autocompleteType1);
+            assertThatExists(autocompleteTypes, autocompleteType2);
+        }
+
+        private void assertThatExists(List<AutocompleteTypeDescriptor> descriptors, AutocompleteTypeDescriptor expected) {
+            Matcher<AutocompleteTypeDescriptor> matcher = Matchers.ofAutocompleteTypeDescriptor(expected);
+            boolean matches = descriptors.stream().anyMatch(matcher::matches);
+            assertThat(matches)
+                    .withFailMessage("Could not find: " + expected + " from collection: " + descriptors)
+                    .isTrue();
         }
 
         private void assertThatExists(List<AutocompleteItemDescriptor> descriptors, AutocompleteItemDescriptor expected) {

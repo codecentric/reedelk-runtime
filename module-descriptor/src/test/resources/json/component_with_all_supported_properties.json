@@ -25,7 +25,6 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
@@ -35,7 +34,8 @@
               "propertyName": "anotherProperty",
               "propertyValue": "VALUE2"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyBoolean",
@@ -55,13 +55,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDoubleObject",
@@ -83,13 +83,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDouble",
@@ -109,13 +109,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyFloatObject",
@@ -135,13 +135,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyFloat",
@@ -161,13 +161,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyIntegerObject",
@@ -187,13 +187,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyInteger",
@@ -213,13 +213,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyLongObject",
@@ -239,13 +239,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyLong",
@@ -267,13 +267,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyString",
@@ -293,13 +293,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyBigInteger",
@@ -319,13 +319,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyBigDecimal",
@@ -345,13 +345,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyMap",
@@ -372,13 +372,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyEnum",
@@ -402,13 +402,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicLong",
@@ -428,13 +428,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicFloat",
@@ -454,13 +454,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicDouble",
@@ -480,13 +480,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicObject",
@@ -506,13 +506,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicString",
@@ -532,13 +532,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicBoolean",
@@ -558,13 +558,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicInteger",
@@ -584,13 +584,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicResource",
@@ -610,13 +610,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicByteArray",
@@ -636,13 +636,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicBigInteger",
@@ -662,13 +662,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicBigDecimal",
@@ -688,13 +688,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicStringMap",
@@ -715,13 +715,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyScript",
@@ -741,13 +741,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyCombo",
@@ -774,13 +774,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyPassword",
@@ -800,13 +800,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyResourceText",
@@ -826,13 +826,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyResourceBinary",
@@ -852,13 +852,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyTypeObject",
@@ -889,13 +889,13 @@
                       "output"
                     ]
                   },
-                  "autocompleteVariables": [],
                   "whens": [
                     {
                       "propertyName": "myProperty",
                       "propertyValue": "VALUE1"
                     }
-                  ]
+                  ],
+                  "autocompleteVariables": []
                 },
                 {
                   "name": "nestedProperty2",
@@ -915,13 +915,13 @@
                       "output"
                     ]
                   },
-                  "autocompleteVariables": [],
                   "whens": [
                     {
                       "propertyName": "myProperty",
                       "propertyValue": "VALUE1"
                     }
-                  ]
+                  ],
+                  "autocompleteVariables": []
                 }
               ],
               "type": "com.reedelk.module.descriptor.model.TypeObjectDescriptor$TypeObject"
@@ -933,13 +933,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         }
       ]
     },
@@ -961,8 +961,8 @@
               "type": "java.lang.String"
             }
           },
-          "autocompleteVariables": [],
-          "whens": []
+          "whens": [],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyDynamicString",
@@ -982,13 +982,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         },
         {
           "name": "propertyMap",
@@ -1009,13 +1009,13 @@
               "output"
             ]
           },
-          "autocompleteVariables": [],
           "whens": [
             {
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ]
+          ],
+          "autocompleteVariables": []
         }
       ]
     }
@@ -1024,10 +1024,10 @@
     {
       "type": "TestClassWithAutocompleteType",
       "token": "builderMethod",
+      "example": "MultipartBuilder.builderMethod(\u0027file\u0027)",
       "returnType": "TestClassWithAutocompleteType",
       "description": "My description",
       "replaceValue": "builderMethod(\u0027\u0027)",
-      "global": false,
       "cursorOffset": 0,
       "itemType": "FUNCTION"
     },
@@ -1037,9 +1037,20 @@
       "returnType": "String",
       "description": "Returns the attributes",
       "replaceValue": "attributes()",
-      "global": false,
       "cursorOffset": 0,
       "itemType": "FUNCTION"
+    }
+  ],
+  "autocompleteTypes": [
+    {
+      "global": false,
+      "type": "Message",
+      "description": "Test description"
+    },
+    {
+      "global": true,
+      "type": "MultipartBuilder",
+      "description": "Test description"
     }
   ]
 }

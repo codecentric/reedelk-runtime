@@ -3,7 +3,6 @@ package com.reedelk.runtime.api.message.content;
 import com.reedelk.runtime.api.annotation.AutocompleteItem;
 import com.reedelk.runtime.api.annotation.AutocompleteType;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;

@@ -1,6 +1,7 @@
 package com.reedelk.module.descriptor;
 
 import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
+import com.reedelk.module.descriptor.model.AutocompleteTypeDescriptor;
 import com.reedelk.module.descriptor.model.ComponentDescriptor;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class ModuleDescriptor {
     private String name;
     private List<ComponentDescriptor> components = new ArrayList<>();
     private List<AutocompleteItemDescriptor> autocompleteItems = new ArrayList<>();
+    private List<AutocompleteTypeDescriptor> autocompleteTypes = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -36,6 +38,14 @@ public class ModuleDescriptor {
 
     public void setAutocompleteItems(List<AutocompleteItemDescriptor> autocompleteItems) {
         this.autocompleteItems = autocompleteItems;
+    }
+
+    public List<AutocompleteTypeDescriptor> getAutocompleteTypes() {
+        return autocompleteTypes;
+    }
+
+    public void setAutocompleteTypes(List<AutocompleteTypeDescriptor> autocompleteTypes) {
+        this.autocompleteTypes = autocompleteTypes;
     }
 
     @Override

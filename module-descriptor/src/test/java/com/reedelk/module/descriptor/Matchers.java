@@ -2,12 +2,27 @@ package com.reedelk.module.descriptor;
 
 import com.reedelk.module.descriptor.analyzer.Matcher;
 import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
+import com.reedelk.module.descriptor.model.AutocompleteTypeDescriptor;
 import com.reedelk.module.descriptor.model.AutocompleteVariableDescriptor;
 import com.reedelk.runtime.api.autocomplete.AutocompleteItemType;
 
 import java.util.Objects;
 
 public class Matchers {
+
+    public static Matcher<AutocompleteTypeDescriptor> ofAutocompleteTypeDescriptor(AutocompleteTypeDescriptor expected) {
+        return actual -> {
+            String expectedType = expected.getType();
+            String actualType = actual.getType();
+            String expectedDescription = expected.getDescription();
+            String actualDescription = actual.getDescription();
+            boolean expectedGlobal = expected.isGlobal();
+            boolean actualGlobal = actual.isGlobal();
+            return Objects.equals(expectedType, actualType) &&
+                    Objects.equals(expectedDescription, actualDescription) &&
+                    Objects.equals(expectedGlobal, actualGlobal);
+        };
+    }
 
     public static Matcher<AutocompleteVariableDescriptor> ofAutocompleteVariableDescriptor(AutocompleteVariableDescriptor expected) {
         return actual -> {
@@ -26,6 +41,8 @@ public class Matchers {
             String actualType = actual.getType();
             String expectedToken = expected.getToken();
             String actualToken = actual.getToken();
+            String expectedExample = expected.getExample();
+            String actualExample = actual.getExample();
             String expectedReturnType = expected.getReturnType();
             String actualReturnType = actual.getReturnType();
             String expectedDescription = expected.getDescription();
@@ -38,6 +55,7 @@ public class Matchers {
             AutocompleteItemType actualAutocompleteItemType = actual.getItemType();
             return Objects.equals(expectedType, actualType) &&
                     Objects.equals(expectedToken, actualToken) &&
+                    Objects.equals(expectedExample, actualExample) &&
                     Objects.equals(expectedReturnType, actualReturnType) &&
                     Objects.equals(expectedDescription, actualDescription) &&
                     Objects.equals(expectedReplaceValue, actualReplaceValue) &&

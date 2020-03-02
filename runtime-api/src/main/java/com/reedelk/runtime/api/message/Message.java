@@ -7,7 +7,7 @@ import com.reedelk.runtime.api.message.content.TypedContent;
 
 import java.io.Serializable;
 
-@AutocompleteType
+@AutocompleteType(description = "Message payload description example test")
 public interface Message extends Serializable {
 
     /**

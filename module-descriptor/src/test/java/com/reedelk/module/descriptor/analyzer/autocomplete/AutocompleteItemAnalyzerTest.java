@@ -4,6 +4,7 @@ import com.reedelk.module.descriptor.analyzer.Matcher;
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
 import com.reedelk.module.descriptor.Matchers;
 import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
+import com.reedelk.runtime.api.commons.StringUtils;
 import io.github.classgraph.ScanResult;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,20 +17,20 @@ import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class AutocompleteAnalyzerTest {
+class AutocompleteItemAnalyzerTest {
 
-    private static AutocompleteAnalyzer analyzer;
+    private static AutocompleteItemAnalyzer analyzer;
 
     @BeforeAll
     static void beforeAll() {
         ScanResult scanResult = ScannerTestUtils.scanWithResult(TestClassWithAutocompleteType.class);
-        analyzer = new AutocompleteAnalyzer(scanResult);
+        analyzer = new AutocompleteItemAnalyzer(scanResult);
     }
 
     @Test
     void shouldCorrectlyAnalyzeAutocompleteItems() {
         // When
-        List<AutocompleteItemDescriptor> descriptors = analyzer.analyzeAutocompleteItems();
+        List<AutocompleteItemDescriptor> descriptors = analyzer.analyze();
 
         // Then
         assertThat(descriptors).hasSize(5);
@@ -39,6 +40,7 @@ class AutocompleteAnalyzerTest {
                 .itemType(VARIABLE)
                 .returnType("String")
                 .token("correlationId")
+                .example(StringUtils.EMPTY)
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
                 .description("Returns the correlation id").replaceValue("correlationId")
                 .build();
@@ -49,6 +51,7 @@ class AutocompleteAnalyzerTest {
                 .itemType(FUNCTION)
                 .token("contains")
                 .returnType("boolean")
+                .example(StringUtils.EMPTY)
                 .replaceValue("contains('')")
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
                 .description("Return the message typed content containing metadata")
@@ -60,6 +63,7 @@ class AutocompleteAnalyzerTest {
                 .itemType(FUNCTION)
                 .token("attributes")
                 .returnType("String")
+                .example("message.attributes()")
                 .replaceValue("attributes()")
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
                 .description("Returns the attributes")
@@ -70,6 +74,7 @@ class AutocompleteAnalyzerTest {
                 .cursorOffset(0)
                 .itemType(FUNCTION)
                 .token("builderMethod")
+                .example(StringUtils.EMPTY)
                 .replaceValue("builderMethod('')")
                 .description("My description")
                 .type(TestClassWithAutocompleteType.class.getSimpleName())
@@ -81,6 +86,7 @@ class AutocompleteAnalyzerTest {
                 .cursorOffset(2)
                 .itemType(FUNCTION)
                 .token("info")
+                .example(StringUtils.EMPTY)
                 .returnType("void")
                 .replaceValue("info('')")
                 .description("Logs a message with INFO level")

@@ -6,10 +6,10 @@ public class AutocompleteItemDescriptor {
 
     private String type;
     private String token;
+    private String example;
     private String returnType;
     private String description;
     private String replaceValue;
-    private boolean global;
     private int cursorOffset;
     private AutocompleteItemType itemType;
 
@@ -27,6 +27,14 @@ public class AutocompleteItemDescriptor {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
     }
 
     public String getReturnType() {
@@ -51,14 +59,6 @@ public class AutocompleteItemDescriptor {
 
     public void setReplaceValue(String replaceValue) {
         this.replaceValue = replaceValue;
-    }
-
-    public boolean isGlobal() {
-        return global;
-    }
-
-    public void setGlobal(boolean global) {
-        this.global = global;
     }
 
     public int getCursorOffset() {
@@ -86,7 +86,7 @@ public class AutocompleteItemDescriptor {
                 ", description='" + description + '\'' +
                 ", replaceValue='" + replaceValue + '\'' +
                 ", cursorOffset=" + cursorOffset +
-                ", autocompleteItemType=" + itemType +
+                ", itemType=" + itemType +
                 '}';
     }
 
@@ -98,10 +98,10 @@ public class AutocompleteItemDescriptor {
 
         private String type;
         private String token;
+        private String example;
         private String returnType;
         private String description;
         private String replaceValue;
-        private boolean global;
         private int cursorOffset;
         private AutocompleteItemType itemType;
 
@@ -115,8 +115,8 @@ public class AutocompleteItemDescriptor {
             return this;
         }
 
-        public Builder global(boolean global) {
-            this.global = global;
+        public Builder example(String example) {
+            this.example = example;
             return this;
         }
 
@@ -149,7 +149,7 @@ public class AutocompleteItemDescriptor {
             AutocompleteItemDescriptor descriptor = new AutocompleteItemDescriptor();
             descriptor.type = type;
             descriptor.token = token;
-            descriptor.global = global;
+            descriptor.example = example;
             descriptor.itemType = itemType;
             descriptor.returnType = returnType;
             descriptor.description = description;

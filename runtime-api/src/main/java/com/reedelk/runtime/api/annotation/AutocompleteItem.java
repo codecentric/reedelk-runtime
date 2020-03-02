@@ -19,6 +19,8 @@ public @interface AutocompleteItem {
 
     Class<?> returnType() default UseDefaultReturnType.class;
 
+    String example() default StringUtils.EMPTY;
+
     String description() default StringUtils.EMPTY;
 
     String replaceValue();

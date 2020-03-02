@@ -1,10 +1,9 @@
 package com.reedelk.runtime.api.exception;
 
 import com.reedelk.runtime.api.annotation.AutocompleteItem;
-import com.reedelk.runtime.api.annotation.AutocompleteType;
 import com.reedelk.runtime.api.autocomplete.AutocompleteItemType;
 
-@AutocompleteType
+@com.reedelk.runtime.api.annotation.AutocompleteType
 @AutocompleteItem(token = "message", replaceValue = "message", returnType = String.class, itemType = AutocompleteItemType.VARIABLE, description = "Returns the error message.")
 public interface Error {
 
