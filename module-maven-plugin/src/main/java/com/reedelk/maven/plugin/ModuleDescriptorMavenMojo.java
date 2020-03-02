@@ -6,7 +6,6 @@ import com.reedelk.module.descriptor.analyzer.ModuleDescriptorAnalyzer;
 import com.reedelk.module.descriptor.json.JsonProvider;
 import com.reedelk.runtime.api.RuntimeApi;
 import com.reedelk.runtime.api.commons.StringUtils;
-import com.reedelk.runtime.api.message.Message;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -39,33 +38,36 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
         ModuleDescriptorAnalyzer analyzer = new ModuleDescriptorAnalyzer();
         try {
 
-            // TODO: Improve this code.
-            ModuleDescriptor scanApiModuleDescriptor = null;
-            if (scanApi) {
-                // Scan API
-                scanApiModuleDescriptor = analyzer.fromPackage(RuntimeApi.class.getPackage().getName());
-
-            }
             String finalModuleName = StringUtils.isBlank(moduleName) ? projectName : moduleName;
 
-            // Scan the classes
-            ModuleDescriptor moduleDescriptor = analyzer.fromDirectory(compiledClasses, finalModuleName, false);
+            if (scanApi) {
+                // Scan API
+                ModuleDescriptor scanApiModuleDescriptor = analyzer.fromPackage(RuntimeApi.class.getPackage().getName());
 
-            // We only create the module descriptor if there are any components or autocomplete items.
-            if (!moduleDescriptor.getComponents().isEmpty() ||
-                    !moduleDescriptor.getAutocompleteItems().isEmpty() ||
-                    scanApi) {
+                // Scan Module
+                ModuleDescriptor moduleDescriptor = analyzer.fromDirectory(compiledClasses, finalModuleName, false);
+                moduleDescriptor.getComponents().addAll(scanApiModuleDescriptor.getComponents());
+                moduleDescriptor.getAutocompleteItems().addAll(scanApiModuleDescriptor.getAutocompleteItems());
+                moduleDescriptor.getAutocompleteTypes().addAll(scanApiModuleDescriptor.getAutocompleteTypes());
 
-                if (scanApiModuleDescriptor != null) {
-                    moduleDescriptor.getAutocompleteItems().addAll(scanApiModuleDescriptor.getAutocompleteItems());
-                    moduleDescriptor.getComponents().addAll(scanApiModuleDescriptor.getComponents());
+                // We only write if there are components, functions and types defined.
+                if (shouldWriteFile(moduleDescriptor)) {
+                    writeAsJson(moduleDescriptor);
                 }
 
-                writeAsJson(moduleDescriptor);
+            } else {
+
+                ModuleDescriptor moduleDescriptor = analyzer.fromDirectory(compiledClasses, finalModuleName, false);
+
+                // We only write if there are components, functions and types defined.
+                if (shouldWriteFile(moduleDescriptor)) {
+                    writeAsJson(moduleDescriptor);
+                }
             }
-        } catch (Exception e) {
-            String errorMessage = format("Could not build components definitions: %s", e.getMessage());
-            throw new MojoFailureException(errorMessage, e);
+
+        } catch (Exception error) {
+            String errorMessage = format("Could not build components definitions: %s", error.getMessage());
+            throw new MojoFailureException(errorMessage, error);
         }
     }
 
@@ -80,5 +82,11 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
         Files.write(path, strToBytes);
 
         getLog().info("Module Descriptor written on: " + path.toString());
+    }
+
+    private static boolean shouldWriteFile(ModuleDescriptor descriptor) {
+        return !descriptor.getComponents().isEmpty() ||
+                !descriptor.getAutocompleteTypes().isEmpty() ||
+                !descriptor.getAutocompleteItems().isEmpty();
     }
 }

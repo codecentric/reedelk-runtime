@@ -62,7 +62,5 @@ class ModuleDescriptorAnalyzerTest {
         WhenDescriptor when = whens.get(0);
         assertThat(when.getPropertyName()).isEqualTo("myProperty");
         assertThat(when.getPropertyValue()).isEqualTo("VALUE1");
-
-        // TODO: Fixme with autocomplete testing
     }
 }
