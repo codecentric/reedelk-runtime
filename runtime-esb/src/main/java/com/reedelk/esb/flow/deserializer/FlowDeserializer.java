@@ -1,7 +1,6 @@
 package com.reedelk.esb.flow.deserializer;
 
 
-import com.reedelk.esb.flow.deserializer.node.ExecutionNodeDeserializer;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.commons.JsonParser;
@@ -28,7 +27,7 @@ public class FlowDeserializer {
 
             JSONObject componentDefinition = (JSONObject) componentDefinitionObject;
 
-            current = ExecutionNodeDeserializer.get()
+            current = DeserializerFactory.get()
                     .componentDefinition(componentDefinition)
                     .context(context)
                     .graph(flowGraph)

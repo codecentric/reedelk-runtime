@@ -16,6 +16,7 @@ public class FromFloatConverters {
         tmp.put(Double.class, new AsDouble());
         tmp.put(Integer.class, new AsInteger());
         tmp.put(String.class, new AsString());
+        tmp.put(Object.class, new AsObject());
         ALL = Collections.unmodifiableMap(tmp);
     }
 

@@ -1,5 +1,8 @@
 package com.reedelk.esb.component;
 
+import com.reedelk.esb.component.fork.ForkWrapper;
+import com.reedelk.esb.component.router.RouterWrapper;
+import com.reedelk.esb.component.trycatch.TryCatchWrapper;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.component.*;
 
@@ -15,6 +18,7 @@ public class RuntimeComponents {
     static {
         Map<String, Class<? extends Component>> tmp = new HashMap<>();
         tmp.put(Stop.class.getName(), Stop.class);
+        tmp.put(ForEach.class.getName(), ForEach.class);
         tmp.put(Fork.class.getName(), ForkWrapper.class);
         tmp.put(Router.class.getName(), RouterWrapper.class);
         tmp.put(TryCatch.class.getName(), TryCatchWrapper.class);

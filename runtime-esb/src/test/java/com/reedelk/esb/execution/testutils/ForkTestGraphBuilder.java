@@ -1,6 +1,6 @@
 package com.reedelk.esb.execution.testutils;
 
-import com.reedelk.esb.component.ForkWrapper;
+import com.reedelk.esb.component.fork.ForkWrapper;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.component.Stop;
@@ -80,7 +80,7 @@ public class ForkTestGraphBuilder extends AbstractTestGraphBuilder {
         return graph;
     }
 
-    class ForkSequence {
+    static class ForkSequence {
         List<ExecutionNode> sequence;
 
         ForkSequence(ExecutionNode[] sequence) {

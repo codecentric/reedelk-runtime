@@ -19,21 +19,21 @@ import java.util.function.Consumer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-abstract class AbstractExecutionTest {
+public abstract class AbstractExecutionTest {
 
-    ExecutionNode inbound = newExecutionNode(new TestInboundComponent());
-    ExecutionNode stop = newExecutionNode(new Stop());
+    protected ExecutionNode inbound = newExecutionNode(new TestInboundComponent());
+    protected ExecutionNode stop = newExecutionNode(new Stop());
 
-    static ExecutionNode newExecutionNode(Component component) {
+    public static ExecutionNode newExecutionNode(Component component) {
         return new ExecutionNode(new ExecutionNode.ReferencePair<>(component));
     }
 
-    MessageAndContext newEventWithContent(String content) {
+    protected MessageAndContext newEventWithContent(String content) {
         Message message = MessageBuilder.get().withText(content).build();
         return new NoActionResultMessageAndContext(message);
     }
 
-    ExecutionGraph newGraphSequence(ExecutionNode... executionNodes) {
+    protected ExecutionGraph newGraphSequence(ExecutionNode... executionNodes) {
         ExecutionGraph graph = ExecutionGraph.build();
         ExecutionNode previous = null;
         for (ExecutionNode executionNode : executionNodes) {
@@ -47,14 +47,14 @@ abstract class AbstractExecutionTest {
         return graph;
     }
 
-    Consumer<MessageAndContext> assertMessageContains(String expected) {
+    protected Consumer<MessageAndContext> assertMessageContains(String expected) {
         return event -> {
             String out = (String) event.getMessage().content().data();
             assertThat(out).isEqualTo(expected);
         };
     }
 
-    Consumer<MessageAndContext> assertMessageIsEmptyContent() {
+    protected Consumer<MessageAndContext> assertMessageIsEmptyContent() {
         return event -> {
             Message message = event.getMessage();
             TypedContent<?,?> content = message.content();
@@ -63,24 +63,24 @@ abstract class AbstractExecutionTest {
         };
     }
 
-    Consumer<MessageAndContext> assertMessageContainsOneOf(String... expected) {
+    protected Consumer<MessageAndContext> assertMessageContainsOneOf(String... expected) {
         return event -> {
             String out = (String) event.getMessage().content().data();
             assertThat(expected).contains(out);
         };
     }
 
-    static class NoActionResultMessageAndContext extends MessageAndContext {
+    protected static class NoActionResultMessageAndContext extends MessageAndContext {
         NoActionResultMessageAndContext(Message message) {
             super(message, DefaultFlowContext.from(message));
         }
     }
 
-    static class ProcessorThrowingIllegalStateExceptionSync implements ProcessorSync {
+    protected static class ProcessorThrowingIllegalStateExceptionSync implements ProcessorSync {
 
         private final String errorMessage;
 
-        ProcessorThrowingIllegalStateExceptionSync(String errorMessage) {
+        public ProcessorThrowingIllegalStateExceptionSync(String errorMessage) {
             this.errorMessage = errorMessage;
         }
 
@@ -90,11 +90,11 @@ abstract class AbstractExecutionTest {
         }
     }
 
-    static class ProcessorThrowingNoClassDefFoundErrorSync implements ProcessorSync {
+    protected static class ProcessorThrowingNoClassDefFoundErrorSync implements ProcessorSync {
 
         private final String missingClazz;
 
-        ProcessorThrowingNoClassDefFoundErrorSync(String missingClazz) {
+        public ProcessorThrowingNoClassDefFoundErrorSync(String missingClazz) {
             this.missingClazz = missingClazz;
         }
 
@@ -104,11 +104,11 @@ abstract class AbstractExecutionTest {
         }
     }
 
-    static class AddPostfixSyncProcessor implements ProcessorSync {
+    protected static class AddPostfixSyncProcessor implements ProcessorSync {
 
         private final String postfix;
 
-        AddPostfixSyncProcessor(String postfix) {
+        public AddPostfixSyncProcessor(String postfix) {
             this.postfix = postfix;
         }
 

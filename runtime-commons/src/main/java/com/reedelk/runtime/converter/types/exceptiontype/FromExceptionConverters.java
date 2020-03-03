@@ -13,6 +13,7 @@ public class FromExceptionConverters {
         Map<Class<?>, ValueConverter<?, ?>> tmp = new HashMap<>();
         tmp.put(byte[].class, new AsByteArray());
         tmp.put(String.class, new AsString());
+        tmp.put(Object.class, new AsObject());
         ALL = Collections.unmodifiableMap(tmp);
     }
 

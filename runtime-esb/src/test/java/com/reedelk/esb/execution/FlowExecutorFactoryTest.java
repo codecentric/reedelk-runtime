@@ -1,7 +1,10 @@
 package com.reedelk.esb.execution;
 
-import com.reedelk.esb.component.ForkWrapper;
-import com.reedelk.esb.component.RouterWrapper;
+import com.reedelk.esb.component.fork.ForkExecutor;
+import com.reedelk.esb.component.fork.ForkWrapper;
+import com.reedelk.esb.component.router.RouterExecutor;
+import com.reedelk.esb.component.router.RouterWrapper;
+import com.reedelk.esb.component.stop.StopExecutor;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorAsync;
@@ -83,18 +86,18 @@ class FlowExecutorFactoryTest {
     interface NotRelatedInterface {
     }
 
-    private class UndefinedComponentType implements Component {
+    private static class UndefinedComponentType implements Component {
 
     }
 
-    class TestProcessorAsync implements ProcessorAsync, NotRelatedInterface {
+    static class TestProcessorAsync implements ProcessorAsync, NotRelatedInterface {
         @Override
         public void apply(FlowContext flowContext, Message input, OnResult callback) {
 
         }
     }
 
-    class TestProcessorSync implements ProcessorSync, NotRelatedInterface {
+    static class TestProcessorSync implements ProcessorSync, NotRelatedInterface {
         @Override
         public Message apply(FlowContext flowContext, Message message) {
             return null;

@@ -28,6 +28,7 @@ public class FromStringConverters {
         tmp.put(String.class, new AsString());
         tmp.put(BigInteger.class, new AsBigInteger());
         tmp.put(BigDecimal.class, new AsBigDecimal());
+        tmp.put(Object.class, new AsObject());
 
         ALL = Collections.unmodifiableMap(tmp);
     }

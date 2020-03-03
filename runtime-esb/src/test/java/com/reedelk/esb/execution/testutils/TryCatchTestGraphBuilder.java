@@ -1,6 +1,6 @@
 package com.reedelk.esb.execution.testutils;
 
-import com.reedelk.esb.component.TryCatchWrapper;
+import com.reedelk.esb.component.trycatch.TryCatchWrapper;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.component.Stop;

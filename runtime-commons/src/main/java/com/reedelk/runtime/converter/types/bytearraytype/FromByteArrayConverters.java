@@ -12,6 +12,7 @@ public class FromByteArrayConverters {
     static {
         Map<Class<?>, ValueConverter<?, ?>> tmp = new HashMap<>();
         tmp.put(String.class, new AsString());
+        tmp.put(Object.class, new AsObject());
         ALL = Collections.unmodifiableMap(tmp);
     }
 

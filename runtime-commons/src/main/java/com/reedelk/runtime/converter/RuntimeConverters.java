@@ -15,6 +15,7 @@ import static java.lang.String.format;
 @SuppressWarnings("unchecked")
 public class RuntimeConverters {
 
+    // TODO: Test all for to object.
     private static final RuntimeConverters INSTANCE = new RuntimeConverters();
 
     private static class ConvertersHelper {
@@ -64,8 +65,6 @@ public class RuntimeConverters {
         if (input == null) {
             return null;
         } else if (inputClass.equals(outputClass)) {
-            return (O) input;
-        } else if (Object.class.equals(outputClass)) {
             return (O) input;
         } else if (input instanceof Exception) {
             return convertType(input, Exception.class, outputClass);

@@ -6,7 +6,7 @@ import com.reedelk.runtime.api.message.Message;
 
 import static com.reedelk.runtime.api.commons.Preconditions.checkArgument;
 
-class MessageAndContext {
+public class MessageAndContext {
 
     private final FlowContext flowContext;
     private Message message;
@@ -18,7 +18,7 @@ class MessageAndContext {
         this.flowContext = flowContext;
     }
 
-    Message getMessage() {
+    public Message getMessage() {
         return message;
     }
 
@@ -26,7 +26,7 @@ class MessageAndContext {
         return flowContext;
     }
 
-    void replaceWith(Message message) {
+    public void replaceWith(Message message) {
         checkArgument(message != null,
                 "Cannot replace current message with a null message: " +
                         "processors are not allowed to return a null message; " +
@@ -34,7 +34,7 @@ class MessageAndContext {
         this.message = message;
     }
 
-    MessageAndContext copy() {
+    public MessageAndContext copy() {
         Message messageClone = SerializationUtils.clone(message);
         return new MessageAndContext(messageClone, flowContext);
     }

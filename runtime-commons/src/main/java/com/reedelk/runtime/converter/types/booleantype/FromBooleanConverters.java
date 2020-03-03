@@ -16,6 +16,7 @@ public class FromBooleanConverters {
         tmp.put(Float.class, new AsFloat());
         tmp.put(Integer.class, new AsInteger());
         tmp.put(String.class, new AsString());
+        tmp.put(Object.class, new AsObject());
         ALL = Collections.unmodifiableMap(tmp);
     }
 

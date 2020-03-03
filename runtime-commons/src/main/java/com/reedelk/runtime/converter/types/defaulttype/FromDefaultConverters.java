@@ -14,6 +14,7 @@ public class FromDefaultConverters {
         tmp.put(byte[].class, new AsByteArray());
         tmp.put(Byte[].class, new AsByteArray());
         tmp.put(String.class, new AsString());
+        tmp.put(Object.class, new AsObject());
         ALL = Collections.unmodifiableMap(tmp);
     }
 

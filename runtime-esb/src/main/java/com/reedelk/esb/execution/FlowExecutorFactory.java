@@ -1,13 +1,19 @@
 package com.reedelk.esb.execution;
 
-import com.reedelk.esb.component.ForkWrapper;
-import com.reedelk.esb.component.RouterWrapper;
-import com.reedelk.esb.component.TryCatchWrapper;
+import com.reedelk.esb.component.foreach.ForEachExecutor;
+import com.reedelk.esb.component.fork.ForkExecutor;
+import com.reedelk.esb.component.fork.ForkWrapper;
+import com.reedelk.esb.component.router.RouterExecutor;
+import com.reedelk.esb.component.router.RouterWrapper;
+import com.reedelk.esb.component.stop.StopExecutor;
+import com.reedelk.esb.component.trycatch.TryCatchExecutor;
+import com.reedelk.esb.component.trycatch.TryCatchWrapper;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.ProcessorAsync;
 import com.reedelk.runtime.api.component.ProcessorSync;
+import com.reedelk.runtime.component.ForEach;
 import com.reedelk.runtime.component.Stop;
 import org.reactivestreams.Publisher;
 
@@ -23,6 +29,7 @@ public class FlowExecutorFactory {
     static {
         Map<Class<?>, FlowExecutor> tmp = new HashMap<>();
         tmp.put(Stop.class, new StopExecutor());
+        tmp.put(ForEach.class, new ForEachExecutor());
         tmp.put(ForkWrapper.class, new ForkExecutor());
         tmp.put(RouterWrapper.class, new RouterExecutor());
         tmp.put(TryCatchWrapper.class, new TryCatchExecutor());

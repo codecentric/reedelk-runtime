@@ -1,7 +1,7 @@
 package com.reedelk.esb.flow;
 
-import com.reedelk.esb.component.ForkWrapper;
-import com.reedelk.esb.component.RouterWrapper;
+import com.reedelk.esb.component.fork.ForkWrapper;
+import com.reedelk.esb.component.router.RouterWrapper;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.esb.graph.ExecutionNode.ReferencePair;
 import com.reedelk.esb.test.utils.TestComponent;
