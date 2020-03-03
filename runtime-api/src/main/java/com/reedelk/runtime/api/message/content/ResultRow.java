@@ -5,22 +5,42 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 
 import java.util.List;
 
-@AutocompleteType
+@AutocompleteType(
+        description = "The ResultRow type encapsulates a database row."
+)
 public interface ResultRow {
 
-    @AutocompleteItem(signature = "getColumnCount()", description = "Returns column count.")
-    int getColumnCount();
+    @AutocompleteItem(
+            signature = "columnCount()",
+            example = "row.columnCount()",
+            description = "Returns the number of columns in this row.")
+    int columnCount();
 
-    @AutocompleteItem(signature = "getColumnName(columnIndex)", cursorOffset = 12, description = "Given the column index, returns column name.")
-    String getColumnName(int columnIndex);
+    @AutocompleteItem(
+            signature = "columnName(index: int)",
+            cursorOffset = 1,
+            example = "row.columnName(4)",
+            description = "Given the column index, returns the column name at the given index.")
+    String columnName(int columnIndex);
 
-    @AutocompleteItem(signature = "columnNames()", description = "Returns a list of column names.")
+    @AutocompleteItem(
+            signature = "columnNames()",
+            cursorOffset = 1,
+            example = "row.columnNames()",
+            description = "Returns a list containing all column names of this database row.")
     List<String> columnNames();
 
-    @AutocompleteItem(signature = "get(columnIndex)", cursorOffset = 12, description = "Returns the object for the given column index.")
+    @AutocompleteItem(
+            signature = "get(index: int)",
+            cursorOffset = 1,
+            example = "row.get(3)",
+            description = "Given the column index, returns the value of the row at the given index.")
     Object get(int columnIndex);
 
-    @AutocompleteItem(signature = "row()", description = "Returns all the objects belonging to this row.")
+    @AutocompleteItem(
+            signature = "row()",
+            example = "row.row()",
+            description = "Returns a list containing all the values belonging to this row.")
     List<Object> row();
 
 }

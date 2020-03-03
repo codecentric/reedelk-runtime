@@ -7,14 +7,21 @@ import com.reedelk.runtime.api.message.content.TypedContent;
 
 import java.io.Serializable;
 
-@AutocompleteType(description = "Message payload description example test")
+@AutocompleteType(
+        description = "The Message encapsulates data and " +
+                "attributes passing through the components of a flow.")
 public interface Message extends Serializable {
 
     /**
      * Returns the message payload. This method automatically resolves the payload.
      */
-    @AutocompleteItem(returnType = Object.class, signature = "payload()",
-            description = "Returns the payload data of this message.")
+    @AutocompleteItem(
+            returnType = Object.class,
+            signature = "payload()",
+            example = "message.payload()",
+            description = "Returns the payload (data) of the message. " +
+                    "The payload could be a text, a byte array, a collection " +
+                    "and so on depending on the component which generated it.")
     <PayloadType> PayloadType payload();
 
     /*
@@ -27,9 +34,13 @@ public interface Message extends Serializable {
      * This is a 'nice to have' method to make getting the content more readable
      * from the Script language e.g. message.content() instead of message.getContent().
      */
-    @AutocompleteItem(returnType = TypedContent.class, signature = "content()",
-            description = "Returns the message content of this message. " +
-                    "The message content contains information about the payload's mime type, data type and stream status.")
+    @AutocompleteItem(
+            returnType = TypedContent.class,
+            signature = "content()",
+            example = "message.content()",
+            description = "Returns the content descriptor of this message. " +
+                    "The message content contains information about the payload's mime type, " +
+                    "data type and stream status.")
     <ItemType,PayloadType, R extends TypedContent<ItemType,PayloadType>> R content();
 
     /**
@@ -43,8 +54,11 @@ public interface Message extends Serializable {
      * from the Script language e.g. message.attributes() instead of message.getAttributes().
      * @return the message attributes.
      */
-    @AutocompleteItem(signature = "attributes()",
-            description = "Returns the attributes belonging to this message.")
+    @AutocompleteItem(
+            returnType = MessageAttributes.class,
+            signature = "attributes()",
+            example = "message.attributes()",
+            description = "Returns the message attributes belonging to this message.")
     MessageAttributes attributes();
 
 }

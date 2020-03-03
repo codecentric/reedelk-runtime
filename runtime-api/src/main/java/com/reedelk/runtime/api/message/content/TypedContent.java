@@ -5,18 +5,26 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 
 import java.io.Serializable;
 
-@AutocompleteType
+@AutocompleteType(
+        description = "A typed content contains information about the payload " +
+                "which encapsulates. Information provided by type are payload type " +
+                "(e.g String, Object, Collection), mime type (e.g text/plain, image/jpeg), " +
+                "and the actual content data.")
 public interface TypedContent<ItemType, PayloadType> extends Serializable {
 
-    @AutocompleteItem(signature = "type()",
-            description = "Returns the type of the content.")
+    @AutocompleteItem(
+            signature = "type()",
+            example = "message.content().type()",
+            description = "Returns the data type of the content.")
     Class<ItemType> type();
 
     default Class<ItemType> getType() {
         return type();
     }
 
-    @AutocompleteItem(signature = "mimeType()",
+    @AutocompleteItem(
+            signature = "mimeType()",
+            example = "message.content().mimeType()",
             description = "Returns the mime type of the content.")
     MimeType mimeType();
 
@@ -24,8 +32,12 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
         return mimeType();
     }
 
-    @AutocompleteItem(returnType = Object.class, signature = "data()",
-            description = "Returns data of this message.")
+    @AutocompleteItem(
+            returnType = Object.class,
+            signature = "data()",
+            example = "message.content().data()",
+            description = "Returns the actual data which could be could be a text, " +
+                    "a byte array, a collection and so on depending on the component which generated it.")
     PayloadType data();
 
     default PayloadType getData() {
@@ -38,12 +50,18 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
         return stream();
     }
 
-    @AutocompleteItem(signature = "isStream()",
+    @AutocompleteItem(
+            signature = "isStream()",
+            example = "message.content().isStream()",
             description = "Returns true if this message is a stream, false otherwise.")
     boolean isStream();
 
-    @AutocompleteItem(signature = "isConsumed()",
-            description = "Returns true if this message stream has been consumed, false otherwise.")
+    @AutocompleteItem(
+            signature = "isConsumed()",
+            example = "message.content().isConsumed()",
+            description = "Returns true if this message stream has been consumed, " +
+                    "false otherwise. When a stream has been consumed it means that " +
+                    "all stream data has been loaded into memory.")
     boolean isConsumed();
 
     /**
@@ -51,7 +69,10 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
      * to call before cloning the message. E.g the fork component uses this method before
      * invoking fork branches with a copy of the message.
      */
-    @AutocompleteItem(signature = "consume()",
-            description = "Consumes the payload of this message by loading the entire stream content into memory.")
+    @AutocompleteItem(
+            signature = "consume()",
+            example = "message.content().consume()",
+            description = "Consumes the stream of this message by loading the entire " +
+                    "stream content into memory.")
     void consume();
 }

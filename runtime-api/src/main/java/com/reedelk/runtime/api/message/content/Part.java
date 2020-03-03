@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-@AutocompleteType
+@AutocompleteType(description = "The Part type encapsulate a REST Part object.")
 public class Part implements Serializable {
 
     private final String name;
@@ -24,17 +24,38 @@ public class Part implements Serializable {
         return new Builder();
     }
 
-    @AutocompleteItem(signature = "getName()", description = "Returns the name of the part object.")
+    @AutocompleteItem(
+            signature = "name()",
+            example = "part.name()",
+            description = "Returns the name of the part object.")
+    public String name() {
+        return name;
+    }
+
     public String getName() {
         return name;
     }
 
-    @AutocompleteItem(signature = "getContent()", description = "Returns content of the part object.")
+    @AutocompleteItem(
+            signature = "content()",
+            example = "part.content()",
+            description = "Returns content of the part object.")
+    public TypedContent<?,?> content() {
+        return content;
+    }
+
     public TypedContent<?,?> getContent() {
         return content;
     }
 
-    @AutocompleteItem(signature = "getAttributes()", description = "Returns the attributes of the part object.")
+    @AutocompleteItem(
+            signature = "attributes()",
+            example = "part.attributes()",
+            description = "Returns the attributes of the part object.")
+    public Map<String,String> attributes() {
+        return attributes;
+    }
+
     public Map<String, String> getAttributes() {
         return attributes;
     }

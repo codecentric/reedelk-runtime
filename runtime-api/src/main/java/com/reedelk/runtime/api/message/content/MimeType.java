@@ -11,7 +11,9 @@ import java.util.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 
-@AutocompleteType
+@AutocompleteType(
+        description = "A mime type encapsulates information about the mime type of the content." +
+                " A mime type is composed by a primary type (e.g image) and by a sub type (e.g jpeg).")
 public class MimeType implements Serializable {
 
     private static final String CHARSET_PARAM = "charset";
@@ -70,7 +72,14 @@ public class MimeType implements Serializable {
         this.fileExtensions = fileExtensions != null ? unmodifiableList(fileExtensions) : emptyList();
     }
 
-    @AutocompleteItem(signature = "getSubType()", description = "Returns the sub-type of the mime type.")
+    @AutocompleteItem(
+            signature = "subType()",
+            example = "message.content().mimeType().subType()",
+            description = "Returns the sub-type of the mime type.")
+    public String subType() {
+        return subType;
+    }
+
     public String getSubType() {
         return subType;
     }
@@ -79,12 +88,26 @@ public class MimeType implements Serializable {
         return Optional.ofNullable(getCharset(charset, params));
     }
 
-    @AutocompleteItem(signature = "getPrimaryType()", description = "Returns the primary type.")
+    @AutocompleteItem(
+            signature = "primaryType()",
+            example = "message.content().mimeType().primaryType()",
+            description = "Returns the primary type of the mime type.")
+    public String primaryType() {
+        return primaryType;
+    }
+
     public String getPrimaryType() {
         return primaryType;
     }
 
-    @AutocompleteItem(signature = "getFileExtensions()", description = "Returns a list of file extensions associated to this mime type.")
+    @AutocompleteItem(
+            signature = "fileExtensions()",
+            example = "message.content().mimeType().fileExtensions()",
+            description = "Returns a list of file extensions associated to this mime type.")
+    public List<String> fileExtensions() {
+        return fileExtensions;
+    }
+
     public List<String> getFileExtensions() {
         return fileExtensions;
     }

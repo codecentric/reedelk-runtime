@@ -9,12 +9,51 @@ import java.util.Map;
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE;
 
-@AutocompleteType
-@AutocompleteItem(itemType = VARIABLE, returnType = String.class, token = "correlationId", signature = "correlationId", description = "Returns the current flow correlation id.")
-@AutocompleteItem(itemType = FUNCTION, returnType = Void.class, token = "put", signature = "put('',)", cursorOffset = 3, description = "Puts a property with the given value into the flow context.")
-@AutocompleteItem(itemType = FUNCTION, returnType = Serializable.class, token = "get", signature = "get('')", cursorOffset = 2, description = "Retrieves a property from the flow context.")
-@AutocompleteItem(itemType = FUNCTION, returnType = boolean.class, token = "contains", signature = "contains('')", cursorOffset = 2,  description = "Checks whether an attribute with the given key exists in the context.")
-@AutocompleteItem(itemType = FUNCTION, returnType = String.class, token = "toString", signature = "toString()", description = "Returns a string representation of the flow context.")
+
+
+@AutocompleteType(
+        description = "The FlowContext type encapsulates the execution context for a flow. " +
+                "The execution context allows to store and retrieve data which can be accessed by components during " +
+                "the execution of a flow. For example the correlation id which is a unique identifier generated " +
+                "every time a flow is executed.")
+@AutocompleteItem(
+        itemType = VARIABLE,
+        returnType = String.class,
+        example = "context.correlationId",
+        token = "correlationId",
+        signature = "correlationId",
+        description = "Returns the current flow correlation id.")
+@AutocompleteItem(
+        cursorOffset = 1,
+        itemType = FUNCTION,
+        returnType = Void.class,
+        token = "put",
+        signature = "put(key: String, object: Serializable)",
+        example = "context.put('myJson', message.payload())",
+        description = "Puts an object with the given key into the flow context.")
+@AutocompleteItem(
+        cursorOffset = 1,
+        itemType = FUNCTION,
+        returnType = Serializable.class,
+        token = "get",
+        signature = "get(key: String)",
+        example = "context.get('myJson')",
+        description = "Retrieves the object stored in the context given the key.")
+@AutocompleteItem(
+        cursorOffset = 1,
+        itemType = FUNCTION,
+        returnType = boolean.class,
+        token = "contains",
+        signature = "contains(key: String)",
+        example = "context.contains('myJson')",
+        description = "Checks whether an object with the given key exists in the context.")
+@AutocompleteItem(
+        itemType = FUNCTION,
+        returnType = String.class,
+        token = "toString",
+        signature = "toString()",
+        example = "context.toString()",
+        description = "Returns a string representation of the flow context.")
 public interface FlowContext extends Map<String, Serializable>, Disposable {
 
     /**
