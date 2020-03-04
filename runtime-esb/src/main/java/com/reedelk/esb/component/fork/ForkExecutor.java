@@ -44,11 +44,11 @@ public class ForkExecutor implements FlowExecutor {
 
         ExecutionNode stopNode = fork.getStopNode();
 
-        // If the stop node does not have next node, then it means that the Fork
-        // is not followed by any other component.
+        // If the stop node does not have next node, then it means that
+        // the Fork is not followed by any other component.
         ExecutionNode nextAfterStop = NextNode.of(stopNode, graph).orElse(null);
 
-        final Join join = getJoinComponentOrDefault(nextAfterStop);
+        final Join join = joinComponentOrDefault(nextAfterStop);
 
         Flux<MessageAndContext> joinedForkFlux = Flux.from(publisher).flatMap(messageContext -> {
 
@@ -119,7 +119,7 @@ public class ForkExecutor implements FlowExecutor {
         return false;
     }
 
-    private Join getJoinComponentOrDefault(ExecutionNode nextAfterStop) {
+    private Join joinComponentOrDefault(ExecutionNode nextAfterStop) {
         return Optional.ofNullable(nextAfterStop)
                 .flatMap(executionNode -> executionNode.getComponent() instanceof Join ?
                         Optional.of((Join) executionNode.getComponent()) :
