@@ -1,6 +1,6 @@
-package com.reedelk.esb.execution.testutils;
+package com.reedelk.esb.component.fork;
 
-import com.reedelk.esb.component.fork.ForkWrapper;
+import com.reedelk.esb.component.AbstractTestGraphBuilder;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.component.Stop;

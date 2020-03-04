@@ -318,4 +318,19 @@ public class JsonParser {
             object.put(doCatch(), doCatch);
         }
     }
+
+    public interface ForEach extends Component {
+
+        static String doEach() {
+            return "each";
+        }
+
+        static JSONArray doEach(JSONObject object) {
+            return object.getJSONArray(doEach());
+        }
+
+        static void doEach(JSONArray doEach, JSONObject object) {
+            object.put(doEach(), doEach);
+        }
+    }
 }

@@ -14,6 +14,7 @@ import com.reedelk.runtime.component.Stop;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collection;
 import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,6 +34,11 @@ public abstract class AbstractExecutionTest {
         return new NoActionResultMessageAndContext(message);
     }
 
+    protected MessageAndContext newEventWithContent(Object content) {
+        Message message = MessageBuilder.get().withJavaObject(content).build();
+        return new NoActionResultMessageAndContext(message);
+    }
+
     protected ExecutionGraph newGraphSequence(ExecutionNode... executionNodes) {
         ExecutionGraph graph = ExecutionGraph.build();
         ExecutionNode previous = null;
@@ -47,9 +53,16 @@ public abstract class AbstractExecutionTest {
         return graph;
     }
 
+    protected Consumer<MessageAndContext> assertMessageContains(Collection<Object> expected) {
+        return event -> {
+            Collection<Object> out = event.getMessage().payload();
+            assertThat(out).isEqualTo(expected);
+        };
+    }
+
     protected Consumer<MessageAndContext> assertMessageContains(String expected) {
         return event -> {
-            String out = (String) event.getMessage().content().data();
+            String out = event.getMessage().payload();
             assertThat(out).isEqualTo(expected);
         };
     }

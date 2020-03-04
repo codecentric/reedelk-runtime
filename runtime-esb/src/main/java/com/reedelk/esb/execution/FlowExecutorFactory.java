@@ -1,6 +1,7 @@
 package com.reedelk.esb.execution;
 
 import com.reedelk.esb.component.foreach.ForEachExecutor;
+import com.reedelk.esb.component.foreach.ForEachWrapper;
 import com.reedelk.esb.component.fork.ForkExecutor;
 import com.reedelk.esb.component.fork.ForkWrapper;
 import com.reedelk.esb.component.router.RouterExecutor;
@@ -29,9 +30,9 @@ public class FlowExecutorFactory {
     static {
         Map<Class<?>, FlowExecutor> tmp = new HashMap<>();
         tmp.put(Stop.class, new StopExecutor());
-        tmp.put(ForEach.class, new ForEachExecutor());
         tmp.put(ForkWrapper.class, new ForkExecutor());
         tmp.put(RouterWrapper.class, new RouterExecutor());
+        tmp.put(ForEachWrapper.class, new ForEachExecutor());
         tmp.put(TryCatchWrapper.class, new TryCatchExecutor());
         tmp.put(ProcessorSync.class, new ProcessorSyncExecutor());
         tmp.put(ProcessorAsync.class, new ProcessorAsyncExecutor());

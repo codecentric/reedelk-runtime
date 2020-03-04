@@ -24,9 +24,8 @@ public class TryCatchDeserializer extends AbstractDeserializer {
 
         String componentName = Implementor.name(componentDefinition);
 
-        ExecutionNode tryCatchExecutionNode = context.instantiateComponent(componentName);
-
         ExecutionNode stopComponent = context.instantiateComponent(Stop.class);
+        ExecutionNode tryCatchExecutionNode = context.instantiateComponent(componentName);
 
         TryCatchWrapper tryCatchWrapper = (TryCatchWrapper) tryCatchExecutionNode.getComponent();
 

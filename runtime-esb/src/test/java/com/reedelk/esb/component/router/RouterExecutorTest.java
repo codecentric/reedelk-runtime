@@ -2,7 +2,6 @@ package com.reedelk.esb.component.router;
 
 import com.reedelk.esb.execution.AbstractExecutionTest;
 import com.reedelk.esb.execution.MessageAndContext;
-import com.reedelk.esb.execution.testutils.RouterTestGraphBuilder;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import org.junit.jupiter.api.BeforeEach;

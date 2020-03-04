@@ -1,6 +1,6 @@
-package com.reedelk.esb.execution.testutils;
+package com.reedelk.esb.component.trycatch;
 
-import com.reedelk.esb.component.trycatch.TryCatchWrapper;
+import com.reedelk.esb.component.AbstractTestGraphBuilder;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.component.Stop;
@@ -73,7 +73,7 @@ public class TryCatchTestGraphBuilder extends AbstractTestGraphBuilder {
         return graph;
     }
 
-    class Sequence {
+    static class Sequence {
         List<ExecutionNode> sequence;
         Sequence(ExecutionNode[] sequence) {
             this.sequence = Arrays.asList(sequence);

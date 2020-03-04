@@ -1,6 +1,6 @@
-package com.reedelk.esb.execution.testutils;
+package com.reedelk.esb.component.router;
 
-import com.reedelk.esb.component.router.RouterWrapper;
+import com.reedelk.esb.component.AbstractTestGraphBuilder;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.commons.ModuleContext;

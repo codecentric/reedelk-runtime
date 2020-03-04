@@ -38,4 +38,8 @@ public class MessageAndContext {
         Message messageClone = SerializationUtils.clone(message);
         return new MessageAndContext(messageClone, flowContext);
     }
+
+    public MessageAndContext copyWithMessage(Message newMessage) {
+        return new MessageAndContext(newMessage, flowContext);
+    }
 }
