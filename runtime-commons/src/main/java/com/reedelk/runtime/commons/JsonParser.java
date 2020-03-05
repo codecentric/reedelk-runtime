@@ -321,16 +321,16 @@ public class JsonParser {
 
     public interface ForEach extends Component {
 
-        static String doEach() {
-            return "each";
+        static String next() {
+            return "next";
         }
 
-        static JSONArray doEach(JSONObject object) {
-            return object.getJSONArray(doEach());
+        static JSONArray next(JSONObject object) {
+            return object.getJSONArray(next());
         }
 
-        static void doEach(JSONArray doEach, JSONObject object) {
-            object.put(doEach(), doEach);
+        static void next(JSONArray doEach, JSONObject object) {
+            object.put(next(), doEach);
         }
     }
 }

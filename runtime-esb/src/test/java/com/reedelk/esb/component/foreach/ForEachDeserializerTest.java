@@ -34,7 +34,7 @@ public class ForEachDeserializerTest extends AbstractDeserializerTest {
                 ComponentsBuilder.createNextComponentsArray(component6Name, component5Name);
 
         JSONObject componentDefinition = ComponentsBuilder.forComponent(ForEach.class)
-                .with("each", eachArray)
+                .with("next", eachArray)
                 .build();
 
         // Mock the call made by FindFirstSuccessorLeadingTo.of function.

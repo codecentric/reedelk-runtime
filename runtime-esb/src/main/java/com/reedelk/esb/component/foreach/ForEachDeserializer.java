@@ -33,7 +33,7 @@ public class ForEachDeserializer extends AbstractDeserializer {
 
         ExecutionNode currentNode = forEachExecutionNode;
 
-        JSONArray doEach = ForEach.doEach(componentDefinition);
+        JSONArray doEach = ForEach.next(componentDefinition);
 
         for (int i = 0; i < doEach.length(); i++) {
             JSONObject currentComponentDefinition = doEach.getJSONObject(i);
