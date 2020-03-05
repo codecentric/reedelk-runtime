@@ -13,7 +13,7 @@
 
     <packaging>pom</packaging>
     <artifactId>module-parent</artifactId>
-    
+
     <dependencies>
         <dependency>
             <groupId>com.reedelk</groupId>
