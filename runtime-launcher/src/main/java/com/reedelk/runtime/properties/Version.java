@@ -6,7 +6,7 @@ package com.reedelk.runtime.properties;
  */
 public final class Version {
 
-    private static final String VERSION = "0.9.0";
+    private static final String VERSION = "0.9.1-SNAPSHOT";
     private static final String GROUPID = "com.reedelk";
     private static final String ARTIFACTID = "runtime-launcher";
 
