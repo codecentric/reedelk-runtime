@@ -5,10 +5,13 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 class AsString implements ValueConverter<ScriptObjectMirror,String> {
 
+    private AsObject asObject = new AsObject();
+
     @Override
     public String from(ScriptObjectMirror value) {
-        // TODO: No, this one should be converted
-        //  to Java object (e.g list or map) and then to string.
-        return value.toString();
+        // We first must convert the Script Object to a java Primitive Type,
+        // Map or Array and then we can convert it to string.
+        Object javascriptObject = asObject.from(value);
+        return javascriptObject.toString();
     }
 }
