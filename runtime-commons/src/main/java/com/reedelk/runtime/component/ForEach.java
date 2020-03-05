@@ -13,8 +13,8 @@ public class ForEach implements Component {
     @InitValue("#[message.payload()]")
     @Example("<code>message.payload()</code>")
     @Description("The collection of items this component should loop through. " +
-            "For each item in the collection a new message is created with payload a single item of the collection " +
-            "and the elements following this component will be executed with every new message.")
+            "For each item in the collection a new message is created with the payload containing a single item of the collection." +
+            " The components following For Each will be executed with every message created out of the collection.")
     private DynamicObject collection;
 
     public DynamicObject getCollection() {
