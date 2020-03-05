@@ -4,19 +4,24 @@ import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.esb.test.utils.TestInboundComponent;
 import com.reedelk.runtime.api.component.Component;
+import com.reedelk.runtime.api.component.Join;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.EmptyContent;
+import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.TypedContent;
+import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.component.Stop;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 
+import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,6 +36,11 @@ public abstract class AbstractExecutionTest {
 
     protected MessageAndContext newEventWithContent(String content) {
         Message message = MessageBuilder.get().withText(content).build();
+        return new NoActionResultMessageAndContext(message);
+    }
+
+    protected MessageAndContext newEventWithContent(TypedPublisher<String> stream) {
+        Message message = MessageBuilder.get().withTypedPublisher(stream, MimeType.TEXT).build();
         return new NoActionResultMessageAndContext(message);
     }
 
@@ -128,6 +138,23 @@ public abstract class AbstractExecutionTest {
             String inputString = (String) message.content().data();
             String outputString = inputString + postfix;
             return MessageBuilder.get().withText(outputString).build();
+        }
+    }
+
+    public static class JoinStringWithDelimiter implements Join {
+
+        private final String delimiter;
+
+        public JoinStringWithDelimiter(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        @Override
+        public Message apply(FlowContext flowContext, List<Message> messages) {
+            String joined = messages.stream()
+                    .map(message -> (String) message.content().data())
+                    .collect(joining(delimiter));
+            return MessageBuilder.get().withText(joined).build();
         }
     }
 }

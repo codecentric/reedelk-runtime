@@ -9,9 +9,12 @@ import com.reedelk.esb.execution.FlowExecutorFactory;
 import com.reedelk.esb.execution.MessageAndContext;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
+import com.reedelk.esb.services.scriptengine.ScriptEngine;
 import com.reedelk.runtime.api.component.Join;
+import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
+import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -27,6 +30,8 @@ public class ForEachExecutor implements FlowExecutor {
 
         ForEachWrapper forEach = (ForEachWrapper) currentNode.getComponent();
 
+        DynamicObject collection = forEach.getCollection();
+
         ExecutionNode firstEachNode = forEach.getFirstEachNode();
 
         ExecutionNode stopNode = forEach.getStopNode();
@@ -39,12 +44,16 @@ public class ForEachExecutor implements FlowExecutor {
 
         Flux<MessageAndContext> forEachResults = Flux.from(publisher).flatMap(messageAndContext -> {
 
+            FlowContext flowContext = messageAndContext.getFlowContext();
+
             Message message = messageAndContext.getMessage();
+
+            Object payload =
+                    ScriptEngine.getInstance().evaluate(collection, flowContext, message).orElse(null);
 
             List<Mono<MessageAndContext>> each = new ArrayList<>();
 
             // Get payload
-            Object payload = message.payload();
             if (payload instanceof Collection) {
                 Collection<?> data = (Collection<?>) payload;
                 for (Object item : data) {
@@ -87,7 +96,9 @@ public class ForEachExecutor implements FlowExecutor {
                                                            ExecutionNode firstEachNode,
                                                            MessageAndContext messageAndContext,
                                                            Object item) {
-        Message messageWithItem = MessageBuilder.get().withJavaObject(item).build();
+        Message messageWithItem = item == null ?
+                MessageBuilder.get().empty().build() :
+                MessageBuilder.get().withJavaObject(item).build();
         MessageAndContext messageAndContextWithItem = messageAndContext.copyWithMessage(messageWithItem);
         Mono<MessageAndContext> parent = Mono.just(messageAndContextWithItem);
         Publisher<MessageAndContext> eachPublisher = FlowExecutorFactory.get().execute(parent, firstEachNode, graph);

@@ -8,7 +8,6 @@ import com.reedelk.runtime.api.component.Join;
 import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
-import com.reedelk.runtime.api.message.MessageBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
@@ -19,7 +18,6 @@ import reactor.test.StepVerifier;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.joining;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 
@@ -39,7 +37,7 @@ class ForkExecutorTest extends AbstractExecutionTest {
         doReturn(Schedulers.elastic()).when(executor).flowScheduler();
 
         forkNode = newExecutionNode(forkWrapper);
-        joinNode = newExecutionNode(new JoinString());
+        joinNode = newExecutionNode(new JoinStringWithDelimiter(","));
         fork1Node = newExecutionNode(new AddPostfixSyncProcessor("-fork1"));
         fork2Node = newExecutionNode(new AddPostfixSyncProcessor("-fork2"));
         nodeFollowingJoin = newExecutionNode(new AddPostfixSyncProcessor("-following-join"));
@@ -218,16 +216,6 @@ class ForkExecutorTest extends AbstractExecutionTest {
         StepVerifier.create(endPublisher)
                 .assertNext(assertMessageContainsInAnyOrder("ForkTest-fork1", "ForkTest-fork2"))
                 .verifyComplete();
-    }
-
-    static class JoinString implements Join {
-        @Override
-        public Message apply(FlowContext flowContext, List<Message> messages) {
-            String joined = messages.stream()
-                    .map(message -> (String) message.content().data())
-                    .collect(joining(","));
-            return MessageBuilder.get().withText(joined).build();
-        }
     }
 
     static class JoinThrowingException implements Join {
