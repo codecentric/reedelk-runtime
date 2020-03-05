@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class FromScriptObjectMirrorConverters {
 
-    // TODO: Test me
     public static final Map<Class<?>, ValueConverter<?, ?>> ALL;
     static {
         Map<Class<?>, ValueConverter<?, ?>> tmp = new HashMap<>();

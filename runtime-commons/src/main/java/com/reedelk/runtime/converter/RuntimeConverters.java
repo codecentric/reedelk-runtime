@@ -15,7 +15,6 @@ import static java.lang.String.format;
 @SuppressWarnings("unchecked")
 public class RuntimeConverters {
 
-    // TODO: Test all for to object.
     private static final RuntimeConverters INSTANCE = new RuntimeConverters();
 
     private static class ConvertersHelper {
