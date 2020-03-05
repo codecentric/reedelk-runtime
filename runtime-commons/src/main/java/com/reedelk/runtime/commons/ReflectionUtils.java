@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,12 +43,9 @@ public class ReflectionUtils {
 
     public static Optional<Method> getSetter(Object object, String propertyName) {
         String methodName = setterName(propertyName);
-        Method[] declaredMethods = object.getClass().getDeclaredMethods();
-        for (Method method : declaredMethods) {
-            String name = method.getName();
-            if (name.equals(methodName)) return Optional.of(method);
-        }
-        return Optional.empty();
+        return stream(object.getClass().getMethods())
+                .filter(method -> (method.getName().equals(methodName)))
+                .findFirst();
     }
 
     public static <T> List<GetterMethod> listGetters(Class<T> clazz) {

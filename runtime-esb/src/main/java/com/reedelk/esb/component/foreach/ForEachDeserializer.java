@@ -4,13 +4,15 @@ import com.reedelk.esb.commons.FindFirstSuccessorLeadingTo;
 import com.reedelk.esb.flow.deserializer.AbstractDeserializer;
 import com.reedelk.esb.flow.deserializer.DeserializerFactory;
 import com.reedelk.esb.flow.deserializer.FlowDeserializerContext;
+import com.reedelk.esb.flow.deserializer.GenericComponentDefinitionDeserializer;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
+import com.reedelk.runtime.commons.JsonParser;
+import com.reedelk.runtime.component.ForEach;
 import com.reedelk.runtime.component.Stop;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import static com.reedelk.runtime.commons.JsonParser.ForEach;
 import static com.reedelk.runtime.commons.JsonParser.Implementor;
 
 public class ForEachDeserializer extends AbstractDeserializer {
@@ -25,15 +27,21 @@ public class ForEachDeserializer extends AbstractDeserializer {
         String componentName = Implementor.name(componentDefinition);
 
         ExecutionNode stopComponent = context.instantiateComponent(Stop.class);
+
         ExecutionNode forEachExecutionNode = context.instantiateComponent(componentName);
 
         ForEachWrapper forEachWrapper = (ForEachWrapper) forEachExecutionNode.getComponent();
+
+        GenericComponentDefinitionDeserializer deserializer =
+                new GenericComponentDefinitionDeserializer(forEachExecutionNode, context);
+
+        deserializer.deserialize(componentDefinition, (ForEach) forEachWrapper);
 
         graph.putEdge(parent, forEachExecutionNode);
 
         ExecutionNode currentNode = forEachExecutionNode;
 
-        JSONArray doEach = ForEach.next(componentDefinition);
+        JSONArray doEach = JsonParser.ForEach.next(componentDefinition);
 
         for (int i = 0; i < doEach.length(); i++) {
             JSONObject currentComponentDefinition = doEach.getJSONObject(i);

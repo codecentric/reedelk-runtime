@@ -25,7 +25,7 @@ public class GenericComponentDefinitionDeserializer {
     private final ExecutionNode executionNode;
     private final FlowDeserializerContext context;
 
-    GenericComponentDefinitionDeserializer(final ExecutionNode executionNode, final FlowDeserializerContext context) {
+    public GenericComponentDefinitionDeserializer(final ExecutionNode executionNode, final FlowDeserializerContext context) {
         this.executionNode = executionNode;
         this.context = context;
     }

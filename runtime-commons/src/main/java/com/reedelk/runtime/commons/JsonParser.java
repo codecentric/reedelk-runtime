@@ -332,5 +332,6 @@ public class JsonParser {
         static void next(JSONArray doEach, JSONObject object) {
             object.put(next(), doEach);
         }
+
     }
 }

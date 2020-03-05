@@ -48,8 +48,9 @@ public class ForEachExecutor implements FlowExecutor {
 
             Message message = messageAndContext.getMessage();
 
-            Object payload =
-                    ScriptEngine.getInstance().evaluate(collection, flowContext, message).orElse(null);
+            Object payload = ScriptEngine.getInstance()
+                    .evaluate(collection, flowContext, message)
+                    .orElse(null);
 
             List<Mono<MessageAndContext>> each = new ArrayList<>();
 
