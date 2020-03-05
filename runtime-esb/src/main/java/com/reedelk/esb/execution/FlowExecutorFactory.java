@@ -14,7 +14,6 @@ import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.ProcessorAsync;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.component.ForEach;
 import com.reedelk.runtime.component.Stop;
 import org.reactivestreams.Publisher;
 

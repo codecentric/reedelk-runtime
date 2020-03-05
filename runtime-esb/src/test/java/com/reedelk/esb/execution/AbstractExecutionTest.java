@@ -53,10 +53,17 @@ public abstract class AbstractExecutionTest {
         return graph;
     }
 
-    protected Consumer<MessageAndContext> assertMessageContains(Collection<Object> expected) {
+    protected Consumer<MessageAndContext> assertMessageContainsItems(Object ...expected) {
         return event -> {
             Collection<Object> out = event.getMessage().payload();
-            assertThat(out).isEqualTo(expected);
+            assertThat(out).containsExactly(expected);
+        };
+    }
+
+    protected Consumer<MessageAndContext> assertMessageContainsInAnyOrder(Object ...expected) {
+        return event -> {
+            Collection<Object> out = event.getMessage().payload();
+            assertThat(out).containsExactlyInAnyOrder(expected);
         };
     }
 
@@ -64,15 +71,6 @@ public abstract class AbstractExecutionTest {
         return event -> {
             String out = event.getMessage().payload();
             assertThat(out).isEqualTo(expected);
-        };
-    }
-
-    protected Consumer<MessageAndContext> assertMessageIsEmptyContent() {
-        return event -> {
-            Message message = event.getMessage();
-            TypedContent<?,?> content = message.content();
-            assertThat(content).isInstanceOf(EmptyContent.class);
-            assertThat(content.data()).isNull();
         };
     }
 

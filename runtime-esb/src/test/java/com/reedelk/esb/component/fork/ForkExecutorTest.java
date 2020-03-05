@@ -216,7 +216,7 @@ class ForkExecutorTest extends AbstractExecutionTest {
 
         // Then
         StepVerifier.create(endPublisher)
-                .assertNext(assertMessageIsEmptyContent())
+                .assertNext(assertMessageContainsInAnyOrder("ForkTest-fork1", "ForkTest-fork2"))
                 .verifyComplete();
     }
 

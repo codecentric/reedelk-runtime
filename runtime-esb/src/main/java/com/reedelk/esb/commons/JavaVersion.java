@@ -15,7 +15,7 @@ public class JavaVersion {
             String onlyMajor = split[0] + split[1];
             return Integer.parseInt(onlyMajor) > 18;
         } catch (Throwable e) {
-            logger.warn("Could not parse full Java version: " + fullVersion);
+            logger.warn(String.format("Could not parse full Java version=[%s]", fullVersion));
             return false;
         }
     }

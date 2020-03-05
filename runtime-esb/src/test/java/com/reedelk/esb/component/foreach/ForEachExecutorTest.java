@@ -55,7 +55,7 @@ class ForEachExecutorTest extends AbstractExecutionTest {
 
         // Then
         StepVerifier.create(endPublisher)
-                .assertNext(assertMessageContains(asList("one-each1-each2", "two-each1-each2")))
+                .assertNext(assertMessageContainsInAnyOrder("one-each1-each2", "two-each1-each2"))
                 .verifyComplete();
     }
 
@@ -77,7 +77,7 @@ class ForEachExecutorTest extends AbstractExecutionTest {
 
         // Then
         StepVerifier.create(endPublisher)
-                .assertNext(assertMessageContains(Collections.singletonList("one-each1-each2")))
+                .assertNext(assertMessageContainsItems("one-each1-each2"))
                 .verifyComplete();
     }
 }
