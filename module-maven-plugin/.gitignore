@@ -13,17 +13,14 @@ target/
 *.ipr
 *.iws
 *.idea
-*.mule_ide/
 
 # Mac
 .DS_Store
 
 # Test remnants
 objectstore/
-.mule/
 *.log
 temp/
-muleEmbeddedDB/
 activemq-data/
 testdir/
 hostkey.ser
