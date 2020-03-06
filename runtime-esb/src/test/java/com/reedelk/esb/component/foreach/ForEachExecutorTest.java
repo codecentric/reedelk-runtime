@@ -177,4 +177,49 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .assertNext(assertMessageContainsItems("one-each1-each2", "two-each1-each2", "three-each1-each2", "four-each1-each2"))
                 .verifyComplete();
     }
+
+    @Test
+    void shouldReturnOriginalPayloadWhenForEachEmptyAndNoComponentsAfterwards() {
+        // Given
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .build();
+
+        TypedPublisher<String> payload = TypedPublisher.fromString(Flux.just("one", "two"));
+        MessageAndContext event = newEventWithContent(payload);
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .assertNext(assertMessageContains("onetwo"))
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldReturnOriginalPayloadWhenForEachEmptyAndComponentsAfterwards() {
+        // Given
+        ExecutionNode afterForEach = newExecutionNode(new AddPostfixSyncProcessor(" after for each"));
+
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .afterForEachSequence(afterForEach)
+                .build();
+
+        TypedPublisher<String> payload = TypedPublisher.fromString(Flux.just("one", "two"));
+        MessageAndContext event = newEventWithContent(payload);
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .assertNext(assertMessageContains("onetwo after for each"))
+                .verifyComplete();
+    }
 }

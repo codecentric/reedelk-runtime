@@ -40,6 +40,15 @@ public class ForEachExecutor implements FlowExecutor {
         // is not followed by any other component.
         ExecutionNode nextAfterStop = NextNode.of(stopNode, graph).orElse(null);
 
+        // If the for each does not contain any component, we have two cases:
+        // 1. Exists a node after 'stop' node, then we need to execute the remaining flow outside the foreach.
+        // 2. Does not exist a node after 'stop': we return the original stream.
+        if (firstEachNode == null) {
+            return nextAfterStop != null ?
+                    FlowExecutorFactory.get().execute(publisher, nextAfterStop, graph) :
+                    publisher;
+        }
+
         final Join join = JoinUtils.joinComponentOrDefault(nextAfterStop);
 
         Flux<MessageAndContext> forEachResults = Flux.from(publisher).flatMap(messageAndContext -> {

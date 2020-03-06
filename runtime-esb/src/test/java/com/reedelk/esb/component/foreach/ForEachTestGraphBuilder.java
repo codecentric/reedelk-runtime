@@ -15,7 +15,7 @@ public class ForEachTestGraphBuilder extends AbstractTestGraphBuilder {
     private ExecutionNode join;
     private ExecutionNode forEach;
     private ExecutionNode inbound;
-    private List<ExecutionNode> sequence;
+    private List<ExecutionNode> sequence = new ArrayList<>();
     private List<ExecutionNode> followingSequence = new ArrayList<>();
 
     private ForEachTestGraphBuilder() {

@@ -37,7 +37,7 @@ public abstract class DynamicValue<T> implements ScriptBlock {
         this.functionNameUUID = FunctionNameUUID.generate(context);
     }
 
-    protected DynamicValue(DynamicValue original) {
+    protected DynamicValue(DynamicValue<?> original) {
         this.body = original.body;
         this.context = original.context;
         this.isScript = original.isScript;
