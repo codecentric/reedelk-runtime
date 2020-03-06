@@ -3,12 +3,13 @@ package com.reedelk.runtime.api.message.content;
 import com.reedelk.runtime.api.annotation.AutocompleteItem;
 import com.reedelk.runtime.api.annotation.AutocompleteType;
 
+import java.io.Serializable;
 import java.util.List;
 
 @AutocompleteType(
         description = "The ResultRow type encapsulates a database row."
 )
-public interface ResultRow {
+public interface ResultRow extends Serializable {
 
     @AutocompleteItem(
             signature = "columnCount()",
@@ -36,6 +37,13 @@ public interface ResultRow {
             example = "row.get(3)",
             description = "Given the column index, returns the value of the row at the given index.")
     Object get(int columnIndex);
+
+    @AutocompleteItem(
+            signature = "get(columnName: String)",
+            cursorOffset = 1,
+            example = "row.get('id')",
+            description = "Given the column name, returns the value of the row from the given column name.")
+    Object get(String columnName);
 
     @AutocompleteItem(
             signature = "row()",
