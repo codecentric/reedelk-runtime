@@ -39,11 +39,11 @@ public interface ResultRow extends Serializable {
     Object get(int columnIndex);
 
     @AutocompleteItem(
-            signature = "get(columnName: String)",
+            signature = "getByName(columnName: String)",
             cursorOffset = 1,
-            example = "row.get('id')",
+            example = "row.getByName('id')",
             description = "Given the column name, returns the value of the row from the given column name.")
-    Object get(String columnName);
+    Object getByColumnName(String columnName);
 
     @AutocompleteItem(
             signature = "row()",
