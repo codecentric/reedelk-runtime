@@ -12,11 +12,13 @@
       "streaming": "AUTO",
       "response": {
         "body": "#[message.payload()]",
-        "status": 200
+        "status": 200,
+        "headers": {"Access-Control-Allow-Origin": "#['*']"}
       },
       "errorResponse": {
         "body": "#[error]",
-        "status": 500
+        "status": 500,
+        "headers": {"Access-Control-Allow-Origin": "#['*']"}
       }
     },
     {
