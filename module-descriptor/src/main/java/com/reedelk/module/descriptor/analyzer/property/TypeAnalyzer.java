@@ -2,21 +2,17 @@ package com.reedelk.module.descriptor.analyzer.property;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
+import com.reedelk.module.descriptor.analyzer.property.type.KnownTypeDescriptor;
 import com.reedelk.module.descriptor.model.*;
-import com.reedelk.runtime.api.annotation.Combo;
 import com.reedelk.runtime.api.annotation.DisplayName;
-import com.reedelk.runtime.api.annotation.MimeTypeCombo;
-import com.reedelk.runtime.api.annotation.TabGroup;
 import com.reedelk.runtime.api.commons.PlatformTypes;
-import com.reedelk.runtime.api.message.content.MimeType;
 import io.github.classgraph.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
-import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
-import static com.reedelk.runtime.api.commons.StringUtils.isNotBlank;
-import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
@@ -53,7 +49,7 @@ public class TypeAnalyzer implements FieldInfoAnalyzer {
             // For example: String, Integer, Float, DynamicString ...
         } else if (PlatformTypes.isSupported(fullyQualifiedClassName)) {
             Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
-            return processKnownType(clazz, fieldInfo);
+            return KnownTypeDescriptor.from(clazz, fieldInfo);
 
         } else {
             // We check that it is a user defined object type (with Implementor).
@@ -96,81 +92,5 @@ public class TypeAnalyzer implements FieldInfoAnalyzer {
         TypeEnumDescriptor descriptor = new TypeEnumDescriptor();
         descriptor.setNameAndDisplayNameMap(nameAndDisplayName);
         return descriptor;
-    }
-
-    private TypeDescriptor processKnownType(Class<?> clazz, FieldInfo fieldInfo) {
-        if (isDynamicValue(clazz)) {
-            TypeDynamicValueDescriptor descriptor = new TypeDynamicValueDescriptor();
-            descriptor.setType(clazz);
-            return descriptor;
-
-        } else if (isDynamicMap(clazz)) {
-            String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
-            TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
-            TypeDynamicMapDescriptor descriptor = new TypeDynamicMapDescriptor();
-            descriptor.setType(clazz);
-            descriptor.setTabGroup(tabGroup);
-            descriptor.setTabPlacement(tabPlacement);
-            return descriptor;
-
-        } else if (isScript(clazz)) {
-            return new TypeScriptDescriptor();
-
-        } else if (isPassword(fieldInfo, clazz)) {
-            return new TypePasswordDescriptor();
-
-        } else if (isResourceText(clazz)) {
-            return new TypeResourceTextDescriptor();
-
-        } else if (isResourceBinary(clazz)) {
-            return new TypeResourceBinaryDescriptor();
-
-        } else if (isCombo(fieldInfo, clazz)) {
-            boolean editable = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "editable", false);
-            Object[] comboValues = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "comboValues", new String[]{});
-            String prototype = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "prototype", null);
-            String[] items = stream(comboValues).map(value -> (String) value).toArray(String[]::new);
-            TypeComboDescriptor descriptor = new TypeComboDescriptor();
-            descriptor.setEditable(editable);
-            descriptor.setComboValues(items);
-            descriptor.setPrototype(prototype);
-            return descriptor;
-
-        } else if (isMimeTypeCombo(fieldInfo, clazz)) {
-            List<String> predefinedMimeTypes = Arrays.asList(MimeType.ALL_MIME_TYPES);
-            String additionalMimeTypes = annotationParameterValueOrDefaultFrom(fieldInfo, MimeTypeCombo.class, "additionalTypes", EMPTY);
-            if (isNotBlank(additionalMimeTypes)) {
-                String[] additionalTypes = additionalMimeTypes.split(",");
-                predefinedMimeTypes = new ArrayList<>(predefinedMimeTypes);
-                predefinedMimeTypes.addAll(Arrays.asList(additionalTypes));
-            }
-            String[] comboMimeTypesArray = predefinedMimeTypes.toArray(new String[]{});
-            TypeComboDescriptor descriptor = new TypeComboDescriptor();
-            descriptor.setEditable(true);
-            descriptor.setComboValues(comboMimeTypesArray);
-            descriptor.setPrototype(MimeType.MIME_TYPE_PROTOTYPE);
-            return descriptor;
-
-        } else if (isMap(clazz)) {
-
-            ClassRefTypeSignature classRefTypeSignature = (ClassRefTypeSignature) fieldInfo.getTypeSignature();
-            List<TypeArgument> typeArguments = classRefTypeSignature.getTypeArguments();
-            // The second type is the map value types.
-            TypeArgument typeArgument = typeArguments.get(1);
-            String valueTypeFullyQualifiedName = typeArgument.toString();
-            String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
-            TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
-
-            TypeMapDescriptor descriptor = new TypeMapDescriptor();
-            descriptor.setTabGroup(tabGroup);
-            descriptor.setTabPlacement(tabPlacement);
-            descriptor.setValueFullyQualifiedName(valueTypeFullyQualifiedName);
-            return descriptor;
-
-        } else {
-            TypePrimitiveDescriptor descriptor = new TypePrimitiveDescriptor();
-            descriptor.setType(clazz);
-            return descriptor;
-        }
     }
 }
