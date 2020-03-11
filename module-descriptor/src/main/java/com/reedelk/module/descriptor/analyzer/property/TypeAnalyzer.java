@@ -60,7 +60,7 @@ public class TypeAnalyzer implements FieldInfoAnalyzer {
             // We check that we can resolve class info. If we can, then ..
             ClassInfo classInfo = context.getClassInfo(fullyQualifiedClassName);
             if (classInfo == null) {
-                throw new UnsupportedType(typeSignature.getClass());
+                throw new UnsupportedType(fullyQualifiedClassName);
             }
             Shared shared = isShareable(classInfo);
             Collapsible collapsible = isCollapsible(classInfo);
