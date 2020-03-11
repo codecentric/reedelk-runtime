@@ -8,7 +8,6 @@ import com.reedelk.esb.flow.deserializer.GenericComponentDefinitionDeserializer;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.commons.JsonParser;
-import com.reedelk.runtime.component.ForEach;
 import com.reedelk.runtime.component.Stop;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +34,7 @@ public class ForEachDeserializer extends AbstractDeserializer {
         GenericComponentDefinitionDeserializer deserializer =
                 new GenericComponentDefinitionDeserializer(forEachExecutionNode, context);
 
-        deserializer.deserialize(componentDefinition, (ForEach) forEachWrapper);
+        deserializer.deserialize(componentDefinition, forEachWrapper);
 
         graph.putEdge(parent, forEachExecutionNode);
 
