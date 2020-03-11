@@ -16,8 +16,8 @@ public class DeserializerConverterContextDecorator implements DeserializerConver
     }
 
     @Override
-    public boolean isPrimitive(Class<?> clazz) {
-        return delegate.isPrimitive(clazz);
+    public boolean isPrimitive(String fullyQualifiedName) {
+        return delegate.isPrimitive(fullyQualifiedName);
     }
 
     @Override

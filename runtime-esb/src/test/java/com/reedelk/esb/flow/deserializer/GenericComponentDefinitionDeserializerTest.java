@@ -1,66 +1,23 @@
 package com.reedelk.esb.flow.deserializer;
 
-import com.reedelk.esb.flow.deserializer.converter.DeserializerConverterContextDecorator;
-import com.reedelk.esb.graph.ExecutionNode;
-import com.reedelk.esb.module.DeSerializedModule;
-import com.reedelk.esb.module.ModulesManager;
 import com.reedelk.esb.test.utils.*;
-import com.reedelk.runtime.api.component.Component;
-import com.reedelk.runtime.api.component.Implementor;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicStringMap;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
-import com.reedelk.runtime.converter.DeserializerConverter;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
-import org.osgi.framework.Bundle;
 
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import static java.util.Arrays.stream;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
 
-@ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
-class GenericComponentDefinitionDeserializerTest {
-
-    private final long testModuleId = 10L;
-
-    @Mock
-    private Bundle mockBundle;
-    @Mock
-    private ExecutionNode mockExecutionNode;
-    @Mock
-    private ModulesManager mockModulesManager;
-    @Mock
-    private DeSerializedModule mockDeSerializedModule;
-
-    private FlowDeserializerContext context;
-    private GenericComponentDefinitionDeserializer deserializer;
-
-    @BeforeEach
-    void setUp() {
-        DeserializerConverter factory = DeserializerConverter.getInstance();
-        factory = new DeserializerConverterContextDecorator(factory, testModuleId);
-        context = spy(new FlowDeserializerContext(mockBundle, mockModulesManager, mockDeSerializedModule, factory));
-        deserializer = new GenericComponentDefinitionDeserializer(mockExecutionNode, context);
-    }
+class GenericComponentDefinitionDeserializerTest extends AbstractGenericComponentDefinitionDeserializerTest {
 
     @Nested
     @DisplayName("Primitive type")
@@ -653,32 +610,6 @@ class GenericComponentDefinitionDeserializerTest {
     class ObjectTest {
 
         @Test
-        void shouldCorrectlyMapJSONObjectToMap() {
-            // Given
-            JSONObject nestedObject = new JSONObject();
-            nestedObject.put("property1", 23);
-            nestedObject.put("property2", "Property2");
-            nestedObject.put("property3", 234.02);
-            JSONObject componentDefinition = ComponentsBuilder.forComponent(TestComponentWithMapProperty.class)
-                    .with("myObjectProperty", nestedObject)
-                    .build();
-
-            mockComponent(TestComponentWithMapProperty.class);
-
-            // When
-            deserializer.deserialize(componentDefinition, mockExecutionNode.getComponent());
-
-            // Then
-            TestComponentWithMapProperty component = (TestComponentWithMapProperty) mockExecutionNode.getComponent();
-            Map<String, Object> mappedMap = component.getMyObjectProperty();
-            assertThat(mappedMap).isNotNull();
-            assertThat(mappedMap).hasSize(3);
-            assertThat(mappedMap.get("property1")).isEqualTo(23);
-            assertThat(mappedMap.get("property2")).isEqualTo("Property2");
-            assertThat(mappedMap.get("property3")).isEqualTo(234.02);
-        }
-
-        @Test
         void shouldCorrectlyMapJSONObjectToImplementor() {
             // Given
             JSONObject testImplementor = ComponentsBuilder.forComponent(TestImplementor.class)
@@ -1033,72 +964,6 @@ class GenericComponentDefinitionDeserializerTest {
             assertThat(property).containsEntry("two", "two value");
             assertThat(property).containsEntry("three", "#['three value']");
             assertThat(property).hasSize(3);
-        }
-    }
-
-    private TestComponent buildComponentWith(String propertyName, Object propertyValue) {
-        JSONObject definition = componentDefinitionWith(propertyName, propertyValue, TestComponent.class);
-        TestComponent implementor = new TestComponent();
-        deserializer.deserialize(definition, implementor);
-        return implementor;
-    }
-
-    private TestComponentWithDynamicValueProperty buildDynamicValueComponentWith(String propertyName, Object propertyValue) {
-        JSONObject definition = componentDefinitionWith(propertyName, propertyValue, TestComponentWithDynamicValueProperty.class);
-        TestComponentWithDynamicValueProperty implementor = new TestComponentWithDynamicValueProperty();
-        deserializer.deserialize(definition, implementor);
-        return implementor;
-    }
-
-    private TestComponentWithDynamicMapProperty buildDynamicMapComponentWith(String propertyName, JSONObject propertyValue) {
-        JSONObject definition = componentDefinitionWith(propertyName, propertyValue, TestComponentWithDynamicMapProperty.class);
-        TestComponentWithDynamicMapProperty implementor = new TestComponentWithDynamicMapProperty();
-        deserializer.deserialize(definition, implementor);
-        return implementor;
-    }
-
-    private TestComponentWithCollectionProperties buildCollectionComponentWith(String propertyName, Object propertyValue) {
-        JSONObject definition = componentDefinitionWith(propertyName, propertyValue, TestComponentWithCollectionProperties.class);
-        TestComponentWithCollectionProperties implementor = new TestComponentWithCollectionProperties();
-        deserializer.deserialize(definition, implementor);
-        return implementor;
-    }
-
-    private JSONObject componentDefinitionWith(String propertyName, Object propertyValue, Class<? extends Component> componentClazz) {
-        JSONObject componentDefinition = ComponentsBuilder.forComponent(componentClazz)
-                .with(propertyName, propertyValue)
-                .build();
-        mockComponent(componentClazz);
-        return componentDefinition;
-    }
-
-    private JSONArray newArray(Object... values) {
-        JSONArray array = new JSONArray();
-        stream(values).forEach(array::put);
-        return array;
-    }
-
-    private void assertAllItemsOfType(Collection<?> collection, Class<?> expectedType) {
-        collection.forEach(item -> assertThat(item).isInstanceOf(expectedType));
-    }
-
-    private void mockComponent(Class<? extends Component> componentClass) {
-        Component component = instantiate(componentClass);
-        doReturn(component).when(mockExecutionNode).getComponent();
-        doReturn(mockExecutionNode).when(context).instantiateComponent(componentClass);
-    }
-
-    private void mockImplementor(Class<? extends Implementor> clazz) {
-        Implementor implementor = instantiate(clazz);
-        doReturn(implementor).when(context).instantiateImplementor(mockExecutionNode, clazz.getName());
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> T instantiate(Class<? extends Implementor> clazz) {
-        try {
-            return (T) clazz.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new IllegalStateException(e);
         }
     }
 }

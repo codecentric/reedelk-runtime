@@ -9,7 +9,11 @@ public interface DeserializerConverter {
         return DeserializerConverterDefault.INSTANCE;
     }
 
-    boolean isPrimitive(Class<?> clazz);
+    default boolean isPrimitive(Class<?> clazz) {
+        return isPrimitive(clazz.getName());
+    }
+
+    boolean isPrimitive(String fullyQualifiedName);
 
     // Method to create Component's types which do not require any
     // JSON Component definition, e.g the ModuleId type.

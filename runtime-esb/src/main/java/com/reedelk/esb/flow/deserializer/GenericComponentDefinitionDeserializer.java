@@ -5,17 +5,18 @@ import com.reedelk.runtime.api.component.Implementor;
 import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.commons.CollectionFactory;
 import com.reedelk.runtime.commons.JsonParser;
+import com.reedelk.runtime.commons.ReflectionUtils;
+import com.reedelk.runtime.commons.SetterArgument;
+import com.reedelk.runtime.converter.DeserializerConverter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static com.reedelk.esb.commons.Messages.Deserializer.CONFIGURATION_NOT_FOUND;
 import static com.reedelk.esb.commons.Messages.Deserializer.UNSUPPORTED_COLLECTION_TYPE;
 import static com.reedelk.runtime.api.commons.Preconditions.checkArgument;
+import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 import static com.reedelk.runtime.commons.JsonParser.Component;
 import static com.reedelk.runtime.commons.JsonParser.Config;
 import static com.reedelk.runtime.commons.ReflectionUtils.*;
@@ -46,7 +47,7 @@ public class GenericComponentDefinitionDeserializer {
 
     private Object deserialize(JSONObject componentDefinition, Implementor bean, String propertyName) {
         Object propertyValue = componentDefinition.get(propertyName);
-        SetterArgument<?,?> setterArgument = argumentOf(bean, propertyName);
+        SetterArgument setterArgument = argumentOf(bean, propertyName);
 
         // Dynamic Map or declared Implementor object
         if (propertyValue instanceof JSONObject) {
@@ -54,40 +55,70 @@ public class GenericComponentDefinitionDeserializer {
 
             // Collection
         } else if (propertyValue instanceof JSONArray) {
-            checkArgument(CollectionFactory.isSupported(setterArgument.getClazz()),
+            checkArgument(CollectionFactory.isSupported(setterArgument.getArgumentClazz()),
                     UNSUPPORTED_COLLECTION_TYPE.format(propertyName));
             return deserializeArray(componentDefinition, propertyName, setterArgument);
 
             // Enum
         } else if (setterArgument.isEnum()){
-            Class<?> enumClazz = setterArgument.getClazz();
+            Class<?> enumClazz = setterArgument.getArgumentClazz();
             return context.converter().convert(enumClazz, componentDefinition, propertyName);
 
             // Primitive or Dynamic Value
         } else {
-            Class<?> clazz = setterArgument.getClazz();
+            Class<?> clazz = setterArgument.getArgumentClazz();
             return context.converter().convert(clazz, componentDefinition, propertyName);
         }
     }
 
-    private Object deserializeObject(JSONObject componentDefinition, String propertyName, SetterArgument<?,?> setterArgument) {
+    private Object deserializeObject(JSONObject componentDefinition, String propertyName, SetterArgument setterArgument) {
         if (setterArgument.isMap()) {
-            // The setter argument for this property is a map, so we just return
-            // a de-serialized java map object.
-            return context.converter().convert(Map.class, componentDefinition, propertyName);
+            // A map can only have as key type 'String'. This is because a
+            // JSON object can have as property keys only strings.
+            checkState(String.class.getName().equals(setterArgument.getMapKeyType()),
+                    "Map type supports only String type for keys.");
+
+            // The map value type could be either:
+            // 1. primitive: normal case, we use the converter to create a Java map.
+            // 2. non primitive: a custom module provided Java type (which implements Implementor interface).
+            //  in this case we must instantiate the implementor.
+            boolean isPrimitive = DeserializerConverter.getInstance().isPrimitive(setterArgument.getMapValueType());
+            if (isPrimitive) {
+                // primitive
+                // The setter argument for this property is a Map<String,Object> where object is a primitive type.
+                // We use the converter to convert the map values from the JSON object component definition.
+                Class<?> clazz = setterArgument.getArgumentClazz();
+                return context.converter().convert(clazz, componentDefinition, propertyName);
+
+            } else {
+                // non primitive
+                // Custom module-specific type i.e a Java class implementing the Implementor interface.
+                String valueType = setterArgument.getMapValueType();
+                JSONObject customValueTypeMap = componentDefinition.getJSONObject(propertyName);
+                Map<String,Object> keyAndValues = new HashMap<>();
+                customValueTypeMap.keySet().forEach(key -> {
+                    Implementor implementor = instantiateImplementor(valueType);
+                    deserialize(customValueTypeMap.getJSONObject(key), implementor);
+                    keyAndValues.put(key, implementor);
+                });
+                return keyAndValues;
+            }
+
+
         } else if (setterArgument.isDynamicMap()){
             // The setter argument for this property is any type of Dynamic map,
             // we must wrap the de-serialized java map object with a type specific
             // dynamic map which adds a UUID identifying the dynamic map function to
             // be used by the Script engine as a reference for the pre-compiled script
             // to be used at runtime evaluation.
-            Class<?> clazz = setterArgument.getClazz();
+            Class<?> clazz = setterArgument.getArgumentClazz();
             return context.converter().convert(clazz, componentDefinition, propertyName);
+
         } else {
             // It is a complex type implementing implementor interface.
             // We expect that this JSONObject satisfies the properties
             // of the property setter argument's object type.
-            String fullyQualifiedName = setterArgument.getFullyQualifiedName();
+            String fullyQualifiedName = setterArgument.getArgumentClazz().getName();
             Implementor deSerialized = instantiateImplementor(fullyQualifiedName);
             JSONObject jsonObject = componentDefinition.getJSONObject(propertyName);
             deserialize(jsonObject, deSerialized);
@@ -95,14 +126,13 @@ public class GenericComponentDefinitionDeserializer {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private Collection<?> deserializeArray(JSONObject componentDefinition, String propertyName, SetterArgument<?,?> argument) {
+    private Collection<?> deserializeArray(JSONObject componentDefinition, String propertyName, SetterArgument argument) {
         JSONArray array = componentDefinition.getJSONArray(propertyName);
-        Class<?> clazz = argument.getClazz();
-        Collection<Object> collection = CollectionFactory.from(clazz);
-        Class<?> genericType = argument.getGenericType();
+        Class<?> collectionClazz = argument.getArgumentClazz();
+        Class<?> collectionType = ReflectionUtils.asClass(argument.getCollectionType());
+        Collection<Object> collection = CollectionFactory.from(collectionClazz);
         for (int index = 0; index < array.length(); index++) {
-            Object converted = context.converter().convert(genericType, array, index);
+            Object converted = context.converter().convert(collectionType, array, index);
             collection.add(converted);
         }
         return collection;

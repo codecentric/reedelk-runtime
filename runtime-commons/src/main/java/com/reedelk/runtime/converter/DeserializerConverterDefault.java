@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import static java.lang.String.format;
 
@@ -85,6 +86,13 @@ class DeserializerConverterDefault implements DeserializerConverter {
     @Override
     public boolean isPrimitive(Class<?> clazz) {
         return CONVERTERS.containsKey(clazz);
+    }
+
+    @Override
+    public boolean isPrimitive(String fullyQualifiedName) {
+        return CONVERTERS.keySet()
+                .stream()
+                .anyMatch(typeClazz -> typeClazz.getName().equals(fullyQualifiedName));
     }
 
     @SuppressWarnings({"unchecked"})

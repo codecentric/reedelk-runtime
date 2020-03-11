@@ -1,8 +1,8 @@
 package com.reedelk.runtime.commons;
 
 
+import com.reedelk.runtime.api.commons.StringUtils;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
-import com.reedelk.runtime.converter.DeserializerConverter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,8 +54,7 @@ public class ReflectionUtils {
                 .collect(toList());
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T, U> SetterArgument<T, U> argumentOf(T source, String propertyName) {
+    public static <T> SetterArgument argumentOf(T source, String propertyName) {
         Optional<Method> maybeSetter = getSetter(source, propertyName);
         if (!maybeSetter.isPresent()) {
             throw new IllegalStateException(format("Setter for property [%s] could not be found", propertyName));
@@ -69,22 +67,34 @@ public class ReflectionUtils {
 
         Class<?> parameterType = method.getParameterTypes()[0];
 
-        if (!isMap(parameterType)) {
-            // A map has multiple parameter types (e.g Map<String,Object>) and we don't
-            // support yet multiple parameter types.
-            Optional<String> maybeGenericType = getGenericType(method);
-            if (maybeGenericType.isPresent()) {
-                try {
-                    return new SetterArgument(parameterType, Class.forName(maybeGenericType.get()));
-                } catch (ClassNotFoundException e) {
-                    throw new IllegalStateException(format("Class for generic type [%s] could not be found", maybeGenericType.get()));
-                }
-            }
+        Optional<String> genericType = genericTypeOf(method);
+        if (isMap(parameterType)) {
+            return genericType.map(theType -> {
+                // the type could be for example the string:
+                //  java.lang.String, com.reedelk.component.MyImplementor
+                String[] keyAndValueTypesFullyQualifiedName = theType.split(",");
+                String genericType1 = StringUtils.trim(keyAndValueTypesFullyQualifiedName[0]);
+                String genericType2 = StringUtils.trim(keyAndValueTypesFullyQualifiedName[1]);
+                return new SetterArgument(parameterType, genericType1, genericType2);
+            }).orElseThrow(() -> new IllegalArgumentException("Generic type for map type could not be found."));
+
+        } else {
+            return genericType
+                    // This might be the case for List<String> for example.
+                    .map(theType -> new SetterArgument(parameterType, theType))
+                    .orElse(new SetterArgument(parameterType));
         }
-        return new SetterArgument(parameterType);
     }
 
-    private static Optional<String> getGenericType(Method method) {
+    public static Class<?> asClass(String fullyQualifiedName) {
+        try {
+            return Class.forName(fullyQualifiedName);
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private static Optional<String> genericTypeOf(Method method) {
         Type genericParameterType = method.getGenericParameterTypes()[0];
         String typeName = genericParameterType.getTypeName();
         Matcher matcher = MATCH_GENERIC_TYPE.matcher(typeName);
@@ -103,55 +113,11 @@ public class ReflectionUtils {
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
-    private static boolean isMap(Class<?> clazz) {
+    public static boolean isMap(Class<?> clazz) {
         return Map.class.equals(clazz);
     }
 
-    private static boolean isDynamicMap(Class<?> clazz) {
+    public static boolean isDynamicMap(Class<?> clazz) {
         return DynamicMap.class.equals(clazz.getSuperclass());
-    }
-
-    public static class SetterArgument<C, G> {
-
-        private final Class<C> clazz;
-        private final Class<G> genericType;
-
-        SetterArgument(Class<C> clazz) {
-            this.clazz = clazz;
-            this.genericType = null;
-        }
-
-        SetterArgument(Class<C> clazz, Class<G> genericType) {
-            this.clazz = clazz;
-            this.genericType = genericType;
-        }
-
-        public Class<C> getClazz() {
-            return clazz;
-        }
-
-        public Class<G> getGenericType() {
-            return genericType;
-        }
-
-        public String getFullyQualifiedName() {
-            return clazz.getName();
-        }
-
-        public boolean isEnum() {
-            return clazz.isEnum();
-        }
-
-        public boolean isMap() {
-            return ReflectionUtils.isMap(clazz);
-        }
-
-        public boolean isDynamicMap() {
-            return ReflectionUtils.isDynamicMap(clazz);
-        }
-
-        public boolean isGenericTypePrimitive() {
-            return DeserializerConverter.getInstance().isPrimitive(genericType);
-        }
     }
 }

@@ -35,7 +35,7 @@ public class JSONSerializer {
 
                 // JSON Array
             } else if (CollectionFactory.isSupported(result.getClass())) {
-                JSONArray array = _serialize((Collection) result);
+                JSONArray array = _serialize((Collection<?>) result);
                 jsonObject.put(method.propertyName(), array);
 
                 // JSON Object
@@ -49,7 +49,7 @@ public class JSONSerializer {
         return jsonObject;
     }
 
-    private static JSONArray _serialize(Collection collection) {
+    private static JSONArray _serialize(Collection<?> collection) {
         JSONArray array = new JSONArray();
         for (Object item : collection) {
             if (item == null) {

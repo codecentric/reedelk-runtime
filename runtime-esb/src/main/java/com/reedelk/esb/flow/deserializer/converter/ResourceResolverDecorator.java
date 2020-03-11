@@ -30,8 +30,8 @@ public class ResourceResolverDecorator implements DeserializerConverter {
     }
 
     @Override
-    public boolean isPrimitive(Class<?> clazz) {
-        return delegate.isPrimitive(clazz);
+    public boolean isPrimitive(String fullyQualifiedName) {
+        return delegate.isPrimitive(fullyQualifiedName);
     }
 
     @SuppressWarnings("unchecked")

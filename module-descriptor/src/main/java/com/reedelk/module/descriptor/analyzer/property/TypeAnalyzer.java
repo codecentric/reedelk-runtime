@@ -152,11 +152,19 @@ public class TypeAnalyzer implements FieldInfoAnalyzer {
             return descriptor;
 
         } else if (isMap(clazz)) {
+
+            ClassRefTypeSignature classRefTypeSignature = (ClassRefTypeSignature) fieldInfo.getTypeSignature();
+            List<TypeArgument> typeArguments = classRefTypeSignature.getTypeArguments();
+            // The second type is the map value types.
+            TypeArgument typeArgument = typeArguments.get(1);
+            String valueTypeFullyQualifiedName = typeArgument.toString();
             String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
             TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
+
             TypeMapDescriptor descriptor = new TypeMapDescriptor();
             descriptor.setTabGroup(tabGroup);
             descriptor.setTabPlacement(tabPlacement);
+            descriptor.setValueFullyQualifiedName(valueTypeFullyQualifiedName);
             return descriptor;
 
         } else {

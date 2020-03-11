@@ -21,7 +21,6 @@ public class TestComponentWithCollectionProperties implements ProcessorSync {
     private Collection<BigInteger> myBigIntegerCollection;
     private Collection<BigDecimal> myBigDecimalCollection;
 
-
     private List<Long> myLongList;
     private List<Integer> myIntList;
     private List<Float> myFloatList;

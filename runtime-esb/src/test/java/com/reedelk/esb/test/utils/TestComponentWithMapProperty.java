@@ -8,18 +8,27 @@ import java.util.Map;
 
 public class TestComponentWithMapProperty implements ProcessorSync {
 
+    private Map<String, String> mapStringStringProperty;
+    private Map<String, TestImplementor> mapStringCustomImplementorProperty;
+
     @Override
     public Message apply(FlowContext flowContext, Message message) {
         throw new UnsupportedOperationException("Test Only ProcessorSync");
     }
 
-    private Map<String, Object> myObjectProperty;
-
-    public Map<String, Object> getMyObjectProperty() {
-        return myObjectProperty;
+    public Map<String, String> getMapStringStringProperty() {
+        return mapStringStringProperty;
     }
 
-    public void setMyObjectProperty(Map<String, Object> myObjectProperty) {
-        this.myObjectProperty = myObjectProperty;
+    public void setMapStringStringProperty(Map<String, String> mapStringStringProperty) {
+        this.mapStringStringProperty = mapStringStringProperty;
+    }
+
+    public Map<String, TestImplementor> getMapStringCustomImplementorProperty() {
+        return mapStringCustomImplementorProperty;
+    }
+
+    public void setMapStringCustomImplementorProperty(Map<String, TestImplementor> mapStringCustomImplementorProperty) {
+        this.mapStringCustomImplementorProperty = mapStringCustomImplementorProperty;
     }
 }

@@ -5,8 +5,10 @@ import java.util.Map;
 public class TypeMapDescriptor implements TypeDescriptor {
 
     private static final transient Class<?> type = Map.class;
+
     protected String tabGroup;
     protected TabPlacement tabPlacement;
+    protected String valueFullyQualifiedName;
 
     @Override
     public Class<?> getType() {
@@ -27,6 +29,14 @@ public class TypeMapDescriptor implements TypeDescriptor {
 
     public void setTabPlacement(TabPlacement tabPlacement) {
         this.tabPlacement = tabPlacement;
+    }
+
+    public String getValueFullyQualifiedName() {
+        return valueFullyQualifiedName;
+    }
+
+    public void setValueFullyQualifiedName(String valueFullyQualifiedName) {
+        this.valueFullyQualifiedName = valueFullyQualifiedName;
     }
 
     @Override
