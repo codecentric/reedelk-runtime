@@ -23,7 +23,6 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,8 +64,8 @@ public class ModuleDescriptorAnalyzer {
                 });
 
                 return moduleDescriptor;
-            } catch (Exception e) {
-                throw new ModuleDescriptorException(e);
+            } catch (Exception exception) {
+                throw new ModuleDescriptorException(exception);
             }
 
         } else {
@@ -87,8 +86,8 @@ public class ModuleDescriptorAnalyzer {
                 });
 
                 return moduleDescriptor;
-            } catch (Exception e) {
-                throw new ModuleDescriptorException(e);
+            } catch (Exception exception) {
+                throw new ModuleDescriptorException(exception);
             }
         }
     }
@@ -119,8 +118,8 @@ public class ModuleDescriptorAnalyzer {
             }
 
             return moduleDescriptor;
-        } catch (Exception e) {
-            throw new ModuleDescriptorException(e);
+        } catch (Exception exception) {
+            throw new ModuleDescriptorException(exception);
         }
     }
 
@@ -175,18 +174,15 @@ public class ModuleDescriptorAnalyzer {
 
     private List<ComponentDescriptor> componentDescriptorsFrom(ScanResult scanResult) {
         ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(ModuleComponent.class.getName());
-        List<ComponentDescriptor> componentDescriptors = new ArrayList<>();
-        classInfoList.forEach(classInfo -> {
+        return classInfoList.stream().map(classInfo -> {
             try {
                 ComponentAnalyzer componentAnalyzer = ComponentAnalyzerFactory.get(scanResult);
-                ComponentDescriptor descriptor = componentAnalyzer.analyze(classInfo);
-                componentDescriptors.add(descriptor);
+                return componentAnalyzer.analyze(classInfo);
             } catch (Exception exception) {
                 String message = format(Messages.ERROR_SCAN_COMPONENT, classInfo.getName(), exception.getMessage());
-                LOG.error(message, exception);
+                throw new ModuleDescriptorException(message, exception);
             }
-        });
-        return componentDescriptors;
+        }).collect(Collectors.toList());
     }
 
     private static ScanResult scanResultFrom(String targetPath) {

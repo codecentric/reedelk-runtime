@@ -14,6 +14,7 @@ import io.github.classgraph.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -237,14 +238,20 @@ public class ScannerUtils {
         return classInfo.hasAnnotation(Hidden.class.getName());
     }
 
-    public static Class<?> clazzByFullyQualifiedName(String fullyQualifiedClassName) {
+    public static Optional<Class<?>> clazzByFullyQualifiedName(String fullyQualifiedClassName) {
         try {
-            return Class.forName(fullyQualifiedClassName);
+            return Optional.of(Class.forName(fullyQualifiedClassName));
         } catch (ClassNotFoundException e) {
-            // if it is a known type, then the class must be resolvable.
-            // Otherwise the @PropertyValueConverterFactory class would not even compile.
-            throw new UnsupportedType(fullyQualifiedClassName);
+            // The class could not be found, this happens when the fully qualified name
+            // refer to a class loaded by the OSGi environment. These classes are typically
+            // implementing the @Implementor interface.
+            return Optional.empty();
         }
+    }
+
+    public static Class<?> clazzByFullyQualifiedNameOrThrow(String fullyQualifiedClassName) {
+        return clazzByFullyQualifiedName(fullyQualifiedClassName)
+                .orElseThrow(() -> new UnsupportedType(fullyQualifiedClassName));
     }
 
     @SuppressWarnings("unchecked")

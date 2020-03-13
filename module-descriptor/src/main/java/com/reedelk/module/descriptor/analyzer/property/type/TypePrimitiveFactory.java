@@ -6,21 +6,21 @@ import com.reedelk.module.descriptor.model.TypePrimitiveDescriptor;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
 
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.clazzByFullyQualifiedName;
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.isEnumeration;
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 
 public class TypePrimitiveFactory implements TypeDescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        return PlatformTypes.isSupported(fullyQualifiedClassName) &&
+        return clazzByFullyQualifiedName(fullyQualifiedClassName).isPresent() &&
+                PlatformTypes.isSupported(fullyQualifiedClassName) &&
                 // the Enum is handled by its own factory.
                 !isEnumeration(fullyQualifiedClassName, context);
     }
 
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> primitiveTypeClazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
+        Class<?> primitiveTypeClazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
         TypePrimitiveDescriptor descriptor = new TypePrimitiveDescriptor();
         descriptor.setType(primitiveTypeClazz);
         return descriptor;

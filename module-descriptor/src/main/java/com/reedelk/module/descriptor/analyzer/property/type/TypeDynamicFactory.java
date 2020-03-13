@@ -6,20 +6,20 @@ import com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
 
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.clazzByFullyQualifiedName;
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.isDynamicValue;
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 
 public class TypeDynamicFactory implements TypeDescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
-        return PlatformTypes.isSupported(fullyQualifiedClassName) && isDynamicValue(clazz);
+        return clazzByFullyQualifiedName(fullyQualifiedClassName)
+                .map(clazz -> PlatformTypes.isSupported(fullyQualifiedClassName) && isDynamicValue(clazz))
+                .orElse(false);
     }
 
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
+        Class<?> clazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
 
         TypeDynamicValueDescriptor descriptor = new TypeDynamicValueDescriptor();
         descriptor.setType(clazz);

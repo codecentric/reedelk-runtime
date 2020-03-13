@@ -14,14 +14,14 @@ public class TypeDynamicMapFactory implements TypeDescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
-        return PlatformTypes.isSupported(fullyQualifiedClassName) &&
-                isDynamicMap(clazz);
+        return clazzByFullyQualifiedName(fullyQualifiedClassName)
+                .map(clazz -> PlatformTypes.isSupported(fullyQualifiedClassName) && isDynamicMap(clazz))
+                .orElse(false);
     }
 
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
+        Class<?> clazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
         String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
         TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
 

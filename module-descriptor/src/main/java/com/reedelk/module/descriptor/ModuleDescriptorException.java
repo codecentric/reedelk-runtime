@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor;
 
-public class ModuleDescriptorException extends Exception {
+public class ModuleDescriptorException extends RuntimeException {
 
     public ModuleDescriptorException(Throwable cause) {
         super(cause);

@@ -13,9 +13,9 @@ public class TypePasswordFactory implements TypeDescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
-        return PlatformTypes.isSupported(fullyQualifiedClassName) &&
-                isPassword(fieldInfo, clazz);
+        return clazzByFullyQualifiedName(fullyQualifiedClassName)
+                .map(clazz -> PlatformTypes.isSupported(fullyQualifiedClassName) && isPassword(fieldInfo, clazz))
+                .orElse(false);
     }
 
     @Override

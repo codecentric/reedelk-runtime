@@ -13,9 +13,9 @@ public class TypeResourceBinaryFactory implements TypeDescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
-        return PlatformTypes.isSupported(fullyQualifiedClassName) &&
-                isResourceBinary(clazz);
+        return clazzByFullyQualifiedName(fullyQualifiedClassName)
+                .map(clazz -> PlatformTypes.isSupported(fullyQualifiedClassName) && isResourceBinary(clazz))
+                .orElse(false);
     }
 
     @Override

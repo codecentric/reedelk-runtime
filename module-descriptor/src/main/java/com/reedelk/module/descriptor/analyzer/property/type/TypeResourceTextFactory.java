@@ -13,9 +13,9 @@ public class TypeResourceTextFactory implements TypeDescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
-        return PlatformTypes.isSupported(fullyQualifiedClassName) &&
-                isResourceText(clazz);
+        return clazzByFullyQualifiedName(fullyQualifiedClassName)
+                .map(clazz -> PlatformTypes.isSupported(fullyQualifiedClassName) && isResourceText(clazz))
+                .orElse(false);
     }
 
     @Override

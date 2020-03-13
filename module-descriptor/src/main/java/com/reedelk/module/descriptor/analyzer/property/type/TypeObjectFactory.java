@@ -4,6 +4,7 @@ import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext
 import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
 import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
 import com.reedelk.module.descriptor.model.*;
+import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
 
@@ -12,7 +13,6 @@ import java.util.Optional;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.isCollapsible;
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.isShareable;
-import static com.reedelk.runtime.api.commons.PlatformTypes.isSupported;
 import static java.util.stream.Collectors.toList;
 
 public class TypeObjectFactory implements TypeDescriptorFactory {
@@ -20,7 +20,7 @@ public class TypeObjectFactory implements TypeDescriptorFactory {
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         // If it is not supported it must be a custom defined type (implementing Implementor interface).
-        return !isSupported(fullyQualifiedClassName);
+        return !PlatformTypes.isSupported(fullyQualifiedClassName);
     }
 
     @Override
