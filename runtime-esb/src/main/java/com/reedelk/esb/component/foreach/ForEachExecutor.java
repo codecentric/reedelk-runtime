@@ -63,6 +63,8 @@ public class ForEachExecutor implements FlowExecutor {
 
             List<Mono<MessageAndContext>> each = new ArrayList<>();
 
+            // TODO: Add support for map. For each in a map.
+
             // Get payload
             if (payload instanceof Collection) {
                 Collection<?> data = (Collection<?>) payload;
