@@ -1,16 +1,17 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
-import com.reedelk.module.descriptor.model.TypeDescriptor;
+import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
+import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
 import io.github.classgraph.FieldInfo;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class KnownTypeDescriptor {
+public class TypeDescriptorFactoryProvider {
 
-    private static final TypeDescriptorFactory defaultFactory = new TypePrimitiveFactory();
     private static final List<TypeDescriptorFactory> factories = Collections.unmodifiableList(Arrays.asList(
+            new TypeEnumFactory(),
             new TypeComboFactory(),
             new TypeDynamicFactory(),
             new TypeDynamicMapFactory(),
@@ -19,14 +20,15 @@ public class KnownTypeDescriptor {
             new TypePasswordFactory(),
             new TypeResourceBinaryFactory(),
             new TypeResourceTextFactory(),
-            new TypeScriptFactory()));
+            new TypeScriptFactory(),
+            new TypePrimitiveFactory(),
+            new TypeObjectFactory()));
 
-    public static TypeDescriptor from(Class<?> clazz, FieldInfo fieldInfo) {
+    public static TypeDescriptorFactory from(String fullyQualifiedName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         return factories
                 .stream()
-                .filter(typeDescriptorFactory -> typeDescriptorFactory.test(clazz, fieldInfo))
+                .filter(typeDescriptorFactory -> typeDescriptorFactory.test(fullyQualifiedName, fieldInfo, context))
                 .findFirst()
-                .orElse(defaultFactory)
-                .create(clazz, fieldInfo);
+                .orElseThrow(() -> new UnsupportedType(fullyQualifiedName));
     }
 }

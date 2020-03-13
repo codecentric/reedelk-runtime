@@ -1,20 +1,25 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
+import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.TypeDescriptor;
 import com.reedelk.module.descriptor.model.TypeResourceBinaryDescriptor;
+import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
 
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.clazzByFullyQualifiedName;
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.isResourceBinary;
 
 public class TypeResourceBinaryFactory implements TypeDescriptorFactory {
 
     @Override
-    public boolean test(Class<?> clazz, FieldInfo fieldInfo) {
-        return isResourceBinary(clazz);
+    public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+        Class<?> clazz = clazzByFullyQualifiedName(fullyQualifiedClassName);
+        return PlatformTypes.isSupported(fullyQualifiedClassName) &&
+                isResourceBinary(clazz);
     }
 
     @Override
-    public TypeDescriptor create(Class<?> clazz, FieldInfo fieldInfo) {
+    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         return new TypeResourceBinaryDescriptor();
     }
 }

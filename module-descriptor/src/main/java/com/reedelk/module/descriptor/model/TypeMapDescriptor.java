@@ -8,7 +8,7 @@ public class TypeMapDescriptor implements TypeDescriptor {
 
     protected String tabGroup;
     protected TabPlacement tabPlacement;
-    protected String valueFullyQualifiedName;
+    protected TypeDescriptor valueType;
 
     @Override
     public Class<?> getType() {
@@ -31,19 +31,20 @@ public class TypeMapDescriptor implements TypeDescriptor {
         this.tabPlacement = tabPlacement;
     }
 
-    public String getValueFullyQualifiedName() {
-        return valueFullyQualifiedName;
+    public TypeDescriptor getValueType() {
+        return valueType;
     }
 
-    public void setValueFullyQualifiedName(String valueFullyQualifiedName) {
-        this.valueFullyQualifiedName = valueFullyQualifiedName;
+    public void setValueType(TypeDescriptor valueType) {
+        this.valueType = valueType;
     }
 
     @Override
     public String toString() {
         return "TypeMapDescriptor{" +
-                "type=" + type +
-                ", tabGroup='" + tabGroup + '\'' +
+                "tabGroup='" + tabGroup + '\'' +
+                ", tabPlacement=" + tabPlacement +
+                ", valueType=" + valueType +
                 '}';
     }
 }
