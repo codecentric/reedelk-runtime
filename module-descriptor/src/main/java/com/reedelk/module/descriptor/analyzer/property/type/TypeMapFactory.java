@@ -35,7 +35,7 @@ public class TypeMapFactory implements TypeDescriptorFactory {
         TypeArgument typeArgument = typeArguments.get(1);
         String valueTypeFullyQualifiedName = typeArgument.toString();
         TypeDescriptorFactory factory = TypeDescriptorFactoryProvider.from(valueTypeFullyQualifiedName, fieldInfo, context);
-        TypeDescriptor valueType = factory.create(fullyQualifiedClassName, fieldInfo, context);
+        TypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
         TypeMapDescriptor descriptor = new TypeMapDescriptor();
         descriptor.setTabPlacement(tabPlacement);
