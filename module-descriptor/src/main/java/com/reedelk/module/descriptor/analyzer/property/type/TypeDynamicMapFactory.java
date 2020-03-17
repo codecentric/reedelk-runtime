@@ -4,7 +4,9 @@ import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext
 import com.reedelk.module.descriptor.model.TabPlacement;
 import com.reedelk.module.descriptor.model.TypeDescriptor;
 import com.reedelk.module.descriptor.model.TypeDynamicMapDescriptor;
+import com.reedelk.runtime.api.annotation.KeyName;
 import com.reedelk.runtime.api.annotation.TabGroup;
+import com.reedelk.runtime.api.annotation.ValueName;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
 
@@ -21,13 +23,18 @@ public class TypeDynamicMapFactory implements TypeDescriptorFactory {
 
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        Class<?> clazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
-        String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
         TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
+        String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
+        String keyName = annotationValueOrDefaultFrom(fieldInfo, KeyName.class, null);
+        String valueName = annotationValueOrDefaultFrom(fieldInfo, ValueName.class, null);
+
+        Class<?> clazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
 
         TypeDynamicMapDescriptor descriptor = new TypeDynamicMapDescriptor();
         descriptor.setTabPlacement(tabPlacement);
+        descriptor.setValueName(valueName);
         descriptor.setTabGroup(tabGroup);
+        descriptor.setKeyName(keyName);
         descriptor.setType(clazz);
         return descriptor;
     }

@@ -7,6 +7,8 @@ public class TypeMapDescriptor implements TypeDescriptor {
     private static final transient Class<?> type = Map.class;
 
     protected String tabGroup;
+    protected String keyName;
+    protected String valueName;
     protected TabPlacement tabPlacement;
     protected TypeDescriptor valueType;
 
@@ -39,10 +41,28 @@ public class TypeMapDescriptor implements TypeDescriptor {
         this.valueType = valueType;
     }
 
+    public String getKeyName() {
+        return keyName;
+    }
+
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
+    }
+
+    public String getValueName() {
+        return valueName;
+    }
+
+    public void setValueName(String valueName) {
+        this.valueName = valueName;
+    }
+
     @Override
     public String toString() {
         return "TypeMapDescriptor{" +
                 "tabGroup='" + tabGroup + '\'' +
+                ", keyName='" + keyName + '\'' +
+                ", valueName='" + valueName + '\'' +
                 ", tabPlacement=" + tabPlacement +
                 ", valueType=" + valueType +
                 '}';
