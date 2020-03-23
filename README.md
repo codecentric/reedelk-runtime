@@ -1,22 +1,23 @@
-# ESB Runtime
+# Reedelk Runtime
 
-ESB Runtime Project.
+Reedelk runtime project set up.
 
 #### Installation
-1. git clone https://bitbucket.org/reedelk/runtime.git
-2. git clone https://bitbucket.org/reedelk/modules.git
-3. git clone https://bitbucket.org/reedelk/module-xml.git
-4. git clone https://bitbucket.org/reedelk/module-file.git
-5. git clone https://bitbucket.org/reedelk/module-core.git
-6. git clone https://bitbucket.org/reedelk/module-rest.git
-7. git clone https://bitbucket.org/reedelk/module-rabbitmq.git
-8. git clone https://bitbucket.org/reedelk/module-scheduler.git
-9. cd runtime
-10. mvn clean
-11. mvn install
-12. cd ../modules
-13. mvn clean
-14. mvn install
+* git clone https://bitbucket.org/reedelk/runtime.git
+* git clone https://bitbucket.org/reedelk/modules.git
+* git clone https://bitbucket.org/reedelk/module-xml.git
+* git clone https://bitbucket.org/reedelk/module-file.git
+* git clone https://bitbucket.org/reedelk/module-core.git
+* git clone https://bitbucket.org/reedelk/module-rest.git
+* git clone https://bitbucket.org/reedelk/module-json.git
+* git clone https://bitbucket.org/reedelk/module-rabbitmq.git
+* git clone https://bitbucket.org/reedelk/module-scheduler.git
+* cd runtime
+* mvn clean
+* mvn install
+* cd ../modules
+* mvn clean
+* mvn install
 
 #### Importing the project in IntelliJ
 
