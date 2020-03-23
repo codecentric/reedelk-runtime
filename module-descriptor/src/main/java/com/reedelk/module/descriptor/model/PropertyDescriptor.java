@@ -9,6 +9,7 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 public class PropertyDescriptor implements Serializable {
 
     private String name;
+    private String group;
     private String example;
     private String initValue;
     private String hintValue;
@@ -26,6 +27,14 @@ public class PropertyDescriptor implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public String getExample() {
@@ -113,16 +122,17 @@ public class PropertyDescriptor implements Serializable {
     public String toString() {
         return "PropertyDescriptor{" +
                 "name='" + name + '\'' +
+                ", group='" + group + '\'' +
                 ", example='" + example + '\'' +
                 ", initValue='" + initValue + '\'' +
                 ", hintValue='" + hintValue + '\'' +
                 ", description='" + description + '\'' +
                 ", displayName='" + displayName + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
-                ", whens=" + whens +
                 ", type=" + type +
                 ", scriptSignature=" + scriptSignature +
-                ", autocompleteContributor=" + autocompleteVariables +
+                ", whens=" + whens +
+                ", autocompleteVariables=" + autocompleteVariables +
                 '}';
     }
 
@@ -133,6 +143,7 @@ public class PropertyDescriptor implements Serializable {
     public static class Builder {
 
         private String name;
+        private String group;
         private String example;
         private String hintValue;
         private String initValue;
@@ -152,6 +163,11 @@ public class PropertyDescriptor implements Serializable {
 
         public Builder name(String propertyName) {
             this.name = propertyName;
+            return this;
+        }
+
+        public Builder group(String group) {
+            this.group = group;
             return this;
         }
 
@@ -207,6 +223,7 @@ public class PropertyDescriptor implements Serializable {
             PropertyDescriptor descriptor = new PropertyDescriptor();
             descriptor.name = name;
             descriptor.type = type;
+            descriptor.group = group;
             descriptor.whens = whens;
             descriptor.example = example;
             descriptor.hintValue = hintValue;

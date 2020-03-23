@@ -272,7 +272,7 @@ class ComponentDisplayNameAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMapTypeProperty() {
         // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Test tab group", TabPlacement.LEFT);
+        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Test tab group");
 
         // Expect
         assertThatExistProperty(
@@ -285,26 +285,13 @@ class ComponentDisplayNameAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMapTypePropertyWithInitValues() {
         // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Init values tab group", TabPlacement.LEFT);
+        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Init values tab group");
 
         // Expect
         assertThatExistProperty(
                 "mapPropertyWithInitValues",
                 "Map property with init values",
                 "{'key1':'value1','key2':'value2'}",
-                ofTypeMap(typeMap));
-    }
-
-    @Test
-    void shouldCorrectlyAnalyzeMapTypePropertyWithTabPlacementTop() {
-        // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor(null, TabPlacement.TOP);
-
-        // Expect
-        assertThatExistProperty(
-                "mapPropertyWithTabPlacementTop",
-                "Map property with tab placement top",
-                InitValue.USE_DEFAULT_VALUE,
                 ofTypeMap(typeMap));
     }
 

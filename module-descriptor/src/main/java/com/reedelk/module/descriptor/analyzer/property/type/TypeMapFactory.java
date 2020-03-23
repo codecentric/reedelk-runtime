@@ -1,7 +1,6 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TabPlacement;
 import com.reedelk.module.descriptor.model.TypeDescriptor;
 import com.reedelk.module.descriptor.model.TypeMapDescriptor;
 import com.reedelk.runtime.api.annotation.KeyName;
@@ -27,7 +26,6 @@ public class TypeMapFactory implements TypeDescriptorFactory {
 
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        TabPlacement tabPlacement = tabPlacementOf(fieldInfo);
         String keyName = annotationValueOrDefaultFrom(fieldInfo, KeyName.class, null);
         String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
         String valueName = annotationValueOrDefaultFrom(fieldInfo, ValueName.class, null);
@@ -44,7 +42,6 @@ public class TypeMapFactory implements TypeDescriptorFactory {
         TypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
         TypeMapDescriptor descriptor = new TypeMapDescriptor();
-        descriptor.setTabPlacement(tabPlacement);
         descriptor.setValueType(valueType);
         descriptor.setValueName(valueName);
         descriptor.setTabGroup(tabGroup);

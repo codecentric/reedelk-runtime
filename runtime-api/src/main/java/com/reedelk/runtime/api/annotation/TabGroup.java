@@ -8,13 +8,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface TabGroup {
-    /**
-     * Special value that indicates that the default tab group should
-     * be used for the property this annotation is referring to.
-     * The default tab group has the same name this property is
-     * referring to.
-     */
-    String USE_DEFAULT_NAME = "###USE_DEFAULT_NAME###";
 
-    String value() default USE_DEFAULT_NAME;
+    String value();
 }

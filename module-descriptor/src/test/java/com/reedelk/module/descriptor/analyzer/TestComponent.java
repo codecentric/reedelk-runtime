@@ -98,10 +98,6 @@ public class TestComponent implements ProcessorSync {
     @InitValue("{'key1':'value1','key2':'value2'}")
     private Map<String, String> mapPropertyWithInitValues;
 
-    @Property("Map property with tab placement top")
-    @TabPlacementTop
-    private Map<String,String> mapPropertyWithTabPlacementTop;
-
     @Property("Script property")
     private Script scriptProperty;
 
@@ -356,14 +352,6 @@ public class TestComponent implements ProcessorSync {
 
     public void setMapPropertyWithInitValues(Map<String, String> mapPropertyWithInitValues) {
         this.mapPropertyWithInitValues = mapPropertyWithInitValues;
-    }
-
-    public Map<String, String> getMapPropertyWithTabPlacementTop() {
-        return mapPropertyWithTabPlacementTop;
-    }
-
-    public void setMapPropertyWithTabPlacementTop(Map<String, String> mapPropertyWithTabPlacementTop) {
-        this.mapPropertyWithTabPlacementTop = mapPropertyWithTabPlacementTop;
     }
 
     public Script getScriptProperty() {

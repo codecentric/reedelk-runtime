@@ -18,6 +18,7 @@ public class FieldInfoAnalyzers {
                     new TypeAnalyzer(),
                     new WhenAnalyzer(),
                     new HintAnalyzer(),
+                    new GroupAnalyzer(),
                     new ExampleAnalyzer(),
                     new InitValueAnalyzer(),
                     new DescriptionAnalyzer(),

@@ -78,11 +78,8 @@ public class TypeDescriptorMatchers {
                 TypeMapDescriptor actual = (TypeMapDescriptor) given;
                 String expectedTabGroup = expected.getTabGroup();
                 String actualTabGroup = actual.getTabGroup();
-                TabPlacement expectedTabPlacement = expected.getTabPlacement();
-                TabPlacement actualTabPlacement = actual.getTabPlacement();
                 return same(expected, actual) &&
-                        Objects.equals(expectedTabGroup,actualTabGroup) &&
-                        Objects.equals(expectedTabPlacement, actualTabPlacement);
+                        Objects.equals(expectedTabGroup,actualTabGroup);
             }
             return false;
         };
