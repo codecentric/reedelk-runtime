@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.lang.String.format;
@@ -36,6 +37,7 @@ public class JsonObjectConverter {
             tmp.put(BigInteger.class, new AsBigInteger());
             tmp.put(Object.class, new AsObject());
             tmp.put(Map.class, new AsMap());
+            tmp.put(List.class, new AsList());
             CONVERTERS = Collections.unmodifiableMap(tmp);
         }
     }
@@ -285,6 +287,29 @@ public class JsonObjectConverter {
             } else {
                 JSONObject mapJsonObject = array.getJSONObject(index);
                 return mapJsonObject.toMap();
+            }
+        }
+    }
+
+    private static class AsList implements TypeConverter<List<Object>> {
+
+        @Override
+        public List<Object> convert(JSONObject object, String key) {
+            if (object.isNull(key)) {
+                return null;
+            } else {
+                JSONArray jsonArray = object.getJSONArray(key);
+                return jsonArray.toList();
+            }
+        }
+
+        @Override
+        public List<Object> convert(JSONArray array, int index) {
+            if (array.isNull(index)) {
+                return null;
+            } else {
+                JSONArray jsonArray = array.getJSONArray(index);
+                return jsonArray.toList();
             }
         }
     }

@@ -14,11 +14,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Predicate;
+import java.util.*;
 
 import static java.lang.String.format;
 
@@ -45,6 +41,7 @@ class DeserializerConverterDefault implements DeserializerConverter {
         tmp.put(BigInteger.class, new AsBigInteger());
         tmp.put(BigDecimal.class, new AsBigDecimal());
         tmp.put(Map.class, new AsMap());
+        tmp.put(List.class, new AsList());
         // Enum handled in the convert method
 
         // Dynamic value type
@@ -238,6 +235,14 @@ class DeserializerConverterDefault implements DeserializerConverter {
         @Override
         protected Class<Map> typeClazz() {
             return Map.class;
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static class AsList extends BaseConverter<List> {
+        @Override
+        protected Class<List> typeClazz() {
+            return List.class;
         }
     }
 

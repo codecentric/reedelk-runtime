@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class TypeMapDescriptor implements TypeDescriptor {
 
-    private static final transient Class<?> type = Map.class;
+    private static final transient Class<?> TYPE = Map.class;
 
     protected String keyName;
     protected String tabGroup;
@@ -13,7 +13,7 @@ public class TypeMapDescriptor implements TypeDescriptor {
 
     @Override
     public Class<?> getType() {
-        return type;
+        return TYPE;
     }
 
     public String getTabGroup() {

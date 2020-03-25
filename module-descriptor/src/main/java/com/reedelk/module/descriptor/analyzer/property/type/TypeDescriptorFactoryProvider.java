@@ -16,6 +16,7 @@ public class TypeDescriptorFactoryProvider {
             new TypeDynamicFactory(),
             new TypeDynamicMapFactory(),
             new TypeMapFactory(),
+            new TypeListFactory(),
             new TypeMimeTypeComboFactory(),
             new TypePasswordFactory(),
             new TypeResourceBinaryFactory(),

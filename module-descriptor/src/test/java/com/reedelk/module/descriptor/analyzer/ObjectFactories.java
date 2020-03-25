@@ -54,6 +54,12 @@ public class ObjectFactories {
         return descriptor;
     }
 
+    public static TypeListDescriptor createTypeListDescriptor(Class<?> valueType) {
+        TypeListDescriptor descriptor = new TypeListDescriptor();
+        descriptor.setValueType(createTypePrimitiveDescriptor(valueType));
+        return descriptor;
+    }
+
     public static <T extends DynamicMap<?>> TypeDynamicMapDescriptor createTypeDynamicMapDescriptor(Class<T> dynamicMapType, String tabGroup) {
         TypeDynamicMapDescriptor descriptor = new TypeDynamicMapDescriptor();
         descriptor.setType(dynamicMapType);

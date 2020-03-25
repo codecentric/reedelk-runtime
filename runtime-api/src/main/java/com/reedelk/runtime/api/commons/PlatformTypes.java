@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +44,7 @@ public class PlatformTypes {
         tmp.put(BigInteger.class.getName(), BigInteger.class);
         tmp.put(BigDecimal.class.getName(), BigDecimal.class);
         tmp.put(Map.class.getName(), Map.class);
+        tmp.put(List.class.getName(), List.class);
         tmp.put(Enum.class.getName(), Enum.class);
 
         // Dynamic value type

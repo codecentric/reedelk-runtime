@@ -14,6 +14,7 @@ import com.reedelk.runtime.api.script.dynamicvalue.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Map;
 
 
@@ -84,10 +85,14 @@ public class TestComponent implements ProcessorSync {
     @Property("Resource dynamic property")
     private DynamicResource resourceDynamicProperty;
 
+    // Combo
+
     @Property("Combo property")
     @InitValue("two")
     @Combo(editable = true, comboValues = {"one", "two", "three"}, prototype = "XXXXXXXXXXXX")
     private String comboProperty;
+
+    // Map
 
     @Property("Map property")
     @TabGroup("Test tab group")
@@ -97,6 +102,15 @@ public class TestComponent implements ProcessorSync {
     @TabGroup("Init values tab group")
     @InitValue("{'key1':'value1','key2':'value2'}")
     private Map<String, String> mapPropertyWithInitValues;
+
+    // List
+
+    @Property("List property")
+    private List<String> listProperty;
+
+    @Property("List property with init values")
+    @InitValue("['one','two','three']")
+    private List<String> listPropertyWithInitValues;
 
     @Property("Script property")
     private Script scriptProperty;

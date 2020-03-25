@@ -207,6 +207,10 @@ public class ScannerUtils {
         return Map.class.equals(clazz);
     }
 
+    public static boolean isList(Class<?> clazz) {
+        return List.class.equals(clazz);
+    }
+
     public static boolean isScript(Class<?> clazz) {
         return Script.class.equals(clazz);
     }

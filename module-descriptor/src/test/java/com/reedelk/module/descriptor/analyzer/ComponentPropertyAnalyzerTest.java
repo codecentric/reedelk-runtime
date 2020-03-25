@@ -20,7 +20,7 @@ import java.util.*;
 import static com.reedelk.module.descriptor.analyzer.TypeDescriptorMatchers.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ComponentDisplayNameAnalyzerTest {
+class ComponentPropertyAnalyzerTest {
 
     private static PropertyAnalyzer analyzer;
     private static ClassInfo componentClassInfo;
@@ -269,6 +269,8 @@ class ComponentDisplayNameAnalyzerTest {
                 ofTypeCombo(typeCombo));
     }
 
+    // Map
+
     @Test
     void shouldCorrectlyAnalyzeMapTypeProperty() {
         // Given
@@ -293,6 +295,34 @@ class ComponentDisplayNameAnalyzerTest {
                 "Map property with init values",
                 "{'key1':'value1','key2':'value2'}",
                 ofTypeMap(typeMap));
+    }
+
+    // List
+
+    @Test
+    void shouldCorrectlyAnalyzeListTypeProperty() {
+        // Given
+        TypeListDescriptor typeList = ObjectFactories.createTypeListDescriptor(String.class);
+
+        // Expect
+        assertThatExistProperty(
+                "listProperty",
+                "List property",
+                InitValue.USE_DEFAULT_VALUE,
+                ofTypeList(typeList));
+    }
+
+    @Test
+    void shouldCorrectlyAnalyzeListTypePropertyWithInitValues() {
+        // Given
+        TypeListDescriptor typeList = ObjectFactories.createTypeListDescriptor(String.class);
+
+        // Expect
+        assertThatExistProperty(
+                "listPropertyWithInitValues",
+                "List property with init values",
+                "['one','two','three']",
+                ofTypeList(typeList));
     }
 
     @Test

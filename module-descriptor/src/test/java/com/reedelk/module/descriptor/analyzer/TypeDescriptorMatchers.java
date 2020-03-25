@@ -85,6 +85,18 @@ public class TypeDescriptorMatchers {
         };
     }
 
+    public static Matcher<TypeDescriptor> ofTypeList(TypeListDescriptor expected) {
+        return given -> {
+            if (given instanceof TypeListDescriptor) {
+                TypeListDescriptor actual = (TypeListDescriptor) given;
+                TypeDescriptor expectedValueType = expected.getValueType();
+                TypeDescriptor actualValueType = actual.getValueType();
+                return Objects.equals(expectedValueType.getType(), actualValueType.getType());
+            }
+            return false;
+        };
+    }
+
     public static Matcher<TypeDescriptor> ofTypeScript(TypeScriptDescriptor expected) {
         return given -> {
             if (given instanceof TypeScriptDescriptor) {
