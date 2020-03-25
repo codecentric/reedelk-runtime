@@ -32,4 +32,7 @@ public class TypeDescriptorFactoryProvider {
                 .findFirst()
                 .orElseThrow(() -> new UnsupportedType(fullyQualifiedName));
     }
+
+    private TypeDescriptorFactoryProvider() {
+    }
 }
