@@ -7,5 +7,8 @@
   "protocol": "HTTP",
   "basePath": "",
   "keepAlive": true,
-  "compress": false
+  "compress": false,
+  "openApiConfiguration": {
+    "disabled": true
+  }
 }
