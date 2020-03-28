@@ -2,9 +2,10 @@ package com.reedelk.module.descriptor.model;
 
 import java.util.List;
 
-public class TypeListDescriptor implements TypeDescriptor {
+public class TypeListDescriptor extends TabGroupAwareDescriptor {
 
     private static final transient Class<?> TYPE = List.class;
+
     private TypeDescriptor valueType;
 
     @Override
@@ -24,6 +25,7 @@ public class TypeListDescriptor implements TypeDescriptor {
     public String toString() {
         return "TypeListDescriptor{" +
                 "valueType=" + valueType +
+                ", tabGroup='" + tabGroup + '\'' +
                 '}';
     }
 }

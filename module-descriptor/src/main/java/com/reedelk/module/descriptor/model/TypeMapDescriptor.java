@@ -2,26 +2,17 @@ package com.reedelk.module.descriptor.model;
 
 import java.util.Map;
 
-public class TypeMapDescriptor implements TypeDescriptor {
+public class TypeMapDescriptor extends TabGroupAwareDescriptor {
 
     private static final transient Class<?> TYPE = Map.class;
 
     protected String keyName;
-    protected String tabGroup;
     protected String valueName;
     protected TypeDescriptor valueType;
 
     @Override
     public Class<?> getType() {
         return TYPE;
-    }
-
-    public String getTabGroup() {
-        return tabGroup;
-    }
-
-    public void setTabGroup(String tabGroup) {
-        this.tabGroup = tabGroup;
     }
 
     public TypeDescriptor getValueType() {
