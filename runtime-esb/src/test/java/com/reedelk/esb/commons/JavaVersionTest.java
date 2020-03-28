@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class JavaVersionTest {
 
-    // 11 -> 11.0.5,14 -> 14, 8 -> 1.8.0_66,
     @Test
     void shouldGreaterThan18ReturnTrueWhenVersionIs11() {
         // Given
@@ -22,7 +21,7 @@ class JavaVersionTest {
     @Test
     void shouldGreaterThan18ReturnTrueWhenVersionIs14() {
         // Given
-        String fullVersion = "14";
+        String fullVersion = "14"; // Java 14
 
         // When
         boolean actual = JavaVersion.internalIsGreaterThan18(fullVersion);
@@ -34,7 +33,7 @@ class JavaVersionTest {
     @Test
     void shouldGreaterThan18ReturnFalseWhenVersionIs8() {
         // Given
-        String fullVersion = "8";
+        String fullVersion = "1.8"; // Java 1.8
 
         // When
         boolean actual = JavaVersion.internalIsGreaterThan18(fullVersion);
@@ -46,7 +45,7 @@ class JavaVersionTest {
     @Test
     void shouldGreaterThan18ReturnFalseWhenVersionIs8WithMinor() {
         // Given
-        String fullVersion = "1.8.0_66";
+        String fullVersion = "1.8.0_66"; // Java 1.8
 
         // When
         boolean actual = JavaVersion.internalIsGreaterThan18(fullVersion);
