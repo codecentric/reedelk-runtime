@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.model;
 
 import java.util.Map;
 
-public class TypeMapDescriptor extends TabGroupAwareDescriptor {
+public class TypeMapDescriptor extends CollectionAwareDescriptor {
 
     private static final transient Class<?> TYPE = Map.class;
 
@@ -42,10 +42,11 @@ public class TypeMapDescriptor extends TabGroupAwareDescriptor {
     @Override
     public String toString() {
         return "TypeMapDescriptor{" +
-                "tabGroup='" + tabGroup + '\'' +
-                ", keyName='" + keyName + '\'' +
+                "keyName='" + keyName + '\'' +
                 ", valueName='" + valueName + '\'' +
                 ", valueType=" + valueType +
+                ", tabGroup='" + tabGroup + '\'' +
+                ", dialogTitle='" + dialogTitle + '\'' +
                 '}';
     }
 }

@@ -3,6 +3,8 @@ package com.reedelk.module.descriptor.analyzer.property.type;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.TypeDescriptor;
 import com.reedelk.module.descriptor.model.TypeListDescriptor;
+import com.reedelk.runtime.api.annotation.DialogTitle;
+import com.reedelk.runtime.api.annotation.ListDisplayProperty;
 import com.reedelk.runtime.api.annotation.TabGroup;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.ClassRefTypeSignature;
@@ -25,6 +27,8 @@ public class TypeListFactory implements TypeDescriptorFactory {
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
+        String dialogTitle = annotationValueOrDefaultFrom(fieldInfo, DialogTitle.class, null);
+        String listDisplayProperty = annotationValueOrDefaultFrom(fieldInfo, ListDisplayProperty.class, null);
 
         // We must find out the value type of the List.
         // The Value type could be a primitive type or a custom object type.
@@ -38,6 +42,8 @@ public class TypeListFactory implements TypeDescriptorFactory {
         TypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
         TypeListDescriptor descriptor = new TypeListDescriptor();
+        descriptor.setListDisplayProperty(listDisplayProperty);
+        descriptor.setDialogTitle(dialogTitle);
         descriptor.setValueType(valueType);
         descriptor.setTabGroup(tabGroup);
         return descriptor;
