@@ -71,6 +71,8 @@ public class GenericComponentDefinitionDeserializer {
         }
     }
 
+    // A JSON Object could be de-serialized as Map or Custom Object. Therefore, in order to understand
+    // which de-serialized type we need, we lookup the property setter argument.
     private Object deserializeObject(JSONObject componentDefinition, String propertyName, SetterArgument setterArgument) {
         if (setterArgument.isMap()) {
             // A map can only have as key type 'String'. This is because a
@@ -126,16 +128,31 @@ public class GenericComponentDefinitionDeserializer {
         }
     }
 
-    private Collection<?> deserializeArray(JSONObject componentDefinition, String propertyName, SetterArgument argument) {
+    private Collection<?> deserializeArray(JSONObject componentDefinition, String propertyName, SetterArgument setterArgument) {
         JSONArray array = componentDefinition.getJSONArray(propertyName);
-        Class<?> collectionClazz = argument.getArgumentClazz();
-        Class<?> collectionType = ReflectionUtils.asClass(argument.getCollectionType());
+        Class<?> collectionClazz = setterArgument.getArgumentClazz();
         Collection<Object> collection = CollectionFactory.from(collectionClazz);
-        for (int index = 0; index < array.length(); index++) {
-            Object converted = context.converter().convert(collectionType, array, index);
-            collection.add(converted);
+        String collectionType = setterArgument.getCollectionType();
+
+        boolean isPrimitive = DeserializerConverter.getInstance().isPrimitive(collectionType);
+        if (isPrimitive) {
+            Class<?> collectionTypeClazz = ReflectionUtils.asClass(collectionType);
+            for (int index = 0; index < array.length(); index++) {
+                Object converted = context.converter().convert(collectionTypeClazz, array, index);
+                collection.add(converted);
+            }
+            return collection;
+
+        } else {
+            // non primitive
+            // Custom module-specific type i.e a Java class implementing the Implementor interface.
+            for (int index = 0; index < array.length(); index++) {
+                Implementor implementor = instantiateImplementor(collectionType);
+                deserialize(array.getJSONObject(index), implementor);
+                collection.add(implementor);
+            }
+            return collection;
         }
-        return collection;
     }
 
     private Object deserialize(String referenceId) {
