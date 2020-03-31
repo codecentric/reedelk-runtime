@@ -3,11 +3,11 @@ package com.reedelk.module.descriptor.analyzer.property.type;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.TypeDescriptor;
 import com.reedelk.module.descriptor.model.TypeResourceTextDescriptor;
+import com.reedelk.runtime.api.annotation.HintBrowseFile;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
 
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.clazzByFullyQualifiedName;
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.isResourceText;
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 
 public class TypeResourceTextFactory implements TypeDescriptorFactory {
 
@@ -20,6 +20,10 @@ public class TypeResourceTextFactory implements TypeDescriptorFactory {
 
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        return new TypeResourceTextDescriptor();
+        String hintBrowseFile = annotationValueOrDefaultFrom(fieldInfo, HintBrowseFile.class, null);
+
+        TypeResourceTextDescriptor descriptor = new TypeResourceTextDescriptor();
+        descriptor.setHintBrowseFile(hintBrowseFile);
+        return descriptor;
     }
 }

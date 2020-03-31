@@ -2,9 +2,9 @@ package com.reedelk.module.descriptor.model;
 
 import com.reedelk.runtime.api.resource.ResourceBinary;
 
-public class TypeResourceBinaryDescriptor implements TypeDescriptor {
+public class TypeResourceBinaryDescriptor extends ResourceAwareDescriptor {
 
-    private static final transient Class<?> type = ResourceBinary.class;
+    private transient Class<?> type = ResourceBinary.class;
 
     @Override
     public Class<?> getType() {
@@ -15,6 +15,7 @@ public class TypeResourceBinaryDescriptor implements TypeDescriptor {
     public String toString() {
         return "TypeResourceBinaryDescriptor{" +
                 "type=" + type +
+                ", hintBrowseFile='" + hintBrowseFile + '\'' +
                 '}';
     }
 }

@@ -2,9 +2,9 @@ package com.reedelk.module.descriptor.model;
 
 import com.reedelk.runtime.api.resource.ResourceText;
 
-public class TypeResourceTextDescriptor implements TypeDescriptor {
+public class TypeResourceTextDescriptor extends ResourceAwareDescriptor {
 
-    private static final transient Class<?> type = ResourceText.class;
+    private transient Class<?> type = ResourceText.class;
 
     @Override
     public Class<?> getType() {
@@ -15,6 +15,7 @@ public class TypeResourceTextDescriptor implements TypeDescriptor {
     public String toString() {
         return "TypeResourceTextDescriptor{" +
                 "type=" + type +
+                ", hintBrowseFile='" + hintBrowseFile + '\'' +
                 '}';
     }
 }
