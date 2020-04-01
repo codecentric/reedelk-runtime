@@ -16,6 +16,7 @@ public class JavaType {
 
         tmp.put(MimeType.TEXT, String.class);
         tmp.put(MimeType.TEXT_XML, String.class);
+        tmp.put(MimeType.TEXT_COMMA_SEPARATED_VALUES, String.class);
         tmp.put(MimeType.TEXT_CSS, String.class);
         tmp.put(MimeType.TEXT_JSON, String.class);
         tmp.put(MimeType.TEXT_HTML, String.class);
