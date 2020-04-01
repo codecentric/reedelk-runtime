@@ -44,4 +44,40 @@ class FileUtilsTest {
         // Then
         assertThat(actual).isEqualTo("flow");
     }
+
+    @Test
+    void shouldCorrectlyRemoveExtensionFromFileName() {
+        // Given
+        String fileName = "Person.schema.json";
+
+        // When
+        String fileWithoutExtension = FileUtils.removeExtension(fileName);
+
+        // Then
+        assertThat(fileWithoutExtension).isEqualTo("Person.schema");
+    }
+
+    @Test
+    void shouldDoNothingWhenFileNameDoesNotHaveAnyExtension() {
+        // Given
+        String fileName = "Person";
+
+        // When
+        String fileWithoutExtension = FileUtils.removeExtension(fileName);
+
+        // Then
+        assertThat(fileWithoutExtension).isEqualTo("Person");
+    }
+
+    @Test
+    void shouldRemoveFileNameWithFinalDot() {
+        // Given
+        String fileName = "Person.";
+
+        // When
+        String fileWithoutExtension = FileUtils.removeExtension(fileName);
+
+        // Then
+        assertThat(fileWithoutExtension).isEqualTo("Person");
+    }
 }

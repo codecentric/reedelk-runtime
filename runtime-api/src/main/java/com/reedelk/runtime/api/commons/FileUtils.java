@@ -14,6 +14,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class FileUtils {
 
+    private static final int NOT_FOUND = -1;
+
     private FileUtils() {
     }
 
@@ -44,6 +46,19 @@ public class FileUtils {
         }
     }
 
+    public static String removeExtension(final String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+        failIfNullBytePresent(fileName);
+
+        final int index = indexOfExtension(fileName);
+        if (index == NOT_FOUND) {
+            return fileName;
+        }
+        return fileName.substring(0, index);
+    }
+
     public static int indexOfExtension(String filename) {
         if (filename == null) {
             return -1;
@@ -64,6 +79,15 @@ public class FileUtils {
             return -1;
         } else {
             return filename.lastIndexOf(File.separatorChar);
+        }
+    }
+
+    private static void failIfNullBytePresent(final String path) {
+        final int length = path.length();
+        for (int i = 0; i < length; i++) {
+            if (path.charAt(i) == 0) {
+                throw new IllegalArgumentException("Null byte present in file/path name.");
+            }
         }
     }
 }
