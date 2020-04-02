@@ -22,6 +22,7 @@ import reactor.core.publisher.Mono;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public class ForEachExecutor implements FlowExecutor {
 
@@ -61,25 +62,11 @@ public class ForEachExecutor implements FlowExecutor {
                     .evaluate(collection, flowContext, message)
                     .orElse(null);
 
-            List<Mono<MessageAndContext>> each = new ArrayList<>();
-
-            // TODO: Add support for map. For each in a map.
-
-            // Get payload
-            if (payload instanceof Collection) {
-                Collection<?> data = (Collection<?>) payload;
-                for (Object item : data) {
-                    Mono<MessageAndContext> mono = monoFromCollectionItem(graph, firstEachNode, messageAndContext, item);
-                    each.add(mono);
-                }
-            } else {
-                // It is not a  collection, therefore it must be a single item.
-                Mono<MessageAndContext> mono = monoFromCollectionItem(graph, firstEachNode, messageAndContext, payload);
-                each.add(mono);
-            }
+            List<Mono<MessageAndContext>> each =
+                    createEachBranchesFromPayload(graph, firstEachNode, messageAndContext, payload);
 
             if (each.isEmpty()) {
-                // In this case the input collection was empty and therefore there are no
+                // In this case the input collection or map was empty and therefore there are no
                 // branches in the each collection. We immediately return the join
                 // consumer without zipping the each 'branches' since there are none.
                 JoinConsumer joinConsumer = new JoinConsumer(messageAndContext, new MessageAndContext[0], join);
@@ -113,10 +100,33 @@ public class ForEachExecutor implements FlowExecutor {
         }
     }
 
-    private Mono<MessageAndContext> monoFromCollectionItem(ExecutionGraph graph,
-                                                           ExecutionNode firstEachNode,
-                                                           MessageAndContext messageAndContext,
-                                                           Object item) {
+    private List<Mono<MessageAndContext>> createEachBranchesFromPayload(ExecutionGraph graph, ExecutionNode firstEachNode, MessageAndContext messageAndContext, Object payload) {
+        List<Mono<MessageAndContext>> each = new ArrayList<>();
+        if (payload instanceof Map) {
+            Map<?,?> payloadMap = (Map<?, ?>) payload;
+            for (Map.Entry<?,?> entry : payloadMap.entrySet()) {
+                MapEntry realEntry = new MapEntry(entry.getKey(), entry.getValue());
+                Mono<MessageAndContext> mono = monoWithItem(graph, firstEachNode, messageAndContext, realEntry);
+                each.add(mono);
+            }
+        } else if (payload instanceof Collection) {
+            Collection<?> data = (Collection<?>) payload;
+            for (Object item : data) {
+                Mono<MessageAndContext> mono = monoWithItem(graph, firstEachNode, messageAndContext, item);
+                each.add(mono);
+            }
+        } else {
+            // It is not a  collection, therefore it must be a single item.
+            Mono<MessageAndContext> mono = monoWithItem(graph, firstEachNode, messageAndContext, payload);
+            each.add(mono);
+        }
+        return each;
+    }
+
+    private Mono<MessageAndContext> monoWithItem(ExecutionGraph graph,
+                                                 ExecutionNode firstEachNode,
+                                                 MessageAndContext messageAndContext,
+                                                 Object item) {
         Message messageWithItem = item == null ?
                 MessageBuilder.get().empty().build() :
                 MessageBuilder.get().withJavaObject(item).build();

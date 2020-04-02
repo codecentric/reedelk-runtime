@@ -6,6 +6,7 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 import java.io.Serializable;
 import java.util.List;
 
+// TODO: Rename to data row
 @AutocompleteType(
         description = "The ResultRow type encapsulates a database row."
 )
