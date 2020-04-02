@@ -6,11 +6,9 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 import java.io.Serializable;
 import java.util.List;
 
-// TODO: Rename to data row
-@AutocompleteType(
-        description = "The ResultRow type encapsulates a database row."
-)
-public interface ResultRow extends Serializable {
+@AutocompleteType(description = "The DataRow type encapsulates a generic data row. " +
+        "Such as a database row, a csv document row and so on.")
+public interface DataRow extends Serializable {
 
     @AutocompleteItem(
             signature = "columnCount()",
