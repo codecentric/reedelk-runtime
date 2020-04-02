@@ -27,4 +27,12 @@ public class MyTestClazz implements Serializable {
     public void setStringVal(String stringVal) {
         this.stringVal = stringVal;
     }
+
+    @Override
+    public String toString() {
+        return "MyTestClazz{" +
+                "intVal=" + intVal +
+                ", stringVal='" + stringVal + '\'' +
+                '}';
+    }
 }

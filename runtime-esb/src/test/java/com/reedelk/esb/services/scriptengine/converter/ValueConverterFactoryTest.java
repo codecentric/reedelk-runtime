@@ -639,7 +639,7 @@ class converterServiceTest {
             byte[] result = converterService.convert(value, byte[].class);
 
             // Then
-            assertThat(result).isEqualTo(ObjectToBytes.from(value));
+            assertThat(result).isEqualTo(value.toString().getBytes());
         }
     }
 

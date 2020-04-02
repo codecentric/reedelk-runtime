@@ -412,23 +412,7 @@ class DynamicValueEvaluatorTest {
             Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.APPLICATION_BINARY, context, message);
 
             // Then
-            assertThat(result).isPresent().contains(ObjectToBytes.from(message.content().type()));
-        }
-
-        @Test
-        void shouldThrowExceptionWhenObjectToBinaryMimeTypeButContentNotSerializable() {
-            // Given
-            Message message = MessageBuilder.get().withJavaObject(new NotSerializableContent(), MimeType.TEXT).build();
-
-            DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
-
-            // When
-            ESBException thrown = assertThrows(ESBException.class,
-                    () -> evaluator.evaluate(dynamicObject, MimeType.APPLICATION_BINARY, context, message));
-
-            // Then
-            assertThat(thrown).isNotNull();
-            assertThat(thrown).hasMessage("java.io.NotSerializableException: com.reedelk.esb.services.scriptengine.evaluator.DynamicValueEvaluatorTest$NotSerializableContent");
+            assertThat(result).isPresent().contains(message.content().type().toString().getBytes());
         }
 
         @Test
