@@ -11,9 +11,8 @@ import java.util.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 
-@AutocompleteType(
-        description = "A mime type encapsulates information about the mime type of the content." +
-                " A mime type is composed by a primary type (e.g image) and by a sub type (e.g jpeg).")
+@AutocompleteType(description = "A mime type encapsulates information about the mime type of the content." +
+        " A mime type is composed by a primary type (e.g image) and by a sub type (e.g jpeg).")
 public class MimeType implements Serializable {
 
     private static final String CHARSET_PARAM = "charset";
@@ -23,6 +22,7 @@ public class MimeType implements Serializable {
     private final String primaryType;
     private final Map<String, String> params;
     private final List<String> fileExtensions;
+    private final Class<?> javaType;
 
     public static MimeType fromFileExtension(String extension) {
         if (EXTENSION_MIME_TYPE_MAP.containsKey(extension)) {
@@ -31,24 +31,24 @@ public class MimeType implements Serializable {
         return MimeType.UNKNOWN;
     }
 
-    public static MimeType of(String primaryType, String subType, String charset) {
-        return new MimeType(primaryType, subType, charset, null, null);
+    public static MimeType of(String primaryType, String subType, Class<?> javaType) {
+        return new MimeType(primaryType, subType, null, javaType, null, null);
     }
 
     public static MimeType of(String primaryType, String subType) {
-        return new MimeType(primaryType, subType, null, null, null);
+        return new MimeType(primaryType, subType, null, null, null, null);
     }
 
     public static MimeType of(String primaryType, String subType, List<String> fileExtensions) {
-        return new MimeType(primaryType, subType, null, null, fileExtensions);
+        return new MimeType(primaryType, subType, null, null, null, fileExtensions);
     }
 
-    public static MimeType of(String primaryType, String subType, Map<String, String> params) {
-        return new MimeType(primaryType, subType, null, params, null);
+    public static MimeType of(String primaryType, String subType, List<String> fileExtensions, Class<?> javaType) {
+        return new MimeType(primaryType, subType, null, javaType, null, fileExtensions);
     }
 
-    public static MimeType of(MimeType mimeType, String charset) {
-        return new MimeType(mimeType.primaryType, mimeType.subType, charset, null, null);
+    public static MimeType of(String primaryType, String subType, Map<String, String> params, Class<?> javaType) {
+        return new MimeType(primaryType, subType, null, javaType, params, null);
     }
 
     public static MimeType parse(String mimeType) {
@@ -64,9 +64,10 @@ public class MimeType implements Serializable {
         }
     }
 
-    public MimeType(String primaryType, String subType, String charset, Map<String, String> params, List<String> fileExtensions) {
+    public MimeType(String primaryType, String subType, String charset, Class<?> javaType, Map<String, String> params, List<String> fileExtensions) {
         this.subType = subType;
         this.charset = charset;
+        this.javaType = javaType == null ? Object.class : javaType;
         this.primaryType = primaryType;
         this.params = params != null ? unmodifiableMap(params) : emptyMap();
         this.fileExtensions = fileExtensions != null ? unmodifiableList(fileExtensions) : emptyList();
@@ -112,6 +113,14 @@ public class MimeType implements Serializable {
         return fileExtensions;
     }
 
+    public Class<?> getJavaType() {
+        return javaType;
+    }
+
+    public Class<?> javaType() {
+        return javaType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -144,7 +153,9 @@ public class MimeType implements Serializable {
         String primaryType = types[0].trim();
         String subType = types[1].trim();
 
-        return of(primaryType, subType, params);
+        Class<?> aClass =
+                MIME_TYPE_JAVA.get(PrimaryAndSubtypeKey.from(primaryType, subType));
+        return of(primaryType, subType, params, aClass);
     }
 
     private Charset getCharset(String given, Map<String, String> params) {
@@ -154,43 +165,43 @@ public class MimeType implements Serializable {
 
     // Text Mime Types
 
-    public static final MimeType TEXT_CSS = of("text", "css", singletonList("css"));
-    public static final MimeType TEXT_HTML = of("text", "html", asList("htm", "html", "stm"));
-    public static final MimeType TEXT = of("text", "plain", asList("bas", "c", "h", "java", "txt"));
-    public static final MimeType TEXT_RICH = of("text", "richtext", singletonList("rtx"));
-    public static final MimeType TEXT_SCRIPTLET = of("text", "scriptlet", singletonList("sct"));
-    public static final MimeType TEXT_TAB_SEPARATED_VALUES = of("text", "tab-separated-values", singletonList("tsv"));
-    public static final MimeType TEXT_COMMA_SEPARATED_VALUES = of("text", "csv", singletonList("csv"));
-    public static final MimeType TEXT_HYPERTEXT_TEMPLATE_FILE = of("text", "webviewhtml", singletonList("htt"));
-    public static final MimeType TEXT_HTML_COMPONENT_FILE = of("text", "x-component", singletonList("htc"));
-    public static final MimeType TEXT_TEX_FONT_ENCLOSING_FILE = of("text", "x-setext", singletonList("etx"));
-    public static final MimeType TEXT_VCARD_FILE = of("text", "x-vcard", singletonList("vcf"));
-    public static final MimeType TEXT_XML = of("text", "xml", singletonList("xml"));
-    public static final MimeType TEXT_JSON = of("text", "json", singletonList("json"));
-    public static final MimeType TEXT_JAVASCRIPT = of("text", "javascript", singletonList("js"));
+    public static final MimeType TEXT_CSS = of("text", "css", singletonList("css"), String.class);
+    public static final MimeType TEXT_HTML = of("text", "html", asList("htm", "html", "stm"), String.class);
+    public static final MimeType TEXT = of("text", "plain", asList("bas", "c", "h", "java", "txt"), String.class);
+    public static final MimeType TEXT_RICH = of("text", "richtext", singletonList("rtx"), String.class);
+    public static final MimeType TEXT_SCRIPTLET = of("text", "scriptlet", singletonList("sct"), String.class);
+    public static final MimeType TEXT_TAB_SEPARATED_VALUES = of("text", "tab-separated-values", singletonList("tsv"), String.class);
+    public static final MimeType TEXT_COMMA_SEPARATED_VALUES = of("text", "csv", singletonList("csv"), String.class);
+    public static final MimeType TEXT_HYPERTEXT_TEMPLATE_FILE = of("text", "webviewhtml", singletonList("htt"), String.class);
+    public static final MimeType TEXT_HTML_COMPONENT_FILE = of("text", "x-component", singletonList("htc"), String.class);
+    public static final MimeType TEXT_TEX_FONT_ENCLOSING_FILE = of("text", "x-setext", singletonList("etx"), String.class);
+    public static final MimeType TEXT_VCARD_FILE = of("text", "x-vcard", singletonList("vcf"), String.class);
+    public static final MimeType TEXT_XML = of("text", "xml", singletonList("xml"), String.class);
+    public static final MimeType TEXT_JSON = of("text", "json", singletonList("json"), String.class);
+    public static final MimeType TEXT_JAVASCRIPT = of("text", "javascript", singletonList("js"), String.class);
 
 
     // Images Mime Types
 
-    public static final MimeType IMAGE_BITMAP = of("image", "bmp", singletonList("bmp"));
-    public static final MimeType IMAGE_GIF = of("image", "gif", singletonList("gif"));
-    public static final MimeType IMAGE_PNG = of("image", "png", singletonList("png"));
-    public static final MimeType IMAGE_JPEG = of("image", "jpeg", asList("jpe", "jpeg", "jpg"));
-    public static final MimeType IMAGE_JPEG_INTERCHANGE = of("image", "pipeg", singletonList("jfif"));
-    public static final MimeType IMAGE_SVG = of("image", "svg+xml", singletonList("svg"));
-    public static final MimeType IMAGE_TIFF = of("image", "tiff", asList("tiff", "tif"));
-    public static final MimeType IMAGE_SUN_RASTER_GRAPHIC = of("image", "x-cmu-raster", singletonList("ras"));
-    public static final MimeType IMAGE_COREL_METAFILE_EXCHANGE_FILE = of("image", "x-cmx", singletonList("cmx"));
-    public static final MimeType IMAGE_ICON = of("image", "x-icon", singletonList("ico"));
-    public static final MimeType IMAGE_PORTABLE_ANY_MAP_IMAGE = of("image", "x-portable-anymap", singletonList("pnm"));
-    public static final MimeType IMAGE_PORTABLE_BITMAP_IMAGE = of("image", "x-portable-bitmap", singletonList("pbm"));
-    public static final MimeType IMAGE_PORTABLE_GRAYMAP_IMAGE = of("image", "x-portable-graymap", singletonList("pgm"));
-    public static final MimeType IMAGE_PORTABLE_PIXMAP_IMAGE = of("image", "x-portable-pixmap", singletonList("ppm"));
-    public static final MimeType IMAGE_RGB_BITMAP = of("image", "x-rgb", singletonList("rgb"));
-    public static final MimeType IMAGE_X11_BITMAP = of("image", "x-xbitmap", singletonList("xbm"));
-    public static final MimeType IMAGE_X11_PIXMAP = of("image", "x-xpixmap", singletonList("xpm"));
-    public static final MimeType IMAGE_X_WINDOWS_DUMP = of("image", "x-xwindowdump", singletonList("xwd"));
-    public static final MimeType IMAGE_FILE = of("image", "ief", singletonList("ief"));
+    public static final MimeType IMAGE_BITMAP = of("image", "bmp", singletonList("bmp"), byte[].class);
+    public static final MimeType IMAGE_GIF = of("image", "gif", singletonList("gif"), byte[].class);
+    public static final MimeType IMAGE_PNG = of("image", "png", singletonList("png"), byte[].class);
+    public static final MimeType IMAGE_JPEG = of("image", "jpeg", asList("jpe", "jpeg", "jpg"), byte[].class);
+    public static final MimeType IMAGE_JPEG_INTERCHANGE = of("image", "pipeg", singletonList("jfif"), byte[].class);
+    public static final MimeType IMAGE_SVG = of("image", "svg+xml", singletonList("svg"), String.class);
+    public static final MimeType IMAGE_TIFF = of("image", "tiff", asList("tiff", "tif"), byte[].class);
+    public static final MimeType IMAGE_SUN_RASTER_GRAPHIC = of("image", "x-cmu-raster", singletonList("ras"), byte[].class);
+    public static final MimeType IMAGE_COREL_METAFILE_EXCHANGE_FILE = of("image", "x-cmx", singletonList("cmx"), byte[].class);
+    public static final MimeType IMAGE_ICON = of("image", "x-icon", singletonList("ico"), byte[].class);
+    public static final MimeType IMAGE_PORTABLE_ANY_MAP_IMAGE = of("image", "x-portable-anymap", singletonList("pnm"), byte[].class);
+    public static final MimeType IMAGE_PORTABLE_BITMAP_IMAGE = of("image", "x-portable-bitmap", singletonList("pbm"), byte[].class);
+    public static final MimeType IMAGE_PORTABLE_GRAYMAP_IMAGE = of("image", "x-portable-graymap", singletonList("pgm"), byte[].class);
+    public static final MimeType IMAGE_PORTABLE_PIXMAP_IMAGE = of("image", "x-portable-pixmap", singletonList("ppm"), byte[].class);
+    public static final MimeType IMAGE_RGB_BITMAP = of("image", "x-rgb", singletonList("rgb"), byte[].class);
+    public static final MimeType IMAGE_X11_BITMAP = of("image", "x-xbitmap", singletonList("xbm"), byte[].class);
+    public static final MimeType IMAGE_X11_PIXMAP = of("image", "x-xpixmap", singletonList("xpm"), byte[].class);
+    public static final MimeType IMAGE_X_WINDOWS_DUMP = of("image", "x-xwindowdump", singletonList("xwd"), byte[].class);
+    public static final MimeType IMAGE_FILE = of("image", "ief", singletonList("ief"), byte[].class);
 
     // Mail Messages Mime Types
 
@@ -198,23 +209,23 @@ public class MimeType implements Serializable {
 
     // Video Mime Types
 
-    public static final MimeType VIDEO_MPEG = of("video", "mpeg", asList("mp2", "mpa", "mpe", "mpeg", "mpg", "mpv2"));
-    public static final MimeType VIDEO_MPEG4 = of("video", "mp4", singletonList("mp4"));
-    public static final MimeType VIDEO_QUICKTIME = of("video", "quicktime", asList("mov", "qt"));
-    public static final MimeType VIDEO_LOGOS_LIBRARY_FILE = of("video", "x-la-asf", asList("lsf", "lsx"));
-    public static final MimeType VIDEO_MICROSOFT_ASF = of("video", "x-ms-asf", asList("asf", "asr", "asx"));
-    public static final MimeType VIDEO_AVI_FILE = of("video", "x-msvideo", singletonList("avi"));
-    public static final MimeType VIDEO_QUICKTIME_MOVIE = of("video", "x-sgi-movie", singletonList("movie"));
+    public static final MimeType VIDEO_MPEG = of("video", "mpeg", asList("mp2", "mpa", "mpe", "mpeg", "mpg", "mpv2"), byte[].class);
+    public static final MimeType VIDEO_MPEG4 = of("video", "mp4", singletonList("mp4"), byte[].class);
+    public static final MimeType VIDEO_QUICKTIME = of("video", "quicktime", asList("mov", "qt"), byte[].class);
+    public static final MimeType VIDEO_LOGOS_LIBRARY_FILE = of("video", "x-la-asf", asList("lsf", "lsx"), byte[].class);
+    public static final MimeType VIDEO_MICROSOFT_ASF = of("video", "x-ms-asf", asList("asf", "asr", "asx"), byte[].class);
+    public static final MimeType VIDEO_AVI_FILE = of("video", "x-msvideo", singletonList("avi"), byte[].class);
+    public static final MimeType VIDEO_QUICKTIME_MOVIE = of("video", "x-sgi-movie", singletonList("movie"), byte[].class);
 
     // Audio Mime Types
 
-    public static final MimeType AUDIO_BASIC = of("audio", "basic", asList("au", "snd"));
-    public static final MimeType AUDIO_MIDI = of("audio", "mid", asList("mid", "rmi"));
-    public static final MimeType AUDIO_MP3 = of("audio", "mpeg", singletonList("mp3"));
-    public static final MimeType AUDIO_INTERCHANGE_FORMAT = of("audio", "x-aiff", asList("aif", "aifc", "aiff"));
-    public static final MimeType AUDIO_MEDIA_PLAYLIST_FILE = of("audio", "x-mpegurl", singletonList("m3u"));
-    public static final MimeType AUDIO_REAL_AUDIO_FILE = of("audio", "x-pn-realaudio", asList("ra", "ram"));
-    public static final MimeType AUDIO_WAVE = of("audio", "x-wav", singletonList("wav"));
+    public static final MimeType AUDIO_BASIC = of("audio", "basic", asList("au", "snd"), byte[].class);
+    public static final MimeType AUDIO_MIDI = of("audio", "mid", asList("mid", "rmi"), byte[].class);
+    public static final MimeType AUDIO_MP3 = of("audio", "mpeg", singletonList("mp3"), byte[].class);
+    public static final MimeType AUDIO_INTERCHANGE_FORMAT = of("audio", "x-aiff", asList("aif", "aifc", "aiff"), byte[].class);
+    public static final MimeType AUDIO_MEDIA_PLAYLIST_FILE = of("audio", "x-mpegurl", singletonList("m3u"), byte[].class);
+    public static final MimeType AUDIO_REAL_AUDIO_FILE = of("audio", "x-pn-realaudio", asList("ra", "ram"), byte[].class);
+    public static final MimeType AUDIO_WAVE = of("audio", "x-wav", singletonList("wav"), byte[].class);
 
     // Applications Mime Types
 
@@ -223,7 +234,7 @@ public class MimeType implements Serializable {
     public static final MimeType APPLICATION_WINDOWS_PRINT_SPOOL_FILE = of("application", "futuresplash", singletonList("spl"));
     public static final MimeType APPLICATION_HTA = of("application", "hta", singletonList("hta"));
     public static final MimeType APPLICATION_WORD = of("application", "msword", asList("doc", "dot"));
-    public static final MimeType APPLICATION_BINARY = of("application", "octet-stream", asList("*", "bin", "class", "dms", "exe", "jar", "lha", "lzh"));
+    public static final MimeType APPLICATION_BINARY = of("application", "octet-stream", asList("*", "bin", "class", "dms", "exe", "jar", "lha", "lzh"), byte[].class);
     public static final MimeType APPLICATION_CALS_RASTER_IMAGE = of("application", "oda", singletonList("oda"));
     public static final MimeType APPLICATION_ACTIVEX_SCRIPT = of("application", "olescript", singletonList("axs"));
     public static final MimeType APPLICATION_ACROBAT_FILE = of("application", "pdf", singletonList("pdf"));
@@ -255,8 +266,8 @@ public class MimeType implements Serializable {
     public static final MimeType APPLICATION_GNU_ZIPPED_ARCHIVE = of("application", "x-gzip", singletonList("gz"));
     public static final MimeType APPLICATION_HIERARCHICAL_DATA_FORMAT = of("application", "x-hdf", singletonList("hdf"));
     public static final MimeType APPLICATION_INTERNET_SETTINGS_FILE = of("application", "x-internet-signup", asList("ins", "isp"));
-    public static final MimeType APPLICATION_JAVASCRIPT = of("application", "x-javascript", singletonList("js"));
-    public static final MimeType APPLICATION_LATEX_FILE = of("application", "x-latex", singletonList("latex"));
+    public static final MimeType APPLICATION_JAVASCRIPT = of("application", "javascript", singletonList("js"), String.class);
+    public static final MimeType APPLICATION_LATEX_FILE = of("application", "x-latex", singletonList("latex"), String.class);
     public static final MimeType APPLICATION_MICROSOFT_ACCESS_DATABASE = of("application", "x-msaccess", singletonList("mdb"));
     public static final MimeType APPLICATION_WINDOWS_CARDSPACE_FILE = of("application", "x-mscardfile", singletonList("crd"));
     public static final MimeType APPLICATION_CRAZY_TALK_CLIP_FILE = of("application", "x-msclip", singletonList("clp"));
@@ -280,12 +291,12 @@ public class MimeType implements Serializable {
     public static final MimeType APPLICATION_X_TAR = of("application", "x-tar", singletonList("tar"));
     public static final MimeType APPLICATION_X_509 = of("application", "x-x509-ca-cert", asList("cer", "crt", "der"));
     public static final MimeType APPLICATION_ZIP = of("application", "zip", singletonList("zip"));
-    public static final MimeType APPLICATION_ATOM = of("application", "atom+xml");
-    public static final MimeType APPLICATION_RSS = of("application", "rss+xml");
-    public static final MimeType APPLICATION_XML = of("application", "xml");
-    public static final MimeType APPLICATION_JSON = of("application", "json");
+    public static final MimeType APPLICATION_ATOM = of("application", "atom+xml", singletonList("atom"), String.class);
+    public static final MimeType APPLICATION_RSS = of("application", "rss+xml", singletonList("rss"), String.class);
+    public static final MimeType APPLICATION_XML = of("application", "xml", singletonList("xml"), String.class);
+    public static final MimeType APPLICATION_JSON = of("application", "json", singletonList("json"), String.class);
     public static final MimeType APPLICATION_JAVA = of("application", "java");
-    public static final MimeType APPLICATION_FORM_URL_ENCODED = of("application", "x-www-form-urlencoded");
+    public static final MimeType APPLICATION_FORM_URL_ENCODED = of("application", "x-www-form-urlencoded", String.class);
 
     // Misc
 
@@ -298,10 +309,10 @@ public class MimeType implements Serializable {
 
     public static final MimeType ANY = of("*", "*");
     public static final MimeType UNKNOWN = of("content", "unknown");
-    public static final MimeType MULTIPART_FORM_DATA = of("multipart", "form-data");
+    public static final MimeType MULTIPART_FORM_DATA = of("multipart", "form-data", Parts.class);
 
 
-    public static final MimeType[] ALL = new MimeType[]{
+    public static final List<MimeType> ALL = Arrays.asList(
 
             TEXT_CSS,
             TEXT_HTML,
@@ -427,22 +438,99 @@ public class MimeType implements Serializable {
 
             ANY,
             UNKNOWN,
-            MULTIPART_FORM_DATA
-    };
+            MULTIPART_FORM_DATA);
 
-    public static final String[] ALL_MIME_TYPES = Arrays.stream(ALL).map(MimeType::toString).toArray(String[]::new);
 
     public static final String MIME_TYPE_PROTOTYPE = "XXXXXXXXXXXXXXXXXXXXXXXXXX";
 
-    private static final Map<String,MimeType> EXTENSION_MIME_TYPE_MAP;
+    private static final Map<String, MimeType> EXTENSION_MIME_TYPE_MAP;
     static {
-        Map<String,MimeType> tmp = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        Arrays.stream(ALL).forEach(mimeType ->
-                mimeType.getFileExtensions()
+        Map<String, MimeType> tmp = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        ALL.forEach(mimeType -> mimeType.getFileExtensions()
                         .forEach(fileExtension -> tmp.put(fileExtension, mimeType)));
         EXTENSION_MIME_TYPE_MAP = Collections.unmodifiableMap(tmp);
     }
 
+    public static final Map<PrimaryAndSubtypeKey, Class<?>> MIME_TYPE_JAVA;
+    static {
+        Map<PrimaryAndSubtypeKey, Class<?>> tmp = new HashMap<>();
+        MimeType.ALL.forEach(mimeType ->
+                tmp.put(PrimaryAndSubtypeKey.from(mimeType), mimeType.javaType()));
+        MIME_TYPE_JAVA = Collections.unmodifiableMap(tmp);
+    }
+
+    static class PrimaryAndSubtypeKey implements Pair<String,String> {
+
+        static PrimaryAndSubtypeKey from(MimeType mimeType) {
+            return new PrimaryAndSubtypeKey(mimeType.getPrimaryType(), mimeType.getSubType());
+        }
+
+        static PrimaryAndSubtypeKey from(String primaryType, String subType) {
+            return new PrimaryAndSubtypeKey(primaryType, subType);
+        }
+
+        private final String primaryType;
+        private final String subType;
+
+        public PrimaryAndSubtypeKey(String primaryType, String subType) {
+            this.primaryType = primaryType;
+            this.subType = subType;
+        }
+
+        @Override
+        public String key() {
+            return primaryType;
+        }
+
+        @Override
+        public String value() {
+            return subType;
+        }
+
+        @Override
+        public String getKey() {
+            return primaryType;
+        }
+
+        @Override
+        public String getValue() {
+            return subType;
+        }
+
+        @Override
+        public String left() {
+            return primaryType;
+        }
+
+        @Override
+        public String right() {
+            return subType;
+        }
+
+        @Override
+        public String getLeft() {
+            return primaryType;
+        }
+
+        @Override
+        public String getRight() {
+            return subType;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            PrimaryAndSubtypeKey that = (PrimaryAndSubtypeKey) o;
+            return Objects.equals(primaryType, that.primaryType) &&
+                    Objects.equals(subType, that.subType);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(primaryType, subType);
+        }
+    }
 
     @Override
     public String toString() {

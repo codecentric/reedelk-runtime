@@ -11,6 +11,7 @@ import io.github.classgraph.FieldInfo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
@@ -27,7 +28,7 @@ public class TypeMimeTypeComboFactory implements TypeDescriptorFactory {
 
     @Override
     public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        List<String> predefinedMimeTypes = Arrays.asList(MimeType.ALL_MIME_TYPES);
+        List<String> predefinedMimeTypes = MimeType.ALL.stream().map(MimeType::toString).collect(Collectors.toList());
         String additionalMimeTypes = annotationParameterValueOrDefaultFrom(fieldInfo, MimeTypeCombo.class, "additionalTypes", EMPTY);
         if (isNotBlank(additionalMimeTypes)) {
             String[] additionalTypes = additionalMimeTypes.split(",");

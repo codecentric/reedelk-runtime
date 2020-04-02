@@ -18,12 +18,17 @@ import java.math.BigInteger;
 import java.util.*;
 
 import static com.reedelk.module.descriptor.analyzer.TypeDescriptorMatchers.*;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ComponentPropertyAnalyzerTest {
 
     private static PropertyAnalyzer analyzer;
     private static ClassInfo componentClassInfo;
+
+    private static final String[] MIME_TYPES_ARRAY = MimeType.ALL.stream().map(MimeType::toString)
+            .collect(toList())
+            .toArray(new String[]{});
 
     @BeforeAll
     static void beforeAll() {
@@ -502,7 +507,7 @@ class ComponentPropertyAnalyzerTest {
     void shouldCorrectlyAnalyzeMimeTypeComboProperty() {
         // Given
         TypeComboDescriptor typeComboDescriptor =
-                ObjectFactories.createTypeComboDescriptor(true, MimeType.ALL_MIME_TYPES, MimeType.MIME_TYPE_PROTOTYPE);
+                ObjectFactories.createTypeComboDescriptor(true, MIME_TYPES_ARRAY, MimeType.MIME_TYPE_PROTOTYPE);
 
         // Expect
         assertThatExistProperty(
@@ -515,7 +520,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMimeTypeCustomComboProperty() {
         // Given
-        List<String> predefinedMimeTypes = new ArrayList<>(Arrays.asList(MimeType.ALL_MIME_TYPES));
+        List<String> predefinedMimeTypes = new ArrayList<>(Arrays.asList(MIME_TYPES_ARRAY));
         predefinedMimeTypes.add("img/xyz");
         predefinedMimeTypes.add("audio/mp13");
         String[] comboMimeTypesArray = predefinedMimeTypes.toArray(new String[]{});

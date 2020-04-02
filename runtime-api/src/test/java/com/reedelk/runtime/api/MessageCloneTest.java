@@ -12,7 +12,6 @@ import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +23,7 @@ class MessageCloneTest {
          // Given
          String expectedContent = "testing clone";
 
-         MimeType expectedMimeType = MimeType.of(MimeType.TEXT, StandardCharsets.UTF_8.name());
+         MimeType expectedMimeType = MimeType.TEXT;
          Message message = buildMessageWith(expectedMimeType, expectedContent, ImmutableMap.of("attr1", "value1", "aTTr2", "value2"));
 
          // When
@@ -41,7 +40,6 @@ class MessageCloneTest {
 
          assertThat(actualMimeType.getSubType()).isEqualTo(expectedMimeType.getSubType());
          assertThat(actualMimeType.getPrimaryType()).isEqualTo(expectedMimeType.getPrimaryType());
-         assertThat(actualMimeType.getCharset()).hasValue(expectedMimeType.getCharset().get());
 
         MessageAttributes attributes = cloned.attributes();
         assertThat((String) attributes.get("aTTr1")).isEqualTo("value1");

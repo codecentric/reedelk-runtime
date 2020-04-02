@@ -1,6 +1,5 @@
-package com.reedelk.runtime.api;
+package com.reedelk.runtime.api.message.content;
 
-import com.reedelk.runtime.api.message.content.MimeType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -23,6 +22,7 @@ class MimeTypeTest {
             // Then
             assertThat(actualMimeType.getPrimaryType()).isEqualTo("application");
             assertThat(actualMimeType.getSubType()).isEqualTo("json");
+            assertThat(actualMimeType.javaType()).isEqualTo(String.class);
         }
 
         @Test

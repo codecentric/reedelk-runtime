@@ -2,7 +2,6 @@ package com.reedelk.esb.services.scriptengine.evaluator;
 
 import com.reedelk.esb.services.scriptengine.evaluator.function.DynamicValueWithErrorAndContext;
 import com.reedelk.esb.services.scriptengine.evaluator.function.DynamicValueWithMessageAndContext;
-import com.reedelk.runtime.api.commons.JavaType;
 import com.reedelk.runtime.api.commons.ScriptUtils;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
@@ -68,13 +67,13 @@ public class DynamicValueEvaluator extends AbstractDynamicValueEvaluator {
                 // note that by calling message.payload(), if it is a stream we are
                 // automatically resolving it.
                 Object payload = message.payload();
-                return convert(payload, JavaType.from(mimeType), OPTIONAL_PROVIDER);
+                return convert(payload, mimeType.javaType(), OPTIONAL_PROVIDER);
             } else {
                 Object evaluationResult = invokeFunction(dynamicValue, functionBuilder, flowContext, message);
-                return convert(evaluationResult, JavaType.from(mimeType), OPTIONAL_PROVIDER);
+                return convert(evaluationResult, mimeType.javaType(), OPTIONAL_PROVIDER);
             }
         } else {
-            return convert(dynamicValue.value(), JavaType.from(mimeType), OPTIONAL_PROVIDER);
+            return convert(dynamicValue.value(), mimeType.javaType(), OPTIONAL_PROVIDER);
         }
     }
 }

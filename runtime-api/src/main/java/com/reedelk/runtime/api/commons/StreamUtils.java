@@ -35,7 +35,7 @@ public class StreamUtils {
         }
 
         public static TypedPublisher<?> fromMimeType(Publisher<byte[]> byteArrayStream, MimeType mimeType) {
-            if (String.class == JavaType.from(mimeType)) {
+            if (String.class == mimeType.javaType()) {
                 // If it  is a String, then we check if the charset is present
                 // in the mime type to be used for the string conversion.
                 Charset charset = mimeType.getCharset().orElse(null);
