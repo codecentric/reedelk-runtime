@@ -9,8 +9,6 @@ import java.util.Map;
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE;
 
-
-
 @AutocompleteType(
         description = "The FlowContext type encapsulates the execution context for a flow. " +
                 "The execution context allows to store and retrieve data which can be accessed by components during " +
@@ -28,7 +26,7 @@ import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE
         itemType = FUNCTION,
         returnType = Void.class,
         token = "put",
-        signature = "put(key: String, object: Serializable)",
+        signature = "put(key: String, object: Object)",
         example = "context.put('myJson', message.payload())",
         description = "Puts an object with the given key into the flow context.")
 @AutocompleteItem(
@@ -54,7 +52,7 @@ import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE
         signature = "toString()",
         example = "context.toString()",
         description = "Returns a string representation of the flow context.")
-public interface FlowContext extends Map<String, Serializable>, Disposable {
+public interface FlowContext extends Map<String, Object>, Disposable {
 
     /**
      * Registers a disposable object in the context so that it can

@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -185,7 +184,7 @@ class DynamicMapEvaluatorTest {
     }
 
 
-    private static class TestableFlowContext extends HashMap<String, Serializable> implements FlowContext {
+    private static class TestableFlowContext extends HashMap<String, Object> implements FlowContext {
 
         @Override
         public void register(Disposable disposable) {

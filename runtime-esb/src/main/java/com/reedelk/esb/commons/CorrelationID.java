@@ -21,14 +21,14 @@ public class CorrelationID {
 
     public static String getOrNull(FlowContext context) {
         if (context.containsKey(CORRELATION_ID)) {
-            Serializable serializable = context.get(CORRELATION_ID);
+            Object maybeCorrelationId = context.get(CORRELATION_ID);
             // This cover the case where the FlowContext correlation id attribute
             // might be overridden by another value in the flow. If it is a string,
             // we return its value, if it is another serializable value, we return
             // the default value, since the original correlation id is (by definition)
             // a string value.
-            if (serializable instanceof String) {
-                return (String) serializable;
+            if (maybeCorrelationId instanceof String) {
+                return (String) maybeCorrelationId;
             }
         }
         return null;

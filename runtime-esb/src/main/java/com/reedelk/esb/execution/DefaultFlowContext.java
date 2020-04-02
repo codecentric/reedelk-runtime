@@ -10,14 +10,13 @@ import com.reedelk.runtime.api.message.MessageAttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 
-public class DefaultFlowContext extends ConcurrentHashMap<String, Serializable> implements FlowContext {
+public class DefaultFlowContext extends ConcurrentHashMap<String, Object> implements FlowContext {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultFlowContext.class);
 
