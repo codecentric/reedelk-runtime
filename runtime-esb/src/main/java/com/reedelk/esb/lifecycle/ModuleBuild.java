@@ -78,17 +78,13 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
         Module module = modulesManager.getModuleById(bundle.getBundleId());
         long moduleId = module.id();
 
-        DeserializerConverter deserializerConverter = DeserializerConverter.getInstance();
-        deserializerConverter = new ResourceResolverDecorator(deserializerConverter, deSerializedModule, module);
-        deserializerConverter = new ScriptResolverDecorator(deserializerConverter, deSerializedModule);
-        deserializerConverter = new ConfigPropertyDecorator(configurationService(), deserializerConverter);
-        deserializerConverter = new DeserializerConverterContextDecorator(deserializerConverter, moduleId);
+        DeserializerConverter converter = createDeserializerConverter(deSerializedModule, module, moduleId);
 
         String flowId = id(flowDefinition);
         String flowTitle = hasTitle(flowDefinition) ? title(flowDefinition) : null;
 
         try {
-            FlowDeserializerContext context = new FlowDeserializerContext(bundle, modulesManager, deSerializedModule, deserializerConverter);
+            FlowDeserializerContext context = new FlowDeserializerContext(bundle, modulesManager, deSerializedModule, converter);
             FlowDeserializer flowDeserializer = new FlowDeserializer(context);
             flowDeserializer.deserialize(flowGraph, flowDefinition);
             return new Flow(module.id(), module.name(), flowId, flowTitle, flowGraph, executionEngine);
@@ -111,5 +107,16 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
                     flowId, flowTitle, flowGraph,
                     executionEngine, buildException);
         }
+    }
+
+    private DeserializerConverter createDeserializerConverter(DeSerializedModule deSerializedModule,
+                                                              Module module,
+                                                              long moduleId) {
+        DeserializerConverter deserializerConverter = DeserializerConverter.getInstance();
+        deserializerConverter = new ResourceResolverDecorator(deserializerConverter, deSerializedModule, module);
+        deserializerConverter = new ScriptResolverDecorator(deserializerConverter, deSerializedModule);
+        deserializerConverter = new ConfigPropertyDecorator(configurationService(), deserializerConverter);
+        deserializerConverter = new DeserializerConverterContextDecorator(deserializerConverter, moduleId);
+        return deserializerConverter;
     }
 }

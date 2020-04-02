@@ -66,7 +66,7 @@ public class ReleaseReferenceConsumer implements Consumer<ExecutionNode> {
         if (released) warnServiceNotReleased(serviceReference);
     }
 
-    void warnServiceNotReleased(ServiceReference serviceReference) {
+    void warnServiceNotReleased(ServiceReference<?> serviceReference) {
         logger.warn("Service Reference {} could not be released", COMPONENT_NAME.get(serviceReference));
     }
 
