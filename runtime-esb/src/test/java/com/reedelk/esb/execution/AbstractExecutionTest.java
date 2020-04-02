@@ -128,7 +128,7 @@ public abstract class AbstractExecutionTest {
         }
     }
 
-    protected static class AddPostfixSyncProcessor implements ProcessorSync {
+    public static class AddPostfixSyncProcessor implements ProcessorSync {
 
         private final String postfix;
 
@@ -158,6 +158,15 @@ public abstract class AbstractExecutionTest {
                     .map(message -> (String) message.content().data())
                     .collect(joining(delimiter));
             return MessageBuilder.get().withText(joined).build();
+        }
+    }
+
+    public static class ToStringProcessor implements ProcessorSync {
+
+        @Override
+        public Message apply(FlowContext flowContext, Message message) {
+            String outputString = message.payload().toString();
+            return MessageBuilder.get().withText(outputString).build();
         }
     }
 }

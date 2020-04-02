@@ -4,6 +4,7 @@ import com.reedelk.esb.execution.AbstractExecutionTest;
 import com.reedelk.esb.execution.MessageAndContext;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
+import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
@@ -15,7 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -98,7 +98,7 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .forEachSequence(eachNode1, eachNode2)
                 .build();
 
-        MessageAndContext event = newEventWithContent(Arrays.asList("one","two"));
+        MessageAndContext event = newEventWithContent(asList("one", "two"));
         Publisher<MessageAndContext> publisher = Mono.just(event);
 
         // When
@@ -124,7 +124,7 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .afterForEachSequence(afterForEach)
                 .build();
 
-        MessageAndContext event = newEventWithContent(Arrays.asList("one","two"));
+        MessageAndContext event = newEventWithContent(asList("one", "two"));
         Publisher<MessageAndContext> publisher = Mono.just(event);
 
         // When
@@ -307,4 +307,61 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .assertNext(assertMessageContains(""))
                 .verifyComplete();
     }
+
+    @Test
+    void shouldApplyForEachToEachItemOfMap() {
+        // Given
+        ExecutionNode joinNode = newExecutionNode(new JoinStringWithDelimiter("|"));
+        ExecutionNode afterForEach = newExecutionNode(new AddPostfixSyncProcessor(" after for each"));
+        ExecutionNode toStringExecutionNode = newExecutionNode(new ToStringProcessor());
+
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .inbound(inbound)
+                .join(joinNode)
+                .forEach(forEachNode)
+                .afterForEachSequence(afterForEach)
+                .forEachSequence(toStringExecutionNode, eachNode2)
+                .build();
+
+        MessageAndContext event = newEventWithContent(
+                ImmutableMap.of(
+                        "key1", asList("Item11", "Item12"),
+                        "key2", asList("Item21", "Item22")));
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .assertNext(assertMessageContains("MapEntry{key=key1, value=[Item11, Item12]}-each2|MapEntry{key=key2, value=[Item21, Item22]}-each2 after for each"))
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldDoNothingWhenMapIsEmptyAndJoinNode() {
+        // Given
+        ExecutionNode joinNode = newExecutionNode(new JoinStringWithDelimiter("|"));
+
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .join(joinNode)
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .forEachSequence(eachNode1)
+                .build();
+
+
+        MessageAndContext event = newEventWithContent(ImmutableMap.of());
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                // Expect: Empty String Join result (no items where in the list)
+                .assertNext(assertMessageContains(""))
+                .verifyComplete();
+    }
+
 }
