@@ -78,11 +78,20 @@ public class ForEachExecutor implements FlowExecutor {
                 each.add(mono);
             }
 
-            return Mono.zip(each, Combinator.messageAndContext())
-                    .flatMap(eventsToJoin -> {
-                        JoinConsumer joinConsumer = new JoinConsumer(messageAndContext, eventsToJoin, join);
-                        return Mono.create(joinConsumer);
-                    });
+            if (each.isEmpty()) {
+                // In this case the input collection was empty and therefore there are no
+                // branches in the each collection. We immediately return the join
+                // consumer without zipping the each 'branches' since there are none.
+                JoinConsumer joinConsumer = new JoinConsumer(messageAndContext, new MessageAndContext[0], join);
+                return Mono.create(joinConsumer);
+
+            } else {
+                return Mono.zip(each, Combinator.messageAndContext())
+                        .flatMap(eventsToJoin -> {
+                            JoinConsumer joinConsumer = new JoinConsumer(messageAndContext, eventsToJoin, join);
+                            return Mono.create(joinConsumer);
+                        });
+            }
         });
 
         if (nextAfterStop == null) {

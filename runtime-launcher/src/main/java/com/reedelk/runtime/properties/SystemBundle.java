@@ -21,7 +21,7 @@ public class SystemBundle {
                 "httpclient-osgi-4.5.10.jar",
                 "httpasyncclient-osgi-4.1.4.jar",
                 "reactive-streams-1.0.3.jar",
-                "reactor-core-3.2.12.RELEASE.jar",
+                "reactor-core-3.2.16.RELEASE.jar",
                 "runtime-api.jar", // NAME_CONVENTION
                 "runtime-commons.jar", // NAME_CONVENTION
                 "runtime-esb.jar")); // NAME_CONVENTION

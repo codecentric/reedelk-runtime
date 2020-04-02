@@ -9,9 +9,7 @@ import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
-import com.reedelk.runtime.api.message.content.EmptyContent;
 import com.reedelk.runtime.api.message.content.MimeType;
-import com.reedelk.runtime.api.message.content.TypedContent;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.component.Stop;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,6 +44,11 @@ public abstract class AbstractExecutionTest {
 
     protected MessageAndContext newEventWithContent(Object content) {
         Message message = MessageBuilder.get().withJavaObject(content).build();
+        return new NoActionResultMessageAndContext(message);
+    }
+
+    protected <T> MessageAndContext newEventWithContent(Collection<T> collection, Class<T> clazz) {
+        Message message = MessageBuilder.get().withJavaCollection(collection, clazz).build();
         return new NoActionResultMessageAndContext(message);
     }
 

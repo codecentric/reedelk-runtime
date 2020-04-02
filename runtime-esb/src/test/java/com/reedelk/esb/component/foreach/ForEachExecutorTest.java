@@ -5,6 +5,7 @@ import com.reedelk.esb.execution.MessageAndContext;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.commons.ModuleContext;
+import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +16,12 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.spy;
 
 class ForEachExecutorTest extends AbstractExecutionTest {
@@ -220,6 +225,86 @@ class ForEachExecutorTest extends AbstractExecutionTest {
         // Then
         StepVerifier.create(endPublisher)
                 .assertNext(assertMessageContains("onetwo after for each"))
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldDoNothingJavaObjectCollectionIsEmpty() {
+        // Given
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .forEachSequence(eachNode1)
+                .build();
+
+        Collection<String> inputCollection = Collections.emptyList();
+        // Test with message : withJavaObject 'ObjectContent'
+        MessageAndContext event = newEventWithContent(inputCollection);
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .assertNext(messageAndContext -> {
+                    Message message = messageAndContext.getMessage();
+                    List<?> outputCollection = message.payload();
+                    assertThat(outputCollection).isEmpty();
+                })
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldDoNothingJavaCollectionWhenCollectionIsEmpty() {
+        // Given
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .forEachSequence(eachNode1)
+                .build();
+
+        Collection<String> inputCollection = Collections.emptyList();
+        // Test with message : withJavaCollection 'ObjectCollectionContent'
+        MessageAndContext event = newEventWithContent(inputCollection, String.class);
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .assertNext(messageAndContext -> {
+                    Message message = messageAndContext.getMessage();
+                    List<?> outputCollection = message.payload();
+                    assertThat(outputCollection).isEmpty();
+                })
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldDoNothingWhenCollectionIsEmptyAndJoinNode() {
+        // Given
+        ExecutionNode joinNode = newExecutionNode(new JoinStringWithDelimiter("|"));
+
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .join(joinNode)
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .forEachSequence(eachNode1)
+                .build();
+
+        Collection<String> inputCollection = Collections.emptyList();
+        MessageAndContext event = newEventWithContent(inputCollection, String.class);
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                // Expect: Empty String Join result (no items where in the list)
+                .assertNext(assertMessageContains(""))
                 .verifyComplete();
     }
 }
