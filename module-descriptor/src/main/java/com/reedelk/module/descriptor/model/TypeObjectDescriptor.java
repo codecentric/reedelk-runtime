@@ -10,7 +10,9 @@ import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
 public class TypeObjectDescriptor implements TypeDescriptor {
 
     private static final transient Class<?> type = TypeObject.class;
+
     private Shared shared;
+    private String dialogTitle;
     private Collapsible collapsible;
     private String typeFullyQualifiedName;
     private List<PropertyDescriptor> objectProperties = new ArrayList<>();
@@ -52,11 +54,19 @@ public class TypeObjectDescriptor implements TypeDescriptor {
         this.objectProperties = objectProperties;
     }
 
+    public void setDialogTitle(String dialogTitle) {
+        this.dialogTitle = dialogTitle;
+    }
+
+    public String getDialogTitle() {
+        return dialogTitle;
+    }
+
     @Override
     public String toString() {
         return "TypeObjectDescriptor{" +
-                "type=" + type +
-                ", shared=" + shared +
+                "shared=" + shared +
+                ", dialogTitle='" + dialogTitle + '\'' +
                 ", collapsible=" + collapsible +
                 ", typeFullyQualifiedName='" + typeFullyQualifiedName + '\'' +
                 ", objectProperties=" + objectProperties +
