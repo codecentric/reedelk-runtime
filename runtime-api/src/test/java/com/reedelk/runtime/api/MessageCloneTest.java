@@ -23,7 +23,7 @@ class MessageCloneTest {
          // Given
          String expectedContent = "testing clone";
 
-         MimeType expectedMimeType = MimeType.TEXT;
+         MimeType expectedMimeType = MimeType.TEXT_PLAIN;
          Message message = buildMessageWith(expectedMimeType, expectedContent, ImmutableMap.of("attr1", "value1", "aTTr2", "value2"));
 
          // When

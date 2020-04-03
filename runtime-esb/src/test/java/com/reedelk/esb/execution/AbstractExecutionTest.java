@@ -38,7 +38,7 @@ public abstract class AbstractExecutionTest {
     }
 
     protected MessageAndContext newEventWithContent(TypedPublisher<String> stream) {
-        Message message = MessageBuilder.get().withTypedPublisher(stream, MimeType.TEXT).build();
+        Message message = MessageBuilder.get().withTypedPublisher(stream, MimeType.TEXT_PLAIN).build();
         return new NoActionResultMessageAndContext(message);
     }
 

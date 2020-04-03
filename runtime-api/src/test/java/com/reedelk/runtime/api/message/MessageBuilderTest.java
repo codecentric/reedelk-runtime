@@ -127,7 +127,7 @@ class MessageBuilderTest {
             TypedContent<String, String> content = message.content();
             assertThat(content).isInstanceOf(StringContent.class);
             assertThat(content.data()).isEqualTo(text);
-            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT);
+            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_PLAIN);
         }
 
         @Test
@@ -144,7 +144,7 @@ class MessageBuilderTest {
             TypedContent<String, String> content = message.content();
             assertThat(content).isInstanceOf(StringContent.class);
             assertThat(content.data()).isEqualTo(expectedValue);
-            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT);
+            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_PLAIN);
         }
     }
 

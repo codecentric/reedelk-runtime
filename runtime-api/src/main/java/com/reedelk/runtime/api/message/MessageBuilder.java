@@ -45,12 +45,12 @@ public class MessageBuilder {
     // TEXT
 
     public MessageBuilder withText(String text) {
-        this.typedContent = new StringContent(text, MimeType.TEXT);
+        this.typedContent = new StringContent(text, MimeType.TEXT_PLAIN);
         return this;
     }
 
     public MessageBuilder withText(Publisher<String> textStream) {
-        this.typedContent = new StringContent(textStream, MimeType.TEXT);
+        this.typedContent = new StringContent(textStream, MimeType.TEXT_PLAIN);
         return this;
     }
 

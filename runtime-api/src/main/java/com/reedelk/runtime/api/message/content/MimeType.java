@@ -167,7 +167,7 @@ public class MimeType implements Serializable {
 
     public static final MimeType TEXT_CSS = of("text", "css", singletonList("css"), String.class);
     public static final MimeType TEXT_HTML = of("text", "html", asList("htm", "html", "stm"), String.class);
-    public static final MimeType TEXT = of("text", "plain", asList("bas", "c", "h", "java", "txt"), String.class);
+    public static final MimeType TEXT_PLAIN = of("text", "plain", asList("bas", "c", "h", "java", "txt"), String.class);
     public static final MimeType TEXT_RICH = of("text", "richtext", singletonList("rtx"), String.class);
     public static final MimeType TEXT_SCRIPTLET = of("text", "scriptlet", singletonList("sct"), String.class);
     public static final MimeType TEXT_TAB_SEPARATED_VALUES = of("text", "tab-separated-values", singletonList("tsv"), String.class);
@@ -302,6 +302,7 @@ public class MimeType implements Serializable {
 
     public static final String MIME_TYPE_ANY = "*/*";
     public static final String MIME_TYPE_TEXT_PLAIN = "text/plain";
+    public static final String MIME_TYPE_TEXT_HTML = "text/html";
     public static final String MIME_TYPE_TEXT_XML = "text/xml";
     public static final String MIME_TYPE_IMAGE_JPEG = "image/jpeg";
     public static final String MIME_TYPE_APPLICATION_JSON = "application/json";
@@ -316,7 +317,7 @@ public class MimeType implements Serializable {
 
             TEXT_CSS,
             TEXT_HTML,
-            TEXT,
+            TEXT_PLAIN,
             TEXT_RICH,
             TEXT_SCRIPTLET,
             TEXT_TAB_SEPARATED_VALUES,

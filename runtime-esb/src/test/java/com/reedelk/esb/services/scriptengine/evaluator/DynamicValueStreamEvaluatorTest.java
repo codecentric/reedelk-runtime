@@ -361,7 +361,7 @@ class DynamicValueStreamEvaluatorTest {
         void shouldCorrectlyEvaluateByteArrayFromPayloadByteArrayStream() {
             // Given
             Flux<byte[]> stream = Flux.just("one".getBytes(), "two".getBytes());
-            Message message = MessageBuilder.get().withBinary(stream, MimeType.TEXT).build();
+            Message message = MessageBuilder.get().withBinary(stream, MimeType.TEXT_PLAIN).build();
             DynamicByteArray dynamicByteArray = DynamicByteArray.from("#[message.payload()]", moduleContext);
 
             // When

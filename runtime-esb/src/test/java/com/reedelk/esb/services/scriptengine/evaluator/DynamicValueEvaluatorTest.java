@@ -11,7 +11,6 @@ import com.reedelk.runtime.api.message.MessageAttributes;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
-import com.reedelk.runtime.commons.ObjectToBytes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -395,7 +394,7 @@ class DynamicValueEvaluatorTest {
             DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
 
             // When
-            Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.TEXT, context, message);
+            Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.TEXT_PLAIN, context, message);
 
             // Then
             assertThat(result).isPresent().contains(message.content().toString());
@@ -453,7 +452,7 @@ class DynamicValueEvaluatorTest {
             DynamicObject dynamicObject = DynamicObject.from(testObject, moduleContext);
 
             // When
-            Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.TEXT, context, message);
+            Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.TEXT_PLAIN, context, message);
 
             // Then
             assertThat(result).isPresent().contains(testObject.toString());
@@ -468,7 +467,7 @@ class DynamicValueEvaluatorTest {
             DynamicObject dynamicObject = DynamicObject.from("#[message.payload()]", moduleContext);
 
             // When
-            Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.TEXT, context, message);
+            Optional<Object> result = evaluator.evaluate(dynamicObject, MimeType.TEXT_PLAIN, context, message);
 
             // Then
             assertThat(result).isPresent().contains(testObject.toString());

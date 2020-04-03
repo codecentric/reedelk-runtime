@@ -120,7 +120,7 @@ class DisposableContextAwareMessageTest {
         MimeType mimeType = wrappedMessage.content().mimeType();
 
         // Then
-        assertThat(mimeType).isEqualTo(MimeType.TEXT);
+        assertThat(mimeType).isEqualTo(MimeType.TEXT_PLAIN);
     }
 
     @Test

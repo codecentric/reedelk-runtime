@@ -224,7 +224,7 @@ class ScriptEvaluatorTest {
         void shouldReturnResolvedStreamWhenMessagePayloadExecuted() {
             // Given
             Flux<byte[]> stream = Flux.just("one".getBytes(), "two".getBytes());
-            Message message = MessageBuilder.get().withBinary(stream, MimeType.TEXT).build();
+            Message message = MessageBuilder.get().withBinary(stream, MimeType.TEXT_PLAIN).build();
 
             Script extractStreamScript = scriptFromBody(wrapAsTestFunction("return message.payload()"));
 
