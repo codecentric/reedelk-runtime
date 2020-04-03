@@ -300,18 +300,20 @@ public class MimeType implements Serializable {
 
     // Misc
 
-    public static final String MIME_TYPE_ANY = "*/*";
-    public static final String MIME_TYPE_TEXT_PLAIN = "text/plain";
-    public static final String MIME_TYPE_TEXT_HTML = "text/html";
-    public static final String MIME_TYPE_TEXT_XML = "text/xml";
-    public static final String MIME_TYPE_IMAGE_JPEG = "image/jpeg";
-    public static final String MIME_TYPE_APPLICATION_JSON = "application/json";
-    public static final String MIME_TYPE_APPLICATION_BINARY = "application/octet-stream";
-
     public static final MimeType ANY = of("*", "*");
     public static final MimeType UNKNOWN = of("content", "unknown");
     public static final MimeType MULTIPART_FORM_DATA = of("multipart", "form-data", Parts.class);
 
+
+    public static class AsString {
+        public static final String ANY = "*/*";
+        public static final String TEXT_PLAIN = "text/plain";
+        public static final String TEXT_HTML = "text/html";
+        public static final String TEXT_XML = "text/xml";
+        public static final String IMAGE_JPEG = "image/jpeg";
+        public static final String APPLICATION_JSON = "application/json";
+        public static final String APPLICATION_BINARY = "application/octet-stream";
+    }
 
     public static final List<MimeType> ALL = Arrays.asList(
 

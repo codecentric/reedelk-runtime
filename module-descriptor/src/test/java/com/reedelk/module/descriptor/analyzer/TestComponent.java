@@ -174,7 +174,7 @@ public class TestComponent implements ProcessorSync {
 
     @Property("Mime type")
     @MimeTypeCombo
-    @InitValue(MimeType.MIME_TYPE_ANY)
+    @InitValue(MimeType.AsString.ANY)
     private String mimeType;
 
     @Property("Mime type with additional types")
