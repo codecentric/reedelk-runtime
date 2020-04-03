@@ -30,7 +30,7 @@ public class Script implements ScriptBlock {
 
     @Override
     public boolean isEmpty() {
-        return ScriptUtils.isEmpty(body());
+        return ScriptUtils.isBlank(body());
     }
 
     @Override

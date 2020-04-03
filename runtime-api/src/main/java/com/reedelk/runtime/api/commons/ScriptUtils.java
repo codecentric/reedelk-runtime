@@ -56,8 +56,13 @@ public class ScriptUtils {
         }
     }
 
-    public static boolean isEmpty(String script) {
+    public static boolean isBlank(String script) {
         String unwrappedScript = ScriptUtils.unwrap(script);
         return StringUtils.isBlank(unwrappedScript);
+    }
+
+    public static boolean isNotBlank(String script) {
+        String unwrappedScript = ScriptUtils.unwrap(script);
+        return StringUtils.isNotBlank(unwrappedScript);
     }
 }

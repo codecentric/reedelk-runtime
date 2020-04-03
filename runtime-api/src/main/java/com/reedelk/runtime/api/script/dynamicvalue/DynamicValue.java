@@ -62,7 +62,7 @@ public abstract class DynamicValue<T> implements ScriptBlock {
     public boolean isEmpty() {
         if (this.isScript) {
             if (body == null) return true;
-            return ScriptUtils.isEmpty((String) body);
+            return ScriptUtils.isBlank((String) body);
         } else {
             throw new IllegalStateException("The Dynamic value is not a script");
         }
