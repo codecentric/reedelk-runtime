@@ -14,7 +14,7 @@ public class TypeResourceTextDescriptor extends ResourceAwareDescriptor {
     @Override
     public String toString() {
         return "TypeResourceTextDescriptor{" +
-                "type=" + type +
+                "widthAuto=" + widthAuto +
                 ", hintBrowseFile='" + hintBrowseFile + '\'' +
                 '}';
     }

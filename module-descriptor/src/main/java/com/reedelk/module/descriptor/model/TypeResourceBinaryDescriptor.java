@@ -14,7 +14,7 @@ public class TypeResourceBinaryDescriptor extends ResourceAwareDescriptor {
     @Override
     public String toString() {
         return "TypeResourceBinaryDescriptor{" +
-                "type=" + type +
+                "widthAuto=" + widthAuto +
                 ", hintBrowseFile='" + hintBrowseFile + '\'' +
                 '}';
     }
