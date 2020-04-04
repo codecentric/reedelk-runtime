@@ -64,14 +64,14 @@ public class TypedMono {
         return TypedPublisher.fromBoolean(Mono.empty());
     }
 
-    // parts
+    // attachments
 
-    public static TypedPublisher<Parts> just(Parts parts) {
-        return TypedPublisher.fromParts(Mono.justOrEmpty(parts));
+    public static TypedPublisher<Attachments> just(Attachments attachments) {
+        return TypedPublisher.fromAttachments(Mono.justOrEmpty(attachments));
     }
 
-    public static TypedPublisher<Parts> emptyParts() {
-        return TypedPublisher.fromParts(Mono.empty());
+    public static TypedPublisher<Attachments> emptyAttachments() {
+        return TypedPublisher.fromAttachments(Mono.empty());
     }
 
     // void

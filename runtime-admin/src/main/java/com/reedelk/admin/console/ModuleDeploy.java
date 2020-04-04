@@ -7,8 +7,8 @@ import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
-import com.reedelk.runtime.api.message.content.Part;
-import com.reedelk.runtime.api.message.content.Parts;
+import com.reedelk.runtime.api.message.content.Attachment;
+import com.reedelk.runtime.api.message.content.Attachments;
 import com.reedelk.runtime.system.api.ModuleService;
 import com.reedelk.runtime.system.api.SystemProperty;
 import org.osgi.service.component.annotations.Component;
@@ -40,11 +40,11 @@ public class ModuleDeploy implements ProcessorSync {
     @Override
     public Message apply(FlowContext flowContext, Message message) {
 
-        Parts parts = message.payload();
+        Attachments parts = message.payload();
 
         checkState(parts.containsKey(UPLOADED_MODULE_PART_NAME), "Expected form upload part missing");
 
-        Part part = parts.get(UPLOADED_MODULE_PART_NAME);
+        Attachment part = parts.get(UPLOADED_MODULE_PART_NAME);
 
         checkState(part.getAttributes().containsKey(ATTRIBUTE_FILE_NAME),
                 "Attribute file name missing");

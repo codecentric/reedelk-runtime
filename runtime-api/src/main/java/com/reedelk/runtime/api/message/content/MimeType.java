@@ -302,7 +302,7 @@ public class MimeType implements Serializable {
 
     public static final MimeType ANY = of("*", "*");
     public static final MimeType UNKNOWN = of("content", "unknown");
-    public static final MimeType MULTIPART_FORM_DATA = of("multipart", "form-data", Parts.class);
+    public static final MimeType MULTIPART_FORM_DATA = of("multipart", "form-data", Attachments.class);
 
 
     public static class AsString {

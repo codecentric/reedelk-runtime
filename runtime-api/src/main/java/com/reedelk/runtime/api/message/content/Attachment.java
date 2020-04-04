@@ -7,14 +7,15 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-@AutocompleteType(description = "The Part type encapsulate a REST Part object.")
-public class Part implements Serializable {
+@AutocompleteType(description =
+        "An attachment encapsulates a REST Multipart Part or a Mail Attachment.")
+public class Attachment implements Serializable {
 
     private final String name;
     private final TypedContent<?,?> content;
     private final Map<String,String> attributes = new HashMap<>();
 
-    private Part(String name, TypedContent<?,?> content, Map<String,String> attributes) {
+    private Attachment(String name, TypedContent<?,?> content, Map<String,String> attributes) {
         this.name = name;
         this.content = content;
         this.attributes.putAll(attributes);
@@ -26,8 +27,8 @@ public class Part implements Serializable {
 
     @AutocompleteItem(
             signature = "name()",
-            example = "part.name()",
-            description = "Returns the name of the part object.")
+            example = "attachment.name()",
+            description = "Returns the name of the attachment object.")
     public String name() {
         return name;
     }
@@ -38,8 +39,8 @@ public class Part implements Serializable {
 
     @AutocompleteItem(
             signature = "content()",
-            example = "part.content()",
-            description = "Returns content of the part object.")
+            example = "attachment.content()",
+            description = "Returns the content of the attachment.")
     public TypedContent<?,?> content() {
         return content;
     }
@@ -50,8 +51,8 @@ public class Part implements Serializable {
 
     @AutocompleteItem(
             signature = "attributes()",
-            example = "part.attributes()",
-            description = "Returns the attributes of the part object.")
+            example = "attachment.attributes()",
+            description = "Returns the attributes of the attachment.")
     public Map<String,String> attributes() {
         return attributes;
     }
@@ -62,7 +63,7 @@ public class Part implements Serializable {
 
     @Override
     public String toString() {
-        return "Part{" +
+        return "Attachment{" +
                 "name='" + name + '\'' +
                 ", content=" + content +
                 ", attributes=" + attributes +
@@ -90,8 +91,8 @@ public class Part implements Serializable {
             return this;
         }
 
-        public Part build() {
-            return new Part(name, content, attributes);
+        public Attachment build() {
+            return new Attachment(name, content, attributes);
         }
     }
 }
