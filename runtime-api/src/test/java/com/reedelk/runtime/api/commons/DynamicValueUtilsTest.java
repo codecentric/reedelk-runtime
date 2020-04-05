@@ -66,4 +66,40 @@ class DynamicValueUtilsTest {
         // Then
         assertThat(actual).isTrue();
     }
+
+    @Test
+    void shouldIsNullOrBlankReturnTrueWhenScriptIsEmpty() {
+        // Given
+        DynamicString given = DynamicString.from("#[]", new ModuleContext(10L));
+
+        // When
+        boolean actual = DynamicValueUtils.isNullOrBlank(given);
+
+        // Then
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void shouldIsNullOrBlankReturnTrue() {
+        // Given
+        DynamicString given = null;
+
+        // When
+        boolean actual = DynamicValueUtils.isNullOrBlank(given);
+
+        // Then
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void shouldIsNullOrBlankReturnFalse() {
+        // Given
+        DynamicString given = DynamicString.from("#[message.payload()]", new ModuleContext(10L));;;
+
+        // When
+        boolean actual = DynamicValueUtils.isNullOrBlank(given);
+
+        // Then
+        assertThat(actual).isFalse();
+    }
 }
