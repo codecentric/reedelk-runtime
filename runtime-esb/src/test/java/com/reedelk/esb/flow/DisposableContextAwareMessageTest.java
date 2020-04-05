@@ -146,15 +146,6 @@ class DisposableContextAwareMessageTest {
     }
 
     @Test
-    void shouldDelegateIsConsumed() {
-        // When
-        TypedContent<String, String> content = wrappedMessage.content();
-
-        // Then
-        assertThat(content.isConsumed()).isTrue();
-    }
-
-    @Test
     void shouldDelegateIsStream() {
         // When
         TypedContent<String, String> content = wrappedMessage.content();

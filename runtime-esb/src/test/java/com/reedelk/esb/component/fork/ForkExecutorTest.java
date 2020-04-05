@@ -218,6 +218,31 @@ class ForkExecutorTest extends AbstractExecutionTest {
                 .verifyComplete();
     }
 
+    @Test
+    void shouldConsumeContentBeforeExecutingForkBranchesWhenStream() {
+        // Given
+        ExecutionNode toStringExecutionNode1 = newExecutionNode(new ToStringProcessor());
+        ExecutionNode toStringExecutionNode2 = newExecutionNode(new ToStringProcessor());
+        ExecutionGraph graph = ForkTestGraphBuilder.get()
+                .fork(forkNode)
+                .inbound(inbound)
+                .forkSequence(toStringExecutionNode1, fork1Node) // List to string
+                .forkSequence(toStringExecutionNode2, fork2Node) // List to string
+                .join(joinNode)
+                .build();
+
+        MessageAndContext event = newEventWithContent(Flux.just("one", "two", "three"));
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forkNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .assertNext(assertMessageContains("[one, two, three]-fork1,[one, two, three]-fork2"))
+                .verifyComplete();
+    }
+
     static class JoinThrowingException implements Join {
         @Override
         public Message apply(FlowContext flowContext, List<Message> messagesToJoin) {

@@ -2,7 +2,6 @@ package com.reedelk.runtime.api.commons;
 
 import com.reedelk.runtime.api.component.Implementor;
 import com.reedelk.runtime.api.exception.ConfigurationException;
-import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 
 public class ConfigurationPreconditions {

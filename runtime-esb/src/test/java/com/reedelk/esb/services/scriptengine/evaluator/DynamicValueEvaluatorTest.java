@@ -24,7 +24,6 @@ import java.util.Optional;
 
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class DynamicValueEvaluatorTest {

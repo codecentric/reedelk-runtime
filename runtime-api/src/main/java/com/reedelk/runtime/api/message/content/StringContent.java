@@ -80,13 +80,6 @@ public class StringContent implements TypedContent<String,String> {
     }
 
     @Override
-    public boolean isConsumed() {
-        synchronized (this) {
-            return consumed;
-        }
-    }
-
-    @Override
     public void consume() {
         consumeIfNeeded();
     }

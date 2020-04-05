@@ -1,9 +1,9 @@
 package com.reedelk.module.descriptor.json;
 
+import com.reedelk.module.descriptor.Matchers;
 import com.reedelk.module.descriptor.ModuleDescriptor;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
 import com.reedelk.module.descriptor.analyzer.Matcher;
-import com.reedelk.module.descriptor.Matchers;
 import com.reedelk.module.descriptor.analyzer.autocomplete.TestClassWithAutocompleteType;
 import com.reedelk.module.descriptor.fixture.TestJson;
 import com.reedelk.module.descriptor.model.*;
@@ -17,8 +17,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
-import java.util.*;
+import java.util.Objects;
+import java.util.Optional;
 
 import static com.reedelk.module.descriptor.fixture.ComponentProperties.*;
 import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;

@@ -83,13 +83,6 @@ public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType,
     }
 
     @Override
-    public boolean isConsumed() {
-        synchronized (this) {
-            return consumed;
-        }
-    }
-
-    @Override
     public void consume() {
         consumeIfNeeded();
     }

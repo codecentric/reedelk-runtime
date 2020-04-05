@@ -103,11 +103,6 @@ public class DisposableContextAwareMessage implements Message {
         }
 
         @Override
-        public boolean isConsumed() {
-            return delegate.isConsumed();
-        }
-
-        @Override
         public void consume() {
             delegate.consume();
         }

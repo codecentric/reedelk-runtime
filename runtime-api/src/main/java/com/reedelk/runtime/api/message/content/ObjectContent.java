@@ -52,7 +52,7 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
         return payload;
     }
 
-    // Single element stream.
+    // Single element stream: it is a single element stream.
     @Override
     public TypedPublisher<ItemType> stream() {
         // If it is consumed, we just return the
@@ -80,16 +80,14 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
 
     @Override
     public boolean isStream() {
-        synchronized (this) {
-            return !consumed;
-        }
-    }
-
-    @Override
-    public boolean isConsumed() {
-        synchronized (this) {
-            return consumed;
-        }
+        // The ObjectContent might be a Mono stream. We don't consider it a 'stream'
+        // because it is just a stream with a single element in it.
+        // The use case is when we have attachments to be sent with the REST client.
+        // In that case the payload contains Map<String,Attachment> and when the REST client
+        // checks if it is stream-able or not this method would return correctly false.
+        // The REST listener would set MessageBuilder.get().withJavaObject(partsMono, Attachments.class, request.mimeType());
+        // when a Multipart REST request is being made.
+        return false;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.autocomplete;
 
+import com.reedelk.module.descriptor.Matchers;
 import com.reedelk.module.descriptor.analyzer.Matcher;
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
-import com.reedelk.module.descriptor.Matchers;
 import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
 import com.reedelk.runtime.api.commons.StringUtils;
 import io.github.classgraph.ScanResult;
@@ -13,7 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.*;
+import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;
+import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)

@@ -6,7 +6,6 @@ import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.converter.ConverterService;
 import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
-import com.reedelk.runtime.commons.ObjectToBytes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

@@ -8,7 +8,6 @@ import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.Attachment;
-import com.reedelk.runtime.api.message.content.Attachments;
 import com.reedelk.runtime.system.api.ModuleService;
 import com.reedelk.runtime.system.api.SystemProperty;
 import org.osgi.service.component.annotations.Component;
@@ -18,6 +17,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 
 import static com.reedelk.runtime.api.commons.Preconditions.checkArgument;
 import static com.reedelk.runtime.api.commons.Preconditions.checkState;
@@ -40,7 +40,7 @@ public class ModuleDeploy implements ProcessorSync {
     @Override
     public Message apply(FlowContext flowContext, Message message) {
 
-        Attachments parts = message.payload();
+        Map<String, Attachment> parts = message.payload();
 
         checkState(parts.containsKey(UPLOADED_MODULE_PART_NAME), "Expected form upload part missing");
 

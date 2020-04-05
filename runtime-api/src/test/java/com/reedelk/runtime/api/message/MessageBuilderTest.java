@@ -450,7 +450,7 @@ class MessageBuilderTest {
         }
 
         @Test
-        void shouldCorrectlyBuildObjectCollectionWhenObjectIsStream() {
+        void shouldCorrectlyBuildObjectCollectionWhenObjectIsFluxStream() {
             // Given
             Publisher<MyItem> items = Flux.just(new MyItem("One"), new MyItem("Two"));
 
@@ -461,6 +461,22 @@ class MessageBuilderTest {
             TypedContent<MyItem, List<MyItem>> content = message.content();
             assertThat(content).isInstanceOf(ObjectCollectionContent.class);
             assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
+            assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
+        }
+
+        @Test
+        void shouldCorrectlyBuildObjectWhenObjectIsMono() {
+            // Given
+            MyItem one = new MyItem("One");
+            Publisher<MyItem> items = Mono.just(one);
+
+            // When
+            Message message = MessageBuilder.get().withJavaObject(items).build();
+
+            // Then
+            TypedContent<MyItem, MyItem> content = message.content();
+            assertThat(content).isInstanceOf(ObjectContent.class);
+            assertThat(content.data()).isEqualTo(one);
             assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
         }
 

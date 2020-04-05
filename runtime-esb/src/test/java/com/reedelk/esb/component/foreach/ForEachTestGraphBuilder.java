@@ -1,7 +1,6 @@
 package com.reedelk.esb.component.foreach;
 
 import com.reedelk.esb.component.AbstractTestGraphBuilder;
-import com.reedelk.esb.component.fork.ForkTestGraphBuilder;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.component.Stop;

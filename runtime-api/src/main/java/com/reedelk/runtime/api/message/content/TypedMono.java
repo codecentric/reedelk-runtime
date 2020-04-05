@@ -64,16 +64,6 @@ public class TypedMono {
         return TypedPublisher.fromBoolean(Mono.empty());
     }
 
-    // attachments
-
-    public static TypedPublisher<Attachments> just(Attachments attachments) {
-        return TypedPublisher.fromAttachments(Mono.justOrEmpty(attachments));
-    }
-
-    public static TypedPublisher<Attachments> emptyAttachments() {
-        return TypedPublisher.fromAttachments(Mono.empty());
-    }
-
     // void
 
     public static TypedPublisher<Void> just(Void data) {

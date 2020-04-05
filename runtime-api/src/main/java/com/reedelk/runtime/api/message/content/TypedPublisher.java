@@ -56,12 +56,6 @@ public class TypedPublisher<T> implements Publisher<T> {
         return new TypedPublisher<>(delegate, Boolean.class);
     }
 
-    // attachments
-
-    public static TypedPublisher<Attachments> fromAttachments(Publisher<Attachments> delegate) {
-        return new TypedPublisher<>(delegate, Attachments.class);
-    }
-
     // void
 
     public static TypedPublisher<Void> fromVoid(Publisher<Void> delegate) {

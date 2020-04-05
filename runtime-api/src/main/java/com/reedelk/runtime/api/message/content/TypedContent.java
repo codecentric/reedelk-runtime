@@ -56,14 +56,6 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
             description = "Returns true if this message is a stream, false otherwise.")
     boolean isStream();
 
-    @AutocompleteItem(
-            signature = "isConsumed()",
-            example = "message.content().isConsumed()",
-            description = "Returns true if this message stream has been consumed, " +
-                    "false otherwise. When a stream has been consumed it means that " +
-                    "all stream data has been loaded into memory.")
-    boolean isConsumed();
-
     /**
      * Consumes the stream payload if it has not been consumed yet. This method might be useful
      * to call before cloning the message. E.g the fork component uses this method before
@@ -73,6 +65,6 @@ public interface TypedContent<ItemType, PayloadType> extends Serializable {
             signature = "consume()",
             example = "message.content().consume()",
             description = "Consumes the stream of this message by loading the entire " +
-                    "stream content into memory.")
+                    "stream content in memory.")
     void consume();
 }

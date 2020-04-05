@@ -41,11 +41,6 @@ public class EmptyContent implements TypedContent<Void,Void> {
     }
 
     @Override
-    public boolean isConsumed() {
-        return true;
-    }
-
-    @Override
     public void consume() {
         // nothing to do because it is a null Payload content.
     }

@@ -2,6 +2,7 @@ package com.reedelk.runtime.api.message;
 
 import com.reedelk.runtime.api.message.content.*;
 import org.reactivestreams.Publisher;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Collection;
@@ -144,9 +145,15 @@ public class MessageBuilder {
     public MessageBuilder withJavaObject(Object object, MimeType mimeType) {
         if (object == null) {
             empty();
-        } else if (object instanceof Publisher) {
-            Publisher<Object> objectStream = (Publisher<Object>) object;
+        } else if (object instanceof Flux) {
+            Flux<Object> objectStream = (Flux<Object>) object;
             this.typedContent = new ObjectCollectionContent<>(objectStream, Object.class, mimeType);
+        } else if (object instanceof Mono) {
+            // A mono is considered a single object content. This is needed for instance when
+            // we have Attachments map from REST Listener. The REST Listener mapper forces us
+            // to have a map of Attachments inside a Mono.
+            Mono<Object> objectStream = (Mono<Object>) object;
+            this.typedContent = new ObjectContent<>(objectStream, Object.class, mimeType);
         } else if (object instanceof String) {
             this.typedContent = new StringContent((String) object, mimeType);
         } else if (object instanceof byte[]) {

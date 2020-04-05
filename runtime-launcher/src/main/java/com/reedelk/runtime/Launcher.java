@@ -2,7 +2,6 @@ package com.reedelk.runtime;
 
 import com.reedelk.runtime.adminconsole.AdminConsoleInstallTask;
 import com.reedelk.runtime.commons.FileUtils;
-import com.reedelk.runtime.license.LicenseVerifierTask;
 import com.reedelk.runtime.properties.SystemConfiguration;
 import com.reedelk.runtime.properties.Version;
 import com.reedelk.runtime.validator.DirectoryExistsValidator;
