@@ -7,34 +7,19 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-@AutocompleteType(description =
-        "An attachment encapsulates a REST Multipart Part or a Mail Attachment.")
+@AutocompleteType(description = "An attachment encapsulates an HTTP multipart form data object or an email attachment.")
 public class Attachment implements Serializable {
 
-    private final String name;
     private final TypedContent<?,?> content;
     private final Map<String,String> attributes = new HashMap<>();
 
-    private Attachment(String name, TypedContent<?,?> content, Map<String,String> attributes) {
-        this.name = name;
+    private Attachment(TypedContent<?,?> content, Map<String,String> attributes) {
         this.content = content;
         this.attributes.putAll(attributes);
     }
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    @AutocompleteItem(
-            signature = "name()",
-            example = "attachment.name()",
-            description = "Returns the name of the attachment object.")
-    public String name() {
-        return name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @AutocompleteItem(
@@ -64,7 +49,6 @@ public class Attachment implements Serializable {
     @Override
     public String toString() {
         return "Attachment{" +
-                "name='" + name + '\'' +
                 ", content=" + content +
                 ", attributes=" + attributes +
                 '}';
@@ -72,14 +56,8 @@ public class Attachment implements Serializable {
 
     public static class Builder {
 
-        private String name;
         private TypedContent<?,?> content;
         private Map<String,String> attributes = new HashMap<>();
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
 
         public Builder content(TypedContent<?,?> content) {
             this.content = content;
@@ -92,7 +70,25 @@ public class Attachment implements Serializable {
         }
 
         public Attachment build() {
-            return new Attachment(name, content, attributes);
+            return new Attachment(content, attributes);
         }
+    }
+
+    /**
+     * A map is an 'attachment' map if and only if all its keys are
+     * type string and all its values are of type attachment.
+     */
+    public static boolean isAttachmentMap(Object value) {
+        if (value == null) return false;
+        if (!(value instanceof Map)) return false;
+        Map<?,?> maybeAttachmentMap = (Map<?,?>) value;
+        for (Map.Entry<?,?> entry : maybeAttachmentMap.entrySet()) {
+            Object key = entry.getKey();
+            Object entryValue = entry.getValue();
+            boolean isKeyString = key instanceof String;
+            boolean isValueAttachment = entryValue instanceof Attachment;
+            if (!isKeyString || !isValueAttachment) return false;
+        }
+        return true;
     }
 }
