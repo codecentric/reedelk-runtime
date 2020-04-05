@@ -223,6 +223,20 @@ class DynamicValueEvaluatorTest {
             // Then
             assertThat(result).isNotPresent();
         }
+
+        @Test
+        void shouldReturnJoinedListAsString() {
+            // Given
+            Message message = MessageBuilder.get().empty().build();
+            DynamicString dynamicString = DynamicString.from("#[['one','two','three'].join(',')]", moduleContext);
+
+            // When
+            Optional<String> result = evaluator.evaluate(dynamicString, context, message);
+
+            // Then
+            assertThat(result).isPresent();
+            assertThat(result).hasValue("one,two,three");
+        }
     }
 
     @Nested
