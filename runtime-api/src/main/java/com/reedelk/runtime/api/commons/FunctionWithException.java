@@ -1,4 +1,4 @@
-package com.reedelk.esb.commons;
+package com.reedelk.runtime.api.commons;
 
 @FunctionalInterface
 public interface FunctionWithException<T, R, E extends Exception> {

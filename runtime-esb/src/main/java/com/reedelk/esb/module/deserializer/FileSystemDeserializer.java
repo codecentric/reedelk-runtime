@@ -1,5 +1,6 @@
 package com.reedelk.esb.module.deserializer;
 
+import com.reedelk.runtime.api.commons.Unchecked;
 import com.reedelk.runtime.api.commons.FileUtils;
 import com.reedelk.runtime.api.exception.ESBException;
 
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import static com.reedelk.esb.commons.FunctionWrapper.unchecked;
 import static com.reedelk.esb.commons.Messages.Deserializer.ERROR_READING_FILES_FROM_RESOURCE_FOLDER;
 import static java.util.stream.Collectors.toList;
 
@@ -46,7 +46,7 @@ public class FileSystemDeserializer extends AbstractModuleDeserializer {
 
         try (Stream<Path> walk = Files.walk(targetPath)) {
             return walk.filter(pathFilter)
-                    .map(unchecked(path -> path.toUri().toURL()))
+                    .map(Unchecked.function(path -> path.toUri().toURL()))
                     .collect(toList());
         } catch (IOException exception) {
             String errorMessage = ERROR_READING_FILES_FROM_RESOURCE_FOLDER.format(targetPath.toString());

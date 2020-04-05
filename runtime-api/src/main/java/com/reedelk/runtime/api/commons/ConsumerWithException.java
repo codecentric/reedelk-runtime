@@ -1,4 +1,4 @@
-package com.reedelk.esb.commons;
+package com.reedelk.runtime.api.commons;
 
 @FunctionalInterface
 public interface ConsumerWithException<T, E extends Exception> {

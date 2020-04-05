@@ -1,5 +1,6 @@
 package com.reedelk.esb.services.module;
 
+import com.reedelk.runtime.api.commons.Unchecked;
 import com.reedelk.esb.module.ModulesManager;
 import com.reedelk.runtime.api.exception.ESBException;
 import com.reedelk.runtime.system.api.ModuleDto;
@@ -21,7 +22,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static com.reedelk.esb.commons.FunctionWrapper.uncheckedConsumer;
 import static com.reedelk.esb.commons.Messages.Module.*;
 import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 import static java.util.Arrays.stream;
@@ -167,7 +167,7 @@ public class DefaultModuleService implements ModuleService {
 
     private void executeOperation(Bundle bundle, Operation... operations) {
         stream(operations).forEachOrdered(
-                uncheckedConsumer(operation -> operation.execute(bundle)));
+                Unchecked.consumer(operation -> operation.execute(bundle)));
 
     }
 
