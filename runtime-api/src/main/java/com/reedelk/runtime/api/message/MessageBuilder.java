@@ -164,6 +164,13 @@ public class MessageBuilder {
         return this;
     }
 
+    // TYPED CONTENT
+
+    public MessageBuilder withTypedContent(TypedContent<?,?> typedContent) {
+        this.typedContent = typedContent;
+        return this;
+    }
+
     public <ItemType> MessageBuilder withJavaObject(Mono<ItemType> monoStream, Class<ItemType> type, MimeType mimeType) {
         this.typedContent = new ObjectContent<>(monoStream, type, mimeType);
         return this;
