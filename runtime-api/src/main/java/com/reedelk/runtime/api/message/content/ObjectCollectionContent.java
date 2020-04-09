@@ -110,7 +110,7 @@ public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType,
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload=" + payload +
+                    ", data=" + payload +
                     '}';
         } else {
             return "ObjectCollectionContent{" +
@@ -118,7 +118,7 @@ public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType,
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload=" + payloadAsStream +
+                    ", data=" + payloadAsStream +
                     '}';
         }
     }

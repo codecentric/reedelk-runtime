@@ -92,7 +92,7 @@ public class StringContent implements TypedContent<String,String> {
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload='" + payload + '\'' +
+                    ", data='" + payload + '\'' +
                     '}';
         } else {
             return "String{" +
@@ -100,7 +100,7 @@ public class StringContent implements TypedContent<String,String> {
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload='" + payloadAsStream + '\'' +
+                    ", data='" + payloadAsStream + '\'' +
                     '}';
         }
     }

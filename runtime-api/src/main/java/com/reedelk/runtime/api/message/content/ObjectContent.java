@@ -7,32 +7,32 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 
 public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType> {
 
-    // The payload as stream is transient because we never clone streams.
+    // The data as stream is transient because we never clone streams.
     // For components using this content (e.g Fork) the content it is first
     // resolved before being cloned.
-    private final transient Mono<ItemType> payloadAsStream;
+    private final transient Mono<ItemType> dataAsStream;
     private final Class<ItemType> type;
     private final MimeType mimeType;
 
-    private ItemType payload;
+    private ItemType data;
     private boolean consumed;
     private boolean streamReleased = false;
 
     @SuppressWarnings("unchecked")
-    public ObjectContent(ItemType payload, MimeType mimeType) {
-        checkNotNull(payload,
-                "Cannot create object content with null payload; use empty content instead");
-        this.payload = payload;
+    public ObjectContent(ItemType data, MimeType mimeType) {
+        checkNotNull(data,
+                "Cannot create object content with null data; use empty content instead");
+        this.data = data;
         this.mimeType = mimeType;
-        this.type = (Class<ItemType>) payload.getClass();
-        this.payloadAsStream = null;
+        this.type = (Class<ItemType>) data.getClass();
+        this.dataAsStream = null;
         this.consumed = true;
     }
 
     public ObjectContent(Mono<ItemType> monoStream, Class<ItemType> type, MimeType mimeType) {
         this.type = type;
         this.mimeType = mimeType;
-        this.payloadAsStream = monoStream;
+        this.dataAsStream = monoStream;
         this.consumed = false;
     }
 
@@ -49,17 +49,16 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
     @Override
     public ItemType data() {
         consumeIfNeeded();
-        return payload;
+        return data;
     }
 
     // Single element stream: it is a single element stream.
     @Override
     public TypedPublisher<ItemType> stream() {
-        // If it is consumed, we just return the
-        // payload as a single item stream.
+        // If it is consumed, we just return the data as a single item stream.
         if (consumed) {
             // If it is consumed, we know that the state cannot change anymore.
-            return TypedMono.just(payload, type);
+            return TypedMono.just(data, type);
         }
 
         // If not consumed, we  must acquire a lock because a concurrent call to
@@ -67,13 +66,13 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
         synchronized (this) {
             if (!consumed) {
                 if (streamReleased) {
-                    throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
+                    throw new ESBException("Stream has been already released. This data cannot be consumed anymore.");
                 }
                 streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
-                return TypedMono.from(payloadAsStream, type);
+                return TypedMono.from(dataAsStream, type);
             } else {
                 // Meanwhile it has been consumed.
-                return TypedMono.just(payload, type);
+                return TypedMono.just(data, type);
             }
         }
     }
@@ -83,7 +82,7 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
         // The ObjectContent might be a Mono stream. We don't consider it a 'stream'
         // because it is just a stream with a single element in it.
         // The use case is when we have attachments to be sent with the REST client.
-        // In that case the payload contains Map<String,Attachment> and when the REST client
+        // In that case the data contains Map<String, Attachment> and when the REST client
         // checks if it is stream-able or not this method would return correctly false.
         // The REST listener would set MessageBuilder.get().withJavaObject(partsMono, Attachments.class, request.mimeType());
         // when a Multipart REST request is being made.
@@ -101,9 +100,9 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
             synchronized (this) {
                 if (!consumed) {
                     if (streamReleased) {
-                        throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
+                        throw new ESBException("Stream has been already released. This data cannot be consumed anymore.");
                     }
-                    payload = payloadAsStream.block();
+                    data = dataAsStream.block();
                     consumed = true;
                 }
             }
@@ -118,7 +117,7 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload=" + payload +
+                    ", data=" + data +
                     '}';
         } else {
             return "ObjectContent{" +
@@ -126,7 +125,7 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload=" + payloadAsStream +
+                    ", data=" + dataAsStream +
                     '}';
         }
     }

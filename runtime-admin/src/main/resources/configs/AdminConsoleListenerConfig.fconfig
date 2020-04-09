@@ -8,5 +8,5 @@
   "basePath": "",
   "keepAlive": true,
   "compress": false,
-  "openApiDisabled": true
+  "disableOpenApi": true
 }

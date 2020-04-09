@@ -8,23 +8,23 @@ import java.util.Arrays;
 
 public class ByteArrayContent implements TypedContent<byte[],byte[]> {
 
-    private final transient Publisher<byte[]> payloadAsStream;
+    private final transient Publisher<byte[]> dataAsStream;
     private final Class<byte[]> type = byte[].class;
     private final MimeType mimeType;
 
-    private byte[] payload;
+    private byte[] data;
     private boolean consumed;
     private boolean streamReleased = false;
 
-    public ByteArrayContent(byte[] payload, MimeType mimeType) {
-        this.payloadAsStream = null;
+    public ByteArrayContent(byte[] data, MimeType mimeType) {
+        this.dataAsStream = null;
         this.mimeType = mimeType;
-        this.payload = payload;
         this.consumed = true;
+        this.data = data;
     }
 
-    public ByteArrayContent(Publisher<byte[]> payloadAsStream, MimeType mimeType) {
-        this.payloadAsStream = payloadAsStream;
+    public ByteArrayContent(Publisher<byte[]> dataAsStream, MimeType mimeType) {
+        this.dataAsStream = dataAsStream;
         this.mimeType = mimeType;
         this.consumed = false;
     }
@@ -42,7 +42,7 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
     @Override
     public byte[] data() {
         consumeIfNeeded();
-        return payload;
+        return data;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
         // payload as a single item stream.
         if (consumed) {
             // If it is consumed, we know that the state cannot change anymore.
-            return TypedMono.just(payload);
+            return TypedMono.just(data);
         }
 
         // If not consumed, we  must acquire a lock because a concurrent call to
@@ -62,10 +62,10 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
                     throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
                 }
                 streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
-                return TypedPublisher.fromByteArray(payloadAsStream);
+                return TypedPublisher.fromByteArray(dataAsStream);
             } else {
                 // Meanwhile it has been consumed.
-                return TypedMono.just(payload);
+                return TypedMono.just(data);
             }
         }
     }
@@ -90,7 +90,7 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload=" + Arrays.toString(payload) +
+                    ", data=" + Arrays.toString(data) +
                     '}';
         } else {
             return "ByteArray{" +
@@ -98,7 +98,7 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", payload='" + payloadAsStream + '\'' +
+                    ", data='" + dataAsStream + '\'' +
                     '}';
         }
     }
@@ -111,7 +111,7 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
                     if (streamReleased) {
                         throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
                     }
-                    payload = StreamUtils.FromByteArray.consume(payloadAsStream);
+                    data = StreamUtils.FromByteArray.consume(dataAsStream);
                     consumed = true;
                 }
             }
