@@ -4,8 +4,6 @@ import com.reedelk.runtime.api.commons.StreamUtils;
 import com.reedelk.runtime.api.exception.ESBException;
 import org.reactivestreams.Publisher;
 
-import java.util.Arrays;
-
 public class ByteArrayContent implements TypedContent<byte[],byte[]> {
 
     private final transient Publisher<byte[]> dataAsStream;
@@ -90,7 +88,7 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", data=" + Arrays.toString(data) +
+                    ", data=" + data +
                     '}';
         } else {
             return "ByteArray{" +
