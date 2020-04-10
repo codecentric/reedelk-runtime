@@ -51,6 +51,10 @@ public class MimeType implements Serializable {
         return new MimeType(primaryType, subType, null, javaType, params, null);
     }
 
+    public static MimeType of(String primaryType, String subType, Map<String, String> params, List<String> fileExtensions, Class<?> javaType) {
+        return new MimeType(primaryType, subType, null, javaType, params, fileExtensions);
+    }
+
     public static MimeType parse(String mimeType) {
         return parse(mimeType, UNKNOWN);
     }
@@ -58,7 +62,7 @@ public class MimeType implements Serializable {
     public static MimeType parse(String mimeType, MimeType defaultMimeType) {
         if (mimeType == null) return defaultMimeType;
         try {
-            return _parse(mimeType);
+            return internalParse(mimeType);
         } catch (Exception e) {
             return defaultMimeType;
         }
@@ -135,7 +139,7 @@ public class MimeType implements Serializable {
         return Objects.hash(subType, primaryType);
     }
 
-    private static MimeType _parse(String mimeType) {
+    private static MimeType internalParse(String mimeType) {
         String[] parts = mimeType.split(";");
         Map<String, String> params = new HashMap<>();
 
@@ -153,9 +157,10 @@ public class MimeType implements Serializable {
         String primaryType = types[0].trim();
         String subType = types[1].trim();
 
-        Class<?> aClass =
-                MIME_TYPE_JAVA.get(PrimaryAndSubtypeKey.from(primaryType, subType));
-        return of(primaryType, subType, params, aClass);
+        MimeType matching = MIME_TYPE_JAVA.get(PrimaryAndSubtypeKey.from(primaryType, subType));
+        Class<?> aClass = matching.getJavaType();
+        List<String> fileExtensions = matching.getFileExtensions();
+        return of(primaryType, subType, params, fileExtensions, aClass);
     }
 
     private Charset getCharset(String given, Map<String, String> params) {
@@ -166,7 +171,7 @@ public class MimeType implements Serializable {
     // Text Mime Types
 
     public static final MimeType TEXT_CSS = of("text", "css", singletonList("css"), String.class);
-    public static final MimeType TEXT_HTML = of("text", "html", asList("htm", "html", "stm"), String.class);
+    public static final MimeType TEXT_HTML = of("text", "html", asList("html", "htm", "stm"), String.class);
     public static final MimeType TEXT_PLAIN = of("text", "plain", asList("bas", "c", "h", "java", "txt"), String.class);
     public static final MimeType TEXT_RICH = of("text", "richtext", singletonList("rtx"), String.class);
     public static final MimeType TEXT_SCRIPTLET = of("text", "scriptlet", singletonList("sct"), String.class);
@@ -186,7 +191,7 @@ public class MimeType implements Serializable {
     public static final MimeType IMAGE_BITMAP = of("image", "bmp", singletonList("bmp"), byte[].class);
     public static final MimeType IMAGE_GIF = of("image", "gif", singletonList("gif"), byte[].class);
     public static final MimeType IMAGE_PNG = of("image", "png", singletonList("png"), byte[].class);
-    public static final MimeType IMAGE_JPEG = of("image", "jpeg", asList("jpe", "jpeg", "jpg"), byte[].class);
+    public static final MimeType IMAGE_JPEG = of("image", "jpeg", asList("jpeg", "jpe", "jpg"), byte[].class);
     public static final MimeType IMAGE_JPEG_INTERCHANGE = of("image", "pipeg", singletonList("jfif"), byte[].class);
     public static final MimeType IMAGE_SVG = of("image", "svg+xml", singletonList("svg"), String.class);
     public static final MimeType IMAGE_TIFF = of("image", "tiff", asList("tiff", "tif"), byte[].class);
@@ -454,11 +459,11 @@ public class MimeType implements Serializable {
         EXTENSION_MIME_TYPE_MAP = Collections.unmodifiableMap(tmp);
     }
 
-    public static final Map<PrimaryAndSubtypeKey, Class<?>> MIME_TYPE_JAVA;
+    public static final Map<PrimaryAndSubtypeKey, MimeType> MIME_TYPE_JAVA;
     static {
-        Map<PrimaryAndSubtypeKey, Class<?>> tmp = new HashMap<>();
+        Map<PrimaryAndSubtypeKey, MimeType> tmp = new HashMap<>();
         MimeType.ALL.forEach(mimeType ->
-                tmp.put(PrimaryAndSubtypeKey.from(mimeType), mimeType.javaType()));
+                tmp.put(PrimaryAndSubtypeKey.from(mimeType), mimeType));
         MIME_TYPE_JAVA = Collections.unmodifiableMap(tmp);
     }
 

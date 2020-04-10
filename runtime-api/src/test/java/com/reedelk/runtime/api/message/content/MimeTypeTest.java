@@ -55,6 +55,16 @@ class MimeTypeTest {
             // Then
             assertThat(actualMimeType).isEqualTo(MimeType.UNKNOWN);
         }
+
+        @Test
+        void shouldParseReturnCorrectFileExtensions() {
+            // When
+            MimeType actualMimeType = MimeType.parse("text/html");
+
+            // Then
+            assertThat(actualMimeType).isEqualTo(MimeType.TEXT_HTML);
+            assertThat(actualMimeType.getFileExtensions()).isEqualTo(MimeType.TEXT_HTML.getFileExtensions());
+        }
     }
 
     @Nested
