@@ -229,7 +229,7 @@ class ForEachExecutorTest extends AbstractExecutionTest {
     }
 
     @Test
-    void shouldDoNothingJavaObjectCollectionIsEmpty() {
+    void shouldDoNothingListContentIsEmpty() {
         // Given
         ExecutionGraph graph = ForEachTestGraphBuilder.get()
                 .inbound(inbound)
@@ -237,9 +237,9 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .forEachSequence(eachNode1)
                 .build();
 
-        Collection<String> inputCollection = Collections.emptyList();
+        List<String> inputList = Collections.emptyList();
         // Test with message : withJavaObject 'ObjectContent'
-        MessageAndContext event = newEventWithContent(inputCollection);
+        MessageAndContext event = newEventWithContent(inputList);
         Publisher<MessageAndContext> publisher = Mono.just(event);
 
         // When
@@ -264,9 +264,9 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .forEachSequence(eachNode1)
                 .build();
 
-        Collection<String> inputCollection = Collections.emptyList();
-        // Test with message : withJavaCollection 'ObjectCollectionContent'
-        MessageAndContext event = newEventWithContent(inputCollection, String.class);
+        List<String> inputList = Collections.emptyList();
+        // Test with message : withList 'ListContent'
+        MessageAndContext event = newEventWithContent(inputList, String.class);
         Publisher<MessageAndContext> publisher = Mono.just(event);
 
         // When
@@ -283,7 +283,7 @@ class ForEachExecutorTest extends AbstractExecutionTest {
     }
 
     @Test
-    void shouldDoNothingWhenCollectionIsEmptyAndJoinNode() {
+    void shouldDoNothingWhenListIsEmptyAndJoinNode() {
         // Given
         ExecutionNode joinNode = newExecutionNode(new JoinStringWithDelimiter("|"));
 
@@ -294,8 +294,8 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .forEachSequence(eachNode1)
                 .build();
 
-        Collection<String> inputCollection = Collections.emptyList();
-        MessageAndContext event = newEventWithContent(inputCollection, String.class);
+        List<String> list = Collections.emptyList();
+        MessageAndContext event = newEventWithContent(list, String.class);
         Publisher<MessageAndContext> publisher = Mono.just(event);
 
         // When

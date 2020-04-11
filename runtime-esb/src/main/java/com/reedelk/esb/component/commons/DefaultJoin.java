@@ -26,7 +26,7 @@ public class DefaultJoin implements Join {
                 .collect(toList());
 
         return MessageBuilder.get()
-                .withJavaCollection(results, Object.class)
+                .withList(results, Object.class)
                 .attributes(emptyJoinAttributes)
                 .build();
     }

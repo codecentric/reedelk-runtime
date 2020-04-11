@@ -5,7 +5,7 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Collection;
+import java.util.List;
 
 public class MessageBuilder {
 
@@ -112,7 +112,7 @@ public class MessageBuilder {
             Publisher<byte[]> byteArrayStream = (Publisher<byte[]>) typedStream;
             this.typedContent = new ByteArrayContent(byteArrayStream, mimeType);
         } else {
-            this.typedContent = new ObjectCollectionContent<>(typedStream, clazz, mimeType);
+            this.typedContent = new ListContent<>(typedStream, clazz, mimeType);
         }
         return this;
     }
@@ -147,7 +147,7 @@ public class MessageBuilder {
             empty();
         } else if (object instanceof Flux) {
             Flux<Object> objectStream = (Flux<Object>) object;
-            this.typedContent = new ObjectCollectionContent<>(objectStream, Object.class, mimeType);
+            this.typedContent = new ListContent<>(objectStream, Object.class, mimeType);
         } else if (object instanceof Mono) {
             // A mono is considered a single object content. This is needed for instance when
             // we have Attachments map from REST Listener. The REST Listener mapper forces us
@@ -181,15 +181,15 @@ public class MessageBuilder {
         return this;
     }
 
-    // JAVA COLLECTION
+    // LIST
 
-    public <ItemType> MessageBuilder withJavaCollection(Collection<ItemType> collection, Class<ItemType> collectionType) {
-        this.typedContent = new ObjectCollectionContent<>(collection, collectionType, MimeType.APPLICATION_JAVA);
+    public <ItemType> MessageBuilder withList(List<ItemType> list, Class<ItemType> listItemType) {
+        this.typedContent = new ListContent<>(list, listItemType, MimeType.APPLICATION_JAVA);
         return this;
     }
 
-    public <ItemType> MessageBuilder withJavaCollection(Collection<ItemType> collection, Class<ItemType> collectionType, MimeType mimeType) {
-        this.typedContent = new ObjectCollectionContent<>(collection, collectionType, mimeType);
+    public <ItemType> MessageBuilder withList(List<ItemType> list, Class<ItemType> listItemType, MimeType mimeType) {
+        this.typedContent = new ListContent<>(list, listItemType, mimeType);
         return this;
     }
 

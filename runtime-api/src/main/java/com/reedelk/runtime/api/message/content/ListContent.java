@@ -5,19 +5,19 @@ import com.reedelk.runtime.api.exception.ESBException;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 
-import java.util.Collection;
+import java.util.List;
 
-public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType, Collection<ItemType>> {
+public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemType>> {
 
     private final transient Publisher<ItemType> payloadAsStream;
     private final Class<ItemType> type;
     private final MimeType mimeType;
 
-    private Collection<ItemType> payload;
+    private List<ItemType> payload;
     private boolean consumed;
     private boolean streamReleased = false;
 
-    public ObjectCollectionContent(Collection<ItemType> payload, Class<ItemType> clazz, MimeType mimeType) {
+    public ListContent(List<ItemType> payload, Class<ItemType> clazz, MimeType mimeType) {
         this.payloadAsStream = null;
         this.mimeType = mimeType;
         this.payload = payload;
@@ -25,7 +25,7 @@ public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType,
         this.consumed = true;
     }
 
-    public ObjectCollectionContent(Publisher<ItemType> payloadAsStream, Class<ItemType> type, MimeType mimeType) {
+    public ListContent(Publisher<ItemType> payloadAsStream, Class<ItemType> type, MimeType mimeType) {
         this.type = type;
         this.mimeType = mimeType;
         this.payloadAsStream = payloadAsStream;
@@ -43,7 +43,7 @@ public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType,
     }
 
     @Override
-    public Collection<ItemType> data() {
+    public List<ItemType> data() {
         consumeIfNeeded();
         return payload;
     }
@@ -105,7 +105,7 @@ public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType,
     @Override
     public String toString() {
         if (consumed) {
-            return "ObjectCollectionContent{" +
+            return "ListContent{" +
                     "type=" + type.getName() +
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
@@ -113,7 +113,7 @@ public class ObjectCollectionContent<ItemType> implements TypedContent<ItemType,
                     ", data=" + payload +
                     '}';
         } else {
-            return "ObjectCollectionContent{" +
+            return "ListContent{" +
                     "type=" + type.getName() +
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +

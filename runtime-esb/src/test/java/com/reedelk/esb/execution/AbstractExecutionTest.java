@@ -47,8 +47,8 @@ public abstract class AbstractExecutionTest {
         return new NoActionResultMessageAndContext(message);
     }
 
-    protected <T> MessageAndContext newEventWithContent(Collection<T> collection, Class<T> clazz) {
-        Message message = MessageBuilder.get().withJavaCollection(collection, clazz).build();
+    protected <T> MessageAndContext newEventWithContent(List<T> list, Class<T> listItemType) {
+        Message message = MessageBuilder.get().withList(list, listItemType).build();
         return new NoActionResultMessageAndContext(message);
     }
 

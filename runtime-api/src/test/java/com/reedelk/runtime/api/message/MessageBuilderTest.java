@@ -365,7 +365,7 @@ class MessageBuilderTest {
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();
-            assertThat(content).isInstanceOf(ObjectCollectionContent.class);
+            assertThat(content).isInstanceOf(ListContent.class);
             StepVerifier.create(content.stream())
                     .expectNext(new MyItem("One"))
                     .expectNext(new MyItem("Two"))
@@ -450,7 +450,7 @@ class MessageBuilderTest {
         }
 
         @Test
-        void shouldCorrectlyBuildObjectCollectionWhenObjectIsFluxStream() {
+        void shouldCorrectlyBuildListContentWhenObjectIsFluxStream() {
             // Given
             Publisher<MyItem> items = Flux.just(new MyItem("One"), new MyItem("Two"));
 
@@ -459,7 +459,7 @@ class MessageBuilderTest {
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();
-            assertThat(content).isInstanceOf(ObjectCollectionContent.class);
+            assertThat(content).isInstanceOf(ListContent.class);
             assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
             assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
         }
@@ -563,32 +563,32 @@ class MessageBuilderTest {
     class JavaCollection {
 
         @Test
-        void shouldCorrectlyBuildObjectCollectionContentPayload() {
+        void shouldCorrectlyBuildListContentPayload() {
             // Given
             List<MyItem> myCollection = Arrays.asList(new MyItem("One"), new MyItem("Two"));
 
             // When
-            Message message = MessageBuilder.get().withJavaCollection(myCollection, MyItem.class).build();
+            Message message = MessageBuilder.get().withList(myCollection, MyItem.class).build();
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();
-            assertThat(content).isInstanceOf(ObjectCollectionContent.class);
+            assertThat(content).isInstanceOf(ListContent.class);
             assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
             assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
         }
 
         @Test
-        void shouldCorrectlyBuildObjectCollectionContentPayloadWithMimeType() {
+        void shouldCorrectlyBuildListContentPayloadWithMimeType() {
             // Given
             List<MyItem> myCollection = Arrays.asList(new MyItem("One"), new MyItem("Two"));
             MimeType mimeType = MimeType.IMAGE_JPEG;
 
             // When
-            Message message = MessageBuilder.get().withJavaCollection(myCollection, MyItem.class, mimeType).build();
+            Message message = MessageBuilder.get().withList(myCollection, MyItem.class, mimeType).build();
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();
-            assertThat(content).isInstanceOf(ObjectCollectionContent.class);
+            assertThat(content).isInstanceOf(ListContent.class);
             assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
             assertThat(content.mimeType()).isEqualTo(MimeType.IMAGE_JPEG);
         }
