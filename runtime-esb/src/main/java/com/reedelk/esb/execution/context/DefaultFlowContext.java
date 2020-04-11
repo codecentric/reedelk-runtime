@@ -1,8 +1,9 @@
-package com.reedelk.esb.execution;
+package com.reedelk.esb.execution.context;
 
 import com.reedelk.esb.commons.CorrelationID;
 import com.reedelk.esb.commons.Messages;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
+import com.reedelk.runtime.api.commons.StringUtils;
 import com.reedelk.runtime.api.flow.Disposable;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
@@ -11,12 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
+import static com.reedelk.runtime.api.commons.Preconditions.checkArgument;
 import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
+import static com.reedelk.runtime.api.commons.StringUtils.*;
 
-public class DefaultFlowContext extends ConcurrentHashMap<String, Object> implements FlowContext {
+public class DefaultFlowContext extends SynchronizedMap<String, Object> implements FlowContext {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultFlowContext.class);
 
@@ -29,6 +32,13 @@ public class DefaultFlowContext extends ConcurrentHashMap<String, Object> implem
     }
 
     private DefaultFlowContext() {
+        super(new HashMap<>());
+    }
+
+    @Override
+    public Object put(String key, Object value) {
+        checkArgument(isNotBlank(key), "flow context key must not be empty");
+        return super.put(key, value);
     }
 
     @Override

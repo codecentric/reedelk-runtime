@@ -1,9 +1,10 @@
-package com.reedelk.esb.execution;
+package com.reedelk.esb.execution.context;
 
 import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.flow.Disposable;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -15,6 +16,7 @@ import java.util.List;
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -97,6 +99,55 @@ class DefaultFlowContextTest {
         verifyNoMoreInteractions(disposable1, disposable2, disposable3);
 
         assertDisposablesAreEmpty(context);
+    }
+
+    @Test
+    void shouldNotThrowExceptionWhenValueIsNull() {
+        // Given
+        Message message = MessageBuilder.get().empty().build();
+        DefaultFlowContext context = DefaultFlowContext.from(message);
+
+        // Expect
+        try {
+            context.put("myKey", null);
+        } catch (Exception e) {
+            Assertions.fail("Should have not thrown exception.", e);
+        }
+    }
+
+    @Test
+    void shouldAddKeyAndValueCorrectly() {
+        // Given
+        Message message = MessageBuilder.get().empty().build();
+        DefaultFlowContext context = DefaultFlowContext.from(message);
+
+        context.put("myKey", "This is a test");
+
+        assertThat(context).containsEntry("myKey", "This is a test");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenKeyIsNull() {
+        // Given
+        Message message = MessageBuilder.get().empty().build();
+        DefaultFlowContext context = DefaultFlowContext.from(message);
+
+        IllegalArgumentException thrown =
+                assertThrows(IllegalArgumentException.class, () -> context.put(null, "my value"));
+
+        assertThat(thrown).hasMessage("flow context key must not be empty");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenKeyIsEmpty() {
+        // Given
+        Message message = MessageBuilder.get().empty().build();
+        DefaultFlowContext context = DefaultFlowContext.from(message);
+
+        IllegalArgumentException thrown =
+                assertThrows(IllegalArgumentException.class, () -> context.put(" ", "my value"));
+
+        assertThat(thrown).hasMessage("flow context key must not be empty");
     }
 
     @SuppressWarnings("unchecked")

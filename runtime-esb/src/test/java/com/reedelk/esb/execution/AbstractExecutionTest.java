@@ -1,5 +1,6 @@
 package com.reedelk.esb.execution;
 
+import com.reedelk.esb.execution.context.DefaultFlowContext;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.esb.test.utils.TestInboundComponent;
@@ -162,7 +163,6 @@ public abstract class AbstractExecutionTest {
     }
 
     public static class ToStringProcessor implements ProcessorSync {
-
         @Override
         public Message apply(FlowContext flowContext, Message message) {
             String outputString = message.payload().toString();
