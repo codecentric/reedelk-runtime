@@ -25,6 +25,7 @@ import reactor.test.StepVerifier;
 import java.util.Arrays;
 
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
+import static java.util.Arrays.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
@@ -587,6 +588,27 @@ class DynamicValueStreamEvaluatorTest {
             // Then
             StepVerifier.create(publisher)
                     .expectNextMatches(bytes -> Arrays.equals(bytes, StackTraceUtils.asByteArray(myException)))
+                    .verifyComplete();
+        }
+    }
+
+    @Nested
+    @DisplayName("Evaluate dynamic string with custom arguments")
+    class EvaluateDynamicStringWithCustomArguments {
+
+        @Test
+        void shouldCorrectlyEvaluateDynamicStringWithCustomArguments() {
+            // Given
+            MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("property1", "test1"));
+            Message message = MessageBuilder.get().withText("this is a test").attributes(attributes).build();
+            DynamicString dynamicString = DynamicString.from("#[message.attributes.pRoperty1]", moduleContext);
+
+            // When
+            TypedPublisher<String> publisher = evaluator.evaluateStream(dynamicString, asList("context", "message"), context, message);
+
+            // Then
+            StepVerifier.create(publisher)
+                    .expectNext("test1")
                     .verifyComplete();
         }
     }
