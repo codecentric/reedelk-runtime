@@ -19,10 +19,13 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import static com.reedelk.runtime.api.commons.Preconditions.checkArgument;
 
 public class ForEachExecutor implements FlowExecutor {
 
@@ -105,7 +108,9 @@ public class ForEachExecutor implements FlowExecutor {
         if (payload instanceof Map) {
             Map<?,?> payloadMap = (Map<?, ?>) payload;
             for (Map.Entry<?,?> entry : payloadMap.entrySet()) {
-                MapEntry realEntry = new MapEntry(entry.getKey(), entry.getValue());
+                Serializable key = checkSerializableOrThrow(entry.getKey(), "Map key");
+                Serializable value = checkSerializableOrThrow(entry.getValue(), "Map value");
+                MapEntry realEntry = new MapEntry(key, value);
                 Mono<MessageAndContext> mono = monoWithItem(graph, firstEachNode, messageAndContext, realEntry);
                 each.add(mono);
             }
@@ -134,5 +139,11 @@ public class ForEachExecutor implements FlowExecutor {
         Mono<MessageAndContext> parent = Mono.just(messageAndContextWithItem);
         Publisher<MessageAndContext> eachPublisher = FlowExecutorFactory.get().execute(parent, firstEachNode, graph);
         return Mono.from(eachPublisher);
+    }
+
+    private static Serializable checkSerializableOrThrow(Object value, String message) {
+        checkArgument(value == null || value instanceof Serializable,
+                "ForEach Component " + message + " must be serializable.");
+        return (Serializable) value;
     }
 }

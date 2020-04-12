@@ -2,54 +2,55 @@ package com.reedelk.esb.component.foreach;
 
 import com.reedelk.runtime.api.message.content.Pair;
 
-public class MapEntry implements Pair<Object,Object> {
+import java.io.Serializable;
 
-    private final Object key;
-    private final Object value;
+public class MapEntry implements Pair<Serializable,Serializable> {
 
-    public MapEntry(Object key, Object value) {
+    private final Serializable key;
+    private final Serializable value;
+
+    public MapEntry(Serializable key, Serializable value) {
         this.key = key;
         this.value = value;
     }
 
-
     @Override
-    public Object key() {
+    public Serializable key() {
         return key;
     }
 
     @Override
-    public Object value() {
+    public Serializable value() {
         return value;
     }
 
     @Override
-    public Object getKey() {
+    public Serializable getKey() {
         return key;
     }
 
     @Override
-    public Object getValue() {
+    public Serializable getValue() {
         return value;
     }
 
     @Override
-    public Object left() {
+    public Serializable left() {
         return key;
     }
 
     @Override
-    public Object right() {
+    public Serializable right() {
         return value;
     }
 
     @Override
-    public Object getLeft() {
+    public Serializable getLeft() {
         return key;
     }
 
     @Override
-    public Object getRight() {
+    public Serializable getRight() {
         return value;
     }
 

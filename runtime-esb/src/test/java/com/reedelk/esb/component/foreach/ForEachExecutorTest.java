@@ -16,7 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -364,4 +363,62 @@ class ForEachExecutorTest extends AbstractExecutionTest {
                 .verifyComplete();
     }
 
+    @Test
+    void shouldThrowExceptionWhenMapContainsNotSerializableKey() {
+        // Given
+        ExecutionNode toStringExecutionNode = newExecutionNode(new ToStringProcessor());
+
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .forEachSequence(toStringExecutionNode, eachNode2)
+                .build();
+
+        MessageAndContext event = newEventWithContent(
+                ImmutableMap.of(
+                        new NotSerializableObject(), asList("Item11", "Item12"),
+                        new NotSerializableObject(), asList("Item21", "Item22")));
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .verifyErrorMatches(throwable ->
+                        throwable instanceof IllegalArgumentException &&
+                                "ForEach Component Map key must be serializable.".equals(throwable.getMessage()));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenMapContainsNotSerializableValue() {
+        // Given
+        ExecutionNode toStringExecutionNode = newExecutionNode(new ToStringProcessor());
+
+        ExecutionGraph graph = ForEachTestGraphBuilder.get()
+                .inbound(inbound)
+                .forEach(forEachNode)
+                .forEachSequence(toStringExecutionNode, eachNode2)
+                .build();
+
+        MessageAndContext event = newEventWithContent(
+                ImmutableMap.of(
+                        "key1", new NotSerializableObject(),
+                        "key2", new NotSerializableObject()));
+        Publisher<MessageAndContext> publisher = Mono.just(event);
+
+        // When
+        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
+
+        // Then
+        StepVerifier.create(endPublisher)
+                .verifyErrorMatches(throwable ->
+                        throwable instanceof IllegalArgumentException &&
+                                "ForEach Component Map value must be serializable.".equals(throwable.getMessage()));
+    }
+
+    static class NotSerializableObject {
+        NotSerializableObject() {
+        }
+    }
 }

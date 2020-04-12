@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @param <L> the type of the left (or key) value.
  * @param <R> the type of the right (or value) value.
  */
-public interface Pair<L,R> extends Serializable {
+public interface Pair<L extends Serializable, R extends Serializable> extends Serializable {
 
     L key();
 
