@@ -4,7 +4,7 @@
   "description": "Returns a list of installed modules",
   "flow": [
     {
-      "implementor": "com.reedelk.rest.component.RestListener",
+      "implementor": "com.reedelk.rest.component.RESTListener",
       "description": "REST Listener",
       "configuration": {"ref": "8d689312-0cc5-4e0b-aec6-f17025627aa1"},
       "path": "/api/module",
