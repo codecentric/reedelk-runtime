@@ -9,6 +9,9 @@ public class JavaVersion {
 
     private static final Logger logger = LoggerFactory.getLogger(JavaVersion.class);
 
+    private JavaVersion() {
+    }
+
     public static boolean isGreaterThan18() {
         String fullVersion = System.getProperty("java.version");
         return internalIsGreaterThan18(fullVersion);
