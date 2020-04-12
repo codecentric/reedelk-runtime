@@ -23,12 +23,11 @@ import reactor.core.publisher.Flux;
 import java.util.Optional;
 
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class DynamicValueEvaluatorTest {
-
-    private final long moduleId = 10L;
 
     @Mock
     private FlowContext context;
@@ -39,6 +38,7 @@ class DynamicValueEvaluatorTest {
     @BeforeEach
     void setUp() {
         evaluator = new DynamicValueEvaluator();
+        long moduleId = 10L;
         moduleContext = new ModuleContext(moduleId);
     }
 
@@ -619,8 +619,172 @@ class DynamicValueEvaluatorTest {
         }
     }
 
-    static class NotSerializableContent {
-        int value;
+    @Nested
+    @DisplayName("Evaluate dynamic string with custom arguments and bindings")
+    class EvaluateDynamicStringWithCustomArgumentsAndBindings {
+
+        @Test
+        void shouldCorrectlyEvaluateDynamicStringWithCustomArguments() {
+            // Given
+            String argument1 = "my argument1";
+            String argument2 = "my argument2";
+            String payload = "Input Arguments: ";
+            Message message = MessageBuilder.get().withText(payload).build();
+
+            DynamicString dynamicString = DynamicString.from("#[message.payload() + argument1 + ', ' + argument2]", moduleContext);
+
+            // When
+            Optional<String> result = evaluator.evaluate(
+                    dynamicString,
+                    asList("message", "argument1", "argument2"),
+                    message,
+                    argument1,
+                    argument2);
+
+            // Then
+            assertThat(result).isPresent().contains("Input Arguments: my argument1, my argument2");
+        }
+
+        @Test
+        void shouldCorrectlyEvaluateNullDynamicStringWithCustomArguments() {
+            // Given
+            String argument1 = "my argument1";
+            String argument2 = "my argument2";
+            String payload = "Input Arguments: ";
+            Message message = MessageBuilder.get().withText(payload).build();
+
+            DynamicString dynamicString = null;
+
+            // When
+            Optional<String> result = evaluator.evaluate(
+                    dynamicString,
+                    asList("message", "argument1", "argument2"),
+                    message,
+                    argument1,
+                    argument2);
+
+            // Then
+            assertThat(result).isNotPresent();
+        }
+
+        @Test
+        void shouldCorrectlyEvaluateNonDynamicStringWithCustomArguments() {
+            // Given
+            String argument1 = "my argument1";
+            String argument2 = "my argument2";
+            String payload = "Input Arguments: ";
+            Message message = MessageBuilder.get().withText(payload).build();
+
+            DynamicString dynamicString = DynamicString.from("Hello this is my text");
+
+            // When
+            Optional<String> result = evaluator.evaluate(
+                    dynamicString,
+                    asList("message", "argument1", "argument2"),
+                    message,
+                    argument1,
+                    argument2);
+
+            // Then
+            assertThat(result).isPresent().contains("Hello this is my text");
+        }
+    }
+
+    @Nested
+    @DisplayName("Evaluate dynamic object with mime type custom arguments and bindings")
+    class EvaluateDynamicObjectWithMimeTypeCustomArgumentsAndBindings {
+
+        @Test
+        void shouldCorrectlyEvaluateDynamicObjectWithMimeTypeAndCustomArguments() {
+            // Given
+            int argument1 = 40;
+            int argument2 = 25;
+            int payload = 9;
+            Message message = MessageBuilder.get().withJavaObject(payload).build();
+
+            DynamicObject dynamicObject = DynamicObject.from("#[message.payload() + argument1 + argument2]", moduleContext);
+
+            // When
+            Optional<Object> result = evaluator.evaluate(
+                    dynamicObject,
+                    MimeType.TEXT_PLAIN,
+                    asList("message", "argument1", "argument2"),
+                    message,
+                    argument1,
+                    argument2);
+
+            // Then
+            assertThat(result).isPresent().contains("74.0"); // has been converted to string (because of the mime type)
+        }
+
+        @Test
+        void shouldCorrectlyEvaluateNullDynamicObjectWithMimeTypeAndCustomArguments() {
+            // Given
+            int argument1 = 40;
+            int argument2 = 25;
+            int payload = 9;
+            Message message = MessageBuilder.get().withJavaObject(payload).build();
+
+            DynamicObject dynamicObject = null;
+
+            // When
+            Optional<Object> result = evaluator.evaluate(
+                    dynamicObject,
+                    MimeType.TEXT_PLAIN,
+                    asList("message", "argument1", "argument2"),
+                    message,
+                    argument1,
+                    argument2);
+
+            // Then
+            assertThat(result).isNotPresent();
+        }
+
+        @Test
+        void shouldCorrectlyEvaluateEmptyScriptDynamicObjectWithCustomArguments() {
+            // Given
+            String argument1 = "my argument1";
+            String argument2 = "my argument2";
+            String payload = "Input Arguments: ";
+            Message message = MessageBuilder.get().withText(payload).build();
+
+            DynamicObject dynamicObject = DynamicObject.from("#[ ]", moduleContext);
+
+            // When
+            Optional<Object> result = evaluator.evaluate(
+                    dynamicObject,
+                    MimeType.TEXT_PLAIN,
+                    asList("message", "argument1", "argument2"),
+                    message,
+                    argument1,
+                    argument2);
+
+            // Then
+            assertThat(result).isNotPresent();
+        }
+
+        @Test
+        void shouldCorrectlyEvaluateNonScriptDynamicObjectWithCustomArguments() {
+            // Given
+            String argument1 = "my argument1";
+            String argument2 = "my argument2";
+            String payload = "Input Arguments: ";
+            Message message = MessageBuilder.get().withText(payload).build();
+
+            DynamicObject dynamicObject = DynamicObject.from(23, moduleContext);
+
+            // When
+            Optional<Object> result = evaluator.evaluate(
+                    dynamicObject,
+                    MimeType.TEXT_PLAIN,
+                    asList("message", "argument1", "argument2"),
+                    message,
+                    argument1,
+                    argument2);
+
+            // Then
+            assertThat(result).isPresent().contains("23");
+        }
     }
 
     private static class MyObject {

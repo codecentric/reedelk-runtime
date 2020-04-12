@@ -39,35 +39,6 @@ public class DynamicValueEvaluator extends AbstractDynamicValueEvaluator {
         }
     }
 
-    @Override
-    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, List<String> argumentNames, Object... bindings) {
-        return evaluate(dynamicValue, FunctionDefinitionBuilderLazy.from(argumentNames), bindings);
-    }
-
-    @Override
-    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, MimeType mimeType, List<String> argumentNames, Object... bindings) {
-        if (dynamicValue == null) {
-            // Value is not present
-            return OPTIONAL_PROVIDER.empty();
-        } else if (dynamicValue.isScript()) {
-            if (dynamicValue.isEmpty()) {
-                return OPTIONAL_PROVIDER.empty();
-            } else {
-                // Script
-                Object evaluationResult = invokeFunction(dynamicValue, FunctionDefinitionBuilderLazy.from(argumentNames), bindings);
-                return convert(evaluationResult, mimeType.javaType(), OPTIONAL_PROVIDER);
-            }
-        } else {
-            // Not a script
-            return convert(dynamicValue.value(), mimeType.javaType(), OPTIONAL_PROVIDER);
-        }
-    }
-
-    @Override
-    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, FlowContext flowContext, Throwable exception) {
-        return evaluate(dynamicValue, CONTEXT_AND_ERROR, flowContext, exception);
-    }
-
     /**
      * The mime type argument is useful when we have a DynamicObject value and a Mime Type in the component.
      * We allow the result of the evaluation to be any object however, we want to convert it to the best suitable
@@ -90,6 +61,35 @@ public class DynamicValueEvaluator extends AbstractDynamicValueEvaluator {
                 return convert(payload, mimeType.javaType(), OPTIONAL_PROVIDER);
             } else {
                 Object evaluationResult = invokeFunction(dynamicValue, CONTEXT_AND_MESSAGE, flowContext, message);
+                return convert(evaluationResult, mimeType.javaType(), OPTIONAL_PROVIDER);
+            }
+        } else {
+            // Not a script
+            return convert(dynamicValue.value(), mimeType.javaType(), OPTIONAL_PROVIDER);
+        }
+    }
+
+    @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, FlowContext flowContext, Throwable exception) {
+        return evaluate(dynamicValue, CONTEXT_AND_ERROR, flowContext, exception);
+    }
+
+    @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, List<String> argumentNames, Object... bindings) {
+        return evaluate(dynamicValue, FunctionDefinitionBuilderLazy.from(argumentNames), bindings);
+    }
+
+    @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, MimeType mimeType, List<String> argumentNames, Object... bindings) {
+        if (dynamicValue == null) {
+            // Value is not present
+            return OPTIONAL_PROVIDER.empty();
+        } else if (dynamicValue.isScript()) {
+            if (dynamicValue.isEmpty()) {
+                return OPTIONAL_PROVIDER.empty();
+            } else {
+                // Script
+                Object evaluationResult = invokeFunction(dynamicValue, FunctionDefinitionBuilderLazy.from(argumentNames), bindings);
                 return convert(evaluationResult, mimeType.javaType(), OPTIONAL_PROVIDER);
             }
         } else {

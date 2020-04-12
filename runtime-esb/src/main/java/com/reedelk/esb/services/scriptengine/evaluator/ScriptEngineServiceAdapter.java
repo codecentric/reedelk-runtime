@@ -29,17 +29,17 @@ public class ScriptEngineServiceAdapter implements ScriptEngineService {
     }
 
     @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> value, FlowContext flowContext, Throwable throwable) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, List<String> argumentNames, Object... bindings) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, MimeType mimeType, List<String> argumentNames, Object... bindings) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> Optional<T> evaluate(DynamicValue<T> value, FlowContext flowContext, Throwable throwable) {
         throw new UnsupportedOperationException();
     }
 
