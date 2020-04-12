@@ -342,7 +342,7 @@ class ValueConverterFactoryTest {
 
             // Then
             assertThat(exception).isNotNull();
-            assertThat(exception).hasMessage("Converter for input=[com.reedelk.esb.services.scriptengine.converter.converterServiceTest$DummyClazz] to output=[java.lang.Integer] not available");
+            assertThat(exception).hasMessage("Converter for input=[com.reedelk.esb.services.scriptengine.converter.ValueConverterFactoryTest$DummyClazz] to output=[java.lang.Integer] not available");
         }
 
         @Test
@@ -730,7 +730,7 @@ class ValueConverterFactoryTest {
 
             // Then
             assertThat(exception).isNotNull();
-            assertThat(exception).hasMessage("Converter for input=[com.reedelk.esb.services.scriptengine.converter.converterServiceTest$DummyClazz] to output=[java.lang.Integer] not available");
+            assertThat(exception).hasMessage("Converter for input=[com.reedelk.esb.services.scriptengine.converter.ValueConverterFactoryTest$DummyClazz] to output=[java.lang.Integer] not available");
         }
     }
 
