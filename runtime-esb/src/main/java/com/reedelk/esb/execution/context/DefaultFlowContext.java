@@ -41,6 +41,11 @@ public class DefaultFlowContext extends SynchronizedMap<String, Object> implemen
     }
 
     @Override
+    public boolean contains(String key) {
+        return super.containsKey(key);
+    }
+
+    @Override
     public void register(Disposable disposable) {
         checkNotNull(disposable, "disposable object must not be null");
         disposableList.add(disposable);

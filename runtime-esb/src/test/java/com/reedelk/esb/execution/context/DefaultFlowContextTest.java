@@ -150,6 +150,34 @@ class DefaultFlowContextTest {
         assertThat(thrown).hasMessage("flow context key must not be empty");
     }
 
+    @Test
+    void shouldReturnTrueWhenContextContainsKey() {
+        // Given
+        Message message = MessageBuilder.get().empty().build();
+        DefaultFlowContext context = DefaultFlowContext.from(message);
+
+        context.put("myKey", "my value");
+
+        // When
+        boolean actual = context.contains("myKey");
+
+        // Then
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void shouldReturnFalseWhenContextDoesNotContainKey() {
+        // Given
+        Message message = MessageBuilder.get().empty().build();
+        DefaultFlowContext context = DefaultFlowContext.from(message);
+
+        // When
+        boolean actual = context.contains("myKey");
+
+        // Then
+        assertThat(actual).isFalse();
+    }
+
     @SuppressWarnings("unchecked")
     private void assertDisposablesAreEmpty(FlowContext context) {
         try {

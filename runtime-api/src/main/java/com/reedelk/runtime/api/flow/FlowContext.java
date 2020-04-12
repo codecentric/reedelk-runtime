@@ -55,6 +55,14 @@ import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE
 public interface FlowContext extends Map<String, Object>, Disposable {
 
     /**
+     * Checks whether the context contains a value with the given key.
+     *
+     * @param key the key to be checked for existence in the context.
+     * @return true if exists a value mapped to the given key in the context, false otherwise.
+     */
+    boolean contains(String key);
+
+    /**
      * Registers a disposable object in the context so that it can
      * be disposed when the flow execution ends. This might be
      * used to cleanup Database cursors or other resources which needs

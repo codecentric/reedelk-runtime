@@ -187,6 +187,11 @@ class DynamicMapEvaluatorTest {
     private static class TestableFlowContext extends HashMap<String, Object> implements FlowContext {
 
         @Override
+        public boolean contains(String key) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public void register(Disposable disposable) {
         }
 
