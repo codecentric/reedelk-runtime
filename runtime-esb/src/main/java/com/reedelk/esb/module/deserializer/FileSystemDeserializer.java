@@ -2,7 +2,7 @@ package com.reedelk.esb.module.deserializer;
 
 import com.reedelk.runtime.api.commons.Unchecked;
 import com.reedelk.runtime.api.commons.FileUtils;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +50,7 @@ public class FileSystemDeserializer extends AbstractModuleDeserializer {
                     .collect(toList());
         } catch (IOException exception) {
             String errorMessage = ERROR_READING_FILES_FROM_RESOURCE_FOLDER.format(targetPath.toString());
-            throw new ESBException(errorMessage, exception);
+            throw new PlatformException(errorMessage, exception);
         }
     }
 }

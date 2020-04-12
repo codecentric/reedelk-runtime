@@ -1,7 +1,7 @@
 package com.reedelk.esb.services.configuration.configurer;
 
 import com.reedelk.runtime.api.commons.FileUtils;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.commons.FileExtension;
 
 import java.io.File;
@@ -33,8 +33,8 @@ public class ConfigFileFactory {
     private static ConfigFile<?> newInstance(Class<? extends ConfigFile<?>> clazz, File file) {
         try {
             return clazz.getConstructor(File.class).newInstance(file);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new ESBException(e);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException exception) {
+            throw new PlatformException(exception);
         }
     }
 }

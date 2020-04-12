@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.exception;
 
-public class FlowExecutionException extends ESBException {
+public class FlowExecutionException extends PlatformException {
 
     private final long moduleId;
     private final String moduleName;

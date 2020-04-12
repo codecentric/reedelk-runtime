@@ -1,7 +1,7 @@
 package com.reedelk.esb.component.router;
 
 import com.reedelk.esb.graph.ExecutionNode;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import com.reedelk.runtime.component.Router;
 
@@ -32,7 +32,7 @@ public class RouterWrapper extends Router {
         return pathExpressionPairs.stream()
                 .filter(pathExpressionPair -> DEFAULT_CONDITION.value().equals(pathExpressionPair.expression.value()))
                 .findFirst()
-                .orElseThrow(() -> new ESBException("Default router condition could not be found"));
+                .orElseThrow(() -> new PlatformException("Default router condition could not be found"));
     }
 
     public void setEndOfRouterStopNode(ExecutionNode endOfRouterStopNode) {
@@ -43,7 +43,7 @@ public class RouterWrapper extends Router {
         return endOfRouterStopNode;
     }
 
-    public class PathExpressionPair {
+    public static class PathExpressionPair {
         public final DynamicString expression;
         public final ExecutionNode pathReference;
 

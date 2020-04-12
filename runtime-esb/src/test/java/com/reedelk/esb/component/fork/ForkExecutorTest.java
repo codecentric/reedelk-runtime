@@ -5,7 +5,7 @@ import com.reedelk.esb.execution.MessageAndContext;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.Join;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import org.junit.jupiter.api.BeforeEach;
@@ -193,7 +193,7 @@ class ForkExecutorTest extends AbstractExecutionTest {
 
         // Then
         StepVerifier.create(endPublisher)
-                .verifyErrorMatches(throwable -> throwable instanceof ESBException);
+                .verifyErrorMatches(throwable -> throwable instanceof PlatformException);
     }
 
     @Test

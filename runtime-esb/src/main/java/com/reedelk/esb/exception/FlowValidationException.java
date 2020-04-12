@@ -1,8 +1,9 @@
 package com.reedelk.esb.exception;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 
-public class FlowValidationException extends ESBException {
+public class FlowValidationException extends PlatformException {
+
     public FlowValidationException(String message) {
         super(message);
     }

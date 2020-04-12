@@ -3,7 +3,7 @@ package com.reedelk.esb.lifecycle;
 import com.reedelk.esb.flow.Flow;
 import com.reedelk.esb.module.Module;
 import com.reedelk.esb.module.ModuleDeserializer;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -182,14 +182,14 @@ class ModuleStopAndReleaseReferencesTest {
         inputModule.stop(asList(flow1, flow2, flow3));
         inputModule.start(asList(flow1, flow2, flow3));
 
-        doThrow(new ESBException("Listener configuration is missing"))
+        doThrow(new PlatformException("Listener configuration is missing"))
                 .when(flow2)
                 .stopIfStarted();
         doReturn("aabbccddee")
                 .when(flow2)
                 .getFlowId();
 
-        doThrow(new ESBException("Client configuration was not provided"))
+        doThrow(new PlatformException("Client configuration was not provided"))
                 .when(flow3)
                 .stopIfStarted();
         doReturn("ffghhiillmm")
@@ -227,14 +227,14 @@ class ModuleStopAndReleaseReferencesTest {
                 "  \"errorMessage\": \"Listener configuration is missing\",\n" +
                 "  \"moduleId\": 33,\n" +
                 "  \"flowId\": \"aabbccddee\",\n" +
-                "  \"errorType\": \"com.reedelk.runtime.api.exception.ESBException\"\n" +
+                "  \"errorType\": \"com.reedelk.runtime.api.exception.PlatformException\"\n" +
                 "}";
         String expectedMessage2 = "{\n" +
                 "  \"moduleName\": \"StopTestModule\",\n" +
                 "  \"errorMessage\": \"Client configuration was not provided\",\n" +
                 "  \"moduleId\": 33,\n" +
                 "  \"flowId\": \"ffghhiillmm\",\n" +
-                "  \"errorType\": \"com.reedelk.runtime.api.exception.ESBException\"\n" +
+                "  \"errorType\": \"com.reedelk.runtime.api.exception.PlatformException\"\n" +
                 "}";
 
         assertThatExistExceptionWithMessage(errors, expectedMessage1);

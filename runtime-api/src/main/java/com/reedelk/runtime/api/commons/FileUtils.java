@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.commons;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class FileUtils {
                 scanner.useDelimiter("\\A");
                 return scanner.hasNext() ? scanner.next() : StringUtils.EMPTY;
             } catch (IOException exception) {
-                throw new ESBException(format("String from URL=[%s] could not be read.", url.getPath()), exception);
+                throw new PlatformException(format("String from URL=[%s] could not be read.", url.getPath()), exception);
             }
         }
     }

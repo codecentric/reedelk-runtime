@@ -3,7 +3,7 @@ package com.reedelk.esb.services.scriptengine.evaluator;
 import com.reedelk.esb.execution.context.DefaultFlowContext;
 import com.reedelk.esb.flow.deserializer.converter.ProxyScript;
 import com.reedelk.runtime.api.commons.ModuleContext;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -86,7 +86,7 @@ class ScriptEvaluatorTest {
             Script invalidScript = scriptFromBody(wrapAsTestFunction("return 'hello"));
 
             // When
-            ESBException exception = Assertions.assertThrows(ESBException.class,
+            PlatformException exception = Assertions.assertThrows(PlatformException.class,
                     () -> evaluator.evaluate(invalidScript, String.class, context, emptyMessage));
 
             // Then
@@ -193,7 +193,7 @@ class ScriptEvaluatorTest {
             Script notValidScript = scriptFromBody("return 'hello");
 
             // When
-            ESBException exception = Assertions.assertThrows(ESBException.class,
+            PlatformException exception = Assertions.assertThrows(PlatformException.class,
                     () -> evaluator.evaluate(notValidScript, String.class, context, messages));
 
             // Then

@@ -3,7 +3,7 @@ package com.reedelk.esb.execution;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import org.reactivestreams.Publisher;
@@ -63,7 +63,7 @@ public class ProcessorSyncExecutor implements FlowExecutor {
                 // They are normally caught at subscribe time however it does not apply because
                 // the FlowExecutorEngine the stream on publishOn(SchedulerProvider.flow())
                 // - i.e on a different thread. Therefore we must wrap 'NoClassDefFoundError' exception.
-                ESBException wrapped = new ESBException(throwable);
+                PlatformException wrapped = new PlatformException(throwable);
                 sink.error(wrapped);
             }
         };

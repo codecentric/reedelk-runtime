@@ -1,7 +1,7 @@
 package com.reedelk.runtime.api.message.content;
 
 import com.reedelk.runtime.api.commons.StreamUtils;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 
@@ -63,7 +63,7 @@ public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemTy
         synchronized (this) {
             if (!consumed) {
                 if (streamReleased) {
-                    throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
+                    throw new PlatformException("Stream has been already released. This payload cannot be consumed anymore.");
                 }
                 streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
                 return TypedPublisher.fromObject(payloadAsStream, type);
@@ -93,7 +93,7 @@ public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemTy
             synchronized (this) {
                 if (!consumed) {
                     if (streamReleased) {
-                        throw new ESBException("Stream has been already released. This payload cannot be consumed anymore.");
+                        throw new PlatformException("Stream has been already released. This payload cannot be consumed anymore.");
                     }
                     payload = StreamUtils.FromObject.consume(payloadAsStream);
                     consumed = true;

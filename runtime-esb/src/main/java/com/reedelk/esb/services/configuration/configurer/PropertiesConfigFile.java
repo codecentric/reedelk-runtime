@@ -1,6 +1,6 @@
 package com.reedelk.esb.services.configuration.configurer;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,8 +31,8 @@ public class PropertiesConfigFile implements ConfigFile<Properties> {
             Properties properties = new Properties();
             properties.load(new FileInputStream(file));
             return properties;
-        } catch (IOException e) {
-            throw new ESBException(e);
+        } catch (IOException exception) {
+            throw new PlatformException(exception);
         }
     }
 }

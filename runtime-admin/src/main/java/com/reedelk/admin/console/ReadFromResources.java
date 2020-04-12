@@ -4,7 +4,7 @@ import com.reedelk.runtime.api.annotation.ModuleComponent;
 import com.reedelk.runtime.api.annotation.Property;
 import com.reedelk.runtime.api.commons.FileUtils;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -48,7 +48,7 @@ public class ReadFromResources implements ProcessorSync {
             return MessageBuilder.get().withBinary(dataStream, actualMimeType).build();
 
         } catch (ResourceNotFound resourceNotFound) {
-            throw new ESBException(resourceNotFound);
+            throw new PlatformException(resourceNotFound);
         }
     }
 

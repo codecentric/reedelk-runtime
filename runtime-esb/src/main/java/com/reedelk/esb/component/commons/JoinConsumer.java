@@ -2,7 +2,7 @@ package com.reedelk.esb.component.commons;
 
 import com.reedelk.esb.execution.MessageAndContext;
 import com.reedelk.runtime.api.component.Join;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.message.Message;
 import reactor.core.publisher.MonoSink;
 
@@ -51,7 +51,7 @@ public class JoinConsumer implements Consumer<MonoSink<MessageAndContext>> {
             // They are normally caught at subscribe time however it does not apply because
             // the FlowExecutorEngine the stream on publishOn(SchedulerProvider.flow())
             // - i.e on a different thread. Therefore we must wrap 'NoClassDefFoundError' exception.
-            ESBException wrapped = new ESBException(throwable);
+            PlatformException wrapped = new PlatformException(throwable);
             sink.error(wrapped);
         }
     }

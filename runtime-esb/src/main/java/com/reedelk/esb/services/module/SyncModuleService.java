@@ -1,6 +1,6 @@
 package com.reedelk.esb.services.module;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.commons.ModuleUtils;
 import com.reedelk.runtime.system.api.ModuleService;
 import org.osgi.framework.Bundle;
@@ -38,7 +38,7 @@ class SyncModuleService {
         String filePath = URI.create(moduleJarPath).getPath();
         String toBeInstalledModuleName = moduleNameOf(filePath).orElseThrow(() -> {
             String errorMessage = INSTALL_FAILED_MODULE_NAME_NOT_FOUND.format(moduleJarPath);
-            return new ESBException(errorMessage);
+            return new PlatformException(errorMessage);
         });
 
 

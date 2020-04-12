@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.message.content;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import reactor.core.publisher.Mono;
 
 import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
@@ -66,7 +66,7 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
         synchronized (this) {
             if (!consumed) {
                 if (streamReleased) {
-                    throw new ESBException("Stream has been already released. This data cannot be consumed anymore.");
+                    throw new PlatformException("Stream has been already released. This data cannot be consumed anymore.");
                 }
                 streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
                 return TypedMono.from(dataAsStream, type);
@@ -100,7 +100,7 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
             synchronized (this) {
                 if (!consumed) {
                     if (streamReleased) {
-                        throw new ESBException("Stream has been already released. This data cannot be consumed anymore.");
+                        throw new PlatformException("Stream has been already released. This data cannot be consumed anymore.");
                     }
                     data = dataAsStream.block();
                     consumed = true;

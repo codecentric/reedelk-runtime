@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.commons;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
 import org.reactivestreams.Publisher;
@@ -56,13 +56,13 @@ public class StreamUtils {
                 bytesBlocks.forEach(bytesBlock -> {
                     try {
                         out.write(bytesBlock);
-                    } catch (IOException e) {
-                        throw new ESBException(e);
+                    } catch (IOException exception) {
+                        throw new PlatformException(exception);
                     }
                 });
                 return out.toByteArray();
-            } catch (IOException e) {
-                throw new ESBException(e);
+            } catch (IOException exception) {
+                throw new PlatformException(exception);
             }
         }
     }

@@ -1,12 +1,12 @@
 package com.reedelk.esb.exception;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.script.ScriptBlock;
 
 import static com.reedelk.esb.commons.Messages.Script.SCRIPT_EXECUTION_ERROR;
 import static com.reedelk.runtime.api.commons.StackTraceUtils.rootCauseMessageOf;
 
-public class ScriptExecutionException extends ESBException {
+public class ScriptExecutionException extends PlatformException {
 
     public ScriptExecutionException(ScriptBlock scriptBlock, Throwable cause) {
         super(messageFrom(scriptBlock, cause), cause);

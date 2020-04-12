@@ -2,7 +2,7 @@ package com.reedelk.esb.module;
 
 import com.reedelk.esb.flow.Flow;
 import com.reedelk.esb.module.state.ModuleState;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -349,7 +349,7 @@ class ModuleTest {
         @Test
         void shouldErrorTransitionToUnresolved() {
             // Given
-            module.error(new ESBException("Deserialization error"));
+            module.error(new PlatformException("Deserialization error"));
 
             // When
             module.unresolve(unresolvedComponents, Collections.emptyList());
@@ -361,7 +361,7 @@ class ModuleTest {
         @Test
         void shouldErrorTransitionToInstalled() {
             // Given
-            module.error(new ESBException("Deserialization error"));
+            module.error(new PlatformException("Deserialization error"));
 
             // When
             module.installed();

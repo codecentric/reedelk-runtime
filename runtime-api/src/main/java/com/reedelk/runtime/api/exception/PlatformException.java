@@ -2,26 +2,26 @@ package com.reedelk.runtime.api.exception;
 
 import com.reedelk.runtime.api.message.Message;
 
-public class ESBException extends RuntimeException {
+public class PlatformException extends RuntimeException {
 
     private Message message;
 
-    public ESBException() {
+    public PlatformException() {
     }
 
-    public ESBException(String message) {
+    public PlatformException(String message) {
         super(message);
     }
 
-    public ESBException(Message message) {
+    public PlatformException(Message message) {
         this.message = message;
     }
 
-    public ESBException(Throwable cause) {
+    public PlatformException(Throwable cause) {
         super(cause);
     }
 
-    public ESBException(String message, Throwable exception) {
+    public PlatformException(String message, Throwable exception) {
         super(message, exception);
     }
 

@@ -4,7 +4,7 @@ import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorAsync;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -111,7 +111,7 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
                 .verifyErrorMatches(throwable -> {
                     // We must make sure that a Throwable not extending 'Exception' is correctly wrapped, so that
                     // we can correctly bubble up the error and expose the correct error to the user.
-                    return throwable instanceof ESBException &&
+                    return throwable instanceof PlatformException &&
                             throwable.getMessage().equals("java.lang.NoClassDefFoundError: javax.xml");
                 });
     }

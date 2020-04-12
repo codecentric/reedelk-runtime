@@ -4,7 +4,7 @@ import com.reedelk.runtime.api.component.Implementor;
 
 import static java.lang.String.format;
 
-public class ConfigurationException extends ESBException {
+public class ConfigurationException extends PlatformException {
 
     public ConfigurationException(Class<? extends Implementor> implementor, String errorMessage) {
         super(formatErrorMessage(implementor, errorMessage));

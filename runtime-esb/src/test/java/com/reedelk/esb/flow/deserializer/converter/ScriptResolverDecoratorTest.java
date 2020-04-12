@@ -2,7 +2,7 @@ package com.reedelk.esb.flow.deserializer.converter;
 
 import com.reedelk.esb.module.DeSerializedModule;
 import com.reedelk.esb.services.resource.ResourceLoader;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.resource.ResourceNotFound;
 import com.reedelk.runtime.api.script.Script;
 import com.reedelk.runtime.converter.DeserializerConverter;
@@ -100,7 +100,7 @@ class ScriptResolverDecoratorTest {
         componentDefinition.put(propertyName, "");
 
         // When
-        ESBException thrown = assertThrows(ESBException.class,
+        PlatformException thrown = assertThrows(PlatformException.class,
                 () -> decorator.convert(Script.class, componentDefinition, propertyName, factoryContext));
 
         // Then

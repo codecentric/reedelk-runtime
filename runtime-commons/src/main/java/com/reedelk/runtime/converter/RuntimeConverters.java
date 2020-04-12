@@ -1,6 +1,6 @@
 package com.reedelk.runtime.converter;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.converter.types.ValueConverter;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
@@ -80,7 +80,7 @@ public class RuntimeConverters {
                 .orElseThrow(converterNotFound(inputClass, outputClass));
     }
 
-     static Supplier<? extends ESBException> converterNotFound(Class<?> inputClazz, Class<?> outputClazz) {
-        return () -> new ESBException(format("Converter for input=[%s] to output=[%s] not available", inputClazz.getName(), outputClazz.getName()));
+     static Supplier<? extends PlatformException> converterNotFound(Class<?> inputClazz, Class<?> outputClazz) {
+        return () -> new PlatformException(format("Converter for input=[%s] to output=[%s] not available", inputClazz.getName(), outputClazz.getName()));
     }
 }

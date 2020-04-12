@@ -3,7 +3,7 @@ package com.reedelk.admin.console;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
 import com.reedelk.runtime.api.commons.StringUtils;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -72,7 +72,7 @@ public class ModuleDeploy implements ProcessorSync {
             pathAsUri = uploadFinalFileName.toUri().toURL().toString();
 
         } catch (MalformedURLException exception) {
-            throw new ESBException(format("Could not build URL from file name '%s'", uploadFinalFileName), exception);
+            throw new PlatformException(format("Could not build URL from file name '%s'", uploadFinalFileName), exception);
         }
 
         moduleService.installOrUpdate(pathAsUri);

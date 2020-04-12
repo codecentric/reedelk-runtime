@@ -14,7 +14,7 @@ import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.esb.test.utils.TestInboundComponent;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.configuration.ConfigurationService;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.component.Fork;
 import com.reedelk.runtime.component.Router;
 import com.reedelk.runtime.component.Stop;
@@ -120,7 +120,7 @@ class ModuleBuildTest {
                 .deserializer(deserializer)
                 .moduleFilePath(testLocation)
                 .build();
-        inputModule.error(new ESBException("Module in error state!"));
+        inputModule.error(new PlatformException("Module in error state!"));
 
         // When
         Module module = step.run(inputModule);

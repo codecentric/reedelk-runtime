@@ -2,7 +2,7 @@ package com.reedelk.esb.flow.deserializer;
 
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.Implementor;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.commons.CollectionFactory;
 import com.reedelk.runtime.commons.JsonParser;
 import com.reedelk.runtime.commons.ReflectionUtils;
@@ -188,6 +188,6 @@ public class GenericComponentDefinitionDeserializer {
                 .stream()
                 .filter(referenceJsonObject -> reference.equals(Config.id(referenceJsonObject)))
                 .findFirst()
-                .orElseThrow(() -> new ESBException(CONFIGURATION_NOT_FOUND.format(reference)));
+                .orElseThrow(() -> new PlatformException(CONFIGURATION_NOT_FOUND.format(reference)));
     }
 }

@@ -7,7 +7,7 @@ import com.reedelk.esb.component.router.RouterDeserializer;
 import com.reedelk.esb.component.trycatch.TryCatchDeserializer;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.commons.JsonParser;
 import com.reedelk.runtime.component.*;
 import org.json.JSONObject;
@@ -75,8 +75,8 @@ public class DeserializerFactory {
             return builderClazz
                     .getDeclaredConstructor(ExecutionGraph.class, FlowDeserializerContext.class)
                     .newInstance(graph, context);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new ESBException(e);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException exception) {
+            throw new PlatformException(exception);
         }
     }
 }

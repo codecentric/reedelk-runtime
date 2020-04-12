@@ -4,7 +4,7 @@ import com.reedelk.esb.component.ComponentRegistry;
 import com.reedelk.esb.module.DeSerializedModule;
 import com.reedelk.esb.module.Module;
 import com.reedelk.esb.module.ModuleDeserializer;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -221,7 +221,7 @@ class ModuleResolveDependenciesTest {
     @Test
     void shouldNotResolveDependenciesWhenModuleWithStateError() {
         // Given
-        aModule.error(new ESBException("Module in error state!"));
+        aModule.error(new PlatformException("Module in error state!"));
 
         // When
         Module module = step.run(aModule);

@@ -1,6 +1,6 @@
 package com.reedelk.runtime.api.commons;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -16,7 +16,7 @@ public class Unchecked {
             try {
                 return functionThrowingCheckedException.apply(arg);
             } catch (Exception exception) {
-                throw new ESBException(exception);
+                throw new PlatformException(exception);
             }
         };
     }
@@ -37,7 +37,7 @@ public class Unchecked {
             try {
                 consumerThrowingCheckedException.accept(arg);
             } catch (Exception exception) {
-                throw new ESBException(exception);
+                throw new PlatformException(exception);
             }
         };
     }

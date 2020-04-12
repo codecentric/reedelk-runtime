@@ -5,7 +5,7 @@ import com.reedelk.esb.flow.deserializer.DeserializerFactory;
 import com.reedelk.esb.flow.deserializer.FlowDeserializerContext;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -52,6 +52,6 @@ public class FlowReferenceDeserializer extends AbstractDeserializer {
         return subflows.stream()
                 .filter(subflow -> Subflow.id(subflow).equals(referenceName))
                 .findFirst()
-                .orElseThrow(() -> new ESBException("Could not find Subflow with referenceId='" + referenceName + "'"));
+                .orElseThrow(() -> new PlatformException("Could not find Subflow with referenceId='" + referenceName + "'"));
     }
 }

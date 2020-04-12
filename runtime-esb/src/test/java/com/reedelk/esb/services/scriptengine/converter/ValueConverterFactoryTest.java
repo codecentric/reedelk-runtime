@@ -4,7 +4,7 @@ import com.reedelk.esb.services.converter.DefaultConverterService;
 import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.converter.ConverterService;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +20,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class converterServiceTest {
+class ValueConverterFactoryTest {
     
     private ConverterService converterService = DefaultConverterService.getInstance();
 
@@ -157,7 +157,7 @@ class converterServiceTest {
             String actual = converterService.convert(value, String.class);
 
             // Then
-            assertThat(value).isNull();
+            assertThat(actual).isNull();
         }
 
         @Test
@@ -310,7 +310,7 @@ class converterServiceTest {
         @Test
         void shouldConvertExceptionToString() {
             // Given
-            ESBException testException = new ESBException("an error");
+            PlatformException testException = new PlatformException("an error");
 
             // When
             String result = converterService.convert(testException, String.class);
@@ -322,7 +322,7 @@ class converterServiceTest {
         @Test
         void shouldConvertExceptionToByteArray() {
             // Given
-            ESBException testException = new ESBException("another error");
+            PlatformException testException = new PlatformException("another error");
 
             // When
             byte[] result = converterService.convert(testException, byte[].class);
@@ -337,7 +337,7 @@ class converterServiceTest {
             DummyClazz input = new DummyClazz();
 
             // When
-            ESBException exception = Assertions.assertThrows(ESBException.class,
+            PlatformException exception = Assertions.assertThrows(PlatformException.class,
                     () -> converterService.convert(input, Integer.class));
 
             // Then
@@ -725,7 +725,7 @@ class converterServiceTest {
             TypedPublisher<DummyClazz> input = TypedPublisher.from(Flux.just(new DummyClazz()), DummyClazz.class);
 
             // When
-            ESBException exception = Assertions.assertThrows(ESBException.class,
+            PlatformException exception = Assertions.assertThrows(PlatformException.class,
                     () -> converterService.convert(input, Integer.class));
 
             // Then

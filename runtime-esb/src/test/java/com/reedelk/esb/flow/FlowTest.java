@@ -7,7 +7,7 @@ import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.Inbound;
 import com.reedelk.runtime.api.component.OnResult;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.exception.FlowExecutionException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
@@ -347,7 +347,7 @@ class FlowTest {
         void shouldOnEventWrapErrorResultWithExceptionWrapper() {
             // Given
             final String correlationId = UUID.randomUUID().toString();
-            final ESBException thrownException = new ESBException("Error could not find file x.y.z");
+            final PlatformException thrownException = new PlatformException("Error could not find file x.y.z");
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
@@ -382,7 +382,7 @@ class FlowTest {
                     assertThat(flowExecutionException.getCause()).isEqualTo(thrownException);
                     assertThat(flowExecutionException.getMessage()).isEqualTo("{\n" +
                             "  \"flowTitle\": \"Test flow\",\n" +
-                            "  \"errorType\": \"com.reedelk.runtime.api.exception.ESBException\",\n" +
+                            "  \"errorType\": \"com.reedelk.runtime.api.exception.PlatformException\",\n" +
                             "  \"moduleName\": \"Test module\",\n" +
                             "  \"errorMessage\": \"Error could not find file x.y.z\",\n" +
                             "  \"correlationId\": \"" + correlationId + "\",\n" +
@@ -517,7 +517,7 @@ class FlowTest {
                         sink.next(String.valueOf(count));
                         count++;
                     }
-                    sink.error(new ESBException("Error completing the stream!"));
+                    sink.error(new PlatformException("Error completing the stream!"));
                 }
             });
 
@@ -599,7 +599,7 @@ class FlowTest {
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
-                callback.onError(mockFlowContext, new ESBException("An exception!"));
+                callback.onError(mockFlowContext, new PlatformException("An exception!"));
                 return null;
             }).when(executionEngine).onEvent(eq(inMessage), any(OnResult.class));
 

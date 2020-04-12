@@ -2,7 +2,7 @@ package com.reedelk.esb.services.scriptengine.evaluator;
 
 import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.Disposable;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.DefaultMessageAttributes;
@@ -107,7 +107,7 @@ class DynamicMapEvaluatorTest {
                 "evaluateError", "#[error.getMessage()]"),
                 moduleContext);
 
-        ESBException myException = new ESBException("This is an error");
+        PlatformException myException = new PlatformException("This is an error");
 
         // When
         Map<String, String> evaluated = evaluator.evaluate(dynamicMap, context, myException);
@@ -125,7 +125,7 @@ class DynamicMapEvaluatorTest {
                 of("X-Message-Text", "#[error.getMessage()]"),
                 moduleContext);
 
-        ESBException myException = new ESBException("This is an error");
+        PlatformException myException = new PlatformException("This is an error");
 
         // When
         Map<String, String> evaluated = evaluator.evaluate(dynamicMap, context, myException);

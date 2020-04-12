@@ -1,6 +1,6 @@
 package com.reedelk.runtime.commons;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,11 +18,11 @@ public class ObjectToBytes {
                 out.writeObject(object);
                 out.flush();
                 return byteArrayOutputStream.toByteArray();
-            } catch (IOException e) {
-                throw new ESBException(e);
+            } catch (IOException exception) {
+                throw new PlatformException(exception);
             }
-        } catch (IOException e) {
-            throw new ESBException(e);
+        } catch (IOException exception) {
+            throw new PlatformException(exception);
         }
     }
 }

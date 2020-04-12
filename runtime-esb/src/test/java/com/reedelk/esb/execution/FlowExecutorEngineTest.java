@@ -4,7 +4,7 @@ import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorSync;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -131,7 +131,7 @@ class FlowExecutorEngineTest extends AbstractExecutionTest {
     static class ProcessorThrowingException implements ProcessorSync {
         @Override
         public Message apply(FlowContext flowContext, Message message) {
-            throw new ESBException("Error processing flow");
+            throw new PlatformException("Error processing flow");
         }
     }
 }

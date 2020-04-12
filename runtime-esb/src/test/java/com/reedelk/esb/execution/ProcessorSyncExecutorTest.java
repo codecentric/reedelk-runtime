@@ -3,7 +3,7 @@ package com.reedelk.esb.execution;
 import com.reedelk.esb.execution.context.DefaultFlowContext;
 import com.reedelk.esb.graph.ExecutionGraph;
 import com.reedelk.esb.graph.ExecutionNode;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -94,7 +94,7 @@ class ProcessorSyncExecutorTest extends AbstractExecutionTest {
         // Then: we make sure that the Throwable exception is wrapped
         // as ESBException and then we check the message.
         StepVerifier.create(endPublisher)
-                .verifyErrorMatches(throwable -> throwable instanceof ESBException &&
+                .verifyErrorMatches(throwable -> throwable instanceof PlatformException &&
                        throwable.getMessage().equals("java.lang.NoClassDefFoundError: javax.xml"));
     }
 

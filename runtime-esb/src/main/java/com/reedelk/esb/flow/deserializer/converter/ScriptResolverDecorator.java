@@ -1,7 +1,7 @@
 package com.reedelk.esb.flow.deserializer.converter;
 
 import com.reedelk.esb.module.DeSerializedModule;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.resource.ResourceNotFound;
 import com.reedelk.runtime.api.script.Script;
 import com.reedelk.runtime.converter.DeserializerConverter;
@@ -47,7 +47,7 @@ public class ScriptResolverDecorator implements DeserializerConverter {
 
     private Script loadScriptFromResources(Script script) {
         if (isBlank(script.getScriptPath())) {
-            throw new ESBException(SCRIPT_SOURCE_EMPTY.format());
+            throw new PlatformException(SCRIPT_SOURCE_EMPTY.format());
         }
         return deSerializedModule.getScripts()
                 .stream()

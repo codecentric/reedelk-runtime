@@ -2,7 +2,7 @@ package com.reedelk.esb.services.module;
 
 import com.reedelk.esb.module.ModulesManager;
 import com.reedelk.runtime.api.commons.Unchecked;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.commons.ModuleUtils;
 import com.reedelk.runtime.system.api.ModuleDto;
 import com.reedelk.runtime.system.api.ModuleService;
@@ -72,7 +72,7 @@ public class DefaultModuleService implements ModuleService {
             return start(installedBundle);
         } catch (BundleException exception) {
             String errorMessage = INSTALL_FAILED.format(moduleJarPath);
-            throw new ESBException(errorMessage, exception);
+            throw new PlatformException(errorMessage, exception);
         }
     }
 
@@ -152,7 +152,7 @@ public class DefaultModuleService implements ModuleService {
             //noinspection ResultOfMethodCallIgnored
             moduleFile.delete();
             String errorMessage = INSTALL_FAILED_MODULE_NOT_VALID.format(moduleJarPath);
-            throw new ESBException(errorMessage);
+            throw new PlatformException(errorMessage);
         }
     }
 
@@ -173,7 +173,7 @@ public class DefaultModuleService implements ModuleService {
             return installedBundle.getBundleId();
         } catch (BundleException exception) {
             String errorMessage = START_FAILED.format(installedBundle.getSymbolicName());
-            throw new ESBException(errorMessage, exception);
+            throw new PlatformException(errorMessage, exception);
         }
     }
 

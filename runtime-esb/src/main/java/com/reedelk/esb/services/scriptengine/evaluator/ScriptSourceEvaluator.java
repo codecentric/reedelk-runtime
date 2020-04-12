@@ -4,7 +4,7 @@ import com.reedelk.esb.exception.ScriptCompilationException;
 import com.reedelk.esb.pubsub.Event;
 import com.reedelk.esb.pubsub.OnMessage;
 import com.reedelk.esb.services.scriptengine.JavascriptEngineProvider;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.script.ScriptSource;
 
 import javax.script.ScriptException;
@@ -30,8 +30,8 @@ public class ScriptSourceEvaluator extends ScriptEngineServiceAdapter {
         try (Reader reader = scriptSource.get()) {
             scriptEngine().compile(scriptSource.scriptModuleNames(), reader, scriptSource.bindings());
             moduleIdAndScriptModuleNamesMap.put(scriptSource.moduleId(), scriptSource.scriptModuleNames());
-        } catch (IOException e) {
-            throw new ESBException(e);
+        } catch (IOException exception) {
+            throw new PlatformException(exception);
         } catch (ScriptException scriptCompilationException) {
             throw new ScriptCompilationException(scriptSource, scriptCompilationException);
         }

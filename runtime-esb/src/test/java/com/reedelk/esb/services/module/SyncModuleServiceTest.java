@@ -1,6 +1,6 @@
 package com.reedelk.esb.services.module;
 
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.system.api.ModuleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -92,7 +92,7 @@ class SyncModuleServiceTest {
         doReturn(Optional.empty()).when(service).moduleNameOf(myModuleJarPath);
 
         // When
-        ESBException thrown = assertThrows(ESBException.class, () ->
+        PlatformException thrown = assertThrows(PlatformException.class, () ->
                 service.unInstallIfModuleExistsAlready(myModuleJarPath));
 
         // Then

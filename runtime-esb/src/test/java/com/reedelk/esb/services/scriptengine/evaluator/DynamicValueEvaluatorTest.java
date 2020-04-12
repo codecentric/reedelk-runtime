@@ -3,7 +3,7 @@ package com.reedelk.esb.services.scriptengine.evaluator;
 import com.reedelk.esb.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
-import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.DefaultMessageAttributes;
 import com.reedelk.runtime.api.message.Message;
@@ -494,7 +494,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateErrorPayload() {
             // Given
-            Throwable myException = new ESBException("Test error");
+            Throwable myException = new PlatformException("Test error");
             DynamicString dynamicString = DynamicString.from("#[error]", moduleContext);
 
             // When
@@ -507,7 +507,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateExceptionMessage() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicString dynamicString = DynamicString.from("#[error.getMessage()]", moduleContext);
 
             // When
@@ -520,7 +520,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnEmptyWhenScriptIsEmpty() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicString dynamicString = DynamicString.from("#[]", moduleContext);
 
             // When
@@ -533,7 +533,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnEmptyWhenNullString() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicString dynamicString = DynamicString.from(null, moduleContext);
 
             // When
@@ -546,7 +546,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnStringValue() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicString dynamicString = DynamicString.from("my text", moduleContext);
 
             // When
@@ -559,7 +559,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnEmptyWhenNullDynamicValue() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicString dynamicString = null;
 
             // When
@@ -577,7 +577,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateDynamicObject() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicObject dynamicObject = DynamicObject.from("#[error]", moduleContext);
 
             // When
@@ -590,7 +590,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnStringDynamicObject() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicObject dynamicObject = DynamicObject.from("my text", moduleContext);
 
             // When
@@ -608,7 +608,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateDynamicByteArrayFromException() {
             // Given
-            Throwable myException = new ESBException("My exception message");
+            Throwable myException = new PlatformException("My exception message");
             DynamicByteArray dynamicByteArray = DynamicByteArray.from("#[error]", moduleContext);
 
             // When
