@@ -30,7 +30,7 @@ let IndexController = (function () {
 
             },
             error: function (error) {
-                showError(moduleName, 'deployed', error);
+                showErrorWithoutModuleName('Deploy Module', error);
             }
         });
     };
@@ -100,9 +100,31 @@ let IndexController = (function () {
 
     let showError = function (moduleName, actionName, error) {
         if (error.responseText) {
-            Messages.Error('Module "' + moduleName + '" could not be ' + actionName + ': ' + error.responseText);
+            let message = extractErrorMessage(error.responseText);
+            Messages.Error('Module "' + moduleName + '" could not be ' + actionName + ': ' + message);
         } else {
             Messages.Error('Module "' + moduleName + '" could not be ' + actionName + '. Please check that the Runtime is up and running.');
+        }
+    };
+
+    let showErrorWithoutModuleName = function (actionName, error) {
+        if (error.responseText) {
+            let message = extractErrorMessage(error.responseText);
+            Messages.Error(actionName + ' could not be executed: ' + message);
+        } else {
+            Messages.Error(actionName + ' could not be executed. Please check that the Runtime is up and running.');
+        }
+    };
+
+    // The server response contains an error serialized as json containing the error type,
+    // message and other info. If the error response is JSON then, we just show the user
+    // the error text message.
+    let extractErrorMessage = function(errorResponseText) {
+        try {
+            let errorAsJson = JSON.parse(errorResponseText);
+            return errorAsJson.errorMessage ? errorAsJson.errorMessage : errorResponseText;
+        } catch(parseError) {
+            // nothing to do
         }
     };
 

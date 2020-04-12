@@ -71,8 +71,8 @@ public class ModuleDeploy implements ProcessorSync {
 
             pathAsUri = uploadFinalFileName.toUri().toURL().toString();
 
-        } catch (MalformedURLException e) {
-            throw new ESBException(format("Could not build URL from file name '%s'", uploadFinalFileName), e);
+        } catch (MalformedURLException exception) {
+            throw new ESBException(format("Could not build URL from file name '%s'", uploadFinalFileName), exception);
         }
 
         moduleService.installOrUpdate(pathAsUri);

@@ -44,7 +44,8 @@ class DefaultModuleServiceTest {
         doReturn(null).when(mockContext).getBundle(moduleJarPath); // not installed yet.
         doReturn(mockBundle).when(mockContext).installBundle(moduleJarPath);
         doReturn(expectedModuleId).when(mockBundle).getBundleId();
-        doNothing().when(service).unInstallIfModuleExistsAlready(anyString());
+        doNothing().when(service).unInstallIfModuleExistsAlready(moduleJarPath);
+        doNothing().when(service).checkIsValidModuleOrUnInstallAndThrow(moduleJarPath);
 
         // When
         long installedModuleId = service.install(moduleJarPath);

@@ -1,8 +1,9 @@
 package com.reedelk.esb.services.module;
 
-import com.reedelk.runtime.api.commons.Unchecked;
 import com.reedelk.esb.module.ModulesManager;
+import com.reedelk.runtime.api.commons.Unchecked;
 import com.reedelk.runtime.api.exception.ESBException;
+import com.reedelk.runtime.commons.ModuleUtils;
 import com.reedelk.runtime.system.api.ModuleDto;
 import com.reedelk.runtime.system.api.ModuleService;
 import com.reedelk.runtime.system.api.ModulesDto;
@@ -14,9 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.Set;
@@ -53,10 +52,13 @@ public class DefaultModuleService implements ModuleService {
 
     @Override
     public long install(String moduleJarPath) {
-        if (getModuleAtPath(moduleJarPath).isPresent()) {
-            String errorMessage = INSTALL_FAILED_MODULE_ALREADY_INSTALLED.format(moduleJarPath);
-            throw new IllegalStateException(errorMessage);
-        }
+        // If the module is already installed we are in an illegal state condition,
+        // and therefore we throw an exception.
+        checkIsModuleNotInstalledOrThrow(moduleJarPath);
+
+        // Before moving on, we must make sure that the module being installed
+        // is actually an valid module.
+        checkIsValidModuleOrUnInstallAndThrow(moduleJarPath);
 
         // This is to un-install a module with the same name of the one we are going to install,
         // but with a different module jar path or a different version.
@@ -68,9 +70,9 @@ public class DefaultModuleService implements ModuleService {
                 logger.info(INSTALL_SUCCESS.format(installedBundle.getSymbolicName()));
             }
             return start(installedBundle);
-        } catch (BundleException e) {
+        } catch (BundleException exception) {
             String errorMessage = INSTALL_FAILED.format(moduleJarPath);
-            throw new ESBException(errorMessage, e);
+            throw new ESBException(errorMessage, exception);
         }
     }
 
@@ -131,6 +133,10 @@ public class DefaultModuleService implements ModuleService {
         return modulesDto;
     }
 
+    Operation deleteModuleBundleJarOperation() {
+        return new DeleteModuleBundleJar(systemProperty);
+    }
+
     void unInstallIfModuleExistsAlready(String moduleJarPath) {
         // If the module to be installed at the given module jar path has a symbolic name of an already
         // installed module, then we must uninstall it from the runtime before installing the new one.
@@ -139,8 +145,22 @@ public class DefaultModuleService implements ModuleService {
         syncModuleService.unInstallIfModuleExistsAlready(moduleJarPath);
     }
 
-    Operation deleteModuleBundleJarOperation() {
-        return new DeleteModuleBundleJar(systemProperty);
+    // IMPORTANT: The module Jar path is a URI.
+    void checkIsValidModuleOrUnInstallAndThrow(String moduleJarPath) {
+        File moduleFile = Paths.get(URI.create(moduleJarPath)).toFile();
+        if (!ModuleUtils.isModule(moduleFile)) {
+            //noinspection ResultOfMethodCallIgnored
+            moduleFile.delete();
+            String errorMessage = INSTALL_FAILED_MODULE_NOT_VALID.format(moduleJarPath);
+            throw new ESBException(errorMessage);
+        }
+    }
+
+    private void checkIsModuleNotInstalledOrThrow(String moduleJarPath) {
+        if (getModuleAtPath(moduleJarPath).isPresent()) {
+            String errorMessage = INSTALL_FAILED_MODULE_ALREADY_INSTALLED.format(moduleJarPath);
+            throw new IllegalStateException(errorMessage);
+        }
     }
 
     private long start(Bundle installedBundle) {
@@ -168,48 +188,5 @@ public class DefaultModuleService implements ModuleService {
     private void executeOperation(Bundle bundle, Operation... operations) {
         stream(operations).forEachOrdered(
                 Unchecked.consumer(operation -> operation.execute(bundle)));
-
-    }
-
-    /**
-     * Removes a Module Bundle Jar file if and only if it belongs to the modules directory.
-     */
-    static class DeleteModuleBundleJar implements Operation {
-
-        private final SystemProperty systemProperty;
-
-        DeleteModuleBundleJar(SystemProperty systemProperty) {
-            this.systemProperty = systemProperty;
-        }
-
-        @Override
-        public void execute(Bundle toDelete) {
-            // The 'toDelete' bundle's  location is a URI, but we need the file path.
-            URI uri = URI.create(toDelete.getLocation());
-            String filePath = new File(uri.getPath()).getPath();
-
-            // We remove the file if and only if it belongs to the modules directory.
-            if (filePath.startsWith(systemProperty.modulesDirectory())) {
-                try {
-                    boolean deleteSuccess = Files.deleteIfExists(Paths.get(uri));
-                    if (!deleteSuccess && logger.isWarnEnabled()) {
-                        String message = REMOVE_MODULE_FROM_DIRECTORY_ERROR.format(
-                                toDelete.getSymbolicName(),
-                                toDelete.getVersion(),
-                                filePath);
-                        logger.error(message);
-                    }
-                } catch (IOException exception) {
-                    if (logger.isWarnEnabled()) {
-                        String message = REMOVE_MODULE_FROM_DIRECTORY_EXCEPTION.format(
-                                toDelete.getSymbolicName(),
-                                toDelete.getVersion(),
-                                filePath,
-                                exception.getMessage());
-                        logger.error(message);
-                    }
-                }
-            }
-        }
     }
 }

@@ -117,6 +117,7 @@ public class Messages {
         START_FAILED("Could not start module named=[%s]"),
         INSTALL_SUCCESS("Module [%s] installed"),
         INSTALL_FAILED("Install failed: could not install module from path=[%s]"),
+        INSTALL_FAILED_MODULE_NOT_VALID("Install failed: the module from path=[%s] is not valid."),
         INSTALL_FAILED_MODULE_ALREADY_INSTALLED("Install failed: module from file path=[%s] is already installed. Did you mean update?"),
         INSTALL_FAILED_MODULE_NAME_NOT_FOUND("Install failed: could not find module name from file path=[%s]"),
         INSTALL_MODULE_DIFFERENT_VERSION_PRESENT("Module [%s], version [%s] is replaced by version [%s]"),
