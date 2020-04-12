@@ -2,8 +2,8 @@ package com.reedelk.esb.services.scriptengine.evaluator.function;
 
 import com.reedelk.runtime.api.script.ScriptBlock;
 
-public interface FunctionDefinitionBuilder<T extends ScriptBlock> {
+import java.util.function.Function;
 
-    String from(T scriptBlock);
+public interface FunctionDefinitionBuilder<T extends ScriptBlock> extends Function<T, String> {
 
 }

@@ -6,7 +6,7 @@ import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 
 import java.util.Map;
 
-public class DynamicMapWithMessageAndContext implements FunctionDefinitionBuilder<DynamicMap<Object>> {
+public class DynamicMapWithMessageAndContext implements FunctionDefinitionBuilder<DynamicMap<?>> {
 
     private static final String TEMPLATE =
             "function %s(context, message) {\n" +
@@ -25,7 +25,7 @@ public class DynamicMapWithMessageAndContext implements FunctionDefinitionBuilde
      * }
      */
     @Override
-    public String from(DynamicMap<Object> map) {
+    public String apply(DynamicMap<?> map) {
         StringBuilder builder = new StringBuilder("{");
 
         for (Map.Entry<String,Object> entry : map.entrySet()) {

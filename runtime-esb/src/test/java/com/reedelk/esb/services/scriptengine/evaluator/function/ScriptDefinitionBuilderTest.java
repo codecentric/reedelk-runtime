@@ -35,7 +35,7 @@ class ScriptDefinitionBuilderTest {
         Script script = scriptFromBody(myFunction);
 
         // When
-        String replaced = builder.from(script);
+        String replaced = builder.apply(script);
 
         // Then
         String randomlyGeneratedFunctionName = script.functionName();

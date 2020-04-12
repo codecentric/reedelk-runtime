@@ -32,7 +32,7 @@ abstract class AbstractDynamicValueEvaluator extends ScriptEngineServiceAdapter 
         Event.operation.subscribe(UN_INSTALLED, this);
     }
 
-    <S, T> S execute(DynamicValue<T> dynamicValue, ValueProvider provider, FunctionDefinitionBuilder<DynamicValue> functionDefinitionBuilder, Object... args) {
+    <S, T> S execute(DynamicValue<T> dynamicValue, ValueProvider provider, FunctionDefinitionBuilder<DynamicValue<?>> functionDefinitionBuilder, Object... args) {
         if (dynamicValue.isEmpty()) {
             return provider.empty();
         } else {
@@ -122,7 +122,7 @@ abstract class AbstractDynamicValueEvaluator extends ScriptEngineServiceAdapter 
                 return;
             }
 
-            String functionDefinition = functionDefinitionBuilder.from(scriptBlock);
+            String functionDefinition = functionDefinitionBuilder.apply(scriptBlock);
             try {
                 scriptEngine().compile(functionDefinition);
             } catch (ScriptException scriptCompilationException) {

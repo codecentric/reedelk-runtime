@@ -14,11 +14,8 @@ import static com.reedelk.esb.services.scriptengine.evaluator.ValueProviders.STR
 @SuppressWarnings("unchecked")
 public class ScriptEvaluator extends AbstractDynamicValueEvaluator {
 
-    private final FunctionDefinitionBuilder scriptDefinitionBuilder;
+    private final FunctionDefinitionBuilder<Script> scriptDefinitionBuilder = new ScriptDefinitionBuilder();
 
-    public ScriptEvaluator() {
-        scriptDefinitionBuilder = new ScriptDefinitionBuilder();
-    }
 
     @Override
     public <T> Optional<T> evaluate(Script script, Class<T> returnType, Object ...args) {

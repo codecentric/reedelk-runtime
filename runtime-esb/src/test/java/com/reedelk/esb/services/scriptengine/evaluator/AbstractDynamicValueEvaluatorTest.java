@@ -151,8 +151,8 @@ class AbstractDynamicValueEvaluatorTest {
         evaluator.compile(dynamicValue2, testFunctionBuilder);
 
         // Then
-        verify(mockEngineProvider).compile(testFunctionBuilder.from(dynamicValue1));
-        verify(mockEngineProvider).compile(testFunctionBuilder.from(dynamicValue2));
+        verify(mockEngineProvider).compile(testFunctionBuilder.apply(dynamicValue1));
+        verify(mockEngineProvider).compile(testFunctionBuilder.apply(dynamicValue2));
         assertThat(evaluator.moduleIdFunctionNamesMap)
                 .containsEntry(
                         moduleContext.getModuleId(),
@@ -245,10 +245,10 @@ class AbstractDynamicValueEvaluatorTest {
                 "{X-Correlation-ID=#[notValid'Script']}");
     }
 
-    private class TestAwareAbstractDynamicValueEvaluatorTest extends AbstractDynamicValueEvaluator {
+    private static class TestAwareAbstractDynamicValueEvaluatorTest extends AbstractDynamicValueEvaluator {
     }
 
-    class TestFunctionBuilder implements FunctionDefinitionBuilder {
+    static class TestFunctionBuilder implements FunctionDefinitionBuilder<ScriptBlock> {
 
         private static final String TEMPLATE =
                 "function %s() {\n" +
@@ -256,7 +256,7 @@ class AbstractDynamicValueEvaluatorTest {
                         "};";
 
         @Override
-        public String from(ScriptBlock dynamicValue) {
+        public String apply(ScriptBlock dynamicValue) {
             return format(TEMPLATE, dynamicValue.functionName(), dynamicValue.body());
         }
     }

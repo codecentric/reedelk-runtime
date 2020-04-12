@@ -10,6 +10,7 @@ import com.reedelk.runtime.api.script.ScriptSource;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,17 +24,32 @@ public class ScriptEngineServiceAdapter implements ScriptEngineService {
     }
 
     @Override
-    public <T> Optional<T> evaluate(DynamicValue<T> value, FlowContext flowContext, Throwable throwable) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, MimeType mimeType, FlowContext flowContext, Message message) {
         throw new UnsupportedOperationException();
     }
 
     @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, List<String> argumentNames, Object... bindings) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, MimeType mimeType, List<String> argumentNames, Object... bindings) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> value, FlowContext flowContext, Throwable throwable) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> TypedPublisher<T> evaluateStream(DynamicValue<T> value, FlowContext flowContext, Message message) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> TypedPublisher<T> evaluateStream(DynamicValue<T> dynamicValue, List<String> argumentNames, Object... bindings) {
         throw new UnsupportedOperationException();
     }
 

@@ -11,6 +11,7 @@ import com.reedelk.runtime.api.script.ScriptSource;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -54,6 +55,16 @@ public class ScriptEngine implements ScriptEngineService {
     }
 
     @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, List<String> argumentNames, Object... bindings) {
+        return dynamicValueEvaluator.evaluate(dynamicValue, argumentNames, bindings);
+    }
+
+    @Override
+    public <T> Optional<T> evaluate(DynamicValue<T> dynamicValue, MimeType mimeType, List<String> argumentNames, Object... bindings) {
+        return dynamicValueEvaluator.evaluate(dynamicValue, mimeType, argumentNames, bindings);
+    }
+
+    @Override
     public <T> TypedPublisher<T> evaluateStream(DynamicValue<T> dynamicValue, FlowContext flowContext, Throwable throwable) {
         return dynamicValueStreamEvaluator.evaluateStream(dynamicValue, flowContext, throwable);
     }
@@ -61,6 +72,11 @@ public class ScriptEngine implements ScriptEngineService {
     @Override
     public <T> TypedPublisher<T> evaluateStream(DynamicValue<T> dynamicValue, FlowContext flowContext, Message message) {
         return dynamicValueStreamEvaluator.evaluateStream(dynamicValue, flowContext, message);
+    }
+
+    @Override
+    public <T> TypedPublisher<T> evaluateStream(DynamicValue<T> dynamicValue, List<String> argumentNames, Object... bindings) {
+        return dynamicValueStreamEvaluator.evaluateStream(dynamicValue, argumentNames, bindings);
     }
 
     // Script

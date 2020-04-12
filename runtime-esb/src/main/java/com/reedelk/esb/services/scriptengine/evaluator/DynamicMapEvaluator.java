@@ -15,8 +15,8 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class DynamicMapEvaluator extends AbstractDynamicValueEvaluator {
 
-    private final FunctionDefinitionBuilder errorFunctionBuilder = new DynamicMapWithErrorAndContext();
-    private final FunctionDefinitionBuilder functionBuilder = new DynamicMapWithMessageAndContext();
+    private final FunctionDefinitionBuilder<DynamicMap<?>> errorFunctionBuilder = new DynamicMapWithErrorAndContext();
+    private final FunctionDefinitionBuilder<DynamicMap<?>> functionBuilder = new DynamicMapWithMessageAndContext();
     private final Map<String, ?> emptyMap = Collections.unmodifiableMap(Collections.emptyMap());
 
     @Override
@@ -29,7 +29,7 @@ public class DynamicMapEvaluator extends AbstractDynamicValueEvaluator {
         return evaluateWith(dynamicMap, errorFunctionBuilder, context, throwable);
     }
 
-    private <T> Map<String, T> evaluateWith(DynamicMap<T> dynamicMap, FunctionDefinitionBuilder<DynamicMap<T>> functionBuilder, Object... args) {
+    private <T> Map<String, T> evaluateWith(DynamicMap<T> dynamicMap, FunctionDefinitionBuilder<DynamicMap<?>> functionBuilder, Object... args) {
         if (dynamicMap == null || dynamicMap.isEmpty()) {
             // If dynamic map is empty, nothing to do.
             return (Map<String, T>) emptyMap;
