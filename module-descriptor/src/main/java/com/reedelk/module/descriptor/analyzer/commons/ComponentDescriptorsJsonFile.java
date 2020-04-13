@@ -21,9 +21,9 @@ public class ComponentDescriptorsJsonFile {
             ZipEntry componentsConfigFile = file.getEntry(ModuleDescriptor.RESOURCE_FILE_NAME);
             if (componentsConfigFile == null) return Optional.empty();
 
-            InputStream inputStream = file.getInputStream(componentsConfigFile);
             String text;
-            try (Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
+            try (InputStream inputStream = file.getInputStream(componentsConfigFile);
+                 Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
                 text = scanner.useDelimiter("\\A").next();
             }
             return Optional.ofNullable(text);

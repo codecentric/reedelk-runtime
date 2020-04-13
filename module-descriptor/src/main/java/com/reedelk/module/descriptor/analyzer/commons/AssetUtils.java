@@ -63,8 +63,9 @@ public class AssetUtils {
         try (JarFile file = new JarFile(jarFile)) {
             ZipEntry componentImage = file.getEntry(imageName);
             if (componentImage != null) {
-                InputStream inputStream = file.getInputStream(componentImage);
-                return ImageIO.read(inputStream);
+                try (InputStream inputStream = file.getInputStream(componentImage)) {
+                    return ImageIO.read(inputStream);
+                }
             }
             return null;
         } catch (FileNotFoundException fileNotFoundException) {
@@ -81,8 +82,9 @@ public class AssetUtils {
         try (JarFile file = new JarFile(jarFile)) {
             ZipEntry componentIcon = file.getEntry(iconName);
             if (componentIcon != null) {
-                InputStream inputStream = file.getInputStream(componentIcon);
-                return new ImageIcon(ImageIO.read(inputStream));
+                try (InputStream inputStream = file.getInputStream(componentIcon)) {
+                    return new ImageIcon(ImageIO.read(inputStream));
+                }
             }
             return null;
         } catch (FileNotFoundException fileNotFoundException) {
