@@ -12,10 +12,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MessageBuilderTest {
@@ -193,7 +193,7 @@ class MessageBuilderTest {
         void shouldCorrectlyBuildStringPayload() {
             // Given
             String csv = "item1,item2,item3";
-            MimeType mimeType = MimeType.TEXT_COMMA_SEPARATED_VALUES;
+            MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
             Message message = MessageBuilder.get().withString(csv, mimeType).build();
@@ -202,14 +202,14 @@ class MessageBuilderTest {
             TypedContent<String, String> content = message.content();
             assertThat(content).isInstanceOf(StringContent.class);
             assertThat(content.data()).isEqualTo(csv);
-            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_COMMA_SEPARATED_VALUES);
+            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_CSV);
         }
 
         @Test
         void shouldCorrectlyBuildStringStreamPayload() {
             // Given
             Publisher<String> csv = Flux.just("item1,", "item2,", "item3");
-            MimeType mimeType = MimeType.TEXT_COMMA_SEPARATED_VALUES;
+            MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
             Message message = MessageBuilder.get().withString(csv, mimeType).build();
@@ -220,7 +220,7 @@ class MessageBuilderTest {
             TypedContent<String, String> content = message.content();
             assertThat(content).isInstanceOf(StringContent.class);
             assertThat(content.data()).isEqualTo(expectedValue);
-            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_COMMA_SEPARATED_VALUES);
+            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_CSV);
         }
     }
 
@@ -321,7 +321,7 @@ class MessageBuilderTest {
         void shouldCorrectlyBuildStringStreamPayloadWithMimeType() {
             // Given
             Publisher<String> csv = Flux.just("item1,", "item2,", "item3");
-            MimeType mimeType = MimeType.TEXT_COMMA_SEPARATED_VALUES;
+            MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
             Message message = MessageBuilder.get().withStream(csv, String.class, mimeType).build();
@@ -332,7 +332,7 @@ class MessageBuilderTest {
             TypedContent<String, String> content = message.content();
             assertThat(content).isInstanceOf(StringContent.class);
             assertThat(content.data()).isEqualTo(expectedValue);
-            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_COMMA_SEPARATED_VALUES);
+            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_CSV);
         }
 
         @Test
@@ -400,7 +400,7 @@ class MessageBuilderTest {
         void shouldCorrectlyBuildStringStreamPayloadWithMimeType() {
             // Given
             TypedPublisher<String> csv = TypedPublisher.fromString(Flux.just("item1,", "item2,", "item3"));
-            MimeType mimeType = MimeType.TEXT_COMMA_SEPARATED_VALUES;
+            MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
             Message message = MessageBuilder.get().withTypedPublisher(csv, mimeType).build();
@@ -556,6 +556,23 @@ class MessageBuilderTest {
             assertThat(content.data()).isEqualTo(new MyItem("One"));
             assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
         }
+
+        @Test
+        void shouldCorrectlyBuildListContentWithList() {
+            // Given
+            List<MyItem> items = asList(new MyItem("one"), new MyItem("two"));
+
+            // When
+            Message message = MessageBuilder.get().withJavaObject(items).build();
+
+            // Then
+            TypedContent<MyItem, List<MyItem>> content = message.content();
+            assertThat(content).isInstanceOf(ListContent.class);
+
+            List<MyItem> actualData = content.data();
+            assertThat(actualData).isEqualTo(items);
+            assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
+        }
     }
 
     @Nested
@@ -565,7 +582,7 @@ class MessageBuilderTest {
         @Test
         void shouldCorrectlyBuildListContentPayload() {
             // Given
-            List<MyItem> myCollection = Arrays.asList(new MyItem("One"), new MyItem("Two"));
+            List<MyItem> myCollection = asList(new MyItem("One"), new MyItem("Two"));
 
             // When
             Message message = MessageBuilder.get().withList(myCollection, MyItem.class).build();
@@ -580,7 +597,7 @@ class MessageBuilderTest {
         @Test
         void shouldCorrectlyBuildListContentPayloadWithMimeType() {
             // Given
-            List<MyItem> myCollection = Arrays.asList(new MyItem("One"), new MyItem("Two"));
+            List<MyItem> myCollection = asList(new MyItem("One"), new MyItem("Two"));
             MimeType mimeType = MimeType.IMAGE_JPEG;
 
             // When

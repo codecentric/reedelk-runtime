@@ -63,7 +63,7 @@
                                 <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
                                 <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                                 <Embed-Transitive>true</Embed-Transitive>
-                                <ESB-Module>true</ESB-Module>
+                                <Integration-Module>true</Integration-Module>
                                 <_noee>true</_noee>
                                 <Import-Package>
                                     com.reedelk.runtime.api.*,

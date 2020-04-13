@@ -13,7 +13,7 @@ public class ModuleUtils {
     }
 
     public static boolean isModule(File jarFile) {
-        return getAttributeValue(jarFile, ModuleProperties.Bundle.MODULE_HEADER_NAME)
+        return getAttributeValue(jarFile, ModuleProperties.Bundle.INTEGRATION_MODULE_HEADER)
                 .map(Boolean::parseBoolean)
                 .orElse(false);
     }

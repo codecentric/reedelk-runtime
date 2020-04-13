@@ -158,6 +158,9 @@ public class MessageBuilder {
             this.typedContent = new StringContent((String) object, mimeType);
         } else if (object instanceof byte[]) {
             this.typedContent = new ByteArrayContent((byte[]) object, mimeType);
+        } else if (object instanceof List) {
+            List<Object> list = (List<Object>) object;
+            this.typedContent = new ListContent<>(list, Object.class, mimeType);
         } else {
             this.typedContent = new ObjectContent<>(object, mimeType);
         }

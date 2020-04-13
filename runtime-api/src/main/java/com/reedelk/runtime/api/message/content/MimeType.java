@@ -171,12 +171,12 @@ public class MimeType implements Serializable {
     // Text Mime Types
 
     public static final MimeType TEXT_CSS = of("text", "css", singletonList("css"), String.class);
+    public static final MimeType TEXT_CSV = of("text", "csv", singletonList("csv"), String.class);
     public static final MimeType TEXT_HTML = of("text", "html", asList("html", "htm", "stm"), String.class);
-    public static final MimeType TEXT_PLAIN = of("text", "plain", asList("bas", "c", "h", "java", "txt"), String.class);
+    public static final MimeType TEXT_PLAIN = of("text", "plain", asList("txt", "bas", "c", "h", "java"), String.class);
     public static final MimeType TEXT_RICH = of("text", "richtext", singletonList("rtx"), String.class);
     public static final MimeType TEXT_SCRIPTLET = of("text", "scriptlet", singletonList("sct"), String.class);
     public static final MimeType TEXT_TAB_SEPARATED_VALUES = of("text", "tab-separated-values", singletonList("tsv"), String.class);
-    public static final MimeType TEXT_COMMA_SEPARATED_VALUES = of("text", "csv", singletonList("csv"), String.class);
     public static final MimeType TEXT_HYPERTEXT_TEMPLATE_FILE = of("text", "webviewhtml", singletonList("htt"), String.class);
     public static final MimeType TEXT_HTML_COMPONENT_FILE = of("text", "x-component", singletonList("htc"), String.class);
     public static final MimeType TEXT_TEX_FONT_ENCLOSING_FILE = of("text", "x-setext", singletonList("etx"), String.class);
@@ -328,7 +328,7 @@ public class MimeType implements Serializable {
             TEXT_RICH,
             TEXT_SCRIPTLET,
             TEXT_TAB_SEPARATED_VALUES,
-            TEXT_COMMA_SEPARATED_VALUES,
+            TEXT_CSV,
             TEXT_HYPERTEXT_TEMPLATE_FILE,
             TEXT_HTML_COMPONENT_FILE,
             TEXT_TEX_FONT_ENCLOSING_FILE,

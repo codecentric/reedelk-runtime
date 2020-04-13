@@ -10,9 +10,15 @@ public class ModuleProperties {
         private Bundle() {
         }
 
-        public static final String MODULE_HEADER_NAME = "ESB-Module";
-        public static final String MODULE_SYMBOLIC_NAME = "Bundle-SymbolicName";
+        public static final String BUILT_BY = "Built-By";
+        public static final String BUILD_JDK = "Build-Jdk";
+        public static final String CREATED_BY = "Created-By";
+        public static final String BUNDLE_NAME = "Bundle-Name";
         public static final String MODULE_VERSION = "Bundle-Version";
+        public static final String BND_LAST_MODIFIED = "Bnd-LastModified";
+        public static final String MODULE_SYMBOLIC_NAME = "Bundle-SymbolicName";
+        public static final String BUNDLE_MANIFEST_VERSION = "Bundle-ManifestVersion";
+        public static final String INTEGRATION_MODULE_HEADER = "Integration-Module";
     }
 
     public static class Flow {

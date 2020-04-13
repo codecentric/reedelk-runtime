@@ -69,7 +69,7 @@ public class EventService implements BundleListener, ServiceListener {
 
     private static boolean isNotESBModule(Bundle bundle) {
         Dictionary<String, String> bundleHeaders = bundle.getHeaders();
-        String isModule = bundleHeaders.get(ModuleProperties.Bundle.MODULE_HEADER_NAME);
+        String isModule = bundleHeaders.get(ModuleProperties.Bundle.INTEGRATION_MODULE_HEADER);
         return !Boolean.parseBoolean(isModule);
     }
 }
