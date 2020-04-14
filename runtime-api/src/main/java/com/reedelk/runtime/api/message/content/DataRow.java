@@ -5,6 +5,7 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @AutocompleteType(description = "The DataRow type encapsulates a generic data row. " +
         "Such as a database row, a csv document row and so on.")
@@ -81,5 +82,35 @@ public interface DataRow<T extends Serializable> extends Serializable {
             example = "row.values()",
             description = "Returns a list containing all the values belonging to this row.")
     List<T> values();
+
+    @AutocompleteItem(
+            signature = "getAttributes()",
+            example = "row.getAttributes()",
+            description = "Returns the attributes of this row such as the column types for a Database data row.")
+    default Map<String, Serializable> getAttributes() {
+        return attributes();
+    }
+
+    @AutocompleteItem(
+            signature = "attributes()",
+            example = "row.attributes()",
+            description = "Returns the attributes of this row such as the column types for a Database data row.")
+    Map<String, Serializable> attributes();
+
+    @AutocompleteItem(
+            cursorOffset = 1,
+            signature = "getAttribute(attributeName: String)",
+            example = "row.getAttribute('columnTypes')",
+            description = "Returns a single attribute of this row such as the column types for a Database data row.")
+    default Serializable getAttribute(String name) {
+        return attribute(name);
+    }
+
+    @AutocompleteItem(
+            cursorOffset = 1,
+            signature = "attribute(attributeName: String)",
+            example = "row.attribute('columnTypes')",
+            description = "Returns a single attribute of this row such as the column types for a Database data row.")
+    Serializable attribute(String name);
 
 }
