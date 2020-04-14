@@ -23,6 +23,8 @@ public class JsonObjectConverter {
         static {
             Map<Class<?>, TypeConverter<?>> tmp = new HashMap<>();
             tmp.put(String.class, new AsString());
+            tmp.put(Character.class, new AsCharObject());
+            tmp.put(char.class, new AsChar());
             tmp.put(Long.class, new AsLongObject());
             tmp.put(long.class, new AsLong());
             tmp.put(Integer.class, new AsIntegerObject());
@@ -83,6 +85,46 @@ public class JsonObjectConverter {
         @Override
         public String convert(JSONArray array, int index) {
             return array.isNull(index) ? null : array.getString(index);
+        }
+    }
+
+    private static class AsCharObject implements TypeConverter<Character> {
+        @Override
+        public Character convert(JSONObject object, String key) {
+            if (object.isNull(key)) return null;
+            String string = object.getString(key);
+            if (string.length() == 0) return null;
+            return string.charAt(0);
+        }
+
+        @Override
+        public Character convert(JSONArray array, int index) {
+            if (array.isNull(index)) return null;
+            String string = array.getString(index);
+            if (string.length() == 0) return null;
+            return string.charAt(0);
+        }
+    }
+
+    private static class AsChar implements TypeConverter<Character> {
+        @Override
+        public Character convert(JSONObject object, String key) {
+            if (object.isNull(key)) {
+                return (Character) DefaultValues.defaultValue(char.class);
+            }
+            String string = object.getString(key);
+            if (string.length() == 0) return (Character) DefaultValues.defaultValue(char.class);
+            return string.charAt(0);
+        }
+
+        @Override
+        public Character convert(JSONArray array, int index) {
+            if (array.isNull(index)) {
+                return (Character) DefaultValues.defaultValue(char.class);
+            }
+            String string = array.getString(index);
+            if (string.length() == 0) return (Character) DefaultValues.defaultValue(char.class);
+            return string.charAt(0);
         }
     }
 

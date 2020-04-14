@@ -196,6 +196,32 @@ class ComponentPropertyAnalyzerTest {
     }
 
     @Test
+    void shouldCorrectlyAnalyzeCharTypeProperty() {
+        // Given
+        TypePrimitiveDescriptor typeChar =  ObjectFactories.createTypePrimitiveDescriptor(char.class);
+
+        // Expect
+        assertThatExistProperty(
+                "charProperty",
+                "Char property",
+                "c",
+                ofPrimitiveType(typeChar));
+    }
+
+    @Test
+    void shouldCorrectlyAnalyzeCharObjectTypeProperty() {
+        // Given
+        TypePrimitiveDescriptor typeChar =  ObjectFactories.createTypePrimitiveDescriptor(Character.class);
+
+        // Expect
+        assertThatExistProperty(
+                "charObjectProperty",
+                "Char object property",
+                "b",
+                ofPrimitiveType(typeChar));
+    }
+
+    @Test
     void shouldCorrectlyAnalyzeBigIntegerTypeProperty() {
         // Given
         TypePrimitiveDescriptor typeBigInteger =  ObjectFactories.createTypePrimitiveDescriptor(BigInteger.class);

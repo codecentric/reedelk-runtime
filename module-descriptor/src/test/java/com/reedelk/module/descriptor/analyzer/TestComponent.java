@@ -68,6 +68,14 @@ public class TestComponent implements ProcessorSync {
     @InitValue("init string value")
     private String stringProperty;
 
+    @Property("Char property")
+    @InitValue("c")
+    private char charProperty;
+
+    @Property("Char object property")
+    @InitValue("b")
+    private Character charObjectProperty;
+
     @Property("Big Integer property")
     @InitValue("6723823")
     private BigInteger bigIntegerProperty;
@@ -518,6 +526,22 @@ public class TestComponent implements ProcessorSync {
 
     public void setStringPropertyWithDescription(String stringPropertyWithDescription) {
         this.stringPropertyWithDescription = stringPropertyWithDescription;
+    }
+
+    public char getCharProperty() {
+        return charProperty;
+    }
+
+    public void setCharProperty(char charProperty) {
+        this.charProperty = charProperty;
+    }
+
+    public Character getCharObjectProperty() {
+        return charObjectProperty;
+    }
+
+    public void setCharObjectProperty(Character charObjectProperty) {
+        this.charObjectProperty = charObjectProperty;
     }
 }
 

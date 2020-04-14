@@ -10,6 +10,8 @@ import java.math.BigInteger;
 public class TestComponent implements ProcessorSync {
 
     private String stringProperty;
+    private char charProperty;
+    private Character charObjectProperty;
     private long longProperty;
     private Long longObjectProperty;
     private int intProperty;
@@ -34,6 +36,22 @@ public class TestComponent implements ProcessorSync {
 
     public void setStringProperty(String stringProperty) {
         this.stringProperty = stringProperty;
+    }
+
+    public char getCharProperty() {
+        return charProperty;
+    }
+
+    public void setCharProperty(char charProperty) {
+        this.charProperty = charProperty;
+    }
+
+    public Character getCharObjectProperty() {
+        return charObjectProperty;
+    }
+
+    public void setCharObjectProperty(Character charObjectProperty) {
+        this.charObjectProperty = charObjectProperty;
     }
 
     public long getLongProperty() {

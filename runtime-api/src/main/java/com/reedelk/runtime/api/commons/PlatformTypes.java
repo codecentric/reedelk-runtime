@@ -40,6 +40,8 @@ public class PlatformTypes {
         tmp.put(int.class.getName(), int.class);
         tmp.put(Long.class.getName(), Long.class);
         tmp.put(long.class.getName(), long.class);
+        tmp.put(Character.class.getName(), Character.class);
+        tmp.put(char.class.getName(), char.class);
         tmp.put(String.class.getName(), String.class);
         tmp.put(BigInteger.class.getName(), BigInteger.class);
         tmp.put(BigDecimal.class.getName(), BigDecimal.class);

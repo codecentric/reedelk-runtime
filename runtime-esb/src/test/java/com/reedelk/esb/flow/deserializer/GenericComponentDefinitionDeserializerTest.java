@@ -43,6 +43,44 @@ class GenericComponentDefinitionDeserializerTest extends AbstractGenericComponen
         }
 
         @Test
+        void shouldCorrectlySetCharProperty() {
+            // Given
+            char expectedValue = 'c';
+            TestComponent component = buildComponentWith("charProperty", String.valueOf(expectedValue));
+
+            // Then
+            assertThat(component.getCharProperty()).isEqualTo(expectedValue);
+        }
+
+        @Test
+        void shouldCorrectlySetCharObjectProperty() {
+            // Given
+            char expectedValue = 'c';
+            TestComponent component = buildComponentWith("charObjectProperty", String.valueOf(expectedValue));
+
+            // Then
+            assertThat(component.getCharObjectProperty()).isEqualTo(expectedValue);
+        }
+
+        @Test
+        void shouldCorrectlySetDefaultCharObjectProperty() {
+            // Given
+            TestComponent component = buildComponentWith("charObjectProperty", null);
+
+            // Then
+            assertThat(component.getCharObjectProperty()).isNull();
+        }
+
+        @Test
+        void shouldCorrectlySetDefaultCharProperty() {
+            // Given
+            TestComponent component = buildComponentWith("charProperty", null);
+
+            // Then
+            assertThat(component.getCharProperty()).isEqualTo('\u0000');
+        }
+
+        @Test
         void shouldCorrectlySetLongProperty() {
             // Given
             Object expectedValue = 234;

@@ -37,6 +37,8 @@ class DeserializerConverterDefault implements DeserializerConverter {
         tmp.put(int.class, new AsInteger());
         tmp.put(Long.class, new AsLongObject());
         tmp.put(long.class, new AsLong());
+        tmp.put(Character.class, new AsCharObject());
+        tmp.put(char.class, new AsChar());
         tmp.put(String.class, new AsString());
         tmp.put(BigInteger.class, new AsBigInteger());
         tmp.put(BigDecimal.class, new AsBigDecimal());
@@ -143,6 +145,21 @@ class DeserializerConverterDefault implements DeserializerConverter {
         @Override
         protected Class<String> typeClazz() {
             return String.class;
+        }
+    }
+
+    private static class AsCharObject extends BaseConverter<Character> {
+        @Override
+        protected Class<Character> typeClazz() {
+            return Character.class;
+        }
+    }
+
+
+    private static class AsChar extends BaseConverter<Character> {
+        @Override
+        protected Class<Character> typeClazz() {
+            return char.class;
         }
     }
 
