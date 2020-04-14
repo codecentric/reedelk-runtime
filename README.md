@@ -5,13 +5,17 @@ Reedelk runtime project set up.
 #### Installation
 * git clone https://bitbucket.org/reedelk/runtime.git
 * git clone https://bitbucket.org/reedelk/modules.git
-* git clone https://bitbucket.org/reedelk/module-xml.git
-* git clone https://bitbucket.org/reedelk/module-file.git
 * git clone https://bitbucket.org/reedelk/module-core.git
-* git clone https://bitbucket.org/reedelk/module-rest.git
+* git clone https://bitbucket.org/reedelk/module-csv.git
+* git clone https://bitbucket.org/reedelk/module-database.git
+* git clone https://bitbucket.org/reedelk/module-file.git
 * git clone https://bitbucket.org/reedelk/module-json.git
+* git clone https://bitbucket.org/reedelk/module-mail.git
 * git clone https://bitbucket.org/reedelk/module-rabbitmq.git
+* git clone https://bitbucket.org/reedelk/module-rest.git
 * git clone https://bitbucket.org/reedelk/module-scheduler.git
+* git clone https://bitbucket.org/reedelk/module-xml.git
+
 * cd runtime
 * mvn clean
 * mvn install
@@ -28,9 +32,7 @@ Select File -> Open -> Select {sources_dir}/parent/pom.xml -> When prompted sele
 Add to IntelliJ a new run config with the following VM options (only if you are running on JDK 11):
 
 1. --add-opens java.base/java.net=ALL-UNNAMED
-2. --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
-3. -Dnashorn.args="--no-deprecation-warning"
-4. -Dio.netty.allocator.type=unpooled
+2. -Dio.netty.allocator.type=unpooled
 
   
 Main class to be used for Run Configuration config: com.reedelk.runtime.Launcher
