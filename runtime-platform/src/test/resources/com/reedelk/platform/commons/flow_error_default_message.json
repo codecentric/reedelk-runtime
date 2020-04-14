@@ -1,0 +1,9 @@
+{
+  "moduleId": 10,
+  "moduleName": "my-module-name",
+  "flowId": "aabbcc",
+  "flowTitle": "My flow",
+  "correlationId": "aabb-cc1122-3344-ff",
+  "errorType": "com.reedelk.platform.MyException",
+  "errorMessage": "An error has occurred"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "45a5ce60-5c9d-4075-82a7-d3fa9212f52a",
+  "flow": [
+    {
+      "implementor": "com.reedelk.platform.test.utils.TestInboundComponent",
+      "message": "Test inbound message"
+    },
+    {
+      "implementor": "com.reedelk.runtime.component.Router",
+      "unknownWhen": [
+        {
+          "condition": "false",
+          "next": [
+            {
+              "implementor": "com.reedelk.platform.test.utils.AnotherTestComponent",
+              "property1": 2,
+              "property2": 1,
+              "property3": "A string value"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

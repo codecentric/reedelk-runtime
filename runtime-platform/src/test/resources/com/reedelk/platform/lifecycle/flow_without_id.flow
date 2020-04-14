@@ -1,0 +1,8 @@
+{
+  "flow": [
+    {
+      "implementor": "com.reedelk.platform.test.utils.TestInboundComponent",
+      "message": "Test inbound message"
+    }
+  ]
+}
