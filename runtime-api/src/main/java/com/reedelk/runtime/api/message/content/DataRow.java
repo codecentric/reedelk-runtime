@@ -69,9 +69,17 @@ public interface DataRow<T extends Serializable> extends Serializable {
     T getByColumnName(String columnName);
 
     @AutocompleteItem(
-            signature = "row()",
-            example = "row.row()",
+            signature = "getValues()",
+            example = "row.getValues()",
             description = "Returns a list containing all the values belonging to this row.")
-    List<T> row();
+    default List<T> getValues() {
+        return values();
+    }
+
+    @AutocompleteItem(
+            signature = "values()",
+            example = "row.values()",
+            description = "Returns a list containing all the values belonging to this row.")
+    List<T> values();
 
 }
