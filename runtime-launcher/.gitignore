@@ -35,4 +35,4 @@ dependency-reduced-pom.xml
 src/main/resources/system/runtime-api.jar
 src/main/resources/system/runtime-commons.jar
 src/main/resources/system/runtime-admin.jar
-src/main/resources/system/runtime-esb.jar
+src/main/resources/system/runtime-platform.jar

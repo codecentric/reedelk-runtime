@@ -24,7 +24,7 @@ public class SystemBundle {
                 "reactor-core-3.2.16.RELEASE.jar",
                 "runtime-api.jar", // NAME_CONVENTION
                 "runtime-commons.jar", // NAME_CONVENTION
-                "runtime-esb.jar")); // NAME_CONVENTION
+                "runtime-platform.jar")); // NAME_CONVENTION
     }
 
     public static String adminConsole() {

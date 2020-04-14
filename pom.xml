@@ -42,7 +42,7 @@
     <modules>
         <module>runtime-api</module>
         <module>runtime-commons</module>
-        <module>runtime-esb</module>
+        <module>runtime-platform</module> <!-- NAME_CONVENTION -->
         <module>runtime-admin</module>
         <module>runtime-launcher</module>
         <module>module-parent</module>

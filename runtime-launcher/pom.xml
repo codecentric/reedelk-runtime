@@ -87,7 +87,7 @@
                         <fileset>
                             <directory>src/main/resources/system</directory>
                             <includes>
-                                <include>runtime-esb.jar</include>
+                                <include>runtime-platform.jar</include>
                                 <include>runtime-admin.jar</include>
                                 <include>runtime-api.jar</include>
                                 <include>runtime-commons.jar</include>
