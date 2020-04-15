@@ -14,6 +14,7 @@ import com.reedelk.runtime.api.component.Join;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
+import com.reedelk.runtime.api.message.content.Pair;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
@@ -110,7 +111,7 @@ public class ForEachExecutor implements FlowExecutor {
             for (Map.Entry<?,?> entry : payloadMap.entrySet()) {
                 Serializable key = checkSerializableOrThrow(entry.getKey(), "Map key");
                 Serializable value = checkSerializableOrThrow(entry.getValue(), "Map value");
-                MapEntry realEntry = new MapEntry(key, value);
+                Pair realEntry = Pair.create(key, value);
                 Mono<MessageAndContext> mono = monoWithItem(graph, firstEachNode, messageAndContext, realEntry);
                 each.add(mono);
             }

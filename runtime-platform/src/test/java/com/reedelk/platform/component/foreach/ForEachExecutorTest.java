@@ -333,7 +333,7 @@ class ForEachExecutorTest extends AbstractExecutionTest {
 
         // Then
         StepVerifier.create(endPublisher)
-                .assertNext(assertMessageContains("MapEntry{key=key1, value=[Item11, Item12]}-each2|MapEntry{key=key2, value=[Item21, Item22]}-each2 after for each"))
+                .assertNext(assertMessageContains("Pair{key=key1, value=[Item11, Item12]}-each2|Pair{key=key2, value=[Item21, Item22]}-each2 after for each"))
                 .verifyComplete();
     }
 

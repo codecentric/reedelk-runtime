@@ -3,26 +3,41 @@ package com.reedelk.runtime.api.message.content;
 import java.io.Serializable;
 
 /**
- * Get are in the interface so that from script language I can use item.key.
+ * getX, setX are in the interface so that from script language I can use item.key.
  * @param <L> the type of the left (or key) value.
  * @param <R> the type of the right (or value) value.
  */
 public interface Pair<L extends Serializable, R extends Serializable> extends Serializable {
 
-    L key();
-
-    R value();
-
     L getKey();
 
     R getValue();
 
-    L left();
+    default L key() {
+        return getKey();
+    }
 
-    R right();
+    default R value() {
+        return getValue();
+    }
 
-    L getLeft();
+    default L left() {
+        return getKey();
+    }
 
-    R getRight();
+    default R right() {
+        return getValue();
+    }
 
+    default L getLeft() {
+        return getKey();
+    }
+
+    default R getRight() {
+        return getValue();
+    }
+
+    static Pair<Serializable,Serializable> create(Serializable key, Serializable value) {
+        return new SerializablePair(key, value);
+    }
 }
