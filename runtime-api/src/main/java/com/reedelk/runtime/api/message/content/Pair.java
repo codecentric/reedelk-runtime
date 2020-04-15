@@ -37,7 +37,7 @@ public interface Pair<L extends Serializable, R extends Serializable> extends Se
         return getValue();
     }
 
-    static Pair<Serializable,Serializable> create(Serializable key, Serializable value) {
-        return new SerializablePair(key, value);
+    static <L extends Serializable, R extends Serializable> Pair<L,R> create(L key, R value) {
+        return new SerializablePair<>(key, value);
     }
 }

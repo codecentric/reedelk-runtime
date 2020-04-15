@@ -2,23 +2,23 @@ package com.reedelk.runtime.api.message.content;
 
 import java.io.Serializable;
 
-public class SerializablePair implements Pair<Serializable, Serializable> {
+public class SerializablePair<L extends Serializable,R extends Serializable> implements Pair<L, R> {
 
-    private final Serializable key;
-    private final Serializable value;
+    private final L key;
+    private final R value;
 
-    SerializablePair(Serializable key, Serializable value) {
+    SerializablePair(L key, R value) {
         this.key = key;
         this.value = value;
     }
 
     @Override
-    public Serializable getKey() {
+    public L getKey() {
         return key;
     }
 
     @Override
-    public Serializable getValue() {
+    public R getValue() {
         return value;
     }
 

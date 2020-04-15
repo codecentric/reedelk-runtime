@@ -111,7 +111,7 @@ public class ForEachExecutor implements FlowExecutor {
             for (Map.Entry<?,?> entry : payloadMap.entrySet()) {
                 Serializable key = checkSerializableOrThrow(entry.getKey(), "Map key");
                 Serializable value = checkSerializableOrThrow(entry.getValue(), "Map value");
-                Pair realEntry = Pair.create(key, value);
+                Pair<Serializable,Serializable> realEntry = Pair.create(key, value);
                 Mono<MessageAndContext> mono = monoWithItem(graph, firstEachNode, messageAndContext, realEntry);
                 each.add(mono);
             }
