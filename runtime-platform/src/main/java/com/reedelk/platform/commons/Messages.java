@@ -1,6 +1,7 @@
 package com.reedelk.platform.commons;
 
 import com.reedelk.runtime.api.commons.FlowError;
+import com.reedelk.runtime.api.commons.FormattedMessage;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import org.json.JSONObject;
 
@@ -11,19 +12,19 @@ public class Messages {
     private Messages() {
     }
 
-    private static String formatMessage(String template, Object ...args) {
-        return String.format(template, args);
-    }
-
-    interface FormattedMessage {
-        String format(Object ...args);
-    }
-
     // The error message is in JSON format so that clients can always
     // parse the error whenever error.getMessage() is used in a script.
     public enum FlowErrorMessage implements FormattedMessage {
+
         DEFAULT;
 
+        @Override
+        public String template() {
+            throw new UnsupportedOperationException("Not available for this error message type.");
+        }
+
+        // A special error message serialized as JSON. This is useful so that in case of flow error,
+        // the module id, module name, flow id and so on can be extracted from the message.
         @Override
         public String format(Object... args) {
             return new JSONObject(new FlowError(
@@ -65,15 +66,15 @@ public class Messages {
         VALIDATION_ID_NOT_UNIQUE("Error validating module with name=[%s]: There are at least two flows with the same ID. Flow IDs must be unique."),
         VALIDATION_ID_NOT_VALID("Error validating module with name=[%s]: The 'id' property must be defined and not empty in any JSON flow definition.");
 
-        private String msg;
+        private String message;
 
-        Flow(String msg) {
-            this.msg = msg;
+        Flow(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -82,15 +83,15 @@ public class Messages {
         VALIDATION_ID_NOT_UNIQUE("Error validating module with name=[%s]: There are at least two subflows with the same ID. Subflow IDs must be unique."),
         VALIDATION_ID_NOT_VALID("Error validating module with name=[%s]: The 'id' property must be defined and not empty in any JSON subflow definition.");
 
-        private String msg;
+        private String message;
 
-        Subflow(String msg) {
-            this.msg = msg;
+        Subflow(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -99,15 +100,15 @@ public class Messages {
         VALIDATION_ID_NOT_UNIQUE("Error validating module with name=[%s]: There are at least two configurations with the same ID. Configuration IDs must be unique."),
         VALIDATION_ID_NOT_VALID("Error validating module with name=[%s]: The 'id' property must be defined and not empty in any JSON configuration definition.");
 
-        private String msg;
+        private String message;
 
-        Config(String msg) {
-            this.msg = msg;
+        Config(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -128,15 +129,15 @@ public class Messages {
         REMOVE_MODULE_FROM_DIRECTORY_ERROR("Module [%s], version [%s], file path=[%s] could not be removed from runtime modules directory"),
         REMOVE_MODULE_FROM_DIRECTORY_EXCEPTION("Module [%s], version [%s], file path=[%s] could not be removed from runtime modules directory: %s");
 
-        private String msg;
+        private String message;
 
-        Module(String msg) {
-            this.msg = msg;
+        Module(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -149,15 +150,15 @@ public class Messages {
         SCRIPT_SOURCE_NOT_FOUND("Could not find script named=[%s] defined in resources/scripts folder. Please make sure that the referenced script exists."),
         SCRIPT_SOURCE_EMPTY("A script resource file must not be null or empty");
 
-        private String msg;
+        private String message;
 
-        Deserializer(String msg) {
-            this.msg = msg;
+        Deserializer(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -166,15 +167,15 @@ public class Messages {
         REGISTERED("Registered component=[%s]"),
         UN_REGISTERED("UnRegistered component=[%s]");
 
-        private String msg;
+        private String message;
 
-        Component(String msg) {
-            this.msg = msg;
+        Component(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -185,17 +186,16 @@ public class Messages {
         NOT_FOUND_WITH_KEY("Could not find config property with key=[%s]."),
         UNSUPPORTED_CONVERSION("Unsupported conversion. Could not convert config property with key=[%s] for config pid=[%s] to type=[%s].");
 
-        private String msg;
+        private String message;
 
-        ConfigProperty(String msg) {
-            this.msg = msg;
+        ConfigProperty(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
-
     }
 
     public enum Script implements FormattedMessage {
@@ -204,15 +204,15 @@ public class Messages {
         SCRIPT_SOURCE_COMPILATION_ERROR("Could not compile script source: %s, \n- Source: %s\n- Module names: %s"),
         SCRIPT_EXECUTION_ERROR("Could not execute script: %s,\n- Script code:\n%s");
 
-        private String msg;
+        private String message;
 
-        Script(String msg) {
-            this.msg = msg;
+        Script(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -221,15 +221,15 @@ public class Messages {
         ERROR_FIRST_SUCCESSOR_LEADING_TO_END("Could not find first successor of component=[%s], leading to component=[%s]"),
         ERROR_DISPOSING_OBJECT("Could not dispose correctly=[%s], error: %s");
 
-        private String msg;
+        private String message;
 
-        Execution(String msg) {
-            this.msg = msg;
+        Execution(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -237,15 +237,15 @@ public class Messages {
 
         MODULE_NOT_FOUND("Hot Swap failed: could not find registered module from target file path=[%s]");
 
-        private String msg;
+        private String message;
 
-        HotSwap(String msg) {
-            this.msg = msg;
+        HotSwap(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -253,15 +253,15 @@ public class Messages {
 
         ERROR_DELIVERING_MESSAGE("Could not deliver Service Bus Message");
 
-        private String msg;
+        private String message;
 
-        PubSub(String msg) {
-            this.msg = msg;
+        PubSub(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 
@@ -272,15 +272,15 @@ public class Messages {
         ERROR_RESOURCE_NOT_FOUND_NULL("Resource could not be found: dynamic resource object was null"),
         ERROR_RESOURCE_NOT_FOUND_WITH_VALUE("Resource could not be found: dynamic resource path was=[%s]");
 
-        private String msg;
+        private String message;
 
-        Resource(String msg) {
-            this.msg = msg;
+        Resource(String message) {
+            this.message = message;
         }
 
         @Override
-        public String format(Object... args) {
-            return formatMessage(msg, args);
+        public String template() {
+            return message;
         }
     }
 }

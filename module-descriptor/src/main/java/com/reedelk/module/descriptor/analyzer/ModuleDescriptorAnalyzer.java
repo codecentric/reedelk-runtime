@@ -6,7 +6,7 @@ import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteItemAnaly
 import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteTypeAnalyzer;
 import com.reedelk.module.descriptor.analyzer.commons.AssetUtils;
 import com.reedelk.module.descriptor.analyzer.commons.ComponentDescriptorsJsonFile;
-import com.reedelk.module.descriptor.analyzer.commons.Messages;
+import com.reedelk.module.descriptor.analyzer.commons.Messages.Scan;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerFactory;
 import com.reedelk.module.descriptor.json.JsonProvider;
@@ -179,7 +179,7 @@ public class ModuleDescriptorAnalyzer {
                 ComponentAnalyzer componentAnalyzer = ComponentAnalyzerFactory.get(scanResult);
                 return componentAnalyzer.analyze(classInfo);
             } catch (Exception exception) {
-                String message = format(Messages.ERROR_SCAN_COMPONENT, classInfo.getName(), exception.getMessage());
+                String message = Scan.ERROR_SCAN_COMPONENT.format(classInfo.getName(), exception.getMessage());
                 throw new ModuleDescriptorException(message, exception);
             }
         }).collect(Collectors.toList());
