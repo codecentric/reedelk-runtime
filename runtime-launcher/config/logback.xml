@@ -63,4 +63,10 @@
         <appender-ref ref="ASYNC_FILE"/>
     </logger>
 
+    <!-- MongoDB -->
+    <logger name="org.mongodb.driver" level="error" additivity="false">
+        <appender-ref ref="ASYNC_STDOUT"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </logger>
+
 </configuration>
