@@ -32,7 +32,9 @@ public class ModuleList implements ProcessorSync {
 
         String modulesAsJson = modules();
 
-        return MessageBuilder.get().withJson(modulesAsJson).build();
+        return MessageBuilder.get(ModuleList.class)
+                .withJson(modulesAsJson)
+                .build();
     }
 
     private String modules() {

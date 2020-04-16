@@ -1,22 +1,28 @@
 package com.reedelk.runtime.api.message;
 
+import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.message.content.*;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
+// TODO: Test new methods
 public class MessageBuilder {
 
-    private MessageAttributes attributes;
     private TypedContent<?,?> typedContent;
+    private Map<String, ? extends Serializable> attributes;
+    private final Class<? extends Component> component;
 
-    private MessageBuilder() {
+    private MessageBuilder(Class<? extends Component> component) {
+        this.component = component;
     }
 
-    public static MessageBuilder get() {
-        return new MessageBuilder();
+    public static MessageBuilder get(Class<? extends Component> component) {
+        return new MessageBuilder(component);
     }
 
     // XML
@@ -111,6 +117,10 @@ public class MessageBuilder {
         } else if (byte[].class.equals(clazz)) {
             Publisher<byte[]> byteArrayStream = (Publisher<byte[]>) typedStream;
             this.typedContent = new ByteArrayContent(byteArrayStream, mimeType);
+        } else if (Byte[].class.equals(clazz)) {
+            Publisher<Byte[]> byteArrayStream = (Publisher<Byte[]>) typedStream;
+            Publisher<byte[]> byteArray = Flux.from(byteArrayStream).map(ByteArrayContent::toPrimitives);
+            this.typedContent = new ByteArrayContent(byteArray, mimeType);
         } else {
             this.typedContent = new ListContent<>(typedStream, clazz);
         }
@@ -163,7 +173,7 @@ public class MessageBuilder {
     @SuppressWarnings("unchecked")
     public MessageBuilder withJavaObject(Object object, MimeType mimeType) {
         if (object == null) {
-            empty();
+            this.typedContent = new EmptyContent();
         } else if (object instanceof Flux) {
             Flux<Object> objectStream = (Flux<Object>) object;
             this.typedContent = new ListContent<>(objectStream, Object.class);
@@ -175,8 +185,10 @@ public class MessageBuilder {
             this.typedContent = new ObjectContent<>(objectStream, Object.class);
         } else if (object instanceof String) {
             this.typedContent = new StringContent((String) object, mimeType);
-        } else if (object instanceof byte[] || object instanceof Byte[]) {
+        } else if (object instanceof byte[]) {
             this.typedContent = new ByteArrayContent((byte[]) object, mimeType);
+        } else if (object instanceof Byte[]) {
+            this.typedContent = new ByteArrayContent((Byte[]) object, mimeType);
         } else if (object instanceof List) {
             List<Object> list = (List<Object>) object;
             this.typedContent = new ListContent<>(list, Object.class);
@@ -200,28 +212,26 @@ public class MessageBuilder {
         return this;
     }
 
+    // EMPTY CONTENT
+
     public MessageBuilder empty() {
         this.typedContent = new EmptyContent();
         return this;
     }
 
-    public MessageBuilder empty(MimeType mimeType) {
-        this.typedContent = new EmptyContent(mimeType);
-        return this;
-    }
-
-    public MessageBuilder attributes(MessageAttributes attributes) {
+    public <T extends Serializable> MessageBuilder attributes(Map<String, T> attributes) {
         this.attributes = attributes;
         return this;
     }
 
     public Message build() {
-        if (attributes == null) {
-            attributes = DefaultMessageAttributes.empty();
-        }
+        MessageAttributes messageAttributes = attributes == null ?
+                DefaultMessageAttributes.just(component) :
+                DefaultMessageAttributes.from(component, attributes);
+
         if (typedContent == null) {
             throw new IllegalStateException("Typed content missing");
         }
-        return new MessageDefault(typedContent, attributes);
+        return new MessageDefault(typedContent, messageAttributes);
     }
 }

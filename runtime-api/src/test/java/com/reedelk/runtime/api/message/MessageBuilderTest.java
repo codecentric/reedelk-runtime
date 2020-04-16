@@ -12,7 +12,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static java.util.Arrays.asList;
@@ -23,17 +25,16 @@ class MessageBuilderTest {
     @Test
     void shouldCorrectlySetMessageAttributes() {
         // Given
-        MessageAttributes givenAttributes =
-                new DefaultMessageAttributes(MyComponent.class, ImmutableMap.of("key1", "value1", "key2", 2));
-
+        Map<String, Serializable> givenAttributes = ImmutableMap.of("key1", "value1", "key2", 2);
+        
         // When
-        Message message = MessageBuilder.get().attributes(givenAttributes).empty().build();
+        Message message = MessageBuilder.get(MyComponent.class).attributes(givenAttributes).empty().build();
 
         // Then
         MessageAttributes attributes = message.attributes();
         assertThat(attributes).containsEntry("key1", "value1");
         assertThat(attributes).containsEntry("key2", 2);
-        assertThat(attributes).containsEntry("componentName", MyComponent.class.getSimpleName());
+        assertThat(attributes).containsEntry("component", MyComponent.class.getName());
         assertThat(attributes).hasSize(3);
     }
 
@@ -47,7 +48,7 @@ class MessageBuilderTest {
             String xml = "<node>Value</node>";
 
             // When
-            Message message = MessageBuilder.get().withXml(xml).build();
+            Message message = MessageBuilder.get(MyComponent.class).withXml(xml).build();
 
             // Then
             TypedContent<String, String> content = message.content();
@@ -62,7 +63,7 @@ class MessageBuilderTest {
             Publisher<String> xml = Flux.just("<node>", "Value", "</node>");
 
             // When
-            Message message = MessageBuilder.get().withXml(xml).build();
+            Message message = MessageBuilder.get(MyComponent.class).withXml(xml).build();
 
             // Then
             String expectedValue = "<node>Value</node>";
@@ -84,7 +85,7 @@ class MessageBuilderTest {
             String html = "<node>Value</node>";
 
             // When
-            Message message = MessageBuilder.get().withHtml(html).build();
+            Message message = MessageBuilder.get(MyComponent.class).withHtml(html).build();
 
             // Then
             TypedContent<String, String> content = message.content();
@@ -99,7 +100,7 @@ class MessageBuilderTest {
             Publisher<String> html = Flux.just("<node>", "Value", "</node>");
 
             // When
-            Message message = MessageBuilder.get().withHtml(html).build();
+            Message message = MessageBuilder.get(MyComponent.class).withHtml(html).build();
 
             // Then
             String expectedValue = "<node>Value</node>";
@@ -121,7 +122,7 @@ class MessageBuilderTest {
             String text = "my super text";
 
             // When
-            Message message = MessageBuilder.get().withText(text).build();
+            Message message = MessageBuilder.get(MyComponent.class).withText(text).build();
 
             // Then
             TypedContent<String, String> content = message.content();
@@ -136,7 +137,7 @@ class MessageBuilderTest {
             Publisher<String> text = Flux.just("my", "super", "text");
 
             // When
-            Message message = MessageBuilder.get().withText(text).build();
+            Message message = MessageBuilder.get(MyComponent.class).withText(text).build();
 
             // Then
             String expectedValue = "mysupertext";
@@ -158,7 +159,7 @@ class MessageBuilderTest {
             String json = "{'name':'John', 'age': 43 }";
 
             // When
-            Message message = MessageBuilder.get().withJson(json).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJson(json).build();
 
             // Then
             TypedContent<String, String> content = message.content();
@@ -173,7 +174,7 @@ class MessageBuilderTest {
             Publisher<String> json = Flux.just("{'name':'John'", ", 'age': 43 }");
 
             // When
-            Message message = MessageBuilder.get().withJson(json).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJson(json).build();
 
             // Then
             String expectedValue = "{'name':'John', 'age': 43 }";
@@ -196,7 +197,7 @@ class MessageBuilderTest {
             MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
-            Message message = MessageBuilder.get().withString(csv, mimeType).build();
+            Message message = MessageBuilder.get(MyComponent.class).withString(csv, mimeType).build();
 
             // Then
             TypedContent<String, String> content = message.content();
@@ -212,7 +213,7 @@ class MessageBuilderTest {
             MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
-            Message message = MessageBuilder.get().withString(csv, mimeType).build();
+            Message message = MessageBuilder.get(MyComponent.class).withString(csv, mimeType).build();
 
             // Then
             String expectedValue = "item1,item2,item3";
@@ -234,7 +235,7 @@ class MessageBuilderTest {
             byte[] data = "my sample text".getBytes();
 
             // When
-            Message message = MessageBuilder.get().withBinary(data).build();
+            Message message = MessageBuilder.get(MyComponent.class).withBinary(data).build();
 
             // Then
             TypedContent<byte[], byte[]> content = message.content();
@@ -250,7 +251,7 @@ class MessageBuilderTest {
             MimeType mimeType = MimeType.IMAGE_JPEG;
 
             // When
-            Message message = MessageBuilder.get().withBinary(data, mimeType).build();
+            Message message = MessageBuilder.get(MyComponent.class).withBinary(data, mimeType).build();
 
             // Then
             TypedContent<byte[], byte[]> content = message.content();
@@ -265,7 +266,7 @@ class MessageBuilderTest {
             Publisher<byte[]> binaryStream = Flux.just("my".getBytes(), "sample".getBytes(), "text".getBytes());
 
             // When
-            Message message = MessageBuilder.get().withBinary(binaryStream).build();
+            Message message = MessageBuilder.get(MyComponent.class).withBinary(binaryStream).build();
 
             // Then
             byte[] expectedValue = "mysampletext".getBytes();
@@ -283,7 +284,7 @@ class MessageBuilderTest {
             MimeType mimeType = MimeType.IMAGE_JPEG;
 
             // When
-            Message message = MessageBuilder.get().withBinary(binaryStream, mimeType).build();
+            Message message = MessageBuilder.get(MyComponent.class).withBinary(binaryStream, mimeType).build();
 
             // Then
             byte[] expectedValue = "mysampletext".getBytes();
@@ -306,7 +307,7 @@ class MessageBuilderTest {
             Publisher<String> csv = Flux.just("item1,", "item2,", "item3");
 
             // When
-            Message message = MessageBuilder.get().withStream(csv, String.class).build();
+            Message message = MessageBuilder.get(MyComponent.class).withStream(csv, String.class).build();
 
             // Then
             String expectedValue = "item1,item2,item3";
@@ -324,7 +325,7 @@ class MessageBuilderTest {
             MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
-            Message message = MessageBuilder.get().withStream(csv, String.class, mimeType).build();
+            Message message = MessageBuilder.get(MyComponent.class).withStream(csv, String.class, mimeType).build();
 
             // Then
             String expectedValue = "item1,item2,item3";
@@ -341,7 +342,7 @@ class MessageBuilderTest {
             Publisher<byte[]> binaryStream = Flux.just("my".getBytes(), "sample".getBytes(), "text".getBytes());
 
             // When
-            Message message = MessageBuilder.get().withStream(binaryStream, byte[].class).build();
+            Message message = MessageBuilder.get(MyComponent.class).withStream(binaryStream, byte[].class).build();
 
             // Then
             byte[] expectedValue = "mysampletext".getBytes();
@@ -361,7 +362,7 @@ class MessageBuilderTest {
                     new MyItem("Three"));
 
             // When
-            Message message = MessageBuilder.get().withStream(myItemStream, MyItem.class).build();
+            Message message = MessageBuilder.get(MyComponent.class).withStream(myItemStream, MyItem.class).build();
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();
@@ -385,7 +386,7 @@ class MessageBuilderTest {
             TypedPublisher<String> csv = TypedPublisher.fromString(Flux.just("item1,", "item2,", "item3"));
 
             // When
-            Message message = MessageBuilder.get().withTypedPublisher(csv).build();
+            Message message = MessageBuilder.get(MyComponent.class).withTypedPublisher(csv).build();
 
             // Then
             String expectedValue = "item1,item2,item3";
@@ -403,7 +404,7 @@ class MessageBuilderTest {
             MimeType mimeType = MimeType.TEXT_CSV;
 
             // When
-            Message message = MessageBuilder.get().withTypedPublisher(csv, mimeType).build();
+            Message message = MessageBuilder.get(MyComponent.class).withTypedPublisher(csv, mimeType).build();
 
             // Then
             String expectedValue = "item1,item2,item3";
@@ -425,7 +426,7 @@ class MessageBuilderTest {
             MyItem item = new MyItem("Item test");
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(item).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(item).build();
 
             // Then
             TypedContent<MyItem, MyItem> content = message.content();
@@ -440,7 +441,7 @@ class MessageBuilderTest {
             MyItem item = null;
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(item).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(item).build();
 
             // Then
             TypedContent<Void, Void> content = message.content();
@@ -455,7 +456,7 @@ class MessageBuilderTest {
             Publisher<MyItem> items = Flux.just(new MyItem("One"), new MyItem("Two"));
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(items).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(items).build();
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();
@@ -471,7 +472,7 @@ class MessageBuilderTest {
             Publisher<MyItem> items = Mono.just(one);
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(items).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(items).build();
 
             // Then
             TypedContent<MyItem, MyItem> content = message.content();
@@ -486,7 +487,7 @@ class MessageBuilderTest {
             String input = "this is a test";
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(input).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(input).build();
 
             // Then
             TypedContent<String,String> content = message.content();
@@ -501,7 +502,7 @@ class MessageBuilderTest {
             byte[] input = "this is a test".getBytes();
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(input).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(input).build();
 
             // Then
             TypedContent<byte[],byte[]> content = message.content();
@@ -517,7 +518,7 @@ class MessageBuilderTest {
             MimeType mimeType = MimeType.IMAGE_JPEG;
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(input, mimeType).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(input, mimeType).build();
 
             // Then
             TypedContent<byte[],byte[]> content = message.content();
@@ -532,7 +533,7 @@ class MessageBuilderTest {
             Mono<MyItem> itemMono = Mono.just(new MyItem("One"));
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(itemMono,MyItem.class).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(itemMono,MyItem.class).build();
 
             // Then
             TypedContent<MyItem,MyItem> content = message.content();
@@ -547,7 +548,7 @@ class MessageBuilderTest {
             List<MyItem> items = asList(new MyItem("one"), new MyItem("two"));
 
             // When
-            Message message = MessageBuilder.get().withJavaObject(items).build();
+            Message message = MessageBuilder.get(MyComponent.class).withJavaObject(items).build();
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();
@@ -569,7 +570,7 @@ class MessageBuilderTest {
             List<MyItem> myCollection = asList(new MyItem("One"), new MyItem("Two"));
 
             // When
-            Message message = MessageBuilder.get().withList(myCollection, MyItem.class).build();
+            Message message = MessageBuilder.get(MyComponent.class).withList(myCollection, MyItem.class).build();
 
             // Then
             TypedContent<MyItem, List<MyItem>> content = message.content();

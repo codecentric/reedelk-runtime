@@ -3,6 +3,7 @@ package com.reedelk.platform.execution;
 import com.reedelk.platform.execution.context.DefaultFlowContext;
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
+import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.platform.test.utils.TestInboundComponent;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.Join;
@@ -34,22 +35,22 @@ public abstract class AbstractExecutionTest {
     }
 
     protected MessageAndContext newEventWithContent(String content) {
-        Message message = MessageBuilder.get().withText(content).build();
+        Message message = MessageBuilder.get(TestComponent.class).withText(content).build();
         return new NoActionResultMessageAndContext(message);
     }
 
     protected MessageAndContext newEventWithContent(TypedPublisher<String> stream) {
-        Message message = MessageBuilder.get().withTypedPublisher(stream, MimeType.TEXT_PLAIN).build();
+        Message message = MessageBuilder.get(TestComponent.class).withTypedPublisher(stream, MimeType.TEXT_PLAIN).build();
         return new NoActionResultMessageAndContext(message);
     }
 
     protected MessageAndContext newEventWithContent(Object content) {
-        Message message = MessageBuilder.get().withJavaObject(content).build();
+        Message message = MessageBuilder.get(TestComponent.class).withJavaObject(content).build();
         return new NoActionResultMessageAndContext(message);
     }
 
     protected <T> MessageAndContext newEventWithContent(List<T> list, Class<T> listItemType) {
-        Message message = MessageBuilder.get().withList(list, listItemType).build();
+        Message message = MessageBuilder.get(TestComponent.class).withList(list, listItemType).build();
         return new NoActionResultMessageAndContext(message);
     }
 
@@ -141,7 +142,7 @@ public abstract class AbstractExecutionTest {
         public Message apply(FlowContext flowContext, Message message) {
             String inputString = (String) message.content().data();
             String outputString = inputString + postfix;
-            return MessageBuilder.get().withText(outputString).build();
+            return MessageBuilder.get(TestComponent.class).withText(outputString).build();
         }
     }
 
@@ -158,7 +159,7 @@ public abstract class AbstractExecutionTest {
             String joined = messages.stream()
                     .map(message -> (String) message.content().data())
                     .collect(joining(delimiter));
-            return MessageBuilder.get().withText(joined).build();
+            return MessageBuilder.get(TestComponent.class).withText(joined).build();
         }
     }
 
@@ -166,7 +167,7 @@ public abstract class AbstractExecutionTest {
         @Override
         public Message apply(FlowContext flowContext, Message message) {
             String outputString = message.payload().toString();
-            return MessageBuilder.get().withText(outputString).build();
+            return MessageBuilder.get(TestComponent.class).withText(outputString).build();
         }
     }
 }

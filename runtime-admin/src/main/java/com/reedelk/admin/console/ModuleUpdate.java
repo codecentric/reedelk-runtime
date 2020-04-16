@@ -28,7 +28,9 @@ public class ModuleUpdate implements ProcessorSync {
 
         String resultJson = update(payload);
 
-        return MessageBuilder.get().withJson(resultJson).build();
+        return MessageBuilder.get(ModuleUpdate.class)
+                .withJson(resultJson)
+                .build();
     }
 
     private String update(String json) {

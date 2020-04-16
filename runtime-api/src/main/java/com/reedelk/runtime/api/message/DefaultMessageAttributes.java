@@ -1,5 +1,6 @@
 package com.reedelk.runtime.api.message;
 
+import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.component.Component;
 
 import java.io.Serializable;
@@ -7,18 +8,20 @@ import java.util.*;
 
 public final class DefaultMessageAttributes implements MessageAttributes, Serializable {
 
-    public static MessageAttributes empty() {
-        return new DefaultMessageAttributes();
+    static MessageAttributes just(Class<? extends Component> component) {
+        return new DefaultMessageAttributes(component, ImmutableMap.of());
+    }
+
+    static MessageAttributes from(Class<? extends Component> component, Map<String, ? extends Serializable> attributes) {
+        return new DefaultMessageAttributes(component, attributes);
     }
 
     private final TreeMap<String,Serializable> data = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
-    private DefaultMessageAttributes() {
-    }
-
-    public DefaultMessageAttributes(Class<? extends Component> componentSettingAttributes, Map<String,Serializable> attributes) {
+    // TODO: Test that component name is overridden (e.g Payload set)
+    private DefaultMessageAttributes(Class<? extends Component> component, Map<String, ? extends Serializable> attributes) {
         data.putAll(attributes);
-        data.put(MessageAttributeKey.COMPONENT_NAME, componentSettingAttributes.getSimpleName());
+        data.put(MessageAttributeKey.COMPONENT_NAME, component.getName());
     }
 
     @SuppressWarnings("unchecked")

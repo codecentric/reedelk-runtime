@@ -7,8 +7,8 @@ import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.component.Inbound;
 import com.reedelk.runtime.api.component.OnResult;
-import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.exception.FlowExecutionException;
+import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -322,7 +322,7 @@ class FlowTest {
             Set<ExecutionNode> executionNodes = new HashSet<>();
             executionNodes.add(stopEN);
             doReturn(executionNodes).when(mockExecutionGraph).successors(mockExecutionNode);
-            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
 
 
             // When
@@ -355,7 +355,7 @@ class FlowTest {
             doReturn(true).when(mockFlowContext).containsKey("correlationId");
 
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
@@ -399,8 +399,8 @@ class FlowTest {
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
-            Message outMessage = MessageBuilder.get().withText("out").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
+            Message outMessage = MessageBuilder.get(TestComponent.class).withText("out").build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
@@ -429,8 +429,8 @@ class FlowTest {
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
-            Message outMessage = MessageBuilder.get().withText("out").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
+            Message outMessage = MessageBuilder.get(TestComponent.class).withText("out").build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
@@ -467,8 +467,8 @@ class FlowTest {
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
-            Message outMessage = MessageBuilder.get().withText("out").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
+            Message outMessage = MessageBuilder.get(TestComponent.class).withText("out").build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
@@ -507,7 +507,7 @@ class FlowTest {
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
 
             Flux<String> stringFlux = Flux.create(new Consumer<FluxSink<String>>() {
                 int count = 0;
@@ -521,7 +521,7 @@ class FlowTest {
                 }
             });
 
-            Message outMessage = MessageBuilder.get().withStream(stringFlux, String.class).build();
+            Message outMessage = MessageBuilder.get(TestComponent.class).withStream(stringFlux, String.class).build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
@@ -558,8 +558,8 @@ class FlowTest {
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
-            Message outMessage = MessageBuilder.get().withText("out").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
+            Message outMessage = MessageBuilder.get(TestComponent.class).withText("out").build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
@@ -595,7 +595,7 @@ class FlowTest {
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
@@ -631,8 +631,8 @@ class FlowTest {
             final Flow flow = new Flow(moduleId, moduleName, flowId, flowTitle, mockExecutionGraph, executionEngine);
             final FlowContext mockFlowContext = mock(FlowContext.class);
 
-            Message inMessage = MessageBuilder.get().withText("test").build();
-            Message outMessage = MessageBuilder.get().withText("out").build();
+            Message inMessage = MessageBuilder.get(TestComponent.class).withText("test").build();
+            Message outMessage = MessageBuilder.get(TestComponent.class).withText("out").build();
 
             CountDownLatch latch = new CountDownLatch(1);
 

@@ -45,7 +45,9 @@ public class ReadFromResources implements ProcessorSync {
 
             Publisher<byte[]> dataStream = resourceFile.data();
 
-            return MessageBuilder.get().withBinary(dataStream, actualMimeType).build();
+            return MessageBuilder.get(ReadFromResources.class)
+                    .withBinary(dataStream, actualMimeType)
+                    .build();
 
         } catch (ResourceNotFound resourceNotFound) {
             throw new PlatformException(resourceNotFound);

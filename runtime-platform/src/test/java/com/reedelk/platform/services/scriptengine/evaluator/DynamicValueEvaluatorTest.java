@@ -5,9 +5,7 @@ import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
-import com.reedelk.runtime.api.message.DefaultMessageAttributes;
 import com.reedelk.runtime.api.message.Message;
-import com.reedelk.runtime.api.message.MessageAttributes;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
@@ -20,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
@@ -49,8 +48,8 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateMessageAttributeProperty() {
             // Given
-            MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("property1", "test1"));
-            Message message = MessageBuilder.get().withText("this is a test").attributes(attributes).build();
+            Map<String, String> attributes = of("property1", "test1");
+            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").attributes(attributes).build();
             DynamicString dynamicString = DynamicString.from("#[message.attributes.property1]", moduleContext);
 
             // When
@@ -63,7 +62,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateTextPayload() {
             // Given
-            Message message = MessageBuilder.get().withText("this is a test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").build();
             DynamicString dynamicString = DynamicString.from("#[message.payload()]", moduleContext);
 
             // When
@@ -77,7 +76,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyEvaluateStreamPayload() {
             // Given
             Flux<String> textStream = Flux.just("one", "two");
-            Message message = MessageBuilder.get().withText(textStream).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(textStream).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.payload()]", moduleContext);
 
@@ -92,7 +91,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConcatenateStreamWithString() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-            Message message = MessageBuilder.get().withText(content).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(content).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.content.data() + ' test.']", moduleContext);
 
@@ -107,7 +106,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConcatenateWithString() {
             // Given
             String payload = "Hello, this is just a";
-            Message message = MessageBuilder.get().withText(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(payload).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.content.data() + ' test.']", moduleContext);
 
@@ -121,7 +120,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateString() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
 
             DynamicString dynamicString = DynamicString.from("#['evaluation test']", moduleContext);
 
@@ -135,7 +134,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnTextFromDynamicValue() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicString dynamicString = DynamicString.from("Expected text", moduleContext);
 
             // When
@@ -148,7 +147,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnEmptyString() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicString dynamicString = DynamicString.from("", moduleContext);
 
             // When
@@ -161,7 +160,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldResultNotBePresentWhenDynamicValueIsNull() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicString dynamicString = null;
 
             // When
@@ -174,7 +173,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldResultNotBePresentWhenDynamicValueScriptIsEmpty() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicString dynamicString = DynamicString.from("#[]", moduleContext);
 
             // When
@@ -187,7 +186,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldResultNotBePresentWhenDynamicValueStringIsNull() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicString dynamicString = DynamicString.from(null, moduleContext);
 
             // When
@@ -200,7 +199,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateInteger() {
             // Given
-            Message message = MessageBuilder.get().withJavaObject(23432).build();
+            Message message = MessageBuilder.get(TestComponent.class).withJavaObject(23432).build();
             DynamicString dynamicString = DynamicString.from("#[message.payload()]", moduleContext);
 
             // When
@@ -213,7 +212,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldEvaluateNullScriptResults() {
             // Given
-            Message message = MessageBuilder.get().withText("A text").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("A text").build();
             DynamicString dynamicString = DynamicString.from("#[null]", moduleContext);
 
             // When
@@ -226,7 +225,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnJoinedListAsString() {
             // Given
-            Message message = MessageBuilder.get().empty().build();
+            Message message = MessageBuilder.get(TestComponent.class).empty().build();
             DynamicString dynamicString = DynamicString.from("#[['one','two','three'].join(',')]", moduleContext);
 
             // When
@@ -245,7 +244,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateInteger() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicInteger dynamicInteger = DynamicInteger.from("#[506]", moduleContext);
 
             // When
@@ -260,7 +259,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlySumNumber() {
             // Given
-            Message message = MessageBuilder.get().withText("12").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("12").build();
             DynamicInteger dynamicInteger = DynamicInteger.from("#[parseInt(message.payload()) + 10]", moduleContext);
 
             // When
@@ -273,7 +272,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateIntegerFromText() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicInteger dynamicInteger = DynamicInteger.from(53, moduleContext);
 
             // When
@@ -286,7 +285,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateIntegerFromMessagePayload() {
             // Given
-            Message message = MessageBuilder.get().withJavaObject(120).build();
+            Message message = MessageBuilder.get(TestComponent.class).withJavaObject(120).build();
             DynamicInteger dynamicInteger = DynamicInteger.from("#[message.payload()]", moduleContext);
 
             // When
@@ -304,7 +303,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateBoolean() {
             // Given
-            Message message = MessageBuilder.get().withText("a test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("a test").build();
             DynamicBoolean dynamicBoolean = DynamicBoolean.from("#[1 == 1]", moduleContext);
 
             // When
@@ -317,7 +316,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateBooleanFromPayload() {
             // Given
-            Message message = MessageBuilder.get().withText("true").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("true").build();
             DynamicBoolean dynamicBoolean = DynamicBoolean.from("#[message.payload()]", moduleContext);
 
             // When
@@ -336,7 +335,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyEvaluateByteArrayFromPayload() {
             // Given
             String payload = "My sample payload";
-            Message message = MessageBuilder.get().withText(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(payload).build();
             DynamicByteArray dynamicByteArray = DynamicByteArray.from("#[message.payload()]", moduleContext);
 
             // When
@@ -355,7 +354,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyEvaluateDynamicObject() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-            Message message = MessageBuilder.get().withText(content).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(content).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
 
@@ -369,7 +368,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateMessage() {
             // Given
-            Message message = MessageBuilder.get().withText("test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
             DynamicObject dynamicString = DynamicObject.from("#[message]", moduleContext);
 
             // When
@@ -383,7 +382,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyEvaluateMessagePayload() {
             // Given
             MyObject given = new MyObject();
-            Message message = MessageBuilder.get().withJavaObject(given).build();
+            Message message = MessageBuilder.get(TestComponent.class).withJavaObject(given).build();
             DynamicObject dynamicString = DynamicObject.from("#[message.payload()]", moduleContext);
 
             // When
@@ -402,7 +401,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConvertObjectToTextMimeType() {
             // Given
             Flux<String> content = Flux.just("Hello", ", this", " is", " just", " a");
-            Message message = MessageBuilder.get().withText(content).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(content).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content]", moduleContext);
 
@@ -416,7 +415,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldCorrectlyConvertObjectToBinaryMimeType() {
             // Given
-            Message message = MessageBuilder.get().withText("my test").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("my test").build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.content.type()]", moduleContext);
 
@@ -430,7 +429,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnEmptyResultWhenDynamicObjectIsNull() {
             // Given
-            Message message = MessageBuilder.get().empty().build();
+            Message message = MessageBuilder.get(TestComponent.class).empty().build();
 
             DynamicObject dynamicObject = null;
 
@@ -444,7 +443,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnEmptyResultWhenDynamicObjectHasEmptyScript() {
             // Given
-            Message message = MessageBuilder.get().empty().build();
+            Message message = MessageBuilder.get(TestComponent.class).empty().build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[]", moduleContext);
 
@@ -458,7 +457,7 @@ class DynamicValueEvaluatorTest {
         @Test
         void shouldReturnConvertedObjectWhenNotScript() {
             // Given
-            Message message = MessageBuilder.get().empty().build();
+            Message message = MessageBuilder.get(TestComponent.class).empty().build();
 
             MyTestObject testObject = new MyTestObject(43, 234.23f, "test");
 
@@ -475,7 +474,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyConvertMessagePayload() {
             // Given
             MyTestObject testObject = new MyTestObject(2345, 4.223f, "my object");
-            Message message = MessageBuilder.get().withJavaObject(testObject, MimeType.ANY).build();
+            Message message = MessageBuilder.get(TestComponent.class).withJavaObject(testObject, MimeType.ANY).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.payload()]", moduleContext);
 
@@ -629,7 +628,7 @@ class DynamicValueEvaluatorTest {
             String argument1 = "my argument1";
             String argument2 = "my argument2";
             String payload = "Input Arguments: ";
-            Message message = MessageBuilder.get().withText(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(payload).build();
 
             DynamicString dynamicString = DynamicString.from("#[message.payload() + argument1 + ', ' + argument2]", moduleContext);
 
@@ -651,7 +650,7 @@ class DynamicValueEvaluatorTest {
             String argument1 = "my argument1";
             String argument2 = "my argument2";
             String payload = "Input Arguments: ";
-            Message message = MessageBuilder.get().withText(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(payload).build();
 
             DynamicString dynamicString = null;
 
@@ -673,7 +672,7 @@ class DynamicValueEvaluatorTest {
             String argument1 = "my argument1";
             String argument2 = "my argument2";
             String payload = "Input Arguments: ";
-            Message message = MessageBuilder.get().withText(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(payload).build();
 
             DynamicString dynamicString = DynamicString.from("Hello this is my text");
 
@@ -700,7 +699,7 @@ class DynamicValueEvaluatorTest {
             int argument1 = 40;
             int argument2 = 25;
             int payload = 9;
-            Message message = MessageBuilder.get().withJavaObject(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withJavaObject(payload).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[message.payload() + argument1 + argument2]", moduleContext);
 
@@ -723,7 +722,7 @@ class DynamicValueEvaluatorTest {
             int argument1 = 40;
             int argument2 = 25;
             int payload = 9;
-            Message message = MessageBuilder.get().withJavaObject(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withJavaObject(payload).build();
 
             DynamicObject dynamicObject = null;
 
@@ -746,7 +745,7 @@ class DynamicValueEvaluatorTest {
             String argument1 = "my argument1";
             String argument2 = "my argument2";
             String payload = "Input Arguments: ";
-            Message message = MessageBuilder.get().withText(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(payload).build();
 
             DynamicObject dynamicObject = DynamicObject.from("#[ ]", moduleContext);
 
@@ -769,7 +768,7 @@ class DynamicValueEvaluatorTest {
             String argument1 = "my argument1";
             String argument2 = "my argument2";
             String payload = "Input Arguments: ";
-            Message message = MessageBuilder.get().withText(payload).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText(payload).build();
 
             DynamicObject dynamicObject = DynamicObject.from(23, moduleContext);
 

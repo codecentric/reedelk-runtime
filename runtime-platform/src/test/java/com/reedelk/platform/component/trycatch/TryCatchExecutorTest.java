@@ -4,6 +4,7 @@ import com.reedelk.platform.execution.AbstractExecutionTest;
 import com.reedelk.platform.execution.MessageAndContext;
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
+import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
@@ -198,7 +199,7 @@ class TryCatchExecutorTest extends AbstractExecutionTest {
         Publisher<MessageAndContext> publisher = Mono.just(event).handle((messageAndContext, sink) -> {
             Message message = messageAndContext.getMessage();
             String content = message.payload();
-            Message newMessage = MessageBuilder.get().withText(content + "-handler").build();
+            Message newMessage = MessageBuilder.get(TestComponent.class).withText(content + "-handler").build();
             messageAndContext.replaceWith(newMessage);
             sink.next(messageAndContext);
             numberOfExecutions.incrementAndGet();
@@ -220,7 +221,7 @@ class TryCatchExecutorTest extends AbstractExecutionTest {
         public Message apply(FlowContext flowContext, Message message) {
             Exception thrown = (Exception) message.content().data();
             String outputString = thrown.getMessage();
-            return MessageBuilder.get().withText(outputString).build();
+            return MessageBuilder.get(TestComponent.class).withText(outputString).build();
         }
     }
 }

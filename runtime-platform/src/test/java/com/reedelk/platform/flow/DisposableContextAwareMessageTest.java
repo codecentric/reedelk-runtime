@@ -3,9 +3,7 @@ package com.reedelk.platform.flow;
 import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
-import com.reedelk.runtime.api.message.DefaultMessageAttributes;
 import com.reedelk.runtime.api.message.Message;
-import com.reedelk.runtime.api.message.MessageAttributes;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.TypedContent;
@@ -16,6 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.test.StepVerifier;
+
+import java.io.Serializable;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.spy;
@@ -32,9 +33,8 @@ class DisposableContextAwareMessageTest {
 
     @BeforeEach
     void setUp() {
-        MessageAttributes attributes =
-                new DefaultMessageAttributes(TestComponent.class, ImmutableMap.of("attr1", "value1", "attr2", "value2"));
-        sampleMessage = spy(MessageBuilder.get()
+        Map<String, Serializable> attributes = ImmutableMap.of("attr1", "value1", "attr2", "value2");
+        sampleMessage = spy(MessageBuilder.get(TestComponent.class)
                 .attributes(attributes)
                 .withText("My sample message content")
                 .build());

@@ -1,8 +1,6 @@
-package com.reedelk.runtime.api;
+package com.reedelk.runtime.api.message;
 
 import com.reedelk.runtime.api.commons.TestComponent;
-import com.reedelk.runtime.api.message.DefaultMessageAttributes;
-import com.reedelk.runtime.api.message.MessageAttributes;
 import org.junit.jupiter.api.Test;
 
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
@@ -13,7 +11,7 @@ class DefaultMessageAttributesTest {
     @Test
     void hasAttributeShouldBeCaseInsensitive() {
         // Given
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("prop1", "value1"));
+        MessageAttributes attributes = DefaultMessageAttributes.from(TestComponent.class, of("prop1", "value1"));
 
         // When
         boolean hasAttribute = attributes.contains("PROP1");
@@ -25,7 +23,7 @@ class DefaultMessageAttributesTest {
     @Test
     void getAttributeShouldBeCaseInsensitive() {
         // Given
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("proP1", "value1"));
+        MessageAttributes attributes = DefaultMessageAttributes.from(TestComponent.class, of("proP1", "value1"));
 
         // When
         Object attributeValue = attributes.get("PRop1");
@@ -38,7 +36,7 @@ class DefaultMessageAttributesTest {
     void shouldUseExistingCorrelationIDAttributeIfPresentAlready() {
         // Given
         String expectedCorrelationID = "aabbccdd";
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("X-CorRelaTION-ID", expectedCorrelationID));
+        MessageAttributes attributes = DefaultMessageAttributes.from(TestComponent.class, of("X-CorRelaTION-ID", expectedCorrelationID));
 
         // When
         String attributeValue = attributes.get("X-CorrelatIOn-ID");
@@ -50,11 +48,11 @@ class DefaultMessageAttributesTest {
     @Test
     void shouldSetComponentName() {
         // Given
-        String expectedComponentName = TestComponent.class.getSimpleName();
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("property1", "value1"));
+        String expectedComponentName = TestComponent.class.getName();
+        MessageAttributes attributes = DefaultMessageAttributes.from(TestComponent.class, of("property1", "value1"));
 
         // When
-        String attributeValue = attributes.get("compOnenTName");
+        String attributeValue = attributes.get("compOnenT");
 
         // Then
         assertThat(attributeValue).isEqualTo(expectedComponentName);

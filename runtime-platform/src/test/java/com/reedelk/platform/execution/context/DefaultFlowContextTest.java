@@ -3,15 +3,19 @@ package com.reedelk.platform.execution.context;
 import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.flow.Disposable;
 import com.reedelk.runtime.api.flow.FlowContext;
-import com.reedelk.runtime.api.message.*;
+import com.reedelk.runtime.api.message.Message;
+import com.reedelk.runtime.api.message.MessageAttributeKey;
+import com.reedelk.runtime.api.message.MessageBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,7 +34,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldCreateContextWithNewCorrelationIdIfDoesNotExistInMessageAttributes() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
 
         // When
         DefaultFlowContext context = DefaultFlowContext.from(message);
@@ -43,10 +47,9 @@ class DefaultFlowContextTest {
     void shouldCreateContextWithCorrelationIdFromGivenMessageAttributes() {
         // Given
         String expectedCorrelationId = "aabbcc";
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class,
-                of(MessageAttributeKey.CORRELATION_ID, expectedCorrelationId));
+        Map<String, Serializable> attributes = of(MessageAttributeKey.CORRELATION_ID, expectedCorrelationId);
 
-        Message message = MessageBuilder.get().attributes(attributes).empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).attributes(attributes).empty().build();
 
         // When
         DefaultFlowContext context = DefaultFlowContext.from(message);
@@ -58,7 +61,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldCorrectlyDisposeAllRegisteredDisposableObjects() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
         context.register(disposable1);
         context.register(disposable2);
@@ -77,7 +80,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldDisposeAllObjectsEvenWhenOneThrowsException() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
 
         Disposable disposable3 = mock(Disposable.class);
@@ -104,7 +107,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldNotThrowExceptionWhenValueIsNull() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
 
         // Expect
@@ -118,7 +121,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldAddKeyAndValueCorrectly() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
 
         context.put("myKey", "This is a test");
@@ -129,7 +132,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldThrowExceptionWhenKeyIsNull() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
 
         IllegalArgumentException thrown =
@@ -141,7 +144,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldThrowExceptionWhenKeyIsEmpty() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
 
         IllegalArgumentException thrown =
@@ -153,7 +156,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldReturnTrueWhenContextContainsKey() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
 
         context.put("myKey", "my value");
@@ -168,7 +171,7 @@ class DefaultFlowContextTest {
     @Test
     void shouldReturnFalseWhenContextDoesNotContainKey() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DefaultFlowContext context = DefaultFlowContext.from(message);
 
         // When

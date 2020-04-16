@@ -3,6 +3,7 @@ package com.reedelk.platform.execution;
 import com.reedelk.platform.execution.context.DefaultFlowContext;
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
+import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
@@ -61,7 +62,7 @@ class ProcessorSyncExecutorTest extends AbstractExecutionTest {
         String exceptionThrown = "Illegal state error";
         ExecutionNode processor = newExecutionNode(new ProcessorThrowingIllegalStateExceptionSync(exceptionThrown));
         ExecutionGraph graph = newGraphSequence(inbound, processor, stop);
-        Message message = MessageBuilder.get().withText("input").build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("input").build();
 
         MessageAndContext inputMessageAndContext = new MessageAndContext(message, DefaultFlowContext.from(message));
 
@@ -82,7 +83,7 @@ class ProcessorSyncExecutorTest extends AbstractExecutionTest {
         String missingClazz = "javax.xml";
         ExecutionNode processor = newExecutionNode(new ProcessorThrowingNoClassDefFoundErrorSync(missingClazz));
         ExecutionGraph graph = newGraphSequence(inbound, processor, stop);
-        Message message = MessageBuilder.get().withText("input").build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("input").build();
 
         MessageAndContext inputMessageAndContext = new MessageAndContext(message, DefaultFlowContext.from(message));
 

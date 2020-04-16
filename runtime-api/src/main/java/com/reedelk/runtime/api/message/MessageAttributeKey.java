@@ -9,8 +9,8 @@ public interface MessageAttributeKey {
     String CORRELATION_ID = "correlationId";
 
     /*
-     * Attribute Key used to identify the component which populated
-     * the Message Attributes.
+     * Attribute Key used to identify the component name which
+     * added the Message Attributes.
      */
-    String COMPONENT_NAME = "componentName";
+    String COMPONENT_NAME = "component";
 }

@@ -21,6 +21,13 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
         this.data = data;
     }
 
+    public ByteArrayContent(Byte[] data, MimeType mimeType) {
+        this.dataAsStream = null;
+        this.mimeType = mimeType;
+        this.consumed = true;
+        this.data = toPrimitives(data);
+    }
+
     public ByteArrayContent(Publisher<byte[]> dataAsStream, MimeType mimeType) {
         this.dataAsStream = dataAsStream;
         this.mimeType = mimeType;
@@ -114,5 +121,13 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
                 }
             }
         }
+    }
+
+    public static byte[] toPrimitives(Byte[] oBytes) {
+        byte[] bytes = new byte[oBytes.length];
+        for(int i = 0; i < oBytes.length; i++){
+            bytes[i] = oBytes[i];
+        }
+        return bytes;
     }
 }

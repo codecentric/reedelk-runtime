@@ -16,6 +16,7 @@ import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.Pair;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
+import com.reedelk.runtime.component.ForEach;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -134,8 +135,8 @@ public class ForEachExecutor implements FlowExecutor {
                                                  MessageAndContext messageAndContext,
                                                  Object item) {
         Message messageWithItem = item == null ?
-                MessageBuilder.get().empty().build() :
-                MessageBuilder.get().withJavaObject(item).build();
+                MessageBuilder.get(ForEach.class).empty().build() :
+                MessageBuilder.get(ForEach.class).withJavaObject(item).build();
         MessageAndContext messageAndContextWithItem = messageAndContext.copyWithMessage(messageWithItem);
         Mono<MessageAndContext> parent = Mono.just(messageAndContextWithItem);
         Publisher<MessageAndContext> eachPublisher = FlowExecutorFactory.get().execute(parent, firstEachNode, graph);

@@ -2,6 +2,7 @@ package com.reedelk.platform.services.scriptengine.evaluator;
 
 import com.reedelk.platform.execution.context.DefaultFlowContext;
 import com.reedelk.platform.flow.deserializer.converter.ProxyScript;
+import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
@@ -32,7 +33,7 @@ class ScriptEvaluatorTest {
 
     private FlowContext context;
     private ScriptEvaluator evaluator;
-    private Message emptyMessage = MessageBuilder.get().empty().build();
+    private Message emptyMessage = MessageBuilder.get(TestComponent.class).empty().build();
 
     @BeforeEach
     void setUp() {
@@ -109,7 +110,7 @@ class ScriptEvaluatorTest {
         void shouldCorrectlyEvaluateMessagePayload() {
             // Given
             Script payloadScript = scriptFromBody(wrapAsTestFunction("return message.payload()"));
-            Message message = MessageBuilder.get().withText("my payload as text").build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("my payload as text").build();
 
             // When
             Optional<String> actual = evaluator.evaluate(payloadScript, String.class, context, message);
@@ -137,9 +138,9 @@ class ScriptEvaluatorTest {
     class ScriptWithMessagesAndContext {
 
         private final List<Message> messages = asList(
-                MessageBuilder.get().withText("one").build(),
-                MessageBuilder.get().withText("two").build(),
-                MessageBuilder.get().withText("three").build());
+                MessageBuilder.get(TestComponent.class).withText("one").build(),
+                MessageBuilder.get(TestComponent.class).withText("two").build(),
+                MessageBuilder.get(TestComponent.class).withText("three").build());
 
         @Test
         void shouldCorrectlyEvaluateScriptAndReturnOptional() {
@@ -224,7 +225,7 @@ class ScriptEvaluatorTest {
         void shouldReturnResolvedStreamWhenMessagePayloadExecuted() {
             // Given
             Flux<byte[]> stream = Flux.just("one".getBytes(), "two".getBytes());
-            Message message = MessageBuilder.get().withBinary(stream, MimeType.TEXT_PLAIN).build();
+            Message message = MessageBuilder.get(TestComponent.class).withBinary(stream, MimeType.TEXT_PLAIN).build();
 
             Script extractStreamScript = scriptFromBody(wrapAsTestFunction("return message.payload()"));
 

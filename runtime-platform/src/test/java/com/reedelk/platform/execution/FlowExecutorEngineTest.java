@@ -2,6 +2,7 @@ package com.reedelk.platform.execution;
 
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
+import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.exception.PlatformException;
@@ -23,7 +24,7 @@ class FlowExecutorEngineTest extends AbstractExecutionTest {
     @Test
     void shouldCorrectlyExecuteFlowAndInvokeOnResultWhenDoneProcessing() throws InterruptedException {
         // Given
-        Message message = MessageBuilder.get().withText("Sample text").build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("Sample text").build();
 
         ExecutionNode postFixProcessor = newExecutionNode(new PostFixProcessor());
         ExecutionGraph graph = ExecutionGraph.build();
@@ -58,7 +59,7 @@ class FlowExecutorEngineTest extends AbstractExecutionTest {
     @Test
     void shouldCorrectlyExecuteFlowAndInvokeOnErrorWhenProcessorThrowsException() throws InterruptedException {
         // Given
-        Message message = MessageBuilder.get().withText("Sample text").build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("Sample text").build();
 
         ExecutionNode processorThrowingException = newExecutionNode(new ProcessorThrowingException());
         ExecutionGraph graph = ExecutionGraph.build();
@@ -92,7 +93,7 @@ class FlowExecutorEngineTest extends AbstractExecutionTest {
     @Test
     void shouldCallOnErrorWhenExecutionGraphIsNotCorrect() throws InterruptedException {
         // Given
-        Message message = MessageBuilder.get().withText("Sample text").build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("Sample text").build();
 
         ExecutionGraph graph = ExecutionGraph.build();
 
@@ -124,7 +125,7 @@ class FlowExecutorEngineTest extends AbstractExecutionTest {
         @Override
         public Message apply(FlowContext flowContext, Message message) {
             String data = message.payload();
-            return MessageBuilder.get().withText(data + "-postfix").build();
+            return MessageBuilder.get(TestComponent.class).withText(data + "-postfix").build();
         }
     }
 

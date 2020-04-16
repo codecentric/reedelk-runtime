@@ -27,7 +27,9 @@ public class SystemHealth implements ProcessorSync {
 
         String resultJson = healthStatus();
 
-        return MessageBuilder.get().withJson(resultJson).build();
+        return MessageBuilder.get(SystemHealth.class)
+                .withJson(resultJson)
+                .build();
     }
 
     private String healthStatus() {

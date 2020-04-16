@@ -34,7 +34,9 @@ public class ModuleHotSwap implements ProcessorSync {
 
         String resultJson = hotSwap(payload, flowContext);
 
-        return MessageBuilder.get().withJson(resultJson).build();
+        return MessageBuilder.get(ModuleHotSwap.class)
+                .withJson(resultJson)
+                .build();
     }
 
     private String hotSwap(String json, FlowContext flowContext) {

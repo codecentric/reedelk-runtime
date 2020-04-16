@@ -2,6 +2,7 @@ package com.reedelk.platform.execution;
 
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
+import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.component.OnResult;
 import com.reedelk.runtime.api.component.ProcessorAsync;
 import com.reedelk.runtime.api.exception.PlatformException;
@@ -157,7 +158,7 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
                 } catch (InterruptedException e) {
                     // nothing to do
                 }
-                callback.onResult(flowContext, MessageBuilder.get().withText("hello").build());
+                callback.onResult(flowContext, MessageBuilder.get(TestComponent.class).withText("hello").build());
             });
         }
     }
@@ -189,7 +190,7 @@ class ProcessorAsyncExecutorTest extends AbstractExecutionTest {
             new Thread(() -> {
                 String inputString = (String) input.content().data();
                 String outputString = inputString + postfix;
-                Message out = MessageBuilder.get().withText(outputString).build();
+                Message out = MessageBuilder.get(TestComponent.class).withText(outputString).build();
                 callback.onResult(flowContext, out);
             }).start();
         }

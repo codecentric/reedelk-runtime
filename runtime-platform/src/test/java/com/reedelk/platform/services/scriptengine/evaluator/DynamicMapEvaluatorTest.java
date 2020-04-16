@@ -5,9 +5,7 @@ import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.Disposable;
 import com.reedelk.runtime.api.flow.FlowContext;
-import com.reedelk.runtime.api.message.DefaultMessageAttributes;
 import com.reedelk.runtime.api.message.Message;
-import com.reedelk.runtime.api.message.MessageAttributes;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicStringMap;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,8 +38,8 @@ class DynamicMapEvaluatorTest {
     @Test
     void shouldCorrectlyEvaluateMapWithScriptAndTextAndNumericValues() {
         // Given
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("property1", "test1"));
-        Message message = MessageBuilder.get().withText("test").attributes(attributes).build();
+        Map<String, String> attributes = of("property1", "test1");
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of(
                 "script", "#[message.attributes.propErty1]",
@@ -60,7 +58,7 @@ class DynamicMapEvaluatorTest {
     @Test
     void shouldCorrectlyEvaluateEmptyMap() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
 
         // When
         Map<String, String> evaluated = evaluator.evaluate(DynamicStringMap.empty(), context, message);
@@ -72,7 +70,7 @@ class DynamicMapEvaluatorTest {
     @Test
     void shouldCorrectlyEvaluateNullMap() {
         // Given
-        Message message = MessageBuilder.get().empty().build();
+        Message message = MessageBuilder.get(TestComponent.class).empty().build();
         DynamicStringMap dynamicStringMap = null;
 
         // When
@@ -85,7 +83,7 @@ class DynamicMapEvaluatorTest {
     @Test
     void shouldCorrectlyEvaluateMapWithValueContainingQuotes() {
         // Given
-        Message message = MessageBuilder.get().withText("test").build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").build();
         DynamicStringMap dynamicMap = DynamicStringMap.from(
                 of("text", "a simple text 'with quotes'"), moduleContext);
 
@@ -137,8 +135,8 @@ class DynamicMapEvaluatorTest {
     @Test
     void shouldCorrectlyEvaluateMapWithEmptyDynamicScriptValue() {
         // Given
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("property1", "test1"));
-        Message message = MessageBuilder.get().withText("test").attributes(attributes).build();
+        Map<String, String> attributes = of("property1", "test1");
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of("Key1", "#[]"), moduleContext);
 
@@ -152,8 +150,8 @@ class DynamicMapEvaluatorTest {
     @Test
     void shouldCorrectlyEvaluateMapWithEmptyValue() {
         // Given
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("property1", "test1"));
-        Message message = MessageBuilder.get().withText("test").attributes(attributes).build();
+        Map<String, String> attributes = of("property1", "test1");
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of("Key1", ""), moduleContext);
 
@@ -167,8 +165,8 @@ class DynamicMapEvaluatorTest {
     @Test
     void shouldCorrectlyEvaluateMapWithEmptyKey() {
         // Given
-        MessageAttributes attributes = new DefaultMessageAttributes(TestComponent.class, of("property1", "test1"));
-        Message message = MessageBuilder.get().withText("test").attributes(attributes).build();
+        Map<String, String> attributes = of("property1", "test1");
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of(
                 "", "myValue", "key2", "value2"),

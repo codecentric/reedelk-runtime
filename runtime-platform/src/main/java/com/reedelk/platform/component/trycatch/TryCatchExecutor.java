@@ -7,6 +7,7 @@ import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
+import com.reedelk.runtime.component.TryCatch;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -35,7 +36,9 @@ public class TryCatchExecutor implements FlowExecutor {
 
                 Mono<MessageAndContext> mapped = Mono.just(messageAndContext).map(context -> {
 
-                    Message messageWithException = MessageBuilder.get().withJavaObject(throwable).build();
+                    Message messageWithException = MessageBuilder.get(TryCatch.class)
+                            .withJavaObject(throwable)
+                            .build();
 
                     context.replaceWith(messageWithException);
 

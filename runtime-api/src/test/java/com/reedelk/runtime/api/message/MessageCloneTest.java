@@ -1,11 +1,7 @@
-package com.reedelk.runtime.api;
+package com.reedelk.runtime.api.message;
 
 import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.commons.TestComponent;
-import com.reedelk.runtime.api.message.DefaultMessageAttributes;
-import com.reedelk.runtime.api.message.Message;
-import com.reedelk.runtime.api.message.MessageAttributes;
-import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.TypedContent;
 import org.apache.commons.lang3.SerializationUtils;
@@ -47,9 +43,9 @@ class MessageCloneTest {
     }
 
     private Message buildMessageWith(MimeType mimeType, String content, Map<String, Serializable> attributes) {
-        return MessageBuilder.get()
+        return MessageBuilder.get(TestComponent.class)
                 .withString(content, mimeType)
-                .attributes(new DefaultMessageAttributes(TestComponent.class, attributes))
+                .attributes(attributes)
                 .build();
     }
 }
