@@ -141,8 +141,17 @@ public class MessageBuilder {
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     public <ItemType> MessageBuilder withJavaObject(Mono<ItemType> monoStream, Class<ItemType> type) {
-        this.typedContent = new ObjectContent<>(monoStream, type);
+        if (String.class.equals(type)) {
+            Mono<String> monoAsString = (Mono<String>) monoStream;
+            withString(monoAsString, MimeType.TEXT_PLAIN);
+        } else if (byte[].class.equals(type) || Byte[].class.equals(type)) {
+            Mono<byte[]> monoAsBytes = (Mono<byte[]>) monoStream;
+            withBinary(monoAsBytes, MimeType.APPLICATION_BINARY);
+        } else {
+            this.typedContent = new ObjectContent<>(monoStream, type);
+        }
         return this;
     }
 
@@ -166,7 +175,7 @@ public class MessageBuilder {
             this.typedContent = new ObjectContent<>(objectStream, Object.class);
         } else if (object instanceof String) {
             this.typedContent = new StringContent((String) object, mimeType);
-        } else if (object instanceof byte[]) {
+        } else if (object instanceof byte[] || object instanceof Byte[]) {
             this.typedContent = new ByteArrayContent((byte[]) object, mimeType);
         } else if (object instanceof List) {
             List<Object> list = (List<Object>) object;

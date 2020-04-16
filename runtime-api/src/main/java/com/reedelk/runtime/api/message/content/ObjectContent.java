@@ -4,6 +4,7 @@ import com.reedelk.runtime.api.exception.PlatformException;
 import reactor.core.publisher.Mono;
 
 import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
+import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 
 public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType> {
 
@@ -20,8 +21,9 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
 
     @SuppressWarnings("unchecked")
     public ObjectContent(ItemType data) {
-        checkNotNull(data,
-                "Cannot create object content with null data; use empty content instead");
+        checkNotNull(data,"Cannot create object content with null data; use empty content instead");
+        checkIsAcceptedTypeOrThrow(data.getClass());
+
         this.data = data;
         this.type = (Class<ItemType>) data.getClass();
         this.dataAsStream = null;
@@ -29,6 +31,8 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
     }
 
     public ObjectContent(Mono<ItemType> monoStream, Class<ItemType> type) {
+        checkNotNull(monoStream,"Cannot create object content with null data; use empty content instead");
+        checkIsAcceptedTypeOrThrow(type);
         this.type = type;
         this.dataAsStream = monoStream;
         this.consumed = false;
@@ -126,5 +130,17 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
                     ", data=" + dataAsStream +
                     '}';
         }
+    }
+
+    private void checkIsAcceptedTypeOrThrow(Class<?> dataTypeClass) {
+        checkState(!String.class.equals(dataTypeClass),
+                "Cannot create object content with String type; " +
+                        "use MessageBuilder.withString(..) or create a new StringContent type.");
+        checkState(!Byte.class.equals(dataTypeClass),
+                "Cannot create object content with byte array type; " +
+                        "use MessageBuilder.withBinary(..) or create a new ByteArrayContent type.");
+        checkState(!byte.class.equals(dataTypeClass),
+                "Cannot create object content with byte array type; " +
+                        "use MessageBuilder.withBinary(..) or create a new ByteArrayContent type.");
     }
 }
