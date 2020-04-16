@@ -13,10 +13,9 @@ import com.reedelk.runtime.api.script.dynamicvalue.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 /**
  * A platform type represent all the types of the fields which can be used within
@@ -24,6 +23,23 @@ import java.util.Map;
  * to configure the component.
  */
 public class PlatformTypes {
+
+    private static final Collection<Class<?>> PRIMITIVES = asList(
+            Boolean.class,
+            boolean.class,
+            Double.class,
+            double.class,
+            Float.class,
+            float.class,
+            Integer.class,
+            int.class,
+            Long.class,
+            long.class,
+            Character.class,
+            char.class,
+            String.class,
+            BigInteger.class,
+            BigDecimal.class);
 
     private static final Map<String, Class<?>> KNOWN_TYPES;
     static {
@@ -76,6 +92,10 @@ public class PlatformTypes {
 
     public static boolean isSupported(String fullyQualifiedName) {
         return KNOWN_TYPES.containsKey(fullyQualifiedName);
+    }
+
+    public static boolean isPrimitive(Class<?> typeClass) {
+        return PRIMITIVES.contains(typeClass);
     }
 
     public static int size() {

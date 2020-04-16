@@ -5,6 +5,7 @@ import com.reedelk.runtime.api.annotation.AutocompleteType;
 
 import java.io.Serializable;
 
+// TODO: remove the two generic args
 @AutocompleteType(
         description = "A typed content contains information about the payload " +
                 "which encapsulates. Information provided by type are payload type " +
