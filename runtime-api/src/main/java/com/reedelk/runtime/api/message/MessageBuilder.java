@@ -148,6 +148,8 @@ public class MessageBuilder {
 
     /**
      * Note that the mime type is only used for non Java only types, e.g byte array and String.
+     * For Java only types the mime type used is only MimeType.APPLICATION_JAVA. This is because
+     * it would not make sense to have a Java object with mime type MimeType.APPLICATION_JSON.
      */
     @SuppressWarnings("unchecked")
     public MessageBuilder withJavaObject(Object object, MimeType mimeType) {
