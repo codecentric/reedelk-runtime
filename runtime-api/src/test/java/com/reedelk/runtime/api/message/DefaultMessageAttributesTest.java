@@ -3,6 +3,8 @@ package com.reedelk.runtime.api.message;
 import com.reedelk.runtime.api.commons.TestComponent;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 import static com.reedelk.runtime.api.commons.ImmutableMap.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,6 +55,23 @@ class DefaultMessageAttributesTest {
 
         // When
         String attributeValue = attributes.get("compOnenT");
+
+        // Then
+        assertThat(attributeValue).isEqualTo(expectedComponentName);
+    }
+
+    @Test
+    void shouldOverrideExistingComponentName() {
+        // Given
+        Map<String, String> attributes = of(
+                "property1", "value1", "component",
+                "com.test.PreviousComponent");
+
+        String expectedComponentName = TestComponent.class.getName();
+        MessageAttributes messageAttributes = DefaultMessageAttributes.from(TestComponent.class, attributes);
+
+        // When
+        String attributeValue = messageAttributes.get("component");
 
         // Then
         assertThat(attributeValue).isEqualTo(expectedComponentName);

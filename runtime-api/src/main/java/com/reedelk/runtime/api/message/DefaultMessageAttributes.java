@@ -18,7 +18,6 @@ public final class DefaultMessageAttributes implements MessageAttributes, Serial
 
     private final TreeMap<String,Serializable> data = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
-    // TODO: Test that component name is overridden (e.g Payload set)
     private DefaultMessageAttributes(Class<? extends Component> component, Map<String, ? extends Serializable> attributes) {
         data.putAll(attributes);
         data.put(MessageAttributeKey.COMPONENT_NAME, component.getName());
