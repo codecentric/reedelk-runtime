@@ -317,6 +317,7 @@ public class MimeType implements Serializable {
         public static final String TEXT_XML = "text/xml";
         public static final String IMAGE_JPEG = "image/jpeg";
         public static final String APPLICATION_JSON = "application/json";
+        public static final String APPLICATION_JAVA = "application/java";
         public static final String APPLICATION_BINARY = "application/octet-stream";
     }
 
