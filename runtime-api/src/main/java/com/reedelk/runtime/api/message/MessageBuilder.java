@@ -146,6 +146,9 @@ public class MessageBuilder {
         return this;
     }
 
+    /**
+     * Note that the mime type is only used for non Java only types, e.g byte array and String.
+     */
     @SuppressWarnings("unchecked")
     public MessageBuilder withJavaObject(Object object, MimeType mimeType) {
         if (object == null) {
