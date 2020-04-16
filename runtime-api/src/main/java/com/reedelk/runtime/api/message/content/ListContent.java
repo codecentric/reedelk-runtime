@@ -9,25 +9,23 @@ import java.util.List;
 
 public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemType>> {
 
+    private final MimeType mimeType = MimeType.APPLICATION_JAVA;
     private final transient Publisher<ItemType> payloadAsStream;
     private final Class<ItemType> type;
-    private final MimeType mimeType;
 
     private List<ItemType> payload;
     private boolean consumed;
     private boolean streamReleased = false;
 
-    public ListContent(List<ItemType> payload, Class<ItemType> clazz, MimeType mimeType) {
+    public ListContent(List<ItemType> payload, Class<ItemType> clazz) {
         this.payloadAsStream = null;
-        this.mimeType = mimeType;
         this.payload = payload;
         this.type = clazz;
         this.consumed = true;
     }
 
-    public ListContent(Publisher<ItemType> payloadAsStream, Class<ItemType> type, MimeType mimeType) {
+    public ListContent(Publisher<ItemType> payloadAsStream, Class<ItemType> type) {
         this.type = type;
-        this.mimeType = mimeType;
         this.payloadAsStream = payloadAsStream;
         this.consumed = false;
     }

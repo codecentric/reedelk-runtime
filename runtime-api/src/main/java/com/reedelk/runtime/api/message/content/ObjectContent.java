@@ -7,31 +7,29 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 
 public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType> {
 
+    private final MimeType mimeType = MimeType.APPLICATION_JAVA;
     // The data as stream is transient because we never clone streams.
     // For components using this content (e.g Fork) the content it is first
     // resolved before being cloned.
     private final transient Mono<ItemType> dataAsStream;
     private final Class<ItemType> type;
-    private final MimeType mimeType;
 
     private ItemType data;
     private boolean consumed;
     private boolean streamReleased = false;
 
     @SuppressWarnings("unchecked")
-    public ObjectContent(ItemType data, MimeType mimeType) {
+    public ObjectContent(ItemType data) {
         checkNotNull(data,
                 "Cannot create object content with null data; use empty content instead");
         this.data = data;
-        this.mimeType = mimeType;
         this.type = (Class<ItemType>) data.getClass();
         this.dataAsStream = null;
         this.consumed = true;
     }
 
-    public ObjectContent(Mono<ItemType> monoStream, Class<ItemType> type, MimeType mimeType) {
+    public ObjectContent(Mono<ItemType> monoStream, Class<ItemType> type) {
         this.type = type;
-        this.mimeType = mimeType;
         this.dataAsStream = monoStream;
         this.consumed = false;
     }

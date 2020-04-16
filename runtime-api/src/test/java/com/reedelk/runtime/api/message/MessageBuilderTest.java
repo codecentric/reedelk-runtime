@@ -527,22 +527,6 @@ class MessageBuilderTest {
         }
 
         @Test
-        void shouldCorrectlyBuildObjectContentWithMonoStreamAndMimeType() {
-            // Given
-            Mono<MyItem> itemMono = Mono.just(new MyItem("One"));
-            MimeType mimeType = MimeType.IMAGE_JPEG;
-
-            // When
-            Message message = MessageBuilder.get().withJavaObject(itemMono,MyItem.class, mimeType).build();
-
-            // Then
-            TypedContent<MyItem,MyItem> content = message.content();
-            assertThat(content).isInstanceOf(ObjectContent.class);
-            assertThat(content.data()).isEqualTo(new MyItem("One"));
-            assertThat(content.mimeType()).isEqualTo(MimeType.IMAGE_JPEG);
-        }
-
-        @Test
         void shouldCorrectlyBuildObjectContentWithMonoStream() {
             // Given
             Mono<MyItem> itemMono = Mono.just(new MyItem("One"));
@@ -592,22 +576,6 @@ class MessageBuilderTest {
             assertThat(content).isInstanceOf(ListContent.class);
             assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
             assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
-        }
-
-        @Test
-        void shouldCorrectlyBuildListContentPayloadWithMimeType() {
-            // Given
-            List<MyItem> myCollection = asList(new MyItem("One"), new MyItem("Two"));
-            MimeType mimeType = MimeType.IMAGE_JPEG;
-
-            // When
-            Message message = MessageBuilder.get().withList(myCollection, MyItem.class, mimeType).build();
-
-            // Then
-            TypedContent<MyItem, List<MyItem>> content = message.content();
-            assertThat(content).isInstanceOf(ListContent.class);
-            assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
-            assertThat(content.mimeType()).isEqualTo(MimeType.IMAGE_JPEG);
         }
     }
 

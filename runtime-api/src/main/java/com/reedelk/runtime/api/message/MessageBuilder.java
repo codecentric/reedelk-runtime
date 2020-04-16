@@ -112,7 +112,7 @@ public class MessageBuilder {
             Publisher<byte[]> byteArrayStream = (Publisher<byte[]>) typedStream;
             this.typedContent = new ByteArrayContent(byteArrayStream, mimeType);
         } else {
-            this.typedContent = new ListContent<>(typedStream, clazz, mimeType);
+            this.typedContent = new ListContent<>(typedStream, clazz);
         }
         return this;
     }
@@ -141,28 +141,33 @@ public class MessageBuilder {
         return this;
     }
 
+    public <ItemType> MessageBuilder withJavaObject(Mono<ItemType> monoStream, Class<ItemType> type) {
+        this.typedContent = new ObjectContent<>(monoStream, type);
+        return this;
+    }
+
     @SuppressWarnings("unchecked")
     public MessageBuilder withJavaObject(Object object, MimeType mimeType) {
         if (object == null) {
             empty();
         } else if (object instanceof Flux) {
             Flux<Object> objectStream = (Flux<Object>) object;
-            this.typedContent = new ListContent<>(objectStream, Object.class, mimeType);
+            this.typedContent = new ListContent<>(objectStream, Object.class);
         } else if (object instanceof Mono) {
             // A mono is considered a single object content. This is needed for instance when
             // we have Attachments map from REST Listener. The REST Listener mapper forces us
             // to have a map of Attachments inside a Mono.
             Mono<Object> objectStream = (Mono<Object>) object;
-            this.typedContent = new ObjectContent<>(objectStream, Object.class, mimeType);
+            this.typedContent = new ObjectContent<>(objectStream, Object.class);
         } else if (object instanceof String) {
             this.typedContent = new StringContent((String) object, mimeType);
         } else if (object instanceof byte[]) {
             this.typedContent = new ByteArrayContent((byte[]) object, mimeType);
         } else if (object instanceof List) {
             List<Object> list = (List<Object>) object;
-            this.typedContent = new ListContent<>(list, Object.class, mimeType);
+            this.typedContent = new ListContent<>(list, Object.class);
         } else {
-            this.typedContent = new ObjectContent<>(object, mimeType);
+            this.typedContent = new ObjectContent<>(object);
         }
         return this;
     }
@@ -174,25 +179,10 @@ public class MessageBuilder {
         return this;
     }
 
-    public <ItemType> MessageBuilder withJavaObject(Mono<ItemType> monoStream, Class<ItemType> type, MimeType mimeType) {
-        this.typedContent = new ObjectContent<>(monoStream, type, mimeType);
-        return this;
-    }
-
-    public <ItemType> MessageBuilder withJavaObject(Mono<ItemType> monoStream, Class<ItemType> type) {
-        this.typedContent = new ObjectContent<>(monoStream, type, MimeType.APPLICATION_JAVA);
-        return this;
-    }
-
     // LIST
 
     public <ItemType> MessageBuilder withList(List<ItemType> list, Class<ItemType> listItemType) {
-        this.typedContent = new ListContent<>(list, listItemType, MimeType.APPLICATION_JAVA);
-        return this;
-    }
-
-    public <ItemType> MessageBuilder withList(List<ItemType> list, Class<ItemType> listItemType, MimeType mimeType) {
-        this.typedContent = new ListContent<>(list, listItemType, mimeType);
+        this.typedContent = new ListContent<>(list, listItemType);
         return this;
     }
 

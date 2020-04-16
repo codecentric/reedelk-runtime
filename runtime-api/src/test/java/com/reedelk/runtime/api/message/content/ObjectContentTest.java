@@ -12,7 +12,7 @@ class ObjectContentTest {
         // Given
         MyItem item1 = new MyItem();
         Mono<MyItem> itemMono = Mono.just(item1);
-        ObjectContent<MyItem> content = new ObjectContent<>(itemMono, MyItem.class, MimeType.APPLICATION_JAVA);
+        ObjectContent<MyItem> content = new ObjectContent<>(itemMono, MyItem.class);
 
         // When
         boolean stream = content.isStream();
