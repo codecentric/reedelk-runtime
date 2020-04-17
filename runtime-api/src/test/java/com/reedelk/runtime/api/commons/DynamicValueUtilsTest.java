@@ -1,5 +1,6 @@
 package com.reedelk.runtime.api.commons;
 
+import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import org.junit.jupiter.api.Test;
 
@@ -101,5 +102,53 @@ class DynamicValueUtilsTest {
 
         // Then
         assertThat(actual).isFalse();
+    }
+
+    @Test
+    void shouldReturnFalseWhenDynamicObjectWithEmptyString() {
+        // Given
+        DynamicObject given = DynamicObject.from("");
+
+        // When
+        boolean actual = DynamicValueUtils.isNotNullOrBlank(given);
+
+        // Then
+        assertThat(actual).isFalse();
+    }
+
+    @Test
+    void shouldReturnTrueWhenDynamicObjectWithNotEmptyString() {
+        // Given
+        DynamicObject given = DynamicObject.from("This is a test");
+
+        // When
+        boolean actual = DynamicValueUtils.isNotNullOrBlank(given);
+
+        // Then
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void shouldReturnTrueWhenDynamicObjectWithEmptyScript() {
+        // Given
+        DynamicObject given = DynamicObject.from("#[]", new ModuleContext(10L));
+
+        // When
+        boolean actual = DynamicValueUtils.isNotNullOrBlank(given);
+
+        // Then
+        assertThat(actual).isFalse();
+    }
+
+    @Test
+    void shouldReturnTrueWhenDynamicObjectWithNotEmptyScript() {
+        // Given
+        DynamicObject given = DynamicObject.from("#[ 2 + 3 ]", new ModuleContext(10L));
+
+        // When
+        boolean actual = DynamicValueUtils.isNotNullOrBlank(given);
+
+        // Then
+        assertThat(actual).isTrue();
     }
 }

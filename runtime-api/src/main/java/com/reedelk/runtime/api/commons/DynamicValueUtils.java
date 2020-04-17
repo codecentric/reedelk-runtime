@@ -23,6 +23,11 @@ public class DynamicValueUtils {
             return ScriptUtils.isNotBlank(dynamicValue.body());
         } else if (dynamicValue instanceof DynamicString) {
             return StringUtils.isNotBlank(((DynamicString) dynamicValue).value());
+        } else if (dynamicValue.value() instanceof String){
+            // A DynamicObject might have a String value (when it is not a Dynamic expression).
+            // Therefore we might have dynamic values not with type DynamicString having a
+            // static string value.
+            return StringUtils.isNotBlank((String) dynamicValue.value());
         } else {
             return dynamicValue.value() != null;
         }
