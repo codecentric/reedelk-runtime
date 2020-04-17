@@ -4,6 +4,7 @@ import com.reedelk.runtime.api.annotation.AutocompleteItem;
 import com.reedelk.runtime.api.annotation.AutocompleteType;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -113,4 +114,19 @@ public interface DataRow<T extends Serializable> extends Serializable {
             description = "Returns a single attribute of this row such as the column types for a Database data row.")
     Serializable attribute(String name);
 
+    @AutocompleteItem(
+            signature = "asMap()",
+            example = "row.asMap()",
+            description = "Returns this data row as map. " +
+                    "The map keys are the column names and map values are the values corresponding " +
+                    "to the mapped column name.")
+    default Map<String, T> asMap() {
+        List<String> columnNames = getColumnNames();
+        Map<String, T> out = new HashMap<>();
+        for (String columnName : columnNames) {
+            T value = getByColumnName(columnName);
+            out.put(columnName, value);
+        }
+        return out;
+    }
 }
