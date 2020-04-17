@@ -487,22 +487,12 @@ public class MimeType implements Serializable {
         }
 
         @Override
-        public String key() {
+        public String getLeft() {
             return primaryType;
         }
 
         @Override
-        public String value() {
-            return subType;
-        }
-
-        @Override
-        public String getKey() {
-            return primaryType;
-        }
-
-        @Override
-        public String getValue() {
+        public String getRight() {
             return subType;
         }
 
@@ -513,16 +503,6 @@ public class MimeType implements Serializable {
 
         @Override
         public String right() {
-            return subType;
-        }
-
-        @Override
-        public String getLeft() {
-            return primaryType;
-        }
-
-        @Override
-        public String getRight() {
             return subType;
         }
 

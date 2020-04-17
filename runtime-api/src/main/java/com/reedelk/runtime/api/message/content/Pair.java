@@ -9,35 +9,19 @@ import java.io.Serializable;
  */
 public interface Pair<L extends Serializable, R extends Serializable> extends Serializable {
 
-    L getKey();
+    L getLeft();
 
-    R getValue();
-
-    default L key() {
-        return getKey();
-    }
-
-    default R value() {
-        return getValue();
-    }
+    R getRight();
 
     default L left() {
-        return getKey();
+        return getLeft();
     }
 
     default R right() {
-        return getValue();
+        return getRight();
     }
 
-    default L getLeft() {
-        return getKey();
-    }
-
-    default R getRight() {
-        return getValue();
-    }
-
-    static <L extends Serializable, R extends Serializable> Pair<L,R> create(L key, R value) {
-        return new SerializablePair<>(key, value);
+    static <L extends Serializable, R extends Serializable> Pair<L,R> create(L left, R right) {
+        return new SerializablePair<>(left, right);
     }
 }
