@@ -15,6 +15,7 @@ Clone the Reedelk runtime and all the modules repositories.
 $ git clone https://github.com/reedelk/reedelk-runtime.git
 $ git clone https://github.com/reedelk/module-core.git
 $ git clone https://github.com/reedelk/module-csv.git
+$ git clone https://github.com/reedelk/module-ftp.git
 $ git clone https://github.com/reedelk/module-database.git
 $ git clone https://github.com/reedelk/module-file.git
 $ git clone https://github.com/reedelk/module-json.git
