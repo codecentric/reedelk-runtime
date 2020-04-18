@@ -521,7 +521,8 @@ class FlowTest {
                 }
             });
 
-            Message outMessage = MessageBuilder.get(TestComponent.class).withStream(stringFlux, String.class).build();
+            Message outMessage = MessageBuilder.get(TestComponent.class)
+                    .withTypedPublisher(TypedPublisher.fromString(stringFlux)).build();
 
             doAnswer(invocation -> {
                 OnResult callback = invocation.getArgument(1);
