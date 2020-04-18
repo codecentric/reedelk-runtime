@@ -1,33 +1,48 @@
-# Reedelk Runtime
+# Reedelk Runtime Platform (Community Edition)
 
-Reedelk runtime project set up.
+Reedelk is a lightweight integration platform which allows to design, build and execute integration flows connecting data and applications.
+Reedelk Integration Flow Designer helps companies building API-led integrations using an easy to use and integrated development studio for IntelliJ IDE: https://plugins.jetbrains.com/plugin/13420-reedelk-flow-designer.
 
-#### Installation
-* git clone https://bitbucket.org/reedelk/runtime.git
-* git clone https://bitbucket.org/reedelk/modules.git
-* git clone https://bitbucket.org/reedelk/module-core.git
-* git clone https://bitbucket.org/reedelk/module-csv.git
-* git clone https://bitbucket.org/reedelk/module-database.git
-* git clone https://bitbucket.org/reedelk/module-file.git
-* git clone https://bitbucket.org/reedelk/module-json.git
-* git clone https://bitbucket.org/reedelk/module-mail.git
-* git clone https://bitbucket.org/reedelk/module-rabbitmq.git
-* git clone https://bitbucket.org/reedelk/module-rest.git
-* git clone https://bitbucket.org/reedelk/module-scheduler.git
-* git clone https://bitbucket.org/reedelk/module-xml.git
+Reedelk Reference Documentation: https://www.reedelk.com/documentation
 
-* cd runtime
-* mvn clean
-* mvn install
-* cd ../modules
-* mvn clean
-* mvn install
+## Development environment setup
 
-#### Importing the project in IntelliJ
+### Installation
 
-Select File -> Open -> Select {sources_dir}/parent/pom.xml -> When prompted select "Open as a project"
+Clone the Reedelk runtime and all the modules repositories.
 
-#### Running the runtime on Java 11
+```
+$ git clone https://github.com/reedelk/reedelk-runtime.git
+$ git clone https://github.com/reedelk/module-core.git
+$ git clone https://github.com/reedelk/module-csv.git
+$ git clone https://github.com/reedelk/module-database.git
+$ git clone https://github.com/reedelk/module-file.git
+$ git clone https://github.com/reedelk/module-json.git
+$ git clone https://github.com/reedelk/module-mail.git
+$ git clone https://github.com/reedelk/module-mongodb.git
+$ git clone https://github.com/reedelk/module-rabbitmq.git
+$ git clone https://github.com/reedelk/module-rest.git
+$ git clone https://github.com/reedelk/module-scheduler.git
+$ git clone https://github.com/reedelk/module-xml.git
+$ git clone https://github.com/reedelk/modules.git
+```
+
+Compile reedelk-runtime and all the modules
+```
+$ cd reedelk-runtime
+$ mvn clean
+$ mvn install
+$ cd ../modules
+$ mvn clean
+$ mvn install
+```
+
+### Importing the project in IntelliJ
+
+1. Select File -> Open -> Select {sources_dir}/reedelk-runtime/pom.xml -> When prompted select "Open as a project"
+2. Import Modules -> Select {sources_dir}/modules/pom.xml
+
+### Running the runtime on Java 11
 
 Add to IntelliJ a new run config with the following VM options (only if you are running on JDK 11):
 
@@ -39,7 +54,7 @@ Main class to be used for Run Configuration config: com.reedelk.runtime.Launcher
 
 See attached image 'intellij-application-config.png' for the 'Application' configuration settings in IntelliJ.
 
-#### Build Tools
+### Build Tools
 
 - JDK 8 / JDK 11
 - Apache Maven 3.6.0
