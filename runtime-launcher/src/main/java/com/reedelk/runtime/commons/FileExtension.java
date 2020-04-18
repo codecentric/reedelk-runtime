@@ -4,7 +4,6 @@ import java.io.File;
 
 public enum FileExtension {
 
-    LICENSE(".lic"),
     JAR(".jar");
 
     public final String val;

@@ -83,7 +83,7 @@ public class Application {
             install(bundleResourceURL.getFile(), bundleInputStream);
         } catch (IOException exception) {
             String errorMessage = message("runtime.install.system.bundle.error", bundleName);
-            throw new ESBRuntimeException(errorMessage, exception);
+            throw new PlatformLauncherException(errorMessage, exception);
         }
     }
 
@@ -120,7 +120,7 @@ public class Application {
             }
         } catch (BundleException exception) {
             String errorMessage = message("runtime.install.module.error", file.toString(), exception.getMessage());
-            throw new ESBRuntimeException(errorMessage, exception);
+            throw new PlatformLauncherException(errorMessage, exception);
         }
     }
 

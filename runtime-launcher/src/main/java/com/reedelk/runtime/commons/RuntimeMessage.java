@@ -1,6 +1,6 @@
 package com.reedelk.runtime.commons;
 
-import com.reedelk.runtime.ESBRuntimeException;
+import com.reedelk.runtime.PlatformLauncherException;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -13,12 +13,11 @@ public class RuntimeMessage extends Properties {
         try {
             load(RuntimeMessage.class.getResourceAsStream("/messages.properties"));
         } catch (IOException e) {
-            throw new ESBRuntimeException("Error loading runtime message properties", e);
+            throw new PlatformLauncherException("Error loading runtime message properties", e);
         }
     }
 
     public static String message(String key, Object ...args) {
         return String.format(INSTANCE.getProperty(key), args);
     }
-
 }
