@@ -22,12 +22,12 @@ public interface Message extends Serializable {
             description = "Returns the payload (data) of the message. " +
                     "The payload could be a text, a byte array, a collection " +
                     "and so on depending on the component which generated it.")
-    <PayloadType> PayloadType payload();
+    <Type> Type payload();
 
     /*
      * This method is needed by Script engine to access this object's properties.
      */
-    <ItemType,PayloadType, R extends TypedContent<ItemType,PayloadType>> R getContent();
+    <Type, StreamType, R extends TypedContent<Type, StreamType>> R getContent();
 
     /**
      *
@@ -41,7 +41,7 @@ public interface Message extends Serializable {
             description = "Returns the content descriptor of this message. " +
                     "The message content contains information about the payload's mime type, " +
                     "data type and stream status.")
-    <ItemType,PayloadType, R extends TypedContent<ItemType,PayloadType>> R content();
+    <Type, StreamType, R extends TypedContent<Type, StreamType>> R content();
 
     /**
      * This method is needed by Script engine to access this object's properties.

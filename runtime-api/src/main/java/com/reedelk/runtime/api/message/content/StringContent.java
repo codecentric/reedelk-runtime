@@ -37,6 +37,11 @@ public class StringContent implements TypedContent<String,String> {
     }
 
     @Override
+    public Class<String> streamType() {
+        return type;
+    }
+
+    @Override
     public MimeType mimeType() {
         return mimeType;
     }

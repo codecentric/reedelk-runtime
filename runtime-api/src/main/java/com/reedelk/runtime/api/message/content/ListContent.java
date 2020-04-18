@@ -7,32 +7,38 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 
-public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemType>> {
+@SuppressWarnings("rawtypes")
+public class ListContent<StreamType> implements TypedContent<List, StreamType> {
 
     private final MimeType mimeType = MimeType.APPLICATION_JAVA;
-    private final transient Publisher<ItemType> payloadAsStream;
-    private final Class<ItemType> type;
+    private final transient Publisher<StreamType> payloadAsStream;
+    private final Class<StreamType> streamType;
 
-    private List<ItemType> payload;
+    private List<StreamType> payload;
     private boolean consumed;
     private boolean streamReleased = false;
 
-    public ListContent(List<ItemType> payload, Class<ItemType> clazz) {
+    public ListContent(List<StreamType> payload, Class<StreamType> streamType) {
         this.payloadAsStream = null;
+        this.streamType = streamType;
         this.payload = payload;
-        this.type = clazz;
         this.consumed = true;
     }
 
-    public ListContent(Publisher<ItemType> payloadAsStream, Class<ItemType> type) {
-        this.type = type;
+    public ListContent(Publisher<StreamType> payloadAsStream, Class<StreamType> streamType) {
+        this.streamType = streamType;
         this.payloadAsStream = payloadAsStream;
         this.consumed = false;
     }
 
     @Override
-    public Class<ItemType> type() {
-        return type;
+    public Class<List> type() {
+        return List.class;
+    }
+
+    @Override
+    public Class<StreamType> streamType() {
+        return streamType;
     }
 
     @Override
@@ -41,19 +47,19 @@ public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemTy
     }
 
     @Override
-    public List<ItemType> data() {
+    public List<StreamType> data() {
         consumeIfNeeded();
         return payload;
     }
 
     @Override
-    public TypedPublisher<ItemType> stream() {
+    public TypedPublisher<StreamType> stream() {
         // If it is consumed, we just return the
         // payload as a single item stream.
         if (consumed) {
             // If it is consumed, we know that the state cannot change anymore.
             // Convert back list to stream.
-            return TypedPublisher.from(Flux.fromStream(payload.stream()), type);
+            return TypedPublisher.from(Flux.fromStream(payload.stream()), streamType);
         }
 
         // If not consumed, we  must acquire a lock because a concurrent call to
@@ -64,11 +70,11 @@ public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemTy
                     throw new PlatformException("Stream has been already released. This payload cannot be consumed anymore.");
                 }
                 streamReleased = true; // the original stream has been released. The original stream cannot be consumed anymore.
-                return TypedPublisher.fromObject(payloadAsStream, type);
+                return TypedPublisher.fromObject(payloadAsStream, streamType);
             } else {
                 // Meanwhile it has been consumed.
                 // Convert back list to stream.
-                return TypedPublisher.from(Flux.fromStream(payload.stream()), type);
+                return TypedPublisher.from(Flux.fromStream(payload.stream()), streamType);
             }
         }
     }
@@ -104,7 +110,7 @@ public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemTy
     public String toString() {
         if (consumed) {
             return "ListContent{" +
-                    "type=" + type.getName() +
+                    "type=" + streamType.getName() +
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
@@ -112,7 +118,7 @@ public class ListContent<ItemType> implements TypedContent<ItemType, List<ItemTy
                     '}';
         } else {
             return "ListContent{" +
-                    "type=" + type.getName() +
+                    "type=" + streamType.getName() +
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +

@@ -24,18 +24,18 @@ public class DisposableContextAwareMessage implements Message {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <ItemType, PayloadType, R extends TypedContent<ItemType, PayloadType>> R getContent() {
+    public <Type, StreamType, R extends TypedContent<Type, StreamType>> R getContent() {
         return (R) content;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <ItemType, PayloadType, R extends TypedContent<ItemType, PayloadType>> R content() {
+    public <Type, StreamType, R extends TypedContent<Type, StreamType>> R content() {
         return (R) content;
     }
 
     @Override
-    public <PayloadType> PayloadType payload() {
+    public <Type> Type payload() {
         return delegate.payload();
     }
 
@@ -53,21 +53,26 @@ public class DisposableContextAwareMessage implements Message {
         return content.shouldDispose();
     }
 
-    private static class TypedContentWrapper<ItemType,PayloadType> implements TypedContent<ItemType,PayloadType> {
+    private static class TypedContentWrapper<Type, StreamType> implements TypedContent<Type, StreamType> {
 
         private transient final FlowContext context;
-        private final TypedContent<ItemType, PayloadType> delegate;
+        private final TypedContent<Type, StreamType> delegate;
 
         private boolean shouldDispose = true;
 
-        TypedContentWrapper(TypedContent<ItemType,PayloadType> delegate, FlowContext context) {
+        TypedContentWrapper(TypedContent<Type, StreamType> delegate, FlowContext context) {
             this.context = context;
             this.delegate = delegate;
         }
 
         @Override
-        public Class<ItemType> type() {
+        public Class<Type> type() {
             return delegate.type();
+        }
+
+        @Override
+        public Class<StreamType> streamType() {
+            return delegate.streamType();
         }
 
         @Override
@@ -76,7 +81,7 @@ public class DisposableContextAwareMessage implements Message {
         }
 
         @Override
-        public PayloadType data() {
+        public Type data() {
             return delegate.data();
         }
 
@@ -87,11 +92,11 @@ public class DisposableContextAwareMessage implements Message {
          * @return a wrapped publisher in which the context is disposed at the end of the stream.
          */
         @Override
-        public TypedPublisher<ItemType> stream() {
+        public TypedPublisher<StreamType> stream() {
             synchronized (this) {
-                TypedPublisher<ItemType> stream = delegate.stream();
-                Flux<ItemType> itemTypeFlux = Flux.from(stream).doOnTerminate(context::dispose);
-                TypedPublisher<ItemType> resultStream = TypedPublisher.from(itemTypeFlux, stream.getType());
+                TypedPublisher<StreamType> stream = delegate.stream();
+                Flux<StreamType> itemTypeFlux = Flux.from(stream).doOnTerminate(context::dispose);
+                TypedPublisher<StreamType> resultStream = TypedPublisher.from(itemTypeFlux, stream.getType());
                 shouldDispose = false; // this is because the context is disposed only after the stream has been consumed (doOnTerminate).
                 return resultStream;
             }

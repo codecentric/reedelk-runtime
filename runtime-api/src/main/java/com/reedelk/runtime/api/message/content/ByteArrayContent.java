@@ -4,15 +4,17 @@ import com.reedelk.runtime.api.commons.StreamUtils;
 import com.reedelk.runtime.api.exception.PlatformException;
 import org.reactivestreams.Publisher;
 
+import java.util.Arrays;
+
 public class ByteArrayContent implements TypedContent<byte[],byte[]> {
 
     private final transient Publisher<byte[]> dataAsStream;
     private final Class<byte[]> type = byte[].class;
     private final MimeType mimeType;
 
-    private byte[] data;
-    private boolean consumed;
     private boolean streamReleased = false;
+    private boolean consumed;
+    private byte[] data;
 
     public ByteArrayContent(byte[] data, MimeType mimeType) {
         this.dataAsStream = null;
@@ -36,6 +38,11 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
 
     @Override
     public Class<byte[]> type() {
+        return type;
+    }
+
+    @Override
+    public Class<byte[]> streamType() {
         return type;
     }
 
@@ -95,7 +102,7 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
                     ", mimeType=" + mimeType +
                     ", consumed=" + consumed +
                     ", streamReleased=" + streamReleased +
-                    ", data=" + data +
+                    ", data=" + toPrintableString(data) +
                     '}';
         } else {
             return "ByteArray{" +
@@ -129,5 +136,21 @@ public class ByteArrayContent implements TypedContent<byte[],byte[]> {
             bytes[i] = oBytes[i];
         }
         return bytes;
+    }
+
+    // Avoids printing to output the whole byte array.
+    private String toPrintableString(byte[] data) {
+        if (data == null) return null;
+        if (data.length < 6) {
+            return Arrays.toString(data);
+        } else {
+            StringBuilder byteArrayString = new StringBuilder("[");
+            for (int i = 0; i < 5; i++) {
+                byteArrayString.append(data[i]);
+                byteArrayString.append(", ");
+            }
+            byteArrayString.append("...]");
+            return byteArrayString.toString();
+        }
     }
 }

@@ -41,8 +41,8 @@ public class Attachment implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    public <PayloadType> PayloadType payload() {
-        return (PayloadType) Optional.ofNullable(content)
+    public <Type> Type payload() {
+        return (Type) Optional.ofNullable(content)
                 .map(TypedContent::data)
                 .orElse(null);
     }
@@ -52,13 +52,13 @@ public class Attachment implements Serializable {
             example = "attachment.content()",
             description = "Returns the content of the attachment.")
     @SuppressWarnings("unchecked")
-    public <ItemType,PayloadType, R extends TypedContent<ItemType, PayloadType>> R content() {
-        return (R) content;
+    public <Type, StreamType, T extends TypedContent<Type, StreamType>> T content() {
+        return (T) content;
     }
 
     @SuppressWarnings("unchecked")
-    public <ItemType,PayloadType, R extends TypedContent<ItemType, PayloadType>> R getContent() {
-        return (R) content;
+    public <Type, StreamType, T extends TypedContent<Type, StreamType>> T getContent() {
+        return (T) content;
     }
 
     @AutocompleteItem(

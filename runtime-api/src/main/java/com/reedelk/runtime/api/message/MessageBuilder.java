@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Test new methods
 public class MessageBuilder {
 
     private TypedContent<?,?> typedContent;
@@ -107,41 +106,33 @@ public class MessageBuilder {
         return this;
     }
 
-    // TYPED STREAM
+    // TYPED PUBLISHER
+
+    public <StreamType> MessageBuilder withTypedPublisher(TypedPublisher<StreamType> typedPublisher) {
+        withStream(typedPublisher, typedPublisher.getType(), MimeType.APPLICATION_JAVA);
+        return this;
+    }
+
+    public <StreamType> MessageBuilder withTypedPublisher(TypedPublisher<StreamType> typedPublisher, MimeType mimeType) {
+        withStream(typedPublisher, typedPublisher.getType(), mimeType);
+        return this;
+    }
 
     @SuppressWarnings("unchecked")
-    public <ItemType> MessageBuilder withStream(Publisher<ItemType> typedStream, Class<ItemType> clazz, MimeType mimeType) {
+    private <StreamType> void withStream(TypedPublisher<StreamType> typedStream, Class<StreamType> clazz, MimeType mimeType) {
         if (String.class.equals(clazz)) {
-            Publisher<String> stringStream = (Publisher<String>) typedStream;
+            TypedPublisher<String> stringStream = (TypedPublisher<String>) typedStream;
             this.typedContent = new StringContent(stringStream, mimeType);
         } else if (byte[].class.equals(clazz)) {
-            Publisher<byte[]> byteArrayStream = (Publisher<byte[]>) typedStream;
+            TypedPublisher<byte[]> byteArrayStream = (TypedPublisher<byte[]>) typedStream;
             this.typedContent = new ByteArrayContent(byteArrayStream, mimeType);
         } else if (Byte[].class.equals(clazz)) {
-            Publisher<Byte[]> byteArrayStream = (Publisher<Byte[]>) typedStream;
+            TypedPublisher<Byte[]> byteArrayStream = (TypedPublisher<Byte[]>) typedStream;
             Publisher<byte[]> byteArray = Flux.from(byteArrayStream).map(ByteArrayContent::toPrimitives);
             this.typedContent = new ByteArrayContent(byteArray, mimeType);
         } else {
             this.typedContent = new ListContent<>(typedStream, clazz);
         }
-        return this;
-    }
-
-    public <ItemType> MessageBuilder withStream(Publisher<ItemType> typedStream, Class<ItemType> clazz) {
-        withStream(typedStream, clazz, MimeType.APPLICATION_JAVA);
-        return this;
-    }
-
-    // TYPED PUBLISHER
-
-    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher) {
-        withStream(typedPublisher, typedPublisher.getType());
-        return this;
-    }
-
-    public <ItemType> MessageBuilder withTypedPublisher(TypedPublisher<ItemType> typedPublisher, MimeType mimeType) {
-        withStream(typedPublisher, typedPublisher.getType(), mimeType);
-        return this;
     }
 
     // JAVA OBJECT

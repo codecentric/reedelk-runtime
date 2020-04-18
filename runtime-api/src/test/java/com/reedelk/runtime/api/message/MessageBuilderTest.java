@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -298,85 +299,6 @@ class MessageBuilderTest {
     }
 
     @Nested
-    @DisplayName("Typed Stream")
-    class TypedStreamTests {
-
-        @Test
-        void shouldCorrectlyBuildStringStreamPayload() {
-            // Given
-            Publisher<String> csv = Flux.just("item1,", "item2,", "item3");
-
-            // When
-            Message message = MessageBuilder.get(MyComponent.class).withStream(csv, String.class).build();
-
-            // Then
-            String expectedValue = "item1,item2,item3";
-
-            TypedContent<String, String> content = message.content();
-            assertThat(content).isInstanceOf(StringContent.class);
-            assertThat(content.data()).isEqualTo(expectedValue);
-            assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
-        }
-
-        @Test
-        void shouldCorrectlyBuildStringStreamPayloadWithMimeType() {
-            // Given
-            Publisher<String> csv = Flux.just("item1,", "item2,", "item3");
-            MimeType mimeType = MimeType.TEXT_CSV;
-
-            // When
-            Message message = MessageBuilder.get(MyComponent.class).withStream(csv, String.class, mimeType).build();
-
-            // Then
-            String expectedValue = "item1,item2,item3";
-
-            TypedContent<String, String> content = message.content();
-            assertThat(content).isInstanceOf(StringContent.class);
-            assertThat(content.data()).isEqualTo(expectedValue);
-            assertThat(content.mimeType()).isEqualTo(MimeType.TEXT_CSV);
-        }
-
-        @Test
-        void shouldCorrectlyBuildBinaryStreamPayload() {
-            // Given
-            Publisher<byte[]> binaryStream = Flux.just("my".getBytes(), "sample".getBytes(), "text".getBytes());
-
-            // When
-            Message message = MessageBuilder.get(MyComponent.class).withStream(binaryStream, byte[].class).build();
-
-            // Then
-            byte[] expectedValue = "mysampletext".getBytes();
-
-            TypedContent<byte[], byte[]> content = message.content();
-            assertThat(content).isInstanceOf(ByteArrayContent.class);
-            assertThat(content.data()).isEqualTo(expectedValue);
-            assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
-        }
-
-        @Test
-        void shouldCorrectlyBuildCustomObjectStreamPayload() {
-            // Given
-            Publisher<MyItem> myItemStream = Flux.just(
-                    new MyItem("One"),
-                    new MyItem("Two"),
-                    new MyItem("Three"));
-
-            // When
-            Message message = MessageBuilder.get(MyComponent.class).withStream(myItemStream, MyItem.class).build();
-
-            // Then
-            TypedContent<MyItem, List<MyItem>> content = message.content();
-            assertThat(content).isInstanceOf(ListContent.class);
-            StepVerifier.create(content.stream())
-                    .expectNext(new MyItem("One"))
-                    .expectNext(new MyItem("Two"))
-                    .expectNext(new MyItem("Three"))
-                    .verifyComplete();
-            assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
-        }
-    }
-
-    @Nested
     @DisplayName("Typed Publisher")
     class TypedPublisherTests {
 
@@ -413,6 +335,48 @@ class MessageBuilderTest {
             assertThat(content).isInstanceOf(StringContent.class);
             assertThat(content.data()).isEqualTo(expectedValue);
             assertThat(content.mimeType()).isEqualTo(mimeType);
+        }
+
+        @SuppressWarnings("rawtypes")
+        @Test
+        void shouldCorrectlyBuildListContentFromTypedPublisher() {
+            // Given
+            DataRow<Serializable> row1 = DefaultDataRow.create(asList("column1", "column2"), asList(1, 2));
+            DataRow<Serializable> row2 = DefaultDataRow.create(asList("column1", "column2"), asList(1, 2));
+            TypedPublisher<DataRow> stream = TypedPublisher.from(Flux.just(row1, row2), DataRow.class);
+
+            // When
+            Message message = MessageBuilder.get(MyComponent.class).withTypedPublisher(stream).build();
+
+            // Then
+            TypedContent<List<DataRow>, DataRow> content = message.content();
+            assertThat(content).isInstanceOf(ListContent.class);
+            assertThat(content.isStream()).isTrue();
+            assertThat(content.getStreamType()).isEqualTo(DataRow.class);
+            assertThat(content.getType()).isEqualTo(List.class);
+            assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
+            assertThat(content.data()).isEqualTo(Arrays.asList(row1, row2));
+        }
+
+        @Test
+        void shouldCorrectlyBuildByteStreamPayloadWithMimeType() {
+            // Given
+            byte[] bytes1 = "item1,".getBytes();
+            byte[] bytes2 = "item2,".getBytes();
+            TypedPublisher<byte[]> byteStream = TypedPublisher.fromByteArray(Flux.just(bytes1, bytes2));
+            MimeType mimeType = MimeType.APPLICATION_BINARY;
+
+            // When
+            Message message = MessageBuilder.get(MyComponent.class).withTypedPublisher(byteStream, mimeType).build();
+
+            // Then
+            TypedContent<byte[], byte[]> content = message.content();
+            assertThat(content).isInstanceOf(ByteArrayContent.class);
+            assertThat(content.mimeType()).isEqualTo(mimeType);
+            StepVerifier.create(content.stream())
+                    .expectNext(bytes1)
+                    .expectNext(bytes2)
+                    .verifyComplete();
         }
     }
 
@@ -459,7 +423,7 @@ class MessageBuilderTest {
             Message message = MessageBuilder.get(MyComponent.class).withJavaObject(items).build();
 
             // Then
-            TypedContent<MyItem, List<MyItem>> content = message.content();
+            TypedContent<List<MyItem>, MyItem> content = message.content();
             assertThat(content).isInstanceOf(ListContent.class);
             assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
             assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
@@ -551,7 +515,7 @@ class MessageBuilderTest {
             Message message = MessageBuilder.get(MyComponent.class).withJavaObject(items).build();
 
             // Then
-            TypedContent<MyItem, List<MyItem>> content = message.content();
+            TypedContent<List<MyItem>, MyItem> content = message.content();
             assertThat(content).isInstanceOf(ListContent.class);
 
             List<MyItem> actualData = content.data();
@@ -573,7 +537,7 @@ class MessageBuilderTest {
             Message message = MessageBuilder.get(MyComponent.class).withList(myCollection, MyItem.class).build();
 
             // Then
-            TypedContent<MyItem, List<MyItem>> content = message.content();
+            TypedContent<List<MyItem>, MyItem> content = message.content();
             assertThat(content).isInstanceOf(ListContent.class);
             assertThat(content.data()).containsExactlyInAnyOrder(new MyItem("One"), new MyItem("Two"));
             assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);

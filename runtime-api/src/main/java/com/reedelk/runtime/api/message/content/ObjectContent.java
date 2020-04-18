@@ -44,6 +44,11 @@ public class ObjectContent<ItemType> implements TypedContent<ItemType, ItemType>
     }
 
     @Override
+    public Class<ItemType> streamType() {
+        return type;
+    }
+
+    @Override
     public MimeType mimeType() {
         return mimeType;
     }

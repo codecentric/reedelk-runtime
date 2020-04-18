@@ -21,6 +21,11 @@ public class EmptyContent implements TypedContent<Void,Void> {
     }
 
     @Override
+    public Class<Void> streamType() {
+        return type;
+    }
+
+    @Override
     public MimeType mimeType() {
         return mimeType;
     }
