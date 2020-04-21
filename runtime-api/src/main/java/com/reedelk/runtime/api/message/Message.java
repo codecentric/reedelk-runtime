@@ -13,7 +13,23 @@ import java.io.Serializable;
 public interface Message extends Serializable {
 
     /**
-     * Returns the message payload. This method automatically resolves the payload.
+     * Returns the message payload. This method automatically consumes
+     * the payload stream if it is a stream.
+     */
+    @AutocompleteItem(
+            returnType = Object.class,
+            signature = "getPayload()",
+            example = "message.getPayload()",
+            description = "Returns the payload (data) of the message. " +
+                    "The payload could be a text, a byte array, a collection " +
+                    "and so on depending on the component which generated it.")
+    default <Type> Type getPayload() {
+        return payload();
+    }
+
+    /**
+     * Returns the message payload. This method automatically consumes
+     * the payload stream if it is a stream.
      */
     @AutocompleteItem(
             returnType = Object.class,

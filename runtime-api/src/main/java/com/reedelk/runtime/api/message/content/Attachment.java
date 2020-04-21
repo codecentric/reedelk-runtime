@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @AutocompleteType(description = "An attachment encapsulates an HTTP multipart form data object or an email attachment.")
+@SuppressWarnings("unchecked")
 public class Attachment implements Serializable {
 
     private final String name;
@@ -40,7 +41,10 @@ public class Attachment implements Serializable {
         return name;
     }
 
-    @SuppressWarnings("unchecked")
+    @AutocompleteItem(
+            signature = "payload()",
+            example = "attachment.payload()",
+            description = "Returns the payload of the attachment.")
     public <Type> Type payload() {
         return (Type) Optional.ofNullable(content)
                 .map(TypedContent::data)
@@ -48,15 +52,21 @@ public class Attachment implements Serializable {
     }
 
     @AutocompleteItem(
+            signature = "getPayload()",
+            example = "attachment.getPayload()",
+            description = "Returns the payload of the attachment.")
+    public <Type> Type getPayload() {
+        return payload();
+    }
+
+    @AutocompleteItem(
             signature = "content()",
             example = "attachment.content()",
             description = "Returns the content of the attachment.")
-    @SuppressWarnings("unchecked")
     public <Type, StreamType, T extends TypedContent<Type, StreamType>> T content() {
         return (T) content;
     }
 
-    @SuppressWarnings("unchecked")
     public <Type, StreamType, T extends TypedContent<Type, StreamType>> T getContent() {
         return (T) content;
     }
