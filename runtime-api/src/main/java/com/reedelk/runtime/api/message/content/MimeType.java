@@ -3,6 +3,7 @@ package com.reedelk.runtime.api.message.content;
 
 import com.reedelk.runtime.api.annotation.AutocompleteItem;
 import com.reedelk.runtime.api.annotation.AutocompleteType;
+import com.reedelk.runtime.api.commons.StringUtils;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -24,11 +25,12 @@ public class MimeType implements Serializable {
     private final List<String> fileExtensions;
     private final Class<?> javaType;
 
-    public static MimeType fromFileExtension(String extension) {
+    public static MimeType fromFileExtension(String extension, MimeType defaultMime) {
+        if (StringUtils.isBlank(extension)) return defaultMime;
         if (EXTENSION_MIME_TYPE_MAP.containsKey(extension)) {
             return EXTENSION_MIME_TYPE_MAP.get(extension);
         }
-        return MimeType.UNKNOWN;
+        return defaultMime;
     }
 
     public static MimeType of(String primaryType, String subType, Class<?> javaType) {

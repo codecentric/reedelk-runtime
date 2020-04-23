@@ -7,10 +7,10 @@ public class MimeTypeUtils {
     private MimeTypeUtils() {
     }
 
-    public static MimeType mimeTypeFrom(boolean autoMimeType, String mimeType, String filePath, MimeType defaultMime) {
+    public static MimeType fromFileExtensionOrParse(boolean autoMimeType, String filePath, String mimeType, MimeType defaultMime) {
         if (autoMimeType) {
             String pageFileExtension = FileUtils.getExtension(filePath);
-            return MimeType.fromFileExtension(pageFileExtension);
+            return MimeType.fromFileExtension(pageFileExtension, defaultMime);
         } else {
             return MimeType.parse(mimeType, defaultMime);
         }

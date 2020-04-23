@@ -41,7 +41,8 @@ public class ReadFromResources implements ProcessorSync {
 
             String pageFileExtension = FileUtils.getExtension(resourceFilePath);
 
-            MimeType actualMimeType = MimeType.fromFileExtension(pageFileExtension);
+            MimeType actualMimeType =
+                    MimeType.fromFileExtension(pageFileExtension, MimeType.APPLICATION_BINARY);
 
             Publisher<byte[]> dataStream = resourceFile.data();
 

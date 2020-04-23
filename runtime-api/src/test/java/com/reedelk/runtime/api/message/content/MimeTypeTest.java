@@ -112,10 +112,34 @@ class MimeTypeTest {
             String given = "JpG";
 
             // When
-            MimeType actual = MimeType.fromFileExtension(given);
+            MimeType actual = MimeType.fromFileExtension(given, MimeType.APPLICATION_BINARY);
 
             // Then
             assertThat(actual).isEqualTo(MimeType.IMAGE_JPEG);
+        }
+
+        @Test
+        void shouldReturnDefaultMimeTypeFromNullExtension() {
+            // Given
+            String given = null;
+
+            // When
+            MimeType actual = MimeType.fromFileExtension(given, MimeType.APPLICATION_BINARY);
+
+            // Then
+            assertThat(actual).isEqualTo(MimeType.APPLICATION_BINARY);
+        }
+
+        @Test
+        void shouldReturnDefaultMimeTypeFromEmptyExtension() {
+            // Given
+            String given = " ";
+
+            // When
+            MimeType actual = MimeType.fromFileExtension(given, MimeType.APPLICATION_BINARY);
+
+            // Then
+            assertThat(actual).isEqualTo(MimeType.APPLICATION_BINARY);
         }
     }
 }
