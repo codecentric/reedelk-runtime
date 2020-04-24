@@ -1,7 +1,7 @@
 package com.reedelk.runtime.api.commons;
 
 import com.reedelk.runtime.api.component.Implementor;
-import com.reedelk.runtime.api.exception.ConfigurationException;
+import com.reedelk.runtime.api.exception.ComponentConfigurationException;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class ConfigurationPreconditionsTest {
         DynamicString emptyDynamicString = DynamicString.from("#[]", new ModuleContext(10L));
 
         // When
-        ConfigurationException thrown = assertThrows(ConfigurationException.class,
+        ComponentConfigurationException thrown = assertThrows(ComponentConfigurationException.class,
                 () -> requireNotNullOrBlank(MyComponent.class, emptyDynamicString, "Expected not empty!"));
 
         // Then
@@ -44,7 +44,7 @@ class ConfigurationPreconditionsTest {
         DynamicObject emptyDynamicObject = DynamicObject.from("#[]", new ModuleContext(10L));
 
         // When
-        ConfigurationException thrown = assertThrows(ConfigurationException.class,
+        ComponentConfigurationException thrown = assertThrows(ComponentConfigurationException.class,
                 () -> requireNotNullOrBlank(MyComponent.class, emptyDynamicObject, "Expected not empty!"));
 
         // Then
@@ -81,7 +81,7 @@ class ConfigurationPreconditionsTest {
         DynamicObject nullDynamicObject = null;
 
         // When
-        ConfigurationException thrown = assertThrows(ConfigurationException.class,
+        ComponentConfigurationException thrown = assertThrows(ComponentConfigurationException.class,
                 () -> requireNotNull(MyComponent.class, nullDynamicObject, "Expected not null!"));
 
         // Then

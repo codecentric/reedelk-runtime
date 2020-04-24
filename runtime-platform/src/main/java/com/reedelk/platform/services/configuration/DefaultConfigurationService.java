@@ -4,7 +4,7 @@ import com.reedelk.platform.commons.Messages.ConfigProperty;
 import com.reedelk.platform.services.configuration.configurer.*;
 import com.reedelk.platform.services.configuration.converter.*;
 import com.reedelk.runtime.api.configuration.ConfigurationService;
-import com.reedelk.runtime.api.exception.ConfigPropertyException;
+import com.reedelk.runtime.api.exception.ConfigurationPropertyException;
 import com.reedelk.runtime.api.script.dynamicvalue.*;
 import com.reedelk.runtime.system.api.SystemProperty;
 import org.osgi.service.cm.Configuration;
@@ -236,7 +236,7 @@ public class DefaultConfigurationService implements ConfigurationService {
         if (MAP.containsKey(type)) {
             return (T) MAP.get(type).convert(this, configPID, configKey, defaultValue);
         }
-        throw new ConfigPropertyException(ConfigProperty.UNSUPPORTED_CONVERSION.format(configKey, configPID, type.getName()));
+        throw new ConfigurationPropertyException(ConfigProperty.UNSUPPORTED_CONVERSION.format(configKey, configPID, type.getName()));
     }
 
     @Override
@@ -245,7 +245,7 @@ public class DefaultConfigurationService implements ConfigurationService {
         if (MAP.containsKey(type)) {
             return (T) MAP.get(type).convert(this, configPID, configKey);
         }
-        throw new ConfigPropertyException(ConfigProperty.UNSUPPORTED_CONVERSION.format(configKey, configPID, type.getName()));
+        throw new ConfigurationPropertyException(ConfigProperty.UNSUPPORTED_CONVERSION.format(configKey, configPID, type.getName()));
     }
 
     @Override
@@ -346,7 +346,7 @@ public class DefaultConfigurationService implements ConfigurationService {
             Dictionary<String, Object> properties = configuration.getProperties();
             return getPropertyOrThrow(properties, configKey, mapper);
         } catch (IOException e) {
-            throw new ConfigPropertyException(ConfigProperty.NOT_FOUND_WITH_KEY_AND_PID.format(configKey, configPid));
+            throw new ConfigurationPropertyException(ConfigProperty.NOT_FOUND_WITH_KEY_AND_PID.format(configKey, configPid));
         }
     }
 
@@ -354,7 +354,7 @@ public class DefaultConfigurationService implements ConfigurationService {
         if (dictionary != null && list(dictionary.keys()).contains(configKey)) {
             return mapper.map(dictionary.get(configKey));
         }
-        throw new ConfigPropertyException(ConfigProperty.NOT_FOUND_WITH_KEY.format(configKey));
+        throw new ConfigurationPropertyException(ConfigProperty.NOT_FOUND_WITH_KEY.format(configKey));
     }
 
     private <T> T getPropertyOrDefault(Dictionary<String, Object> dictionary, String configKey, T defaultValue, InputMapper<T> mapper) {

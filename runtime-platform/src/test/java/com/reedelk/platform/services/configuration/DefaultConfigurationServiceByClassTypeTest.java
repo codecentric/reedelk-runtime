@@ -1,6 +1,6 @@
 package com.reedelk.platform.services.configuration;
 
-import com.reedelk.runtime.api.exception.ConfigPropertyException;
+import com.reedelk.runtime.api.exception.ConfigurationPropertyException;
 import org.junit.jupiter.api.Test;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -125,8 +125,8 @@ class DefaultConfigurationServiceByClassTypeTest extends BaseDefaultConfiguratio
         mockConfigurationWithProperties(properties);
 
         // When
-        ConfigPropertyException thrown =
-                assertThrows(ConfigPropertyException.class,
+        ConfigurationPropertyException thrown =
+                assertThrows(ConfigurationPropertyException.class,
                         () -> service.get(TEST_CONFIG_KEY, String.class));
 
         // Then
@@ -136,8 +136,8 @@ class DefaultConfigurationServiceByClassTypeTest extends BaseDefaultConfiguratio
     @Test
     void shouldThrowExceptionWhenPropertyWithTargetClazzUnsupportedIsRetrieved() {
         // Expect
-        ConfigPropertyException thrown =
-                assertThrows(ConfigPropertyException.class,
+        ConfigurationPropertyException thrown =
+                assertThrows(ConfigurationPropertyException.class,
                         () -> service.get(TEST_CONFIG_KEY, Number.class));
 
         // Then

@@ -1,6 +1,6 @@
 package com.reedelk.platform.services.configuration;
 
-import com.reedelk.runtime.api.exception.ConfigPropertyException;
+import com.reedelk.runtime.api.exception.ConfigurationPropertyException;
 import org.junit.jupiter.api.Test;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -64,13 +64,13 @@ class DefaultConfigurationServiceLongTest extends BaseDefaultConfigurationServic
         // Given
         String customConfigFile = "test.configuration";
 
-        doThrow(new ConfigPropertyException("Could not find property"))
+        doThrow(new ConfigurationPropertyException("Could not find property"))
                 .when(service)
                 .getConfigAdminPropertyOrThrow(eq(customConfigFile), eq(TEST_CONFIG_KEY), any(InputMapper.class));
 
         // When
-        ConfigPropertyException thrown =
-                assertThrows(ConfigPropertyException.class, () -> service.getLongFrom(customConfigFile, TEST_CONFIG_KEY));
+        ConfigurationPropertyException thrown =
+                assertThrows(ConfigurationPropertyException.class, () -> service.getLongFrom(customConfigFile, TEST_CONFIG_KEY));
 
         assertThat(thrown).hasMessage("Could not find property");
     }
@@ -169,12 +169,12 @@ class DefaultConfigurationServiceLongTest extends BaseDefaultConfigurationServic
     @Test
     void shouldThrowExceptionWhenPropertyNotPresentInDefaultConfigFile() {
         // Given
-        doThrow(new ConfigPropertyException("Could not find property"))
+        doThrow(new ConfigurationPropertyException("Could not find property"))
                 .when(service)
                 .getConfigAdminPropertyOrThrow(eq(DEFAULT_CONFIG_FILE), eq(TEST_CONFIG_KEY), any(InputMapper.class));
         // When
-        ConfigPropertyException thrown =
-                assertThrows(ConfigPropertyException.class, () -> service.getLong(TEST_CONFIG_KEY));
+        ConfigurationPropertyException thrown =
+                assertThrows(ConfigurationPropertyException.class, () -> service.getLong(TEST_CONFIG_KEY));
 
         assertThat(thrown).hasMessage("Could not find property");
     }
