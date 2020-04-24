@@ -27,6 +27,26 @@ class ComponentPreconditionTest {
     }
 
     @Test
+    void shouldNotThrowExceptionWhenInputLongAndWantedStringOrLong() {
+        // Given
+        long input = 10L;
+
+        // Expect
+        assertDoesNotThrow(() ->
+                Input.requireTypeMatches(TestComponent.class, input, String.class, Long.class));
+    }
+
+    @Test
+    void shouldNotThrowExceptionWhenInputByteArrayAndWantedByteArray() {
+        // Given
+        byte[] input = "This is my input".getBytes();
+
+        // Expect
+        assertDoesNotThrow(() ->
+                Input.requireTypeMatches(TestComponent.class, input, byte[].class));
+    }
+
+    @Test
     void shouldThrowExceptionWhenInputListAndWantedString() {
         // Given
         List<String> input = Arrays.asList("one", "two", "three");
@@ -38,6 +58,21 @@ class ComponentPreconditionTest {
         // Then
         String expected = "TestComponent (com.reedelk.runtime.api.commons.TestComponent) was invoked with " +
                 "a not supported Input Type: actual=[List], expected=[String].";
+        assertThat(thrown).hasMessage(expected);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenWantedIsEmpty() {
+        // Given
+        String input = "This is my input";
+
+        // When
+        ComponentInputException thrown = assertThrows(ComponentInputException.class,
+                () -> Input.requireTypeMatches(TestComponent.class, input));
+
+        // Then
+        String expected = "TestComponent (com.reedelk.runtime.api.commons.TestComponent) was invoked with " +
+                "a not supported Input Type: actual=[String], expected=[].";
         assertThat(thrown).hasMessage(expected);
     }
 
@@ -64,6 +99,46 @@ class ComponentPreconditionTest {
         String expected = "TestComponent (com.reedelk.runtime.api.commons.TestComponent) was invoked with " +
                 "a not supported Input Type: actual=[Map], expected=[String].";
         assertThat(thrown).hasMessage(expected);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenInputIsNull() {
+        // Given
+        MyMap input = null;
+
+        // When
+        ComponentInputException thrown = assertThrows(ComponentInputException.class,
+                () -> Input.requireTypeMatches(TestComponent.class, input, String.class));
+
+        // Then
+        String expected = "TestComponent (com.reedelk.runtime.api.commons.TestComponent) was invoked with " +
+                "a not supported Input Type: actual=[null], expected=[String].";
+        assertThat(thrown).hasMessage(expected);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenInputIsListAndExpectedMap() {
+        // Given
+        List<MyMap> input = Arrays.asList(new MyMap(), new MyMap());
+
+        // When
+        ComponentInputException thrown = assertThrows(ComponentInputException.class,
+                () -> Input.requireTypeMatches(TestComponent.class, input, Map.class));
+
+        // Then
+        String expected = "TestComponent (com.reedelk.runtime.api.commons.TestComponent) was invoked with " +
+                "a not supported Input Type: actual=[List], expected=[Map].";
+        assertThat(thrown).hasMessage(expected);
+    }
+
+    @Test
+    void shouldNotThrowExceptionWhenInputIsNull() {
+        // Given
+        List<MyMap> input = null;
+
+        // Expect
+        assertDoesNotThrow(() ->
+                Input.requireTypeMatchesOrNull(TestComponent.class, input, byte[].class));
     }
 
     static class MyMap extends HashMap<String, Serializable> {
