@@ -6,8 +6,8 @@ import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import org.junit.jupiter.api.Test;
 
-import static com.reedelk.runtime.api.commons.ConfigurationPreconditions.requireNotNull;
-import static com.reedelk.runtime.api.commons.ConfigurationPreconditions.requireNotNullOrBlank;
+import static com.reedelk.runtime.api.commons.ComponentPrecondition.Configuration.requireNotNull;
+import static com.reedelk.runtime.api.commons.ComponentPrecondition.Configuration.requireNotNullOrBlank;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
