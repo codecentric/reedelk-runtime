@@ -33,7 +33,7 @@ class ComponentPreconditionTest {
 
         // Expect
         assertDoesNotThrow(() ->
-                Input.requireTypeMatches(TestComponent.class, input, String.class, Long.class));
+                Input.requireTypeMatchesAny(TestComponent.class, input, String.class, Long.class));
     }
 
     @Test
@@ -68,7 +68,7 @@ class ComponentPreconditionTest {
 
         // When
         ComponentInputException thrown = assertThrows(ComponentInputException.class,
-                () -> Input.requireTypeMatches(TestComponent.class, input));
+                () -> Input.requireTypeMatchesAny(TestComponent.class, input));
 
         // Then
         String expected = "TestComponent (com.reedelk.runtime.api.commons.TestComponent) was invoked with " +

@@ -13,11 +13,34 @@ public class ComponentPrecondition {
         }
 
         /**
+         * Checks if the input object has the expected type.
+         * An exception is thrown in the input object does not have the
+         * expected type or if the input object is null.
+         */
+        @SuppressWarnings("unchecked")
+        public static <T> T requireTypeMatches(Class<? extends Implementor> implementor, Object input, Class<T> expected) {
+            if (input == null) throw new ComponentInputException(implementor, input, expected);
+            if (expected.isAssignableFrom(input.getClass())) {
+                return (T) input;
+            }
+            throw new ComponentInputException(implementor, input, expected);
+        }
+
+        /**
+         * Checks if the input object has the expected type.
+         * An exception is thrown in the input object does not have the expected type.
+         */
+        public static <T> T requireTypeMatchesOrNull(Class<? extends Implementor> implementor, Object input, Class<T> expected) {
+            if (input == null) return null;
+            return requireTypeMatches(implementor, input, expected);
+        }
+
+        /**
          * Checks if the input object is one of the types given in the list.
          * An exception is thrown in the input object does not have one of the
-         * expected types or if the input is object is null.
+         * expected types or if the input object is null.
          */
-        public static void requireTypeMatches(Class<? extends Implementor> implementor, Object input, Class<?> ...expected) {
+        public static void requireTypeMatchesAny(Class<? extends Implementor> implementor, Object input, Class<?> ...expected) {
             if (input == null) throw new ComponentInputException(implementor, input, expected);
             for (Class<?> current : expected) {
                 if (current.isAssignableFrom(input.getClass())) {
@@ -31,9 +54,9 @@ public class ComponentPrecondition {
          * Checks if the input object is one of the types given in the list.
          * An exception is thrown in the input object does not have one of the expected types.
          */
-        public static void requireTypeMatchesOrNull(Class<? extends Implementor> implementor, Object input, Class<?> ...expected) {
+        public static void requireTypeMatchesAnyOrNull(Class<? extends Implementor> implementor, Object input, Class<?> ...expected) {
             if (input == null) return; // It is ok if null.
-            requireTypeMatches(implementor, input, expected);
+            requireTypeMatchesAny(implementor, input, expected);
         }
     }
 
