@@ -75,12 +75,11 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
         Module module = modulesManager.getModuleById(bundle.getBundleId());
         long moduleId = module.id();
 
-        DeserializerConverter converter = createDeserializerConverter(deSerializedModule, module, moduleId);
-
         String flowId = id(flowDefinition);
         String flowTitle = hasTitle(flowDefinition) ? title(flowDefinition) : null;
 
         try {
+            DeserializerConverter converter = createDeserializerConverter(deSerializedModule, module, moduleId);
             FlowDeserializerContext context = new FlowDeserializerContext(bundle, modulesManager, deSerializedModule, converter);
             FlowDeserializer flowDeserializer = new FlowDeserializer(context);
             flowDeserializer.deserialize(flowGraph, flowDefinition);

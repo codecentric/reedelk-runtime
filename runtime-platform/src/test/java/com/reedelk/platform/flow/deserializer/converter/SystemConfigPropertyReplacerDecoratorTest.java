@@ -62,6 +62,22 @@ class SystemConfigPropertyReplacerDecoratorTest {
     }
 
     @Test
+    void shouldReturnNullWhenPropertyValueIsNull() {
+        // Given
+        String configKey = "myProperty";
+        Object expectedValue = JSONObject.NULL;
+
+        JSONObject componentDefinition = new JSONObject();
+        componentDefinition.put(configKey, expectedValue);
+
+        // When
+        Object typeInstance = decorator.convert(String.class, componentDefinition, configKey, deserializerConverterContext);
+
+        // Then
+        assertThat(typeInstance).isNull();
+    }
+
+    @Test
     void shouldReplaceRuntimeConfigPropertyCorrectly() {
         // Given
         String propertyName = "myProperty";
