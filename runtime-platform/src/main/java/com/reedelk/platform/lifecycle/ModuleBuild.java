@@ -78,8 +78,9 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
         String flowId = id(flowDefinition);
         String flowTitle = hasTitle(flowDefinition) ? title(flowDefinition) : null;
 
+        DeserializerConverter converter = createDeserializerConverter(deSerializedModule, module, moduleId);
         try {
-            DeserializerConverter converter = createDeserializerConverter(deSerializedModule, module, moduleId);
+
             FlowDeserializerContext context = new FlowDeserializerContext(bundle, modulesManager, deSerializedModule, converter);
             FlowDeserializer flowDeserializer = new FlowDeserializer(context);
             flowDeserializer.deserialize(flowGraph, flowDefinition);
@@ -105,15 +106,15 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
         }
     }
 
-    private DeserializerConverter createDeserializerConverter(DeSerializedModule deSerializedModule,
+    DeserializerConverter createDeserializerConverter(DeSerializedModule deSerializedModule,
                                                               Module module,
                                                               long moduleId) {
         DeserializerConverter converter = DeserializerConverter.getInstance();
-        converter = new ResourceResolverDecorator(converter, deSerializedModule, module);
-        converter = new ScriptResolverDecorator(converter, deSerializedModule);
-        converter = new SystemConfigPropertyReplacerDecorator(systemPropertyService(), converter);
-        converter = new ConfigPropertyDecorator(configurationService(), converter);
-        converter = new DeserializerConverterContextDecorator(converter, moduleId);
+        converter = new ResourceResolverDecorator(converter, deSerializedModule, module); // Evaluate fifth
+        converter = new ScriptResolverDecorator(converter, deSerializedModule); // Evaluate fourth
+        converter = new ConfigPropertyDecorator(configurationService(), converter); // Evaluate third
+        converter = new SystemConfigPropertyReplacerDecorator(systemPropertyService(), converter); // Evaluate second
+        converter = new DeserializerConverterContextDecorator(converter, moduleId); // Evaluate first
         return converter;
     }
 }
