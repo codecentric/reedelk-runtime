@@ -32,19 +32,19 @@ public class DefaultModuleService implements ModuleService {
     private static final long NOTHING_UNINSTALLED_MODULE_ID = -1L;
 
     private final ModulesMapper mapper;
-    private final EventListener listener;
     private final BundleContext context;
+    private final EventListener listener;
     private final ModulesManager modulesManager;
-    private final SyncModuleService syncModuleService;
     private final SystemProperty systemProperty;
+    private final SyncModuleService syncModuleService;
 
     public DefaultModuleService(BundleContext context,
                                 ModulesManager modulesManager,
                                 SystemProperty systemProperty,
                                 EventListener listener) {
-        this.modulesManager = modulesManager;
-        this.listener = listener;
         this.context = context;
+        this.listener = listener;
+        this.modulesManager = modulesManager;
         this.systemProperty = systemProperty;
         this.mapper = new ModulesMapper();
         this.syncModuleService = new SyncModuleService(this, context);
@@ -149,8 +149,7 @@ public class DefaultModuleService implements ModuleService {
     void checkIsValidModuleOrUnInstallAndThrow(String moduleJarPath) {
         File moduleFile = Paths.get(URI.create(moduleJarPath)).toFile();
         if (!ModuleUtils.isModule(moduleFile)) {
-            //noinspection ResultOfMethodCallIgnored
-            moduleFile.delete();
+            deleteFile(moduleFile);
             String errorMessage = INSTALL_FAILED_MODULE_NOT_VALID.format(moduleJarPath);
             throw new PlatformException(errorMessage);
         }
@@ -188,5 +187,12 @@ public class DefaultModuleService implements ModuleService {
     private void executeOperation(Bundle bundle, Operation... operations) {
         stream(operations).forEachOrdered(
                 Unchecked.consumer(operation -> operation.execute(bundle)));
+    }
+
+    private void deleteFile(File fileToDelete) {
+        boolean deleteSuccessful = fileToDelete.delete();
+        if (!deleteSuccessful && logger.isWarnEnabled()) {
+            logger.warn(REMOVE_FILE_NOT_SUCCESSFUL.format(fileToDelete.getPath()));
+        }
     }
 }

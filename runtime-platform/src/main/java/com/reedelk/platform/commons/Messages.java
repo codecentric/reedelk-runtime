@@ -127,7 +127,8 @@ public class Messages {
         UPDATE_FAILED_MODULE_NOT_FOUND("Update failed: could not find registered module in target file path=[%s]"),
         START_SUCCESS("Module [%s] started"),
         REMOVE_MODULE_FROM_DIRECTORY_ERROR("Module [%s], version [%s], file path=[%s] could not be removed from runtime modules directory"),
-        REMOVE_MODULE_FROM_DIRECTORY_EXCEPTION("Module [%s], version [%s], file path=[%s] could not be removed from runtime modules directory: %s");
+        REMOVE_MODULE_FROM_DIRECTORY_EXCEPTION("Module [%s], version [%s], file path=[%s] could not be removed from runtime modules directory: %s"),
+        REMOVE_FILE_NOT_SUCCESSFUL("File with path=[%s] could not be successfully removed.");
 
         private String message;
 
