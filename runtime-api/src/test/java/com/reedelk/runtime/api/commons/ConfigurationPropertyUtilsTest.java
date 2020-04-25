@@ -125,4 +125,21 @@ class ConfigurationPropertyUtilsTest {
             assertThat(actual).isEqualTo("${smtp.port");
         }
     }
+
+    @Nested
+    @DisplayName("as config property tests")
+    class AsConfigPropertyTest {
+
+        @Test
+        void shouldConvertAsConfigPropertyStringValue() {
+            // Given
+            String given = "MY_CONFIG_PROPERTY";
+
+            // When
+            String actual = ConfigurationPropertyUtils.asConfigProperty(given);
+
+            // Then
+            assertThat(actual).isEqualTo("${MY_CONFIG_PROPERTY}");
+        }
+    }
 }

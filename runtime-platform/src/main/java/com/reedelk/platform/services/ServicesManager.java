@@ -64,8 +64,12 @@ public class ServicesManager {
         registeredServices.forEach(ServiceRegistration::unregister);
     }
 
-    public DefaultConfigurationService configurationService() {
+    public ConfigurationService configurationService() {
         return configurationService;
+    }
+
+    public SystemProperty systemPropertyService() {
+        return systemProperty;
     }
 
     private void registerSystemPropertyService(BundleContext context) {

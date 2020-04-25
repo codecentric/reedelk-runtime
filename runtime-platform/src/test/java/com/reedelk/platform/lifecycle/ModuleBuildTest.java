@@ -66,7 +66,7 @@ class ModuleBuildTest {
     @Mock
     private BundleContext bundleContext;
     @Mock
-    private ServiceObjects serviceObjects;
+    private ServiceObjects<?> serviceObjects;
     @Mock
     private ModulesManager modulesManager;
     @Mock

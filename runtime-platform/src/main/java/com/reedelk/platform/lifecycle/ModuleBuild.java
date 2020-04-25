@@ -6,10 +6,7 @@ import com.reedelk.platform.flow.ErrorStateFlow;
 import com.reedelk.platform.flow.Flow;
 import com.reedelk.platform.flow.deserializer.FlowDeserializer;
 import com.reedelk.platform.flow.deserializer.FlowDeserializerContext;
-import com.reedelk.platform.flow.deserializer.converter.ConfigPropertyDecorator;
-import com.reedelk.platform.flow.deserializer.converter.DeserializerConverterContextDecorator;
-import com.reedelk.platform.flow.deserializer.converter.ResourceResolverDecorator;
-import com.reedelk.platform.flow.deserializer.converter.ScriptResolverDecorator;
+import com.reedelk.platform.flow.deserializer.converter.*;
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.module.DeSerializedModule;
 import com.reedelk.platform.module.Module;
@@ -112,11 +109,12 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
     private DeserializerConverter createDeserializerConverter(DeSerializedModule deSerializedModule,
                                                               Module module,
                                                               long moduleId) {
-        DeserializerConverter deserializerConverter = DeserializerConverter.getInstance();
-        deserializerConverter = new ResourceResolverDecorator(deserializerConverter, deSerializedModule, module);
-        deserializerConverter = new ScriptResolverDecorator(deserializerConverter, deSerializedModule);
-        deserializerConverter = new ConfigPropertyDecorator(configurationService(), deserializerConverter);
-        deserializerConverter = new DeserializerConverterContextDecorator(deserializerConverter, moduleId);
-        return deserializerConverter;
+        DeserializerConverter converter = DeserializerConverter.getInstance();
+        converter = new ResourceResolverDecorator(converter, deSerializedModule, module);
+        converter = new ScriptResolverDecorator(converter, deSerializedModule);
+        converter = new SystemConfigPropertyReplacerDecorator(systemPropertyService(), converter);
+        converter = new ConfigPropertyDecorator(configurationService(), converter);
+        converter = new DeserializerConverterContextDecorator(converter, moduleId);
+        return converter;
     }
 }

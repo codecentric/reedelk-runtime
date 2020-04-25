@@ -3,6 +3,7 @@ package com.reedelk.platform.lifecycle;
 import com.reedelk.platform.component.ComponentRegistry;
 import com.reedelk.platform.module.ModulesManager;
 import com.reedelk.runtime.api.configuration.ConfigurationService;
+import com.reedelk.runtime.system.api.SystemProperty;
 import org.osgi.framework.Bundle;
 
 public interface Step<I, O> {
@@ -24,4 +25,8 @@ public interface Step<I, O> {
     ConfigurationService configurationService();
 
     void configurationService(ConfigurationService configurationService);
+
+    SystemProperty systemPropertyService();
+
+    void systemPropertyService(SystemProperty systemProperty);
 }

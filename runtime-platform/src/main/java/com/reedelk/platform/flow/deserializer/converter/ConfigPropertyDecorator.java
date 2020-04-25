@@ -8,8 +8,6 @@ import com.reedelk.runtime.converter.RuntimeConverters;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Optional;
-
 public class ConfigPropertyDecorator implements DeserializerConverter {
 
     private final DeserializerConverter delegate;
@@ -60,15 +58,17 @@ public class ConfigPropertyDecorator implements DeserializerConverter {
         return delegate.convert(expectedClass, jsonArray, index, context);
     }
 
+    /**
+     * If the config property definition contains a default value, e.g: my.config.property:myDefaultValue,
+     * then we must convert the default value to the expected class if the configuration service does
+     * not have the config property defined.
+     */
     private <T> T resolveConfigProperty(Class<T> expectedClass, String propertyValue) {
         ConfigPropertyDefinition definition = ConfigPropertyDefinition.from(propertyValue);
         String key = definition.getConfigPropertyKey();
-        Optional<String> optionalDefaultValue = definition.getDefaultValue();
-        if (optionalDefaultValue.isPresent()) {
-            T convertedDefaultValue = RuntimeConverters.getInstance().convert(optionalDefaultValue.get(), expectedClass);
+        return definition.getDefaultValue().map(defaultValue -> {
+            T convertedDefaultValue = RuntimeConverters.getInstance().convert(defaultValue, expectedClass);
             return configurationService.get(key, convertedDefaultValue, expectedClass);
-        } else {
-            return configurationService.get(key, expectedClass);
-        }
+        }).orElseGet(() -> configurationService.get(key, expectedClass));
     }
 }

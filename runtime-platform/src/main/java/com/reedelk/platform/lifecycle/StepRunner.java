@@ -3,6 +3,7 @@ package com.reedelk.platform.lifecycle;
 import com.reedelk.platform.component.ComponentRegistry;
 import com.reedelk.platform.module.ModulesManager;
 import com.reedelk.runtime.api.configuration.ConfigurationService;
+import com.reedelk.runtime.system.api.SystemProperty;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -18,25 +19,27 @@ public class StepRunner {
     private final BundleContext context;
     private final ModulesManager modulesManager;
     private final ComponentRegistry componentRegistry;
+    private final SystemProperty systemPropertyService;
     private final ConfigurationService configurationService;
 
-    private StepRunner(BundleContext context, ModulesManager modulesManager, ComponentRegistry componentRegistry, ConfigurationService configurationService) {
+    private StepRunner(BundleContext context, ModulesManager modulesManager, ComponentRegistry componentRegistry, ConfigurationService configurationService, SystemProperty systemPropertyService) {
         this.context = context;
         this.modulesManager = modulesManager;
         this.componentRegistry = componentRegistry;
         this.configurationService = configurationService;
+        this.systemPropertyService = systemPropertyService;
     }
 
     private StepRunner(BundleContext context, ModulesManager modulesManager, ComponentRegistry componentRegistry) {
-        this(context, modulesManager, componentRegistry, null);
+        this(context, modulesManager, componentRegistry, null, null);
     }
 
-    public static StepRunner get(BundleContext context, ModulesManager modulesManager, ComponentRegistry componentRegistry, ConfigurationService configurationService) {
-        return new StepRunner(context, modulesManager, componentRegistry, configurationService);
+    public static StepRunner get(BundleContext context, ModulesManager modulesManager, ComponentRegistry componentRegistry, ConfigurationService configurationService, SystemProperty systemPropertyService) {
+        return new StepRunner(context, modulesManager, componentRegistry, configurationService, systemPropertyService);
     }
 
     public static StepRunner get(BundleContext context, ModulesManager modulesManager, ConfigurationService configurationService) {
-        return new StepRunner(context, modulesManager, null, configurationService);
+        return new StepRunner(context, modulesManager, null, configurationService, null);
     }
 
     public static StepRunner get(BundleContext context, ModulesManager modulesManager, ComponentRegistry componentRegistry) {
@@ -51,13 +54,13 @@ public class StepRunner {
         return new StepRunner(context, null, null);
     }
 
-    public StepRunner next(Step stepToAdd) {
+    public StepRunner next(Step<?, ?> stepToAdd) {
         checkArgument(stepToAdd != null, "added step was null.");
         this.steps.add(stepToAdd);
         return this;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public void execute(long moduleId) {
         // When we install a module, we don't have the Module
         // already registered in the manager, therefore the module
@@ -72,6 +75,7 @@ public class StepRunner {
             step.modulesManager(modulesManager);
             step.componentRegistry(componentRegistry);
             step.configurationService(configurationService);
+            step.systemPropertyService(systemPropertyService);
 
             output = step.run(output);
         }

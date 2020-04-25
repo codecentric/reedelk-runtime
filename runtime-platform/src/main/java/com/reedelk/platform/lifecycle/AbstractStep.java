@@ -7,6 +7,7 @@ import com.reedelk.platform.module.Module;
 import com.reedelk.platform.module.ModulesManager;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.configuration.ConfigurationService;
+import com.reedelk.runtime.system.api.SystemProperty;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ public abstract class AbstractStep<I, O> implements Step<I, O> {
 
     private Bundle bundle;
     private ModulesManager modulesManager;
+    private SystemProperty systemProperty;
     private ComponentRegistry componentRegistry;
     private ConfigurationService configurationService;
 
@@ -65,6 +67,16 @@ public abstract class AbstractStep<I, O> implements Step<I, O> {
     @Override
     public void configurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
+    }
+
+    @Override
+    public SystemProperty systemPropertyService() {
+        return systemProperty;
+    }
+
+    @Override
+    public void systemPropertyService(SystemProperty systemProperty) {
+        this.systemProperty = systemProperty;
     }
 
     /**

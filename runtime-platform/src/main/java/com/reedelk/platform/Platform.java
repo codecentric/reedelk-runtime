@@ -11,6 +11,8 @@ import com.reedelk.platform.services.ServicesManager;
 import com.reedelk.platform.services.hotswap.HotSwapListener;
 import com.reedelk.platform.services.module.EventListener;
 import com.reedelk.platform.services.module.EventService;
+import com.reedelk.runtime.api.configuration.ConfigurationService;
+import com.reedelk.runtime.system.api.SystemProperty;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Activate;
@@ -87,7 +89,9 @@ public class Platform implements EventListener, HotSwapListener {
      */
     @Override
     public synchronized void moduleStarted(long moduleId) {
-            StepRunner.get(context, modulesManager, componentRegistry, servicesManager.configurationService())
+        ConfigurationService configurationService = servicesManager.configurationService();
+        SystemProperty systemPropertyService = servicesManager.systemPropertyService();
+        StepRunner.get(context, modulesManager, componentRegistry, configurationService, systemPropertyService)
                 .next(new ModuleCheckNotNull())
                 .next(new ModuleValidate())
                 .next(new ModuleResolveDependencies())
@@ -100,7 +104,7 @@ public class Platform implements EventListener, HotSwapListener {
         // the newly started module above might have just resolved some dependencies of the
         // unresolved modules.
         modulesManager.findUnresolvedModules().forEach(unresolvedModule ->
-                StepRunner.get(context, modulesManager, componentRegistry, servicesManager.configurationService())
+                StepRunner.get(context, modulesManager, componentRegistry, configurationService, systemPropertyService)
                         .next(new ModuleCheckNotNull())
                         .next(new ModuleUpdateRegisteredComponents())
                         .next(new ModuleBuild())
@@ -177,7 +181,9 @@ public class Platform implements EventListener, HotSwapListener {
 
     @Override
     public synchronized void hotSwap(long moduleId, String resourcesRootDirectory) {
-        StepRunner.get(context, modulesManager, componentRegistry, servicesManager.configurationService())
+        ConfigurationService configurationService = servicesManager.configurationService();
+        SystemProperty systemPropertyService = servicesManager.systemPropertyService();
+        StepRunner.get(context, modulesManager, componentRegistry, configurationService, systemPropertyService)
                 .next(new ModuleCheckNotNull())
                 .next(new ModuleStopAndReleaseReferences())
                 .next(new ModuleRemove())
