@@ -107,8 +107,8 @@ class ScriptSourceEvaluatorTest {
 
         // Then
         verify(mockEngineProvider).compile(testModules, stringReader, testBindings);
-        verify(mockEngineProvider).unDefineModule("Module1");
-        verify(mockEngineProvider).unDefineModule("Module2");
+        verify(mockEngineProvider).removeBinding("Module1");
+        verify(mockEngineProvider).removeBinding("Module2");
         verifyNoMoreInteractions(mockEngineProvider);
     }
 }

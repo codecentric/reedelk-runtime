@@ -190,8 +190,8 @@ class AbstractDynamicValueEvaluatorTest {
         evaluator.onModuleUninstalled(actionModuleUninstalled);
 
         // Then
-        verify(mockEngineProvider).unDefineFunction(dynamicValue1.functionName());
-        verify(mockEngineProvider).unDefineFunction(dynamicValue2.functionName());
+        verify(mockEngineProvider).removeBinding(dynamicValue1.functionName());
+        verify(mockEngineProvider).removeBinding(dynamicValue2.functionName());
         verify(mockEngineProvider, times(2)).compile(anyString());
         verifyNoMoreInteractions(mockEngineProvider);
     }
@@ -251,9 +251,9 @@ class AbstractDynamicValueEvaluatorTest {
     static class TestFunctionBuilder implements FunctionDefinitionBuilder<ScriptBlock> {
 
         private static final String TEMPLATE =
-                "function %s() {\n" +
+                "def %s() {\n" +
                         "%s\n" +
-                        "};";
+                        "}";
 
         @Override
         public String apply(ScriptBlock dynamicValue) {
