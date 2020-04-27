@@ -24,9 +24,9 @@ public class FunctionDefinitionBuilderLazy implements FunctionDefinitionBuilder<
     @Override
     public String apply(DynamicValue<?> dynamicValue) {
         String joinedArgs = String.join(", ", functionArgumentNames);
-        String template = "function %s(" + joinedArgs + ") {\n" +
-                "  return %s\n" +
-                "};";
+        String template = "def %s(" + joinedArgs + ") {\n" +
+                "  %s\n" +
+                "}";
 
         String functionBody = ScriptUtils.unwrap(dynamicValue.body());
         return String.format(template, dynamicValue.functionName(), functionBody);

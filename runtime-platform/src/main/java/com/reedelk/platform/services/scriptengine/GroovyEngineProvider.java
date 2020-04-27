@@ -1,8 +1,6 @@
 package com.reedelk.platform.services.scriptengine;
 
-import com.reedelk.platform.commons.JavaVersion;
 import com.reedelk.platform.services.scriptengine.evaluator.ScriptEngineProvider;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import javax.script.ScriptEngine;
 import javax.script.*;
@@ -12,23 +10,24 @@ import java.util.Map;
 
 import static javax.script.ScriptContext.ENGINE_SCOPE;
 
-public class JavascriptEngineProvider implements ScriptEngineProvider {
+public class GroovyEngineProvider implements ScriptEngineProvider {
 
     private final ScriptEngine engine;
     private final Invocable invocable;
     private final Compilable compilable;
 
-    private JavascriptEngineProvider() {
-        this.engine = new NashornScriptEngineFactory().getScriptEngine(getEngineArgs());
+    private GroovyEngineProvider() {
+        ScriptEngineManager factory = new ScriptEngineManager();
+        this.engine = factory.getEngineByName("groovy");
         this.invocable = (Invocable) engine;
         this.compilable = (Compilable) engine;
     }
 
     private static class ScriptEngineProviderHelper {
-        private static final JavascriptEngineProvider INSTANCE = new JavascriptEngineProvider();
+        private static final GroovyEngineProvider INSTANCE = new GroovyEngineProvider();
     }
 
-    public static JavascriptEngineProvider getInstance() {
+    public static GroovyEngineProvider getInstance() {
         return ScriptEngineProviderHelper.INSTANCE;
     }
 
@@ -36,6 +35,14 @@ public class JavascriptEngineProvider implements ScriptEngineProvider {
     public void compile(String functionDefinition) throws ScriptException {
         CompiledScript compiled = compilable.compile(functionDefinition);
         compiled.eval(engine.getBindings(ENGINE_SCOPE));
+    }
+
+    @Override
+    public void bind(Map<String, Object> globalBindings) {
+
+        Bindings bindings = engine.getBindings(ENGINE_SCOPE);
+
+        globalBindings.forEach(bindings::put);
     }
 
     @Override
@@ -93,18 +100,9 @@ public class JavascriptEngineProvider implements ScriptEngineProvider {
      *
      * @param functionName the name of the function to be cleaned up (set to null)
      */
+    // TODO: Here you should be able to say remove(functionName).
     @Override
     public void unDefineFunction(String functionName) {
         engine.getBindings(ENGINE_SCOPE).put(functionName, null);
-    }
-
-    /**
-     * Nashorn engine is deprecated after Java 1.8 and therefore if we are running on JDK > 1.8,
-     * then we suppress the deprecation warning.
-     */
-    private String[] getEngineArgs() {
-        return JavaVersion.isGreaterThan18() ?
-                new String[] {"--optimistic-types=false", "--language=es6", "--no-deprecation-warning"} :
-                new String[] {"--optimistic-types=false", "--language=es6"};
     }
 }

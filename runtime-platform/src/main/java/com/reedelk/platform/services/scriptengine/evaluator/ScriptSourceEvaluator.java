@@ -3,8 +3,9 @@ package com.reedelk.platform.services.scriptengine.evaluator;
 import com.reedelk.platform.exception.ScriptCompilationException;
 import com.reedelk.platform.pubsub.Event;
 import com.reedelk.platform.pubsub.OnMessage;
-import com.reedelk.platform.services.scriptengine.JavascriptEngineProvider;
+import com.reedelk.platform.services.scriptengine.GroovyEngineProvider;
 import com.reedelk.runtime.api.exception.PlatformException;
+import com.reedelk.runtime.api.script.ScriptGlobalFunctions;
 import com.reedelk.runtime.api.script.ScriptSource;
 
 import javax.script.ScriptException;
@@ -23,6 +24,13 @@ public class ScriptSourceEvaluator extends ScriptEngineServiceAdapter {
 
     public ScriptSourceEvaluator() {
         Event.operation.subscribe(UN_INSTALLED, this);
+    }
+
+    @Override
+    public void register(ScriptGlobalFunctions globalFunction) {
+        scriptEngine().bind(globalFunction.bindings());
+        moduleIdAndScriptModuleNamesMap
+                .put(globalFunction.moduleId(), globalFunction.bindings().keySet());
     }
 
     @Override
@@ -47,6 +55,6 @@ public class ScriptSourceEvaluator extends ScriptEngineServiceAdapter {
     }
 
     ScriptEngineProvider scriptEngine() {
-        return JavascriptEngineProvider.getInstance();
+        return GroovyEngineProvider.getInstance();
     }
 }

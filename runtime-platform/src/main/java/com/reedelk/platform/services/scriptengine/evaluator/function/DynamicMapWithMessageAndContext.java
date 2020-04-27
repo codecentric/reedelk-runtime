@@ -9,24 +9,24 @@ import java.util.Map;
 public class DynamicMapWithMessageAndContext implements FunctionDefinitionBuilder<DynamicMap<?>> {
 
     private static final String TEMPLATE =
-            "function %s(context, message) {\n" +
-                    "  return %s\n" +
-                    "};";
+            "def %s(context, message) {\n" +
+                    "  %s\n" +
+                    "}";
 
     /**
      * This method builds the following script:
      * The values are evaluated after the execution of the script.
      *
      * function fun_21_1ba-bf848432adf-abc(message, context) {
-     *  return {
+     *  return [
      *      key1: value1,
      *      key2: value2
-     *  };
+     *  ]
      * }
      */
     @Override
     public String apply(DynamicMap<?> map) {
-        StringBuilder builder = new StringBuilder("{");
+        StringBuilder builder = new StringBuilder("[");
 
         for (Map.Entry<String,Object> entry : map.entrySet()) {
             String key = entry.getKey();
@@ -48,7 +48,7 @@ public class DynamicMapWithMessageAndContext implements FunctionDefinitionBuilde
 
         // Remove final space and comma (,) character
         if (!map.isEmpty()) builder.delete(builder.length() - 2, builder.length() - 1);
-        builder.append("};");
+        builder.append("]");
         return String.format(getTemplate(), map.functionName(), builder.toString());
     }
 

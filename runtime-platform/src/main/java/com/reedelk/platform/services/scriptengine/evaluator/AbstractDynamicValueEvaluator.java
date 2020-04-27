@@ -5,7 +5,7 @@ import com.reedelk.platform.exception.ScriptExecutionException;
 import com.reedelk.platform.pubsub.Event;
 import com.reedelk.platform.pubsub.OnMessage;
 import com.reedelk.platform.services.converter.DefaultConverterService;
-import com.reedelk.platform.services.scriptengine.JavascriptEngineProvider;
+import com.reedelk.platform.services.scriptengine.GroovyEngineProvider;
 import com.reedelk.platform.services.scriptengine.evaluator.function.FunctionDefinitionBuilder;
 import com.reedelk.runtime.api.converter.ConverterService;
 import com.reedelk.runtime.api.message.Message;
@@ -149,7 +149,7 @@ abstract class AbstractDynamicValueEvaluator extends ScriptEngineServiceAdapter 
     }
 
     ScriptEngineProvider scriptEngine() {
-        return JavascriptEngineProvider.getInstance();
+        return GroovyEngineProvider.getInstance();
     }
 
     private ConverterService converterService() {

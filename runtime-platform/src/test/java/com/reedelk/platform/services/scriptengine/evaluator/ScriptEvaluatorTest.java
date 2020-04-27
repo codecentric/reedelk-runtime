@@ -48,7 +48,7 @@ class ScriptEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateScriptAndReturnOptional() {
             // Given
-            Script stringConcatenation = scriptFromBody(wrapAsTestFunction("return 'one' + ' ' + 'two'"));
+            Script stringConcatenation = scriptFromBody(wrapAsTestFunction("'one' + ' ' + 'two'"));
 
             // When
             Optional<String> actual = evaluator.evaluate(stringConcatenation, String.class, context, emptyMessage);
@@ -84,7 +84,7 @@ class ScriptEvaluatorTest {
         @Test
         void shouldThrowExceptionWhenScriptIsNotValid() {
             // Given
-            Script invalidScript = scriptFromBody(wrapAsTestFunction("return 'hello"));
+            Script invalidScript = scriptFromBody(wrapAsTestFunction("'hello"));
 
             // When
             PlatformException exception = Assertions.assertThrows(PlatformException.class,
@@ -97,7 +97,7 @@ class ScriptEvaluatorTest {
         @Test
         void shouldCorrectlyConvertIntegerResultToString() {
             // Given
-            Script intScript = scriptFromBody(wrapAsTestFunction("return 2351"));
+            Script intScript = scriptFromBody(wrapAsTestFunction("2351"));
 
             // When
             Optional<Integer> actual = evaluator.evaluate(intScript, Integer.class, context, emptyMessage);
@@ -109,7 +109,7 @@ class ScriptEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateMessagePayload() {
             // Given
-            Script payloadScript = scriptFromBody(wrapAsTestFunction("return message.payload()"));
+            Script payloadScript = scriptFromBody(wrapAsTestFunction("message.payload()"));
             Message message = MessageBuilder.get(TestComponent.class).withText("my payload as text").build();
 
             // When
@@ -123,7 +123,7 @@ class ScriptEvaluatorTest {
         void shouldCorrectlyEvaluateContextVariable() {
             // Given
             context.put("messageVar", "my sample");
-            Script contextVariableScript = scriptFromBody(wrapAsTestFunction("return context.messageVar"));
+            Script contextVariableScript = scriptFromBody(wrapAsTestFunction("context.messageVar"));
 
             // When
             Optional<String> actual = evaluator.evaluate(contextVariableScript, String.class, context, emptyMessage);
@@ -145,16 +145,7 @@ class ScriptEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateScriptAndReturnOptional() {
             // Given
-            String concatenateMessagesScript = "" +
-                    "var result = '';" +
-                    "for (i = 0; i < messages.length; i++) {" +
-                    "   if (i == messages.length - 1) {" +
-                    "       result += messages[i].payload();" +
-                    "   } else {" +
-                    "       result += messages[i].payload() + ';';" +
-                    "   }" +
-                    "}" +
-                    "return result;";
+            String concatenateMessagesScript = "messages.collect{ it.payload() }.join(';')";
             Script stringConcatenation = scriptFromBody(wrapAsTestFunctionWithMessages(concatenateMessagesScript));
 
             // When
@@ -209,7 +200,7 @@ class ScriptEvaluatorTest {
         @Test
         void shouldReturnByteStreamFromString() {
             // Given
-            Script textValuedScript = scriptFromBody(wrapAsTestFunction("return 'my test';"));
+            Script textValuedScript = scriptFromBody(wrapAsTestFunction("'my test'"));
 
             // When
             TypedPublisher<byte[]> actual = evaluator.evaluateStream(textValuedScript, byte[].class, context, emptyMessage);
@@ -227,7 +218,7 @@ class ScriptEvaluatorTest {
             Flux<byte[]> stream = Flux.just("one".getBytes(), "two".getBytes());
             Message message = MessageBuilder.get(TestComponent.class).withBinary(stream, MimeType.TEXT_PLAIN).build();
 
-            Script extractStreamScript = scriptFromBody(wrapAsTestFunction("return message.payload()"));
+            Script extractStreamScript = scriptFromBody(wrapAsTestFunction("message.payload()"));
 
             // When
             TypedPublisher<byte[]> actual = evaluator.evaluateStream(extractStreamScript, byte[].class, context, message);
@@ -266,7 +257,7 @@ class ScriptEvaluatorTest {
         @Test
         void shouldReturnEmptyStreamWhenScriptReturnsNull() {
             // Given
-            Script scriptReturningNull = scriptFromBody(wrapAsTestFunction("return null"));
+            Script scriptReturningNull = scriptFromBody(wrapAsTestFunction("null"));
 
             // When
             Publisher<byte[]> actual = evaluator.evaluateStream(scriptReturningNull, byte[].class, context, emptyMessage);
@@ -277,13 +268,13 @@ class ScriptEvaluatorTest {
     }
 
     private static String wrapAsTestFunction(String code) {
-        return String.format("function myTestFunction(context,message) {" +
+        return String.format("def myTestFunction(context, message) {" +
                 "%s" +
                 "}", code);
     }
 
     private static String wrapAsTestFunctionWithMessages(String code) {
-        return String.format("function myTestFunction(context,messages) {" +
+        return String.format("def myTestFunction(context, messages) {" +
                 "%s" +
                 "}", code);
     }

@@ -15,14 +15,14 @@ public interface ScriptSource {
     long moduleId();
 
     /**
-     * Returns the Javascript source file path.
-     * @return the Javascript resource file name in the module package.
+     * Returns the script source file path.
+     * @return the script resource file name in the module package.
      */
     String resource();
 
     /**
-     * Returns the name of the registered Javascript module in the source file path.
-     * @return the name of the Javascript modules in the source file.
+     * Returns the name of the registered script module in the source file path.
+     * @return the name of the script modules in the source file.
      */
     Collection<String> scriptModuleNames();
 

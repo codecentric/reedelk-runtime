@@ -13,9 +13,9 @@ public class FunctionDefinitionBuilderDefault implements FunctionDefinitionBuild
 
     private FunctionDefinitionBuilderDefault(List<String> functionArgumentNames) {
         String joinedArgs = String.join(", ", functionArgumentNames);
-        template = "function %s(" + joinedArgs + ") {\n" +
-                "  return %s\n" +
-                "};";
+        template = "def %s(" + joinedArgs + ") {\n" +
+                "  %s\n" +
+                "}";
     }
 
     public static FunctionDefinitionBuilder<DynamicValue<?>> from(String ...functionArgumentNames) {

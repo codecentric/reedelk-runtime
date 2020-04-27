@@ -9,7 +9,7 @@ public enum TestScript {
     SIMPLE_MODULE {
         @Override
         String path() {
-            return "/com/reedelk/platform/lifecycle/simple_module.js";
+            return "/com/reedelk/platform/lifecycle/TestModule.groovy";
         }
     };
 

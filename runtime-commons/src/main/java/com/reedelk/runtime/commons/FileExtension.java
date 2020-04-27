@@ -7,10 +7,10 @@ public enum FileExtension {
     XML("xml"),
     JAR("jar"),
     JSON("json"),
-    SCRIPT("js"),
     FLOW("flow"),
-    SUBFLOW("subflow"),
+    SCRIPT("groovy"),
     CONFIG("fconfig"),
+    SUBFLOW("subflow"),
     PROPERTIES("properties");
 
     private final String extension;

@@ -2,7 +2,6 @@ package com.reedelk.runtime.converter;
 
 import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.converter.types.ValueConverter;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,7 +31,6 @@ public class RuntimeConverters {
             tmp.put(byte[].class, com.reedelk.runtime.converter.types.bytearraytype.FromByteArrayConverters.ALL);
             tmp.put(Byte[].class, com.reedelk.runtime.converter.types.bytearraytype.FromByteArrayConverters.ALL);
             tmp.put(Exception.class, com.reedelk.runtime.converter.types.exceptiontype.FromExceptionConverters.ALL);
-            tmp.put(ScriptObjectMirror.class, com.reedelk.runtime.converter.types.scriptobjectmirrortype.FromScriptObjectMirrorConverters.ALL);
             CONVERTERS = Collections.unmodifiableMap(tmp);
         }
     }

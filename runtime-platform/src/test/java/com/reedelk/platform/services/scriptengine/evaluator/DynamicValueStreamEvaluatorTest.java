@@ -254,13 +254,11 @@ class DynamicValueStreamEvaluatorTest {
                     .verifyComplete();
         }
 
-        // Testing optimistic typing (Nashorn uses optimistic typing (since JDK 8u40))
-        // http://openjdk.java.net/jeps/196.
         @Test
         void shouldCorrectlySumNumber() {
             // Given
             Message message = MessageBuilder.get(TestComponent.class).withText("12").build();
-            DynamicInteger dynamicInteger = DynamicInteger.from("#[parseInt(message.payload()) + 10]", moduleContext);
+            DynamicInteger dynamicInteger = DynamicInteger.from("#[message.payload().toInteger() + 10]", moduleContext);
 
             // When
             TypedPublisher<Integer> publisher = evaluator.evaluateStream(dynamicInteger, context, message);

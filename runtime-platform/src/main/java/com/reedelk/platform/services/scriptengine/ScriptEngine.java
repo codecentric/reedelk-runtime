@@ -7,6 +7,7 @@ import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
 import com.reedelk.runtime.api.script.Script;
 import com.reedelk.runtime.api.script.ScriptEngineService;
+import com.reedelk.runtime.api.script.ScriptGlobalFunctions;
 import com.reedelk.runtime.api.script.ScriptSource;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
@@ -103,7 +104,12 @@ public class ScriptEngine implements ScriptEngineService {
         return dynamicMapEvaluator.evaluate(dynamicMap, context, throwable);
     }
 
-    // Register Function
+    // Register Function/s and Script Sources.
+
+    @Override
+    public void register(ScriptGlobalFunctions globalFunction) {
+        scriptSourceEvaluator.register(globalFunction);
+    }
 
     @Override
     public void register(ScriptSource scriptSource) {

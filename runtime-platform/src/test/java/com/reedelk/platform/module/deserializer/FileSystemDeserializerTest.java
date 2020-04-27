@@ -125,11 +125,11 @@ class FileSystemDeserializerTest {
     void shouldDeserializeScripts() throws IOException {
         // Given
         String script1Body = "return 'aaa'";
-        createProjectFile(Paths.get("scripts", "script1.js"), script1Body);
-        createProjectFile(Paths.get("scripts", "script2.js"), "return 'bbb'");
-        createProjectFile(Paths.get("scripts", "script3.js"), "return 'ccc'");
-        createProjectFile(Paths.get("scripts", "script4.js"), "return 'ddd'");
-        createProjectFile(Paths.get("scripts", "nested", "script5.js"), "return 'eee'");
+        createProjectFile(Paths.get("scripts", "script1.groovy"), script1Body);
+        createProjectFile(Paths.get("scripts", "script2.groovy"), "return 'bbb'");
+        createProjectFile(Paths.get("scripts", "script3.groovy"), "return 'ccc'");
+        createProjectFile(Paths.get("scripts", "script4.groovy"), "return 'ddd'");
+        createProjectFile(Paths.get("scripts", "nested", "script5.groovy"), "return 'eee'");
 
         FileSystemDeserializer deserializer = new FileSystemDeserializer(projectDir.toString());
 
@@ -138,7 +138,7 @@ class FileSystemDeserializerTest {
 
         // Then
         Collection<ResourceLoader> resourceLoaders = deSerializedModule.getScripts();
-        assertExist(resourceLoaders,  Paths.get(projectDir.toString(), "scripts", "script1.js").toUri().toURL(), script1Body);
+        assertExist(resourceLoaders,  Paths.get(projectDir.toString(), "scripts", "script1.groovy").toUri().toURL(), script1Body);
         assertThat(resourceLoaders).hasSize(5);
 
         assertThat(deSerializedModule.getFlows()).isEmpty();

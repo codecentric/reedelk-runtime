@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-class JavascriptEngineProviderTest {
+class GroovyEngineProviderTest {
 
     @Test
     void shouldCompileModuleScript() throws IOException, ScriptException {
@@ -21,7 +21,7 @@ class JavascriptEngineProviderTest {
         Map<String,Object> bindings = new HashMap<>();
 
         try (Reader stringReader = new StringReader(TestScript.SIMPLE_MODULE.get())) {
-            JavascriptEngineProvider.getInstance().compile(modulesNames, stringReader, bindings);
+            GroovyEngineProvider.getInstance().compile(modulesNames, stringReader, bindings);
         }
     }
 }

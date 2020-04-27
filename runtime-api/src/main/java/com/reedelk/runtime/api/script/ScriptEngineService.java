@@ -43,7 +43,9 @@ public interface ScriptEngineService {
 
     <T> Map<String, T> evaluate(DynamicMap<T> dynamicMap, FlowContext context, Throwable throwable);
 
-    // Register Function
+    // Register Function/s and Script Sources.
+
+    void register(ScriptGlobalFunctions globalFunction);
 
     void register(ScriptSource scriptSource);
 

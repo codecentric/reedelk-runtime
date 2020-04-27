@@ -26,9 +26,9 @@ class FunctionDefinitionBuilderLazyTest {
         String function = builder.apply(expression);
 
         // Then
-        String expected = "function " + expression.functionName() + "(argument1, argument2) {\n" +
-                "  return argument1.length + argument2.length\n" +
-                "};";
+        String expected = "def " + expression.functionName() + "(argument1, argument2) {\n" +
+                "  argument1.length + argument2.length\n" +
+                "}";
         assertThat(function).isEqualTo(expected);
     }
 
@@ -44,9 +44,9 @@ class FunctionDefinitionBuilderLazyTest {
         String function = builder.apply(expression);
 
         // Then
-        String expected = "function " + expression.functionName() + "() {\n" +
-                "  return 'my test'\n" +
-                "};";
+        String expected = "def " + expression.functionName() + "() {\n" +
+                "  'my test'\n" +
+                "}";
         assertThat(function).isEqualTo(expected);
     }
 }

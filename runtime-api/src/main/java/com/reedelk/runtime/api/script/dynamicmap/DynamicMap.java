@@ -22,7 +22,7 @@ public abstract class DynamicMap<T> extends HashMap<String, Object> implements S
         }
         if (!from.isEmpty()) {
             this.context = context;
-            // functionNameUUID because each dynamic map is a compiled script in the Javascript engine.
+            // functionNameUUID because each dynamic map is a compiled script in the script engine.
             this.functionNameUUID = FunctionNameUUID.generate(context);
         } else {
             this.context = null;
