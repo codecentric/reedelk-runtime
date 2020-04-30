@@ -1211,6 +1211,7 @@
       "global": true,
       "fullyQualifiedName": "com.test.Utils",
       "displayName": "Utils",
+      "description": "My type description",
       "listItemType": "java.util.Map",
       "functions": [
         {

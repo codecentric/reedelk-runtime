@@ -66,4 +66,14 @@ public class ModuleDescriptor {
     public void setTypes(List<TypeDescriptor> types) {
         this.types = types;
     }
+
+    @Override
+    public String toString() {
+        return "ModuleDescriptor{" +
+                "name='" + name + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", components=" + components +
+                ", types=" + types +
+                '}';
+    }
 }

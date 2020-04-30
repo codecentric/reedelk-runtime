@@ -12,11 +12,8 @@ import com.reedelk.module.descriptor.model.type.TypePropertyDescriptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +26,7 @@ import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 @ExtendWith(MockitoExtension.class)
 class JsonProviderTest {
 
-    @Mock
-    private Icon icon;
-    @Mock
-    private Image image;
-
     private ModuleDescriptor moduleDescriptor;
-
 
     @BeforeEach
     void setUp() {
@@ -56,8 +47,6 @@ class JsonProviderTest {
         myProcessorComponent.setFullyQualifiedName("com.test.component.TestProcessorComponent");
         myProcessorComponent.setProperties(myProcessorComponentProperties);
         myProcessorComponent.setHidden(true);
-        myProcessorComponent.setImage(image);
-        myProcessorComponent.setIcon(icon);
 
         List<PropertyDescriptor> myInboundComponentProperties = asList(
                 propertyStringWithInitValue,
@@ -69,8 +58,6 @@ class JsonProviderTest {
         myInboundComponent.setFullyQualifiedName("com.test.component.TestInboundComponent");
         myInboundComponent.setProperties(myInboundComponentProperties);
         myInboundComponent.setHidden(true);
-        myInboundComponent.setImage(image);
-        myInboundComponent.setIcon(icon);
 
         TypePropertyDescriptor propertyDescriptor = new TypePropertyDescriptor();
         propertyDescriptor.setDescription("The correlation ID");
@@ -103,7 +90,6 @@ class JsonProviderTest {
         moduleDescriptor.setName("module-xyz");
     }
 
-
     @Test
     void shouldConvertModuleDescriptorToJson() throws ModuleDescriptorException {
         // When
@@ -119,9 +105,10 @@ class JsonProviderTest {
         String input = TestJson.COMPONENT_WITH_ALL_SUPPORTED_PROPERTIES.get();
 
         // When
-        ModuleDescriptor descriptor = JsonProvider.fromJson(input);
+        ModuleDescriptor actual = JsonProvider.fromJson(input);
 
         // Then
-        assertThat(descriptor).isNotNull();
+        // Must keep the toString methods in sync here.
+        assertThat(actual.toString()).isEqualTo(moduleDescriptor.toString());
     }
 }

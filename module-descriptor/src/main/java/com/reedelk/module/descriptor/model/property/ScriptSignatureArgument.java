@@ -17,4 +17,12 @@ public class ScriptSignatureArgument {
     public String getArgumentType() {
         return argumentType;
     }
+
+    @Override
+    public String toString() {
+        return "ScriptSignatureArgument{" +
+                "argumentName='" + argumentName + '\'' +
+                ", argumentType='" + argumentType + '\'' +
+                '}';
+    }
 }

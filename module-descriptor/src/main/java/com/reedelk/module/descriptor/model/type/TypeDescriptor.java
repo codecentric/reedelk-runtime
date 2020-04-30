@@ -74,4 +74,17 @@ public class TypeDescriptor {
     public void setProperties(List<TypePropertyDescriptor> properties) {
         this.properties = properties;
     }
+
+    @Override
+    public String toString() {
+        return "TypeDescriptor{" +
+                "global=" + global +
+                ", fullyQualifiedName='" + fullyQualifiedName + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", description='" + description + '\'' +
+                ", listItemType='" + listItemType + '\'' +
+                ", functions=" + functions +
+                ", properties=" + properties +
+                '}';
+    }
 }

@@ -38,4 +38,14 @@ public class TypePropertyDescriptor {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "TypePropertyDescriptor{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", example='" + example + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

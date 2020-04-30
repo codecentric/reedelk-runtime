@@ -30,4 +30,11 @@ public class ScriptSignatureDescriptor implements Serializable {
     public void setArguments(List<ScriptSignatureArgument> arguments) {
         this.arguments = arguments;
     }
+
+    @Override
+    public String toString() {
+        return "ScriptSignatureDescriptor{" +
+                "arguments=" + arguments +
+                '}';
+    }
 }

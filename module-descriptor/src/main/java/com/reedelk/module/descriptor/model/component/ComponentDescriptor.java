@@ -99,10 +99,10 @@ public class ComponentDescriptor implements Serializable {
                 "icon=" + icon +
                 ", image=" + image +
                 ", hidden=" + hidden +
+                ", type=" + type +
                 ", displayName='" + displayName + '\'' +
                 ", description='" + description + '\'' +
                 ", fullyQualifiedName='" + fullyQualifiedName + '\'' +
-                ", type=" + type +
                 ", properties=" + properties +
                 '}';
     }

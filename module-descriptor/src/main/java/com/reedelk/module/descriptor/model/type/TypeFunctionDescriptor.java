@@ -57,4 +57,16 @@ public class TypeFunctionDescriptor {
     public void setCursorOffset(int cursorOffset) {
         this.cursorOffset = cursorOffset;
     }
+
+    @Override
+    public String toString() {
+        return "TypeFunctionDescriptor{" +
+                "name='" + name + '\'' +
+                ", example='" + example + '\'' +
+                ", signature='" + signature + '\'' +
+                ", returnType='" + returnType + '\'' +
+                ", description='" + description + '\'' +
+                ", cursorOffset=" + cursorOffset +
+                '}';
+    }
 }
