@@ -12,7 +12,6 @@ import io.github.classgraph.FieldInfo;
 import java.util.List;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
-import static com.reedelk.module.descriptor.analyzer.commons.Utils.simpleNameFrom;
 import static java.util.stream.Collectors.toList;
 
 // Only classes with @Type annotation are scanned for @TypeProperty annotations.
@@ -87,14 +86,13 @@ public class TypePropertyAnalyzer {
         if (UseDefaultType.class.getName().equals(type)) {
             throw new ModuleDescriptorException("Return type must be defined for class level @TypeProperty annotations.");
         } else {
-            return simpleNameFrom(type);
+            return type; // Fully qualified name.
         }
     }
 
     private String getTypeFrom(AnnotationInfo annotationInfo, FieldInfo fieldInfo) {
         String type = getParameterValue("type", UseDefaultType.class.getName(), annotationInfo);
         return UseDefaultType.class.getName().equals(type) ?
-                fieldInfo.getTypeDescriptor().toStringWithSimpleNames() :
-                simpleNameFrom(type);
+                fieldInfo.getTypeDescriptor().toStringWithSimpleNames() : type; // Fully qualified name.
     }
 }

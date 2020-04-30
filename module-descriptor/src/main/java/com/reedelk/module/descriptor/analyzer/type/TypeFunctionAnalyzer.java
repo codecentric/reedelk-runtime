@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
-import static com.reedelk.module.descriptor.analyzer.commons.Utils.simpleNameFrom;
 import static java.util.stream.Collectors.toList;
 
 // Only classes with @Type annotation are scanned for @TypeFunction annotations.
@@ -128,7 +127,7 @@ public class TypeFunctionAnalyzer {
         if (UseDefaultType.class.getName().equals(returnType)) {
             throw new ModuleDescriptorException("Return type must be defined for class level @TypeFunction annotations.");
         } else {
-            return simpleNameFrom(returnType);
+            return returnType; // Fully qualified name.
         }
     }
 
@@ -138,7 +137,7 @@ public class TypeFunctionAnalyzer {
             TypeSignature resultType = methodInfo.getTypeDescriptor().getResultType();
             return resultType.toStringWithSimpleNames();
         } else {
-            return simpleNameFrom(returnType);
+            return returnType; // Fully qualified name.
         }
     }
 }

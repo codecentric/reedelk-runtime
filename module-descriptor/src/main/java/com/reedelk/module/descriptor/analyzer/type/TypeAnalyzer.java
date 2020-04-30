@@ -42,6 +42,7 @@ public class TypeAnalyzer {
 
             TypeDescriptor descriptor = new TypeDescriptor();
             descriptor.setFullyQualifiedName(classInfo.getName());
+            descriptor.setListItemType(listItemType);
             descriptor.setDisplayName(displayName);
             descriptor.setDescription(description);
             descriptor.setProperties(properties);
