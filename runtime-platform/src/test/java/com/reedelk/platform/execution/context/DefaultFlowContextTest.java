@@ -1,5 +1,6 @@
 package com.reedelk.platform.execution.context;
 
+import com.reedelk.platform.test.utils.MyTestAttributes;
 import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.flow.Disposable;
 import com.reedelk.runtime.api.flow.FlowContext;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -47,9 +47,8 @@ class DefaultFlowContextTest {
     void shouldCreateContextWithCorrelationIdFromGivenMessageAttributes() {
         // Given
         String expectedCorrelationId = "aabbcc";
-        Map<String, Serializable> attributes = of(MessageAttributeKey.CORRELATION_ID, expectedCorrelationId);
-
-        Message message = MessageBuilder.get(TestComponent.class).attributes(attributes).empty().build();
+        Map<String, String> attributes = of(MessageAttributeKey.CORRELATION_ID, expectedCorrelationId);
+        Message message = MessageBuilder.get(TestComponent.class).attributes(new MyTestAttributes(attributes)).empty().build();
 
         // When
         DefaultFlowContext context = DefaultFlowContext.from(message);

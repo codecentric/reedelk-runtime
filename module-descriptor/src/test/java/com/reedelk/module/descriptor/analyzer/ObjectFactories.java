@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.analyzer;
 
-import com.reedelk.module.descriptor.model.*;
+import com.reedelk.module.descriptor.model.property.*;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 

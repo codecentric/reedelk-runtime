@@ -3,7 +3,7 @@ package com.reedelk.module.descriptor.analyzer.property.type;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
 import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
-import com.reedelk.module.descriptor.model.*;
+import com.reedelk.module.descriptor.model.property.*;
 import com.reedelk.runtime.api.annotation.DialogTitle;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.ClassInfo;
@@ -24,7 +24,7 @@ public class TypeObjectFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         String dialogTitle = annotationValueOrDefaultFrom(fieldInfo, DialogTitle.class, null);
 
         // We check that it is a user defined object type (with Implementor).

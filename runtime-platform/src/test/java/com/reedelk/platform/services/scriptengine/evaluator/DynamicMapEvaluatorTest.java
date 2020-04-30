@@ -1,5 +1,6 @@
 package com.reedelk.platform.services.scriptengine.evaluator;
 
+import com.reedelk.platform.test.utils.MyTestAttributes;
 import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.exception.PlatformException;
@@ -39,7 +40,7 @@ class DynamicMapEvaluatorTest {
     void shouldCorrectlyEvaluateMapWithScriptAndTextAndNumericValues() {
         // Given
         Map<String, String> attributes = of("property1", "test1");
-        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(new MyTestAttributes(attributes)).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of(
                 "script", "#[message.attributes.propErty1]",
@@ -136,7 +137,7 @@ class DynamicMapEvaluatorTest {
     void shouldCorrectlyEvaluateMapWithEmptyDynamicScriptValue() {
         // Given
         Map<String, String> attributes = of("property1", "test1");
-        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(new MyTestAttributes(attributes)).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of("Key1", "#[]"), moduleContext);
 
@@ -151,7 +152,7 @@ class DynamicMapEvaluatorTest {
     void shouldCorrectlyEvaluateMapWithEmptyValue() {
         // Given
         Map<String, String> attributes = of("property1", "test1");
-        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(new MyTestAttributes(attributes)).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of("Key1", ""), moduleContext);
 
@@ -166,7 +167,7 @@ class DynamicMapEvaluatorTest {
     void shouldCorrectlyEvaluateMapWithEmptyKey() {
         // Given
         Map<String, String> attributes = of("property1", "test1");
-        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(attributes).build();
+        Message message = MessageBuilder.get(TestComponent.class).withText("test").attributes(new MyTestAttributes(attributes)).build();
 
         DynamicStringMap dynamicMap = DynamicStringMap.from(of(
                 "", "myValue", "key2", "value2"),

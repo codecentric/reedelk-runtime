@@ -1,7 +1,7 @@
 package com.reedelk.module.descriptor.analyzer.property;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.PropertyDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import io.github.classgraph.FieldInfo;
 
 public class NameAnalyzer implements FieldInfoAnalyzer {

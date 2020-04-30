@@ -1,15 +1,9 @@
 package com.reedelk.module.descriptor;
 
-import com.reedelk.module.descriptor.analyzer.Matcher;
-import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
-import com.reedelk.module.descriptor.model.AutocompleteTypeDescriptor;
-import com.reedelk.module.descriptor.model.AutocompleteVariableDescriptor;
-import com.reedelk.runtime.api.autocomplete.AutocompleteItemType;
-
-import java.util.Objects;
-
 public class Matchers {
 
+    // TODO: Here
+    /**
     public static Matcher<AutocompleteTypeDescriptor> ofAutocompleteTypeDescriptor(AutocompleteTypeDescriptor expected) {
         return actual -> {
             String expectedType = expected.getType();
@@ -24,7 +18,7 @@ public class Matchers {
         };
     }
 
-    public static Matcher<AutocompleteVariableDescriptor> ofAutocompleteVariableDescriptor(AutocompleteVariableDescriptor expected) {
+    public static Matcher<ScriptVariableDescriptor> ofAutocompleteVariableDescriptor(ScriptVariableDescriptor expected) {
         return actual -> {
             String expectedName = expected.getName();
             String actualName = actual.getName();
@@ -51,16 +45,13 @@ public class Matchers {
             String actualDescription = actual.getDescription();
             int expectedCursorOffset = expected.getCursorOffset();
             int actualCursorOffset = actual.getCursorOffset();
-            AutocompleteItemType expectedAutocompleteItemType = expected.getItemType();
-            AutocompleteItemType actualAutocompleteItemType = actual.getItemType();
             return Objects.equals(expectedType, actualType) &&
                     Objects.equals(expectedToken, actualToken) &&
                     Objects.equals(expectedExample, actualExample) &&
                     Objects.equals(expectedSignature, actualSignature) &&
                     Objects.equals(expectedReturnType, actualReturnType) &&
                     Objects.equals(expectedDescription, actualDescription) &&
-                    Objects.equals(expectedCursorOffset, actualCursorOffset) &&
-                    Objects.equals(expectedAutocompleteItemType, actualAutocompleteItemType);
+                    Objects.equals(expectedCursorOffset, actualCursorOffset);
         };
-    }
+    }*/
 }

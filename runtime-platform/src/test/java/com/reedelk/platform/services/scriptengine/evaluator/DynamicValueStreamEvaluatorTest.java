@@ -1,11 +1,13 @@
 package com.reedelk.platform.services.scriptengine.evaluator;
 
+import com.reedelk.platform.test.utils.MyTestAttributes;
 import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
 import com.reedelk.runtime.api.exception.PlatformException;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
+import com.reedelk.runtime.api.message.MessageAttributes;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
@@ -50,8 +52,13 @@ class DynamicValueStreamEvaluatorTest {
         @Test
         void shouldCorrectlyEvaluateMessageAttributeProperty() {
             // Given
-            Map<String, String> attributes = of("property1", "test1");
-            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").attributes(attributes).build();
+            class MyAttributes extends MessageAttributes {
+                MyAttributes() {
+                    put("property1", "test1");
+                }
+            }
+
+            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").attributes(new MyAttributes()).build();
             DynamicString dynamicString = DynamicString.from("#[message.attributes.pRoperty1]", moduleContext);
 
             // When
@@ -597,7 +604,7 @@ class DynamicValueStreamEvaluatorTest {
         void shouldCorrectlyEvaluateDynamicStringWithCustomArguments() {
             // Given
             Map<String, String> attributes = of("property1", "test1");
-            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").attributes(attributes).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").attributes(new MyTestAttributes(attributes)).build();
             DynamicString dynamicString = DynamicString.from("#[message.attributes.pRoperty1]", moduleContext);
 
             // When

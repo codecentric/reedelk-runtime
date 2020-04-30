@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property;
 
-import com.reedelk.runtime.api.annotation.AutocompleteVariable;
 import com.reedelk.runtime.api.annotation.Property;
 import com.reedelk.runtime.api.annotation.ScriptSignature;
+import com.reedelk.runtime.api.annotation.ScriptVariable;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
@@ -11,9 +11,9 @@ import com.reedelk.runtime.api.script.Script;
 public class TestComponentWithScriptSignature implements ProcessorSync {
 
     @ScriptSignature(arguments = {"arg1","arg2","arg3"})
-    @AutocompleteVariable(name = "arg1", type = String.class)
-    @AutocompleteVariable(name = "arg2", type = Message.class)
-    @AutocompleteVariable(name = "arg3", type = FlowContext.class)
+    @ScriptVariable(name = "arg1", type = String.class)
+    @ScriptVariable(name = "arg2", type = Message.class)
+    @ScriptVariable(name = "arg3", type = FlowContext.class)
     @Property("Property with script signature annotation")
     private Script scriptPropertyWithScriptSignature;
 

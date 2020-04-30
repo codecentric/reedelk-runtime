@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TypeDescriptor;
-import com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
 
@@ -18,7 +18,7 @@ public class TypeDynamicFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         Class<?> clazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
 
         TypeDynamicValueDescriptor descriptor = new TypeDynamicValueDescriptor();

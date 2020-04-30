@@ -1,8 +1,8 @@
 package com.reedelk.runtime.api.message.content;
 
 
-import com.reedelk.runtime.api.annotation.AutocompleteItem;
-import com.reedelk.runtime.api.annotation.AutocompleteType;
+import com.reedelk.runtime.api.annotation.Type;
+import com.reedelk.runtime.api.annotation.TypeFunction;
 import com.reedelk.runtime.api.commons.StringUtils;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.util.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 
-@AutocompleteType(description = "A mime type encapsulates information about the mime type of the content." +
+@Type(description = "A mime type encapsulates information about the mime type of the content." +
         " A mime type is composed by a primary type (e.g image) and by a sub type (e.g jpeg).")
 public class MimeType implements Serializable {
 
@@ -79,7 +79,7 @@ public class MimeType implements Serializable {
         this.fileExtensions = fileExtensions != null ? unmodifiableList(fileExtensions) : emptyList();
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "subType()",
             example = "message.content().mimeType().subType()",
             description = "Returns the sub-type of the mime type.")
@@ -95,7 +95,7 @@ public class MimeType implements Serializable {
         return Optional.ofNullable(getCharset(charset, params));
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "primaryType()",
             example = "message.content().mimeType().primaryType()",
             description = "Returns the primary type of the mime type.")
@@ -107,7 +107,7 @@ public class MimeType implements Serializable {
         return primaryType;
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "fileExtensions()",
             example = "message.content().mimeType().fileExtensions()",
             description = "Returns a list of file extensions associated to this mime type.")

@@ -1,14 +1,14 @@
 package com.reedelk.runtime.api.message.content;
 
-import com.reedelk.runtime.api.annotation.AutocompleteItem;
-import com.reedelk.runtime.api.annotation.AutocompleteType;
+import com.reedelk.runtime.api.annotation.Type;
+import com.reedelk.runtime.api.annotation.TypeFunction;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@AutocompleteType(description = "An attachment encapsulates an HTTP multipart form data object or an email attachment.")
+@Type(description = "An attachment encapsulates an HTTP multipart form data object or an email attachment.")
 @SuppressWarnings("unchecked")
 public class Attachment implements Serializable {
 
@@ -29,7 +29,7 @@ public class Attachment implements Serializable {
         return new Builder();
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "name()",
             example = "attachment.name()",
             description = "Returns the name of the attachment.")
@@ -41,37 +41,37 @@ public class Attachment implements Serializable {
         return name;
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "payload()",
             example = "attachment.payload()",
             description = "Returns the payload of the attachment.")
-    public <Type> Type payload() {
-        return (Type) Optional.ofNullable(content)
+    public <T> T payload() {
+        return (T) Optional.ofNullable(content)
                 .map(TypedContent::data)
                 .orElse(null);
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "getPayload()",
             example = "attachment.getPayload()",
             description = "Returns the payload of the attachment.")
-    public <Type> Type getPayload() {
+    public <T> T getPayload() {
         return payload();
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "content()",
             example = "attachment.content()",
             description = "Returns the content of the attachment.")
-    public <Type, StreamType, T extends TypedContent<Type, StreamType>> T content() {
-        return (T) content;
+    public <T, StreamType, U extends TypedContent<T, StreamType>> U content() {
+        return (U) content;
     }
 
-    public <Type, StreamType, T extends TypedContent<Type, StreamType>> T getContent() {
-        return (T) content;
+    public <T, StreamType, U extends TypedContent<T, StreamType>> U getContent() {
+        return (U) content;
     }
 
-    @AutocompleteItem(
+    @TypeFunction(
             signature = "attributes()",
             example = "attachment.attributes()",
             description = "Returns the attributes of the attachment.")

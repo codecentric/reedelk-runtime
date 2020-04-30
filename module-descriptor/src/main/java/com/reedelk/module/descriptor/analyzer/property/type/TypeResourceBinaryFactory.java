@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TypeDescriptor;
-import com.reedelk.module.descriptor.model.TypeResourceBinaryDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.module.descriptor.model.property.TypeResourceBinaryDescriptor;
 import com.reedelk.runtime.api.annotation.HintBrowseFile;
 import com.reedelk.runtime.api.annotation.WidthAuto;
 import com.reedelk.runtime.api.commons.PlatformTypes;
@@ -20,7 +20,7 @@ public class TypeResourceBinaryFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         boolean widthAuto = hasAnnotation(fieldInfo, WidthAuto.class);
         String hintBrowseFile = annotationValueOrDefaultFrom(fieldInfo, HintBrowseFile.class, null);
 

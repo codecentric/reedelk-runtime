@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TypeDescriptor;
-import com.reedelk.module.descriptor.model.TypeDynamicMapDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.module.descriptor.model.property.TypeDynamicMapDescriptor;
 import com.reedelk.runtime.api.annotation.KeyName;
 import com.reedelk.runtime.api.annotation.TabGroup;
 import com.reedelk.runtime.api.annotation.ValueName;
@@ -21,7 +21,7 @@ public class TypeDynamicMapFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
         String keyName = annotationValueOrDefaultFrom(fieldInfo, KeyName.class, null);
         String valueName = annotationValueOrDefaultFrom(fieldInfo, ValueName.class, null);

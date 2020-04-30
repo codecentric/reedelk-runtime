@@ -2,9 +2,9 @@ package com.reedelk.module.descriptor.analyzer.component;
 
 import com.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
-import com.reedelk.module.descriptor.model.ComponentDescriptor;
-import com.reedelk.module.descriptor.model.ComponentType;
-import com.reedelk.module.descriptor.model.PropertyDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentType;
+import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import com.reedelk.runtime.api.annotation.Description;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.ClassInfo;

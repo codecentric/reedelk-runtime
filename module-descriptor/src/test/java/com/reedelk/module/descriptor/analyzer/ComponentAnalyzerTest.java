@@ -2,9 +2,9 @@ package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
 import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
-import com.reedelk.module.descriptor.model.ComponentDescriptor;
-import com.reedelk.module.descriptor.model.ComponentType;
-import com.reedelk.module.descriptor.model.PropertyDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentType;
+import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
 import org.junit.jupiter.api.BeforeEach;

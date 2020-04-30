@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.analyzer;
 
-import com.reedelk.module.descriptor.model.*;
+import com.reedelk.module.descriptor.model.property.*;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 
@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class TypeDescriptorMatchers {
 
-    public static Matcher<TypeDescriptor> ofPrimitiveType(TypePrimitiveDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofPrimitiveType(TypePrimitiveDescriptor expected) {
         return given -> {
             if (given instanceof TypePrimitiveDescriptor) {
                 TypePrimitiveDescriptor actual = (TypePrimitiveDescriptor) given;
@@ -20,7 +20,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<TypeDescriptor> ofTypeEnum(TypeEnumDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeEnum(TypeEnumDescriptor expected) {
         return given -> {
             if (given instanceof TypeEnumDescriptor) {
                 TypeEnumDescriptor actual = (TypeEnumDescriptor) given;
@@ -33,7 +33,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<TypeDescriptor> ofTypeResourceText(TypeResourceTextDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeResourceText(TypeResourceTextDescriptor expected) {
         return given -> {
             if (given instanceof TypeResourceTextDescriptor) {
                 TypeResourceTextDescriptor actual = (TypeResourceTextDescriptor) given;
@@ -43,7 +43,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<TypeDescriptor> ofTypeResourceBinary(TypeResourceBinaryDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeResourceBinary(TypeResourceBinaryDescriptor expected) {
         return given -> {
             if (given instanceof TypeResourceBinaryDescriptor) {
                 TypeResourceBinaryDescriptor actual = (TypeResourceBinaryDescriptor) given;
@@ -53,7 +53,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<TypeDescriptor> ofTypeCombo(TypeComboDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeCombo(TypeComboDescriptor expected) {
         return given -> {
             if (given instanceof TypeComboDescriptor) {
                 TypeComboDescriptor actual = (TypeComboDescriptor) given;
@@ -72,7 +72,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<TypeDescriptor> ofTypeMap(TypeMapDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeMap(TypeMapDescriptor expected) {
         return given -> {
             if (given instanceof TypeMapDescriptor) {
                 TypeMapDescriptor actual = (TypeMapDescriptor) given;
@@ -85,19 +85,19 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<TypeDescriptor> ofTypeList(TypeListDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeList(TypeListDescriptor expected) {
         return given -> {
             if (given instanceof TypeListDescriptor) {
                 TypeListDescriptor actual = (TypeListDescriptor) given;
-                TypeDescriptor expectedValueType = expected.getValueType();
-                TypeDescriptor actualValueType = actual.getValueType();
+                PropertyTypeDescriptor expectedValueType = expected.getValueType();
+                PropertyTypeDescriptor actualValueType = actual.getValueType();
                 return Objects.equals(expectedValueType.getType(), actualValueType.getType());
             }
             return false;
         };
     }
 
-    public static Matcher<TypeDescriptor> ofTypeScript(TypeScriptDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeScript(TypeScriptDescriptor expected) {
         return given -> {
             if (given instanceof TypeScriptDescriptor) {
                 TypeScriptDescriptor actual = (TypeScriptDescriptor) given;
@@ -107,7 +107,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static <T extends DynamicValue<?>> Matcher<TypeDescriptor> ofDynamicType(TypeDynamicValueDescriptor expected) {
+    public static <T extends DynamicValue<?>> Matcher<PropertyTypeDescriptor> ofDynamicType(TypeDynamicValueDescriptor expected) {
         return given -> {
             if (given instanceof TypeDynamicValueDescriptor) {
                 TypeDynamicValueDescriptor actual = (TypeDynamicValueDescriptor) given;
@@ -117,7 +117,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static <T extends DynamicMap<?>> Matcher<TypeDescriptor> ofDynamicMapType(TypeDynamicMapDescriptor expected) {
+    public static <T extends DynamicMap<?>> Matcher<PropertyTypeDescriptor> ofDynamicMapType(TypeDynamicMapDescriptor expected) {
         return given -> {
             if (given instanceof TypeDynamicMapDescriptor) {
                 TypeDynamicMapDescriptor actual = (TypeDynamicMapDescriptor) given;
@@ -129,7 +129,7 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    private static boolean same(TypeDescriptor expected, TypeDescriptor actual) {
+    private static boolean same(PropertyTypeDescriptor expected, PropertyTypeDescriptor actual) {
         Class<?> expectedClazzType = expected.getType();
         Class<?> actualClazzType = actual.getType();
         return expectedClazzType.equals(actualClazzType);

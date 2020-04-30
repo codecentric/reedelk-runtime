@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.fixture;
 
-import com.reedelk.module.descriptor.model.ScriptSignatureDescriptor;
+import com.reedelk.module.descriptor.model.script.ScriptSignatureDescriptor;
 
 import java.util.Arrays;
 

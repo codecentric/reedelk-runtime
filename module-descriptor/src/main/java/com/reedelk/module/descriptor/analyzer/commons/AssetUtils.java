@@ -123,6 +123,7 @@ public class AssetUtils {
     }
 
     public static Icon getIcon(URL iconURL) {
+        if (iconURL == null) return null;
         try (InputStream is = iconURL.openStream()) {
             return getIcon(is);
         } catch (FileNotFoundException fileNotFoundException) {
@@ -135,6 +136,7 @@ public class AssetUtils {
     }
 
     public static Image getImage(URL imageURL) {
+        if (imageURL == null) return null;
         try (InputStream is = imageURL.openStream()) {
             return getImage(is);
         } catch (FileNotFoundException fileNotFoundException) {

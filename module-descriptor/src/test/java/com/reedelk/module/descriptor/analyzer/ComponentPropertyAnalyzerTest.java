@@ -1,7 +1,7 @@
 package com.reedelk.module.descriptor.analyzer;
 
 import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
-import com.reedelk.module.descriptor.model.*;
+import com.reedelk.module.descriptor.model.property.*;
 import com.reedelk.runtime.api.annotation.InitValue;
 import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.message.content.MimeType;
@@ -655,7 +655,7 @@ class ComponentPropertyAnalyzerTest {
     private void assertThatExistProperty(String propertyName,
                                          String displayName,
                                          String initValue,
-                                         Matcher<TypeDescriptor> matcher) {
+                                         Matcher<PropertyTypeDescriptor> matcher) {
         assertThatExistProperty(propertyName, displayName, initValue, null, null, matcher);
     }
 
@@ -664,7 +664,7 @@ class ComponentPropertyAnalyzerTest {
                                          String initValue,
                                          String example,
                                          String defaultValue,
-                                         Matcher<TypeDescriptor> matcher) {
+                                         Matcher<PropertyTypeDescriptor> matcher) {
         // Given
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 

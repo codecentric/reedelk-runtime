@@ -1,5 +1,6 @@
 package com.reedelk.platform.services.scriptengine.evaluator;
 
+import com.reedelk.platform.test.utils.MyTestAttributes;
 import com.reedelk.platform.test.utils.TestComponent;
 import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.commons.StackTraceUtils;
@@ -49,7 +50,7 @@ class DynamicValueEvaluatorTest {
         void shouldCorrectlyEvaluateMessageAttributeProperty() {
             // Given
             Map<String, String> attributes = of("property1", "test1");
-            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").attributes(attributes).build();
+            Message message = MessageBuilder.get(TestComponent.class).withText("this is a test").attributes(new MyTestAttributes(attributes)).build();
             DynamicString dynamicString = DynamicString.from("#[message.attributes.property1]", moduleContext);
 
             // When

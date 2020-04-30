@@ -1,19 +1,19 @@
 package com.reedelk.module.descriptor.analyzer;
 
-import com.reedelk.module.descriptor.ModuleDescriptor;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
-import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteItemAnalyzer;
-import com.reedelk.module.descriptor.analyzer.autocomplete.AutocompleteTypeAnalyzer;
 import com.reedelk.module.descriptor.analyzer.commons.AssetUtils;
-import com.reedelk.module.descriptor.analyzer.commons.ComponentDescriptorsJsonFile;
 import com.reedelk.module.descriptor.analyzer.commons.Messages.Scan;
+import com.reedelk.module.descriptor.analyzer.commons.ReadModuleDescriptor;
+import com.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerFactory;
+import com.reedelk.module.descriptor.analyzer.type.TypeAnalyzer;
 import com.reedelk.module.descriptor.json.JsonProvider;
-import com.reedelk.module.descriptor.model.AutocompleteItemDescriptor;
-import com.reedelk.module.descriptor.model.AutocompleteTypeDescriptor;
-import com.reedelk.module.descriptor.model.ComponentDescriptor;
-import com.reedelk.module.descriptor.model.ComponentType;
+import com.reedelk.module.descriptor.model.ModuleDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentType;
+import com.reedelk.module.descriptor.model.type.TypeDescriptor;
+import com.reedelk.runtime.api.annotation.Module;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
@@ -25,9 +25,9 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toList;
 
 public class ModuleDescriptorAnalyzer {
 
@@ -44,7 +44,7 @@ public class ModuleDescriptorAnalyzer {
      * @throws ModuleDescriptorException if the JSON could not be de-serialized.
      */
     public ModuleDescriptor from(String targetJarPath, String moduleName) throws ModuleDescriptorException {
-        Optional<String> componentsDefinitionFromJar = ComponentDescriptorsJsonFile.from(targetJarPath);
+        Optional<String> componentsDefinitionFromJar = ReadModuleDescriptor.from(targetJarPath);
 
         LOG.info(format("Analyzing Module from target Jar path=[%s]. Component Descriptors Json file found=[%s] ",
                 targetJarPath, componentsDefinitionFromJar.isPresent()));
@@ -69,7 +69,6 @@ public class ModuleDescriptorAnalyzer {
             }
 
         } else {
-
             try {
                 // Here there should be a strategy. If the target Jar path contains
                 // the json with the components definitions, then use that one, otherwise scan.
@@ -84,7 +83,6 @@ public class ModuleDescriptorAnalyzer {
                     Image componentImage = AssetUtils.loadImage(scanResult, componentDescriptor.getFullyQualifiedName());
                     componentDescriptor.setImage(componentImage);
                 });
-
                 return moduleDescriptor;
             } catch (Exception exception) {
                 throw new ModuleDescriptorException(exception);
@@ -97,8 +95,7 @@ public class ModuleDescriptorAnalyzer {
      * into the module/resources directory so that it can later be used by the IntelliJ Designer to load component's
      * definitions.
      *
-     *
-     * @param directory the target/classes folder of the compiled module.
+     * @param directory  the target/classes folder of the compiled module.
      * @param moduleName the name of the module.
      * @return the ModuleDescriptor build out of the annotations found in the compiled classes.
      */
@@ -108,7 +105,6 @@ public class ModuleDescriptorAnalyzer {
                     .overrideClasspath(directory)
                     .scan();
             ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult, moduleName);
-
             if (resolveImages) {
                 moduleDescriptor.getComponents().forEach(componentDescriptor -> {
                     String componentFullyQualifiedName = componentDescriptor.getFullyQualifiedName();
@@ -116,7 +112,6 @@ public class ModuleDescriptorAnalyzer {
                     componentDescriptor.setIcon(AssetUtils.loadIconFromBaseDirectory(directory, componentFullyQualifiedName));
                 });
             }
-
             return moduleDescriptor;
         } catch (Exception exception) {
             throw new ModuleDescriptorException(exception);
@@ -129,60 +124,56 @@ public class ModuleDescriptorAnalyzer {
      */
     public ModuleDescriptor from(Class<?> systemComponentClazz) {
         URL resource = systemComponentClazz.getClassLoader().getResource(ModuleDescriptor.RESOURCE_FILE_NAME);
-
         ModuleDescriptor moduleDescriptor = JsonProvider.fromURL(resource);
-
         // Load images
         moduleDescriptor.getComponents().forEach(componentDescriptor -> {
             URL iconURL = systemComponentClazz.getClassLoader().getResource(componentDescriptor.getFullyQualifiedName() + "-icon.png");
-            if (iconURL != null) {
-                Icon componentIcon = AssetUtils.getIcon(iconURL);
-                componentDescriptor.setIcon(componentIcon);
-            }
-
+            componentDescriptor.setIcon(AssetUtils.getIcon(iconURL));
             URL imageURL = systemComponentClazz.getClassLoader().getResource(componentDescriptor.getFullyQualifiedName() + ".png");
-            if (imageURL != null) {
-                Image componentImage = AssetUtils.getImage(imageURL);
-                componentDescriptor.setImage(componentImage);
-            }
+            componentDescriptor.setImage(AssetUtils.getImage(imageURL));
         });
         return moduleDescriptor;
     }
 
     private ModuleDescriptor analyzeFrom(final ScanResult scanResult, final String moduleName) {
-        List<ComponentDescriptor> allComponentDescriptors = componentDescriptorsFrom(scanResult);
-        List<ComponentDescriptor> knownComponentDescriptors = filterOutUnknownClassComponents(allComponentDescriptors);
-        List<AutocompleteTypeDescriptor> autocompleteTypes = analyzeAutocompleteTypes(scanResult);
-        List<AutocompleteItemDescriptor> autocompleteItems = analyzeAutocompleteItems(scanResult);
+        String moduleDisplayName = moduleDisplayNameOf(scanResult, moduleName);
+        List<ComponentDescriptor> components = componentsOf(scanResult);
+        List<TypeDescriptor> types = typesOf(scanResult);
+
         ModuleDescriptor moduleDescriptor = new ModuleDescriptor();
+        moduleDescriptor.setDisplayName(moduleDisplayName);
+        moduleDescriptor.setComponents(components);
         moduleDescriptor.setName(moduleName);
-        moduleDescriptor.setComponents(knownComponentDescriptors);
-        moduleDescriptor.setAutocompleteTypes(autocompleteTypes);
-        moduleDescriptor.setAutocompleteItems(autocompleteItems);
+        moduleDescriptor.setTypes(types);
         return moduleDescriptor;
     }
 
-    private List<AutocompleteTypeDescriptor> analyzeAutocompleteTypes(ScanResult scanResult) {
-        AutocompleteTypeAnalyzer analyzer = new AutocompleteTypeAnalyzer(scanResult);
+    private List<TypeDescriptor> typesOf(ScanResult scanResult) {
+        TypeAnalyzer analyzer = new TypeAnalyzer(scanResult);
         return analyzer.analyze();
     }
 
-    private List<AutocompleteItemDescriptor> analyzeAutocompleteItems(ScanResult scanResult) {
-        AutocompleteItemAnalyzer autocompleteItemAnalyzer = new AutocompleteItemAnalyzer(scanResult);
-        return autocompleteItemAnalyzer.analyze();
+    private String moduleDisplayNameOf(ScanResult scanResult, String moduleName) {
+        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(Module.class.getName());
+        return classInfoList.stream()
+                .findFirst()
+                .map(classInfo -> ScannerUtils.annotationValueOrDefaultFrom(classInfo, Module.class, moduleName))
+                .orElse(moduleName);
     }
-
-    private List<ComponentDescriptor> componentDescriptorsFrom(ScanResult scanResult) {
+    private List<ComponentDescriptor> componentsOf(ScanResult scanResult) {
         ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(ModuleComponent.class.getName());
-        return classInfoList.stream().map(classInfo -> {
-            try {
-                ComponentAnalyzer componentAnalyzer = ComponentAnalyzerFactory.get(scanResult);
-                return componentAnalyzer.analyze(classInfo);
-            } catch (Exception exception) {
-                String message = Scan.ERROR_SCAN_COMPONENT.format(classInfo.getName(), exception.getMessage());
-                throw new ModuleDescriptorException(message, exception);
-            }
-        }).collect(Collectors.toList());
+        return classInfoList.stream()
+                .map(classInfo -> {
+                    try {
+                        ComponentAnalyzer componentAnalyzer = ComponentAnalyzerFactory.get(scanResult);
+                        return componentAnalyzer.analyze(classInfo);
+                    } catch (Exception exception) {
+                        String message = Scan.ERROR_SCAN_COMPONENT.format(classInfo.getName(), exception.getMessage());
+                        throw new ModuleDescriptorException(message, exception);
+                    }
+                })
+                .filter(descriptor -> !ComponentType.UNKNOWN.equals(descriptor.getType()))
+                .collect(toList());
     }
 
     private static ScanResult scanResultFrom(String targetPath) {
@@ -199,13 +190,7 @@ public class ModuleDescriptorAnalyzer {
                 .ignoreFieldVisibility();
     }
 
-    private static List<ComponentDescriptor> filterOutUnknownClassComponents(List<ComponentDescriptor> componentDescriptorList) {
-        return componentDescriptorList.stream()
-                .filter(descriptor -> !ComponentType.UNKNOWN.equals(descriptor.getType()))
-                .collect(Collectors.toList());
-    }
-
-    public ModuleDescriptor fromPackage(String ...whiteListPackages) throws ModuleDescriptorException {
+    public ModuleDescriptor fromPackage(String... whiteListPackages) throws ModuleDescriptorException {
         try {
             ScanResult scanResult = instantiateScanner()
                     .whitelistPackages(whiteListPackages)

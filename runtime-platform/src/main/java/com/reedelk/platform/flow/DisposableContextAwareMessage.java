@@ -22,20 +22,20 @@ public class DisposableContextAwareMessage implements Message {
         this.content = new TypedContentWrapper<>(delegate.content(), context);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public <Type, StreamType, R extends TypedContent<Type, StreamType>> R getContent() {
-        return (R) content;
+    @Override
+    public <T, StreamType, U extends TypedContent<T, StreamType>> U getContent() {
+        return (U) content;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <Type, StreamType, R extends TypedContent<Type, StreamType>> R content() {
-        return (R) content;
+    public <T, StreamType, U extends TypedContent<T, StreamType>> U content() {
+        return (U) content;
     }
 
     @Override
-    public <Type> Type payload() {
+    public <T> T payload() {
         return delegate.payload();
     }
 
@@ -53,20 +53,20 @@ public class DisposableContextAwareMessage implements Message {
         return content.shouldDispose();
     }
 
-    private static class TypedContentWrapper<Type, StreamType> implements TypedContent<Type, StreamType> {
+    private static class TypedContentWrapper<T, StreamType> implements TypedContent<T, StreamType> {
 
         private transient final FlowContext context;
-        private final TypedContent<Type, StreamType> delegate;
+        private final TypedContent<T, StreamType> delegate;
 
         private boolean shouldDispose = true;
 
-        TypedContentWrapper(TypedContent<Type, StreamType> delegate, FlowContext context) {
+        TypedContentWrapper(TypedContent<T, StreamType> delegate, FlowContext context) {
             this.context = context;
             this.delegate = delegate;
         }
 
         @Override
-        public Class<Type> type() {
+        public Class<T> type() {
             return delegate.type();
         }
 
@@ -81,7 +81,7 @@ public class DisposableContextAwareMessage implements Message {
         }
 
         @Override
-        public Type data() {
+        public T data() {
             return delegate.data();
         }
 

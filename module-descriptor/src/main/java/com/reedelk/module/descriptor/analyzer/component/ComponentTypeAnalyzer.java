@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.analyzer.component;
 
-import com.reedelk.module.descriptor.model.ComponentType;
+import com.reedelk.module.descriptor.model.component.ComponentType;
 import com.reedelk.runtime.api.component.*;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ClassInfoList;

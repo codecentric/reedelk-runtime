@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TypeDescriptor;
-import com.reedelk.module.descriptor.model.TypePrimitiveDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
 
@@ -19,7 +19,7 @@ public class TypePrimitiveFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         Class<?> primitiveTypeClazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
         TypePrimitiveDescriptor descriptor = new TypePrimitiveDescriptor();
         descriptor.setType(primitiveTypeClazz);

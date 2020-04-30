@@ -1,18 +1,21 @@
 package com.reedelk.runtime.api.message;
 
-import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.commons.TestComponent;
 import com.reedelk.runtime.api.message.content.MimeType;
 import com.reedelk.runtime.api.message.content.TypedContent;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
-import java.io.Serializable;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MessageCloneTest {
+
+    static class MyMessageAttributes extends MessageAttributes {
+        MyMessageAttributes() {
+            put("attr1", "value1");
+            put("aTTr2", "value2");
+        }
+    }
 
     @Test
     void shouldCloneMessageCorrectly() {
@@ -20,7 +23,8 @@ class MessageCloneTest {
          String expectedContent = "testing clone";
 
          MimeType expectedMimeType = MimeType.TEXT_PLAIN;
-         Message message = buildMessageWith(expectedMimeType, expectedContent, ImmutableMap.of("attr1", "value1", "aTTr2", "value2"));
+
+         Message message = buildMessageWith(expectedMimeType, expectedContent, new MyMessageAttributes());
 
          // When
          Message cloned = SerializationUtils.clone(message);
@@ -42,7 +46,7 @@ class MessageCloneTest {
         assertThat((String) attributes.get("ATTR2")).isEqualTo("value2");
     }
 
-    private Message buildMessageWith(MimeType mimeType, String content, Map<String, Serializable> attributes) {
+    private Message buildMessageWith(MimeType mimeType, String content, MessageAttributes attributes) {
         return MessageBuilder.get(TestComponent.class)
                 .withString(content, mimeType)
                 .attributes(attributes)

@@ -215,14 +215,14 @@ public class ScannerUtils {
         return Script.class.equals(clazz);
     }
 
-    public static com.reedelk.module.descriptor.model.Shared isShareable(ClassInfo classInfo) {
+    public static com.reedelk.module.descriptor.model.property.Shared isShareable(ClassInfo classInfo) {
         return classInfo.hasAnnotation(com.reedelk.runtime.api.annotation.Shared.class.getName()) ?
-                com.reedelk.module.descriptor.model.Shared.YES : com.reedelk.module.descriptor.model.Shared.NO;
+                com.reedelk.module.descriptor.model.property.Shared.YES : com.reedelk.module.descriptor.model.property.Shared.NO;
     }
 
-    public static com.reedelk.module.descriptor.model.Collapsible isCollapsible(ClassInfo classInfo) {
+    public static com.reedelk.module.descriptor.model.property.Collapsible isCollapsible(ClassInfo classInfo) {
         return classInfo.hasAnnotation(com.reedelk.runtime.api.annotation.Collapsible.class.getName()) ?
-                com.reedelk.module.descriptor.model.Collapsible.YES : com.reedelk.module.descriptor.model.Collapsible.NO;
+                com.reedelk.module.descriptor.model.property.Collapsible.YES : com.reedelk.module.descriptor.model.property.Collapsible.NO;
     }
 
     public static boolean isHidden(ClassInfo classInfo) {

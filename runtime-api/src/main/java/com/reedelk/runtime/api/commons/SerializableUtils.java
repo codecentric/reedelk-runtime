@@ -22,4 +22,15 @@ public class SerializableUtils {
     public static <T extends Serializable> ArrayList<T> asSerializableList(List<T> original) {
         return original == null ? new ArrayList<>() : new ArrayList<>(original);
     }
+
+    public static HashMap<String, Serializable> asSafeSerializableMap(Map<String, Object> original) {
+        if (original == null) return new HashMap<>();
+        HashMap<String, Serializable> serializableOnlyValues = new HashMap<>();
+        original.forEach((key, value) -> {
+            if (value instanceof Serializable) {
+                serializableOnlyValues.put(key, (Serializable) value);
+            }
+        });
+        return serializableOnlyValues;
+    }
 }

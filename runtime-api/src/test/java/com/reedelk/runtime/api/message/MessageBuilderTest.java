@@ -1,6 +1,5 @@
 package com.reedelk.runtime.api.message;
 
-import com.reedelk.runtime.api.commons.ImmutableMap;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.content.*;
@@ -15,7 +14,6 @@ import reactor.test.StepVerifier;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import static java.util.Arrays.asList;
@@ -26,7 +24,14 @@ class MessageBuilderTest {
     @Test
     void shouldCorrectlySetMessageAttributes() {
         // Given
-        Map<String, Serializable> givenAttributes = ImmutableMap.of("key1", "value1", "key2", 2);
+        class MyAttributes extends MessageAttributes {
+            public MyAttributes() {
+                put("key1", "value1");
+                put("key2", 2);
+            }
+        }
+
+        MessageAttributes givenAttributes = new MyAttributes();
         
         // When
         Message message = MessageBuilder.get(MyComponent.class).attributes(givenAttributes).empty().build();

@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TypeComboDescriptor;
-import com.reedelk.module.descriptor.model.TypeDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.module.descriptor.model.property.TypeComboDescriptor;
 import com.reedelk.runtime.api.annotation.Combo;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.FieldInfo;
@@ -20,7 +20,7 @@ public class TypeComboFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         boolean editable = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "editable", false);
         Object[] comboValues = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "comboValues", new String[]{});
         String prototype = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "prototype", null);

@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.fixture;
 
-import com.reedelk.module.descriptor.model.PropertyDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import com.reedelk.runtime.api.annotation.InitValue;
 
 public class ComponentProperties {

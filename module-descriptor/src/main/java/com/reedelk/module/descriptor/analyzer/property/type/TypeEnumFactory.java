@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TypeDescriptor;
-import com.reedelk.module.descriptor.model.TypeEnumDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.module.descriptor.model.property.TypeEnumDescriptor;
 import com.reedelk.runtime.api.annotation.DisplayName;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
@@ -21,7 +21,7 @@ public class TypeEnumFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         ClassInfo enumClassInfo = context.getClassInfo(fullyQualifiedClassName);
         FieldInfoList declaredFieldInfo = enumClassInfo.getDeclaredFieldInfo();
 

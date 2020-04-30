@@ -1,54 +1,45 @@
 package com.reedelk.runtime.api.flow;
 
-import com.reedelk.runtime.api.annotation.AutocompleteItem;
-import com.reedelk.runtime.api.annotation.AutocompleteType;
+import com.reedelk.runtime.api.annotation.Type;
+import com.reedelk.runtime.api.annotation.TypeFunction;
+import com.reedelk.runtime.api.annotation.TypeProperty;
 
 import java.io.Serializable;
 import java.util.Map;
 
-import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.FUNCTION;
-import static com.reedelk.runtime.api.autocomplete.AutocompleteItemType.VARIABLE;
-
-@AutocompleteType(
-        description = "The FlowContext type encapsulates the execution context for a flow. " +
+@Type(description = "The FlowContext type encapsulates the execution context for a flow. " +
                 "The execution context allows to store and retrieve data which can be accessed by components during " +
                 "the execution of a flow. For example the correlation id which is a unique identifier generated " +
                 "every time a flow is executed.")
-@AutocompleteItem(
-        itemType = VARIABLE,
-        returnType = String.class,
+@TypeProperty(
+        name = "correlationId",
+        type = String.class,
         example = "context.correlationId",
-        token = "correlationId",
-        signature = "correlationId",
         description = "Returns the current flow correlation id.")
-@AutocompleteItem(
+@TypeFunction(
+        name = "put",
         cursorOffset = 1,
-        itemType = FUNCTION,
         returnType = Void.class,
-        token = "put",
         signature = "put(key: String, object: Object)",
         example = "context.put('myJson', message.payload())",
         description = "Puts an object with the given key into the flow context.")
-@AutocompleteItem(
+@TypeFunction(
+        name = "get",
         cursorOffset = 1,
-        itemType = FUNCTION,
         returnType = Serializable.class,
-        token = "get",
         signature = "get(key: String)",
         example = "context.get('myJson')",
         description = "Retrieves the object stored in the context given the key.")
-@AutocompleteItem(
+@TypeFunction(
+        name = "contains",
         cursorOffset = 1,
-        itemType = FUNCTION,
         returnType = boolean.class,
-        token = "contains",
         signature = "contains(key: String)",
         example = "context.contains('myJson')",
         description = "Checks whether an object with the given key exists in the context.")
-@AutocompleteItem(
-        itemType = FUNCTION,
+@TypeFunction(
+        name = "toString",
         returnType = String.class,
-        token = "toString",
         signature = "toString()",
         example = "context.toString()",
         description = "Returns a string representation of the flow context.")

@@ -16,18 +16,18 @@ public class MessageDefault implements Message {
     }
 
     @Override
-    public <Type, StreamType, T extends TypedContent<Type, StreamType>> T getContent() {
-        return (T) content;
+    public <T, StreamType, U extends TypedContent<T, StreamType>> U getContent() {
+        return (U) content;
     }
 
     @Override
-    public <Type, StreamType, T extends TypedContent<Type, StreamType>> T content() {
-        return (T) content;
+    public <T, StreamType, U extends TypedContent<T, StreamType>> U content() {
+        return (U) content;
     }
 
     @Override
-    public <Type> Type payload() {
-        return (Type) Optional.ofNullable(content)
+    public <T> T payload() {
+        return (T) Optional.ofNullable(content)
                 .map(TypedContent::data)
                 .orElse(null);
     }

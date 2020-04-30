@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.fixture;
 
-import com.reedelk.module.descriptor.model.WhenDescriptor;
+import com.reedelk.module.descriptor.model.commons.WhenDescriptor;
 
 public class WhenDescriptors {
 

@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.TypeDescriptor;
-import com.reedelk.module.descriptor.model.TypeMapDescriptor;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.module.descriptor.model.property.TypeMapDescriptor;
 import com.reedelk.runtime.api.annotation.DialogTitle;
 import com.reedelk.runtime.api.annotation.KeyName;
 import com.reedelk.runtime.api.annotation.TabGroup;
@@ -26,7 +26,7 @@ public class TypeMapFactory implements TypeDescriptorFactory {
     }
 
     @Override
-    public TypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
+    public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         String keyName = annotationValueOrDefaultFrom(fieldInfo, KeyName.class, null);
         String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
         String valueName = annotationValueOrDefaultFrom(fieldInfo, ValueName.class, null);
@@ -41,7 +41,7 @@ public class TypeMapFactory implements TypeDescriptorFactory {
         TypeArgument typeArgument = typeArguments.get(1);
         String valueTypeFullyQualifiedName = typeArgument.toString();
         TypeDescriptorFactory factory = TypeDescriptorFactoryProvider.from(valueTypeFullyQualifiedName, fieldInfo, context);
-        TypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
+        PropertyTypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
         TypeMapDescriptor descriptor = new TypeMapDescriptor();
         descriptor.setDialogTitle(dialogTitle);

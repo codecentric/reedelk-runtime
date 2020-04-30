@@ -6,17 +6,18 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
+
+import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 
 public class MessageBuilder {
 
     private TypedContent<?,?> typedContent;
-    private Map<String, ? extends Serializable> attributes;
+    private MessageAttributes attributes;
     private final Class<? extends Component> component;
 
     private MessageBuilder(Class<? extends Component> component) {
+        checkNotNull(component, "component");
         this.component = component;
     }
 
@@ -210,15 +211,15 @@ public class MessageBuilder {
         return this;
     }
 
-    public <T extends Serializable> MessageBuilder attributes(Map<String, T> attributes) {
+    public MessageBuilder attributes(MessageAttributes attributes) {
         this.attributes = attributes;
         return this;
     }
 
     public Message build() {
-        MessageAttributes messageAttributes = attributes == null ?
-                DefaultMessageAttributes.just(component) :
-                DefaultMessageAttributes.from(component, attributes);
+        MessageAttributes messageAttributes =
+                attributes == null ? new MessageAttributes() : attributes;
+        messageAttributes.setComponent(component);
 
         if (typedContent == null) {
             throw new IllegalStateException("Typed content missing");

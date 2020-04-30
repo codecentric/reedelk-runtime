@@ -1,6 +1,6 @@
 package com.reedelk.platform.flow;
 
-import com.reedelk.runtime.api.commons.ImmutableMap;
+import com.reedelk.platform.test.utils.MyTestAttributes;
 import com.reedelk.runtime.api.component.ProcessorSync;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
@@ -15,9 +15,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.test.StepVerifier;
 
-import java.io.Serializable;
 import java.util.Map;
 
+import static com.reedelk.runtime.api.commons.ImmutableMap.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -33,9 +33,9 @@ class DisposableContextAwareMessageTest {
 
     @BeforeEach
     void setUp() {
-        Map<String, Serializable> attributes = ImmutableMap.of("attr1", "value1", "attr2", "value2");
+        Map<String, String> attributes = of("attr1", "value1", "attr2", "value2");
         sampleMessage = spy(MessageBuilder.get(TestComponent.class)
-                .attributes(attributes)
+                .attributes(new MyTestAttributes(attributes))
                 .withText("My sample message content")
                 .build());
 
