@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.analyzer.property;
 
-import com.reedelk.module.descriptor.model.script.ScriptSignatureDescriptor;
+import com.reedelk.module.descriptor.model.property.ScriptSignatureDescriptor;
 
 import java.util.List;
 

@@ -24,8 +24,7 @@ public class FieldInfoAnalyzers {
                     new DescriptionAnalyzer(),
                     new DisplayNameAnalyzer(),
                     new DefaultValueAnalyzer(),
-                    new ScriptSignatureAnalyzer(),
-                    new ScriptVariableAnalyzer());
+                    new ScriptSignatureAnalyzer());
 
     public static PropertyDescriptor analyze(FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         PropertyDescriptor.Builder builder = PropertyDescriptor.builder();

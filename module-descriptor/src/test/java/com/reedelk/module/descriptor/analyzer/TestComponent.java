@@ -190,9 +190,9 @@ public class TestComponent implements ProcessorSync {
     @MimeTypeCombo(additionalTypes = "img/xyz,audio/mp13")
     private String mimeTypeCustom;
 
-    @ScriptVariable(name = "context", type = FlowContext.class)
-    @Property("Property with autocomplete contributor")
-    private DynamicString propertyWithAutoCompleteContributor;
+    @ScriptSignature(arguments = {"arg0", "arg1"}, types = {String.class, Map.class})
+    @Property("Property with script variable")
+    private DynamicString propertyWithScriptSignature;
 
     @Property("String property with description text")
     @Description("This is the description text")
@@ -512,12 +512,12 @@ public class TestComponent implements ProcessorSync {
         this.mimeTypeCustom = mimeTypeCustom;
     }
 
-    public DynamicString getPropertyWithAutoCompleteContributor() {
-        return propertyWithAutoCompleteContributor;
+    public DynamicString getPropertyWithScriptSignature() {
+        return propertyWithScriptSignature;
     }
 
-    public void setPropertyWithAutoCompleteContributor(DynamicString propertyWithAutoCompleteContributor) {
-        this.propertyWithAutoCompleteContributor = propertyWithAutoCompleteContributor;
+    public void setPropertyWithScriptSignature(DynamicString propertyWithScriptSignature) {
+        this.propertyWithScriptSignature = propertyWithScriptSignature;
     }
 
     public String getStringPropertyWithDescription() {

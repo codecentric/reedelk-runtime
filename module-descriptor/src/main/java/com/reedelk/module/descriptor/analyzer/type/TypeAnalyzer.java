@@ -78,7 +78,7 @@ public class TypeAnalyzer {
                     // We only set it if the class is a list.
                     Object.class.getName() : null;
         } else {
-            return listItemType;
+            return listItemType; // Fully qualified name.
         }
     }
 }

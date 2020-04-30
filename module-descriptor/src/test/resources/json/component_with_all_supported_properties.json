@@ -1,4 +1,6 @@
 {
+  "name": "module-xyz",
+  "displayName": "Module XYZ",
   "components": [
     {
       "hidden": true,
@@ -14,7 +16,7 @@
           "description": "Property Boolean Object Info",
           "displayName": "Property Boolean Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Boolean"
             }
@@ -35,7 +37,7 @@
               "propertyValue": "VALUE2"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyBoolean",
@@ -44,7 +46,7 @@
           "description": "Property Boolean Info",
           "displayName": "Property Boolean",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "boolean"
             }
@@ -61,7 +63,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDoubleObject",
@@ -72,7 +74,7 @@
           "displayName": "Property Double Object",
           "defaultValue": "11.32",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Double"
             }
@@ -89,7 +91,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDouble",
@@ -98,7 +100,7 @@
           "description": "Property Double Info",
           "displayName": "Property Double",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "double"
             }
@@ -115,7 +117,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyFloatObject",
@@ -124,7 +126,7 @@
           "description": "Property Float Object Info",
           "displayName": "Property Float Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Float"
             }
@@ -141,7 +143,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyFloat",
@@ -150,7 +152,7 @@
           "description": "Property Float Info",
           "displayName": "Property Float",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "float"
             }
@@ -167,7 +169,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyIntegerObject",
@@ -176,7 +178,7 @@
           "description": "Property Integer Object Info",
           "displayName": "Property Integer Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Integer"
             }
@@ -193,7 +195,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyInteger",
@@ -202,7 +204,7 @@
           "description": "Property Integer Info",
           "displayName": "Property Integer",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "int"
             }
@@ -219,7 +221,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyLongObject",
@@ -228,7 +230,7 @@
           "description": "Property Long Object Info",
           "displayName": "Property Long Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Long"
             }
@@ -245,7 +247,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyLong",
@@ -256,7 +258,7 @@
           "displayName": "Property Long",
           "defaultValue": "2L",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "long"
             }
@@ -273,7 +275,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyString",
@@ -282,7 +284,7 @@
           "description": "Property String Info",
           "displayName": "Property String",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -299,7 +301,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyBigInteger",
@@ -308,7 +310,7 @@
           "description": "Property Big Integer Info",
           "displayName": "Property BigInteger",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.math.BigInteger"
             }
@@ -325,7 +327,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyBigDecimal",
@@ -334,7 +336,7 @@
           "description": "Property Big Decimal Info",
           "displayName": "Property BigDecimal",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.math.BigDecimal"
             }
@@ -351,7 +353,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyMap",
@@ -360,7 +362,7 @@
           "description": "Property Map Info",
           "displayName": "Property Map",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeMapDescriptor",
             "instance": {
               "tabGroup": "myTestGroup1",
               "type": "java.util.Map"
@@ -378,7 +380,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyEnum",
@@ -387,7 +389,7 @@
           "description": "Property Enum Info",
           "displayName": "Property Enum",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeEnumDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeEnumDescriptor",
             "instance": {
               "nameAndDisplayNameMap": {
                 "AUTO": "Auto",
@@ -408,7 +410,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicLong",
@@ -417,7 +419,7 @@
           "description": "Property Dynamic Long Info",
           "displayName": "Property Dynamic Long",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Long"
             }
@@ -434,7 +436,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicFloat",
@@ -443,7 +445,7 @@
           "description": "Property Dynamic Float Info",
           "displayName": "Property Dynamic Float",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Float"
             }
@@ -460,7 +462,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicDouble",
@@ -469,7 +471,7 @@
           "description": "Property Dynamic Double Info",
           "displayName": "Property Dynamic Double",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Double"
             }
@@ -486,7 +488,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicObject",
@@ -495,7 +497,7 @@
           "description": "Property Dynamic Object Info",
           "displayName": "Property Dynamic Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Object"
             }
@@ -512,7 +514,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicString",
@@ -521,7 +523,7 @@
           "description": "Property Dynamic String Info",
           "displayName": "Property Dynamic String",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -538,7 +540,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicBoolean",
@@ -547,7 +549,7 @@
           "description": "Property Dynamic Boolean Info",
           "displayName": "Property Dynamic Boolean",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Boolean"
             }
@@ -564,7 +566,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicInteger",
@@ -573,7 +575,7 @@
           "description": "Property Dynamic Integer Info",
           "displayName": "Property Dynamic Integer",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Integer"
             }
@@ -590,7 +592,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicResource",
@@ -599,7 +601,7 @@
           "description": "Property Dynamic Resource Info",
           "displayName": "Property Dynamic Resource",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -616,7 +618,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicByteArray",
@@ -625,7 +627,7 @@
           "description": "Property Dynamic Byte Array Info",
           "displayName": "Property Dynamic byte array",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "[B"
             }
@@ -642,7 +644,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicBigInteger",
@@ -651,7 +653,7 @@
           "description": "Property Dynamic Big Integer Info",
           "displayName": "Property Dynamic Big Integer",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.math.BigInteger"
             }
@@ -668,7 +670,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicBigDecimal",
@@ -677,7 +679,7 @@
           "description": "Property Dynamic Big Decimal Info",
           "displayName": "Property Dynamic Big Decimal",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.math.BigDecimal"
             }
@@ -694,7 +696,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicStringMap",
@@ -703,7 +705,7 @@
           "description": "Property Dynamic String Map Info",
           "displayName": "Property Dynamic String Map",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicMapDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicMapDescriptor",
             "instance": {
               "tabGroup": "myTestGroup2",
               "type": "java.lang.String"
@@ -721,7 +723,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyScript",
@@ -730,7 +732,7 @@
           "description": "Property Script Info",
           "displayName": "Property Script",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeScriptDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeScriptDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.script.Script"
             }
@@ -747,7 +749,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyCombo",
@@ -756,7 +758,7 @@
           "description": "Property Combo Info",
           "displayName": "Property Combo",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeComboDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeComboDescriptor",
             "instance": {
               "editable": true,
               "prototype": "XX",
@@ -780,7 +782,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyPassword",
@@ -789,7 +791,7 @@
           "description": "Property Password Info",
           "displayName": "Property Password",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePasswordDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePasswordDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.annotation.Password"
             }
@@ -806,7 +808,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyResourceText",
@@ -815,7 +817,7 @@
           "description": "Property Resource Text Info",
           "displayName": "Property Resource Text",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeResourceTextDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeResourceTextDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.resource.ResourceText"
             }
@@ -832,7 +834,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyResourceBinary",
@@ -841,7 +843,7 @@
           "description": "Property Resource Binary Info",
           "displayName": "Property Resource Binary",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeResourceBinaryDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeResourceBinaryDescriptor",
             "instance": {
               "type": "com.reedelk.runtime.api.resource.ResourceBinary"
             }
@@ -858,14 +860,14 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyTypeObject",
           "description": "Property Type Object Info",
           "displayName": "Property Type Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeObjectDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeObjectDescriptor",
             "instance": {
               "shared": "YES",
               "collapsible": "YES",
@@ -878,7 +880,7 @@
                   "description": "Property Nested 1 Info",
                   "displayName": "Nested Property 1",
                   "type": {
-                    "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+                    "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
                     "instance": {
                       "type": "java.lang.String"
                     }
@@ -895,7 +897,7 @@
                       "propertyValue": "VALUE1"
                     }
                   ],
-                  "autocompleteVariables": []
+                  "scriptVariables": []
                 },
                 {
                   "name": "nestedProperty2",
@@ -904,7 +906,7 @@
                   "description": "Property Nested 2 Info",
                   "displayName": "Nested Property 2",
                   "type": {
-                    "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+                    "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
                     "instance": {
                       "type": "int"
                     }
@@ -921,10 +923,10 @@
                       "propertyValue": "VALUE1"
                     }
                   ],
-                  "autocompleteVariables": []
+                  "scriptVariables": []
                 }
               ],
-              "type": "com.reedelk.module.descriptor.model.TypeObjectDescriptor$TypeObject"
+              "type": "com.reedelk.module.descriptor.model.property.TypeObjectDescriptor$TypeObject"
             }
           },
           "scriptSignature": {
@@ -939,7 +941,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         }
       ]
     },
@@ -956,13 +958,13 @@
           "description": "Property String With Default Info",
           "displayName": "Property String With Init Value",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypePrimitiveDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
           },
           "whens": [],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyDynamicString",
@@ -971,7 +973,7 @@
           "description": "Property Dynamic String Info",
           "displayName": "Property Dynamic String",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeDynamicValueDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeDynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -988,7 +990,7 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         },
         {
           "name": "propertyMap",
@@ -997,7 +999,7 @@
           "description": "Property Map Info",
           "displayName": "Property Map",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.TypeMapDescriptor",
+            "classname": "com.reedelk.module.descriptor.model.property.TypeMapDescriptor",
             "instance": {
               "tabGroup": "myTestGroup1",
               "type": "java.util.Map"
@@ -1015,42 +1017,35 @@
               "propertyValue": "VALUE1"
             }
           ],
-          "autocompleteVariables": []
+          "scriptVariables": []
         }
       ]
     }
   ],
-  "autocompleteItems": [
-    {
-      "type": "TestClassWithAutocompleteType",
-      "token": "builderMethod",
-      "example": "MultipartBuilder.builderMethod(\u0027file\u0027)",
-      "returnType": "TestClassWithAutocompleteType",
-      "description": "My description",
-      "signature": "builderMethod(value: string)",
-      "cursorOffset": 0,
-      "itemType": "FUNCTION"
-    },
-    {
-      "type": "TestClassWithAutocompleteType",
-      "token": "attributes",
-      "returnType": "String",
-      "description": "Returns the attributes",
-      "signature": "attributes()",
-      "cursorOffset": 0,
-      "itemType": "FUNCTION"
-    }
-  ],
-  "autocompleteTypes": [
-    {
-      "global": false,
-      "type": "Message",
-      "description": "Test description"
-    },
+  "types": [
     {
       "global": true,
-      "type": "MultipartBuilder",
-      "description": "Test description"
+      "fullyQualifiedName": "com.test.Utils",
+      "displayName": "Utils",
+      "listItemType": "java.util.Map",
+      "functions": [
+        {
+          "name": "myFunction",
+          "example": "Utils.myFunction(\u0027myKey\u0027)",
+          "signature": "myFunction(String key)",
+          "returnType": "java.lang.String",
+          "description": "My function",
+          "cursorOffset": 3
+        }
+      ],
+      "properties": [
+        {
+          "name": "correlationId",
+          "type": "java.lang.String",
+          "example": "context.correlationId",
+          "description": "The correlation ID"
+        }
+      ]
     }
   ]
 }
