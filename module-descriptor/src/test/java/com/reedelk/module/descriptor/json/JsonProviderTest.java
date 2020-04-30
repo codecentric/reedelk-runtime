@@ -20,6 +20,7 @@ import static java.util.Arrays.asList;
 @ExtendWith(MockitoExtension.class)
 class JsonProviderTest {
 
+    // TODO: Add these tests.
     @Mock
     private Icon icon;
     @Mock
@@ -76,6 +77,7 @@ class JsonProviderTest {
     }
     // TODO: Finish me
     /**
+     String serialized = JsonProvider.toJson(descriptor);
 
     @Nested
     @DisplayName("From ModuleDescriptor to JSON Tests")

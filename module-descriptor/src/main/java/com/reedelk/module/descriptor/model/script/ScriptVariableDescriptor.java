@@ -25,7 +25,7 @@ public class ScriptVariableDescriptor implements Serializable {
 
     @Override
     public String toString() {
-        return "AutocompleteVariableDescriptor{" +
+        return "ScriptVariableDescriptor{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 '}';

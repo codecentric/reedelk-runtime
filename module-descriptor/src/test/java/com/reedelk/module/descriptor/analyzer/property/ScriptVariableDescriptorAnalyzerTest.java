@@ -36,7 +36,7 @@ class ScriptVariableDescriptorAnalyzerTest {
     }
 
     @Test
-    void shouldCorrectlyCreateAutocompleteVariables() {
+    void shouldCorrectlyCreateScriptVariableDescriptors() {
         // Given
         String propertyName = "scriptPropertyWithScriptSignature";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
@@ -52,8 +52,8 @@ class ScriptVariableDescriptorAnalyzerTest {
         // Then
         PropertyDescriptor descriptor = builder.build();
 
-        List<ScriptVariableDescriptor> autocompleteVariables = descriptor.getAutocompleteVariables();
-        assertThat(autocompleteVariables).hasSize(3);
+        List<ScriptVariableDescriptor> scriptVariableDescriptors = descriptor.getScriptVariables();
+        assertThat(scriptVariableDescriptors).hasSize(3);
 
         ScriptVariableDescriptor arg1 = new ScriptVariableDescriptor();
         arg1.setName("arg1");
@@ -67,5 +67,4 @@ class ScriptVariableDescriptorAnalyzerTest {
         arg3.setName("arg3");
         arg3.setType(FlowContext.class.getSimpleName());
     }
-
 }

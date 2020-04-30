@@ -14,12 +14,12 @@ public class ScriptVariableAnalyzer implements FieldInfoAnalyzer {
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         ScannerUtils.repeatableAnnotation(fieldInfo, ScriptVariable.class, ScriptVariables.class).forEach(annotationInfo -> {
-            ScriptVariableDescriptor descriptor = processAutocompleteVariableInfo(annotationInfo);
-            builder.autocompleteVariable(descriptor);
+            ScriptVariableDescriptor descriptor = processScriptVariableAnnotation(annotationInfo);
+            builder.scriptVariable(descriptor);
         });
     }
 
-    private ScriptVariableDescriptor processAutocompleteVariableInfo(AnnotationInfo info) {
+    private ScriptVariableDescriptor processScriptVariableAnnotation(AnnotationInfo info) {
         String name = ScannerUtils.stringParameterValueFrom(info, "name");
         String type = ScannerUtils.getParameterValue("type", info);
 

@@ -23,7 +23,7 @@ public class PropertyDescriptor implements Serializable {
     private PropertyTypeDescriptor type;
     private ScriptSignatureDescriptor scriptSignature;
     private List<WhenDescriptor> whens;
-    private List<ScriptVariableDescriptor> autocompleteVariables;
+    private List<ScriptVariableDescriptor> scriptVariables;
 
     public String getName() {
         return name;
@@ -106,12 +106,12 @@ public class PropertyDescriptor implements Serializable {
         this.scriptSignature = scriptSignature;
     }
 
-    public List<ScriptVariableDescriptor> getAutocompleteVariables() {
-        return autocompleteVariables;
+    public List<ScriptVariableDescriptor> getScriptVariables() {
+        return scriptVariables;
     }
 
-    public void setAutocompleteVariables(List<ScriptVariableDescriptor> autocompleteVariables) {
-        this.autocompleteVariables = autocompleteVariables;
+    public void setScriptVariables(List<ScriptVariableDescriptor> scriptVariables) {
+        this.scriptVariables = scriptVariables;
     }
 
     public List<WhenDescriptor> getWhens() {
@@ -136,7 +136,7 @@ public class PropertyDescriptor implements Serializable {
                 ", type=" + type +
                 ", scriptSignature=" + scriptSignature +
                 ", whens=" + whens +
-                ", autocompleteVariables=" + autocompleteVariables +
+                ", scriptVariables=" + scriptVariables +
                 '}';
     }
 
@@ -156,7 +156,7 @@ public class PropertyDescriptor implements Serializable {
         private String defaultValue;
         private PropertyTypeDescriptor type;
         private ScriptSignatureDescriptor scriptSignature;
-        private List<ScriptVariableDescriptor> autocompleteVariables = new ArrayList<>();
+        private List<ScriptVariableDescriptor> scriptVariables = new ArrayList<>();
 
         private List<WhenDescriptor> whens = new ArrayList<>();
 
@@ -210,13 +210,13 @@ public class PropertyDescriptor implements Serializable {
             return this;
         }
 
-        public Builder scriptSignature(ScriptSignatureDescriptor definition) {
-            this.scriptSignature = definition;
+        public Builder scriptVariable(ScriptVariableDescriptor definition) {
+            this.scriptVariables.add(definition);
             return this;
         }
 
-        public Builder autocompleteVariable(ScriptVariableDescriptor autocompleteVariable) {
-            this.autocompleteVariables.add(autocompleteVariable);
+        public Builder scriptSignature(ScriptSignatureDescriptor definition) {
+            this.scriptSignature = definition;
             return this;
         }
 
@@ -236,7 +236,7 @@ public class PropertyDescriptor implements Serializable {
             descriptor.displayName = displayName;
             descriptor.defaultValue = defaultValue;
             descriptor.scriptSignature = scriptSignature;
-            descriptor.autocompleteVariables = autocompleteVariables;
+            descriptor.scriptVariables = scriptVariables;
             return descriptor;
         }
     }
