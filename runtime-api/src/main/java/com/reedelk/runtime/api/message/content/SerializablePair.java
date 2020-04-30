@@ -7,7 +7,7 @@ public class SerializablePair<L extends Serializable,R extends Serializable> imp
     private final L left;
     private final R right;
 
-    SerializablePair(L left, R right) {
+    public SerializablePair(L left, R right) {
         this.left = left;
         this.right = right;
     }

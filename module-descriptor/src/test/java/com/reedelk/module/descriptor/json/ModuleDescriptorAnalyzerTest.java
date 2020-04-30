@@ -7,6 +7,7 @@ import com.reedelk.module.descriptor.model.commons.WhenDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentType;
 import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
+import com.reedelk.module.descriptor.model.property.ScriptSignatureArgument;
 import com.reedelk.module.descriptor.model.property.ScriptSignatureDescriptor;
 import com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +60,10 @@ class ModuleDescriptorAnalyzerTest {
         assertThat(primitiveDescriptor.getType()).isEqualTo(Double.class);
 
         ScriptSignatureDescriptor scriptSignature = propertyDescriptor.getScriptSignature();
-        assertThat(scriptSignature.getArguments()).containsExactly("input", "output");
+
+        List<ScriptSignatureArgument> arguments = scriptSignature.getArguments();
+        ScriptSignatureArgument stringStringPair = arguments.get(0);
+        // TODO: Assert that script signature is correct!
 
         List<WhenDescriptor> whens = propertyDescriptor.getWhens();
         assertThat(whens).hasSize(1);

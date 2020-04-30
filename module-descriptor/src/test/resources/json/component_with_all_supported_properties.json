@@ -23,8 +23,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -36,8 +42,7 @@
               "propertyName": "anotherProperty",
               "propertyValue": "VALUE2"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyBoolean",
@@ -53,8 +58,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -62,8 +73,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDoubleObject",
@@ -81,8 +91,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -90,8 +106,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDouble",
@@ -107,8 +122,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -116,8 +137,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyFloatObject",
@@ -133,8 +153,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -142,8 +168,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyFloat",
@@ -159,8 +184,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -168,8 +199,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyIntegerObject",
@@ -185,8 +215,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -194,8 +230,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyInteger",
@@ -211,8 +246,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -220,8 +261,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyLongObject",
@@ -237,8 +277,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -246,8 +292,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyLong",
@@ -265,8 +310,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -274,8 +325,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyString",
@@ -291,8 +341,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -300,8 +356,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyBigInteger",
@@ -317,8 +372,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -326,8 +387,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyBigDecimal",
@@ -343,8 +403,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -352,8 +418,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyMap",
@@ -370,8 +435,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -379,8 +450,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyEnum",
@@ -400,8 +470,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -409,8 +485,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicLong",
@@ -426,8 +501,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -435,8 +516,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicFloat",
@@ -452,8 +532,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -461,8 +547,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicDouble",
@@ -478,8 +563,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -487,8 +578,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicObject",
@@ -504,8 +594,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -513,8 +609,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicString",
@@ -530,8 +625,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -539,8 +640,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicBoolean",
@@ -556,8 +656,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -565,8 +671,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicInteger",
@@ -582,8 +687,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -591,8 +702,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicResource",
@@ -608,8 +718,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -617,8 +733,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicByteArray",
@@ -634,8 +749,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -643,8 +764,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicBigInteger",
@@ -660,8 +780,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -669,8 +795,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicBigDecimal",
@@ -686,8 +811,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -695,8 +826,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyDynamicStringMap",
@@ -713,8 +843,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -722,8 +858,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyScript",
@@ -739,8 +874,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -748,8 +889,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyCombo",
@@ -772,8 +912,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -781,8 +927,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyPassword",
@@ -798,8 +943,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -807,8 +958,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyResourceText",
@@ -824,8 +974,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -833,8 +989,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyResourceBinary",
@@ -850,8 +1005,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -859,8 +1020,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyTypeObject",
@@ -887,8 +1047,14 @@
                   },
                   "scriptSignature": {
                     "arguments": [
-                      "input",
-                      "output"
+                      {
+                        "argumentName": "input",
+                        "argumentType": "java.util.Map"
+                      },
+                      {
+                        "argumentName": "output",
+                        "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                      }
                     ]
                   },
                   "whens": [
@@ -896,8 +1062,7 @@
                       "propertyName": "myProperty",
                       "propertyValue": "VALUE1"
                     }
-                  ],
-                  "scriptVariables": []
+                  ]
                 },
                 {
                   "name": "nestedProperty2",
@@ -913,8 +1078,14 @@
                   },
                   "scriptSignature": {
                     "arguments": [
-                      "input",
-                      "output"
+                      {
+                        "argumentName": "input",
+                        "argumentType": "java.util.Map"
+                      },
+                      {
+                        "argumentName": "output",
+                        "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                      }
                     ]
                   },
                   "whens": [
@@ -922,8 +1093,7 @@
                       "propertyName": "myProperty",
                       "propertyValue": "VALUE1"
                     }
-                  ],
-                  "scriptVariables": []
+                  ]
                 }
               ],
               "type": "com.reedelk.module.descriptor.model.property.TypeObjectDescriptor$TypeObject"
@@ -931,8 +1101,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -940,8 +1116,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         }
       ]
     },
@@ -963,8 +1138,7 @@
               "type": "java.lang.String"
             }
           },
-          "whens": [],
-          "scriptVariables": []
+          "whens": []
         },
         {
           "name": "propertyDynamicString",
@@ -980,8 +1154,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -989,8 +1169,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         },
         {
           "name": "propertyMap",
@@ -1007,8 +1186,14 @@
           },
           "scriptSignature": {
             "arguments": [
-              "input",
-              "output"
+              {
+                "argumentName": "input",
+                "argumentType": "java.util.Map"
+              },
+              {
+                "argumentName": "output",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              }
             ]
           },
           "whens": [
@@ -1016,8 +1201,7 @@
               "propertyName": "myProperty",
               "propertyValue": "VALUE1"
             }
-          ],
-          "scriptVariables": []
+          ]
         }
       ]
     }

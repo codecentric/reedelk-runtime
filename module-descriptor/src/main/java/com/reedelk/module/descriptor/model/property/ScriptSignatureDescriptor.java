@@ -10,42 +10,24 @@ import static java.util.Arrays.asList;
 
 public class ScriptSignatureDescriptor implements Serializable {
 
-    public static final ScriptSignatureDescriptor DEFAULT =
-            new ScriptSignatureDescriptor(asList("context", "message"),
-                    asList(FlowContext.class.getName(), Message.class.getName()));
+    public static final ScriptSignatureDescriptor DEFAULT = new ScriptSignatureDescriptor(
+            asList(new ScriptSignatureArgument("context", FlowContext.class.getName()),
+                    new ScriptSignatureArgument("message", Message.class.getName())));
 
-    private List<String> arguments;
-    private List<String> types;
+    private List<ScriptSignatureArgument> arguments;
 
     public ScriptSignatureDescriptor() {
     }
 
-    public ScriptSignatureDescriptor(List<String> arguments, List<String> types) {
+    public ScriptSignatureDescriptor(List<ScriptSignatureArgument> arguments) {
         this.arguments = arguments;
-        this.types = types;
     }
 
-    public List<String> getArguments() {
+    public List<ScriptSignatureArgument> getArguments() {
         return arguments;
     }
 
-    public void setArguments(List<String> arguments) {
+    public void setArguments(List<ScriptSignatureArgument> arguments) {
         this.arguments = arguments;
-    }
-
-    public List<String> getTypes() {
-        return types;
-    }
-
-    public void setTypes(List<String> types) {
-        this.types = types;
-    }
-
-    @Override
-    public String toString() {
-        return "ScriptSignatureDescriptor{" +
-                "arguments=" + arguments +
-                ", types=" + types +
-                '}';
     }
 }
