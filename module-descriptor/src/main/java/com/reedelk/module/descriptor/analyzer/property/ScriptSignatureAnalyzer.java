@@ -21,8 +21,7 @@ import static java.util.stream.Collectors.toList;
 public class ScriptSignatureAnalyzer implements FieldInfoAnalyzer {
 
     private static final Object[] EMPTY = new Object[] {};
-    
-    // TODO: Test this!
+
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         if (!ScannerUtils.hasAnnotation(fieldInfo, ScriptSignature.class)) return;

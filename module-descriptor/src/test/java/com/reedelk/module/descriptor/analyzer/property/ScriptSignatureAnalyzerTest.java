@@ -33,14 +33,14 @@ class ScriptSignatureAnalyzerTest {
 
     @BeforeAll
     static void beforeAll() {
-        ScannerTestUtils.ScanContext scanContext = ScannerTestUtils.scan(TestComponentWithScriptSignature.class);
+        ScannerTestUtils.ScanContext scanContext = ScannerTestUtils.scan(ScriptSignatureComponent.class);
         componentClassInfo = scanContext.targetComponentClassInfo;
     }
 
     @Test
     void shouldCorrectlyCreateScriptSignatureDefinition() {
         // Given
-        String propertyName = "scriptPropertyWithScriptSignature";
+        String propertyName = "propertyWithSignature";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
         PropertyDescriptor.Builder builder =
@@ -69,7 +69,7 @@ class ScriptSignatureAnalyzerTest {
     @Test
     void shouldReturnEmptyScriptSignatureDefinition() {
         // Given
-        String propertyName = "scriptPropertyWithoutScriptSignature";
+        String propertyName = "propertyWithoutSignature";
         FieldInfo property = componentClassInfo.getFieldInfo(propertyName);
 
         PropertyDescriptor.Builder builder =

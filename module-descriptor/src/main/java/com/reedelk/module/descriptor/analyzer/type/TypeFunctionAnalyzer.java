@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
+import static java.lang.String.format;
+import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
 // Only classes with @Type annotation are scanned for @TypeFunction annotations.
@@ -19,6 +21,8 @@ import static java.util.stream.Collectors.toList;
 // Function defined in the class definition are for example functions we want to expose
 // from a base inherited class. See FlowContext as an example of this case.
 public class TypeFunctionAnalyzer {
+
+    private static final String AUTO_GENERATED_ARGUMENTS_PREFIX = "arg";
 
     private final ClassInfo classInfo;
 
@@ -44,12 +48,12 @@ public class TypeFunctionAnalyzer {
             int cursorOffset = getParameterValue("cursorOffset", annotationInfo);
 
             if (TypeFunction.USE_DEFAULT_NAME.equals(name)) {
-                String error = String.format("Type function name must be defined for class level @TypeFunctions annotations (class: %s).", classInfo.getName());
+                String error = format("Type function name must be defined for class level @TypeFunctions annotations (class: %s).", classInfo.getName());
                 throw new ModuleDescriptorException(error);
             }
 
             if (TypeFunction.USE_DEFAULT_SIGNATURE.equals(signature)) {
-                String error = String.format("Type function signature must be defined for class level @TypeFunctions annotations (class: %s).", classInfo.getName());
+                String error = format("Type function signature must be defined for class level @TypeFunctions annotations (class: %s).", classInfo.getName());
                 throw new ModuleDescriptorException(error);
             }
 
@@ -103,21 +107,7 @@ public class TypeFunctionAnalyzer {
     private String getSignatureFrom(AnnotationInfo annotationInfo, MethodInfo methodInfo) {
         String signature = stringParameterValueFrom(annotationInfo, "signature");
         if (TypeFunction.USE_DEFAULT_SIGNATURE.equals(signature)) {
-            // TODO: Create a utility function to generate arguments.
-            // Infer from method info
-            StringBuilder signatureBuilder = new StringBuilder(methodInfo.getName())
-                    .append("(");
-            MethodParameterInfo[] parameterInfo = methodInfo.getParameterInfo();
-            int argCount = 0;
-            List<String> args = new ArrayList<>();
-            for (MethodParameterInfo info : parameterInfo) {
-                String type = info.getTypeDescriptor().toStringWithSimpleNames();
-                args.add(type + " arg" + argCount);
-                argCount++;
-            }
-            signatureBuilder.append(String.join(", ", args));
-            signatureBuilder.append(")");
-            return signatureBuilder.toString();
+            return createSignatureFrom(methodInfo);
         } else {
             return signature;
         }
@@ -140,5 +130,22 @@ public class TypeFunctionAnalyzer {
         } else {
             return returnType; // Fully qualified name.
         }
+    }
+
+    // Generates signature of a method from the method information.
+    // Output Example: myMethod(String arg0, int arg1)
+    private String createSignatureFrom(MethodInfo methodInfo) {
+        StringBuilder signature = new StringBuilder(methodInfo.getName()).append("(");
+        MethodParameterInfo[] parameterInfo = methodInfo.getParameterInfo();
+        int argCount = 0;
+        List<String> args = new ArrayList<>();
+        for (MethodParameterInfo info : parameterInfo) {
+            String type = info.getTypeDescriptor().toStringWithSimpleNames();
+            args.add(type + " " + AUTO_GENERATED_ARGUMENTS_PREFIX + argCount);
+            argCount++;
+        }
+        signature.append(join(", ", args));
+        signature.append(")");
+        return signature.toString();
     }
 }
