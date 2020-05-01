@@ -1,31 +1,22 @@
 package com.reedelk.module.descriptor.analyzer.component;
 
-import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
-import com.reedelk.module.descriptor.fixture.ClassWithComponentInputAndOutputAnnotation;
 import com.reedelk.module.descriptor.fixture.MyAttributes;
 import com.reedelk.module.descriptor.model.component.ComponentOutputDescriptor;
 import io.github.classgraph.ClassInfo;
-import io.github.classgraph.ScanResult;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.reedelk.module.descriptor.analyzer.AnalyzerTestUtils.classInfoOf;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ComponentOutputAnalyzerTest {
 
-    private static ComponentOutputAnalyzer analyzer;
-    private static ScanResult scanResult;
-
-    @BeforeAll
-    static void beforeAll() {
-        scanResult = ScannerTestUtils.scanWithResult(ClassWithComponentInputAndOutputAnnotation.class);
-        ClassInfo classInfo = scanResult.getClassInfo(ClassWithComponentInputAndOutputAnnotation.class.getName());
-        analyzer = new ComponentOutputAnalyzer(classInfo);
-    }
-
     @Test
-    void shouldCorrectlyAnalyzeComponentInput() {
+    void shouldCorrectlyAnalyzeComponentOutput() {
+        // Given
+        ClassInfo classInfo = classInfoOf(ComponentOutputAnalyzerComponent.class);
+        ComponentOutputAnalyzer analyzer = new ComponentOutputAnalyzer(classInfo);
+
         // When
         ComponentOutputDescriptor actual = analyzer.analyze();
 
