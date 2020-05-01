@@ -28,6 +28,6 @@ class TypeAnalyzerTest {
         List<TypeDescriptor> types = analyzer.analyze();
 
         // Then
-        assertThat(types).hasSize(2);
+        assertThat(types).hasSize(3);
     }
 }

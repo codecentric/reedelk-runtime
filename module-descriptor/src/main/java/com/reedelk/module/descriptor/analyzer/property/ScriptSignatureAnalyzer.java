@@ -7,14 +7,21 @@ import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.property.ScriptSignatureArgument;
 import com.reedelk.module.descriptor.model.property.ScriptSignatureDescriptor;
 import com.reedelk.runtime.api.annotation.ScriptSignature;
+import io.github.classgraph.AnnotationClassRef;
 import io.github.classgraph.AnnotationInfo;
 import io.github.classgraph.FieldInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.getParameterValue;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
+
 public class ScriptSignatureAnalyzer implements FieldInfoAnalyzer {
 
+    private static final Object[] EMPTY = new Object[] {};
+    
     // TODO: Test this!
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
@@ -23,7 +30,7 @@ public class ScriptSignatureAnalyzer implements FieldInfoAnalyzer {
         AnnotationInfo info = fieldInfo.getAnnotationInfo(ScriptSignature.class.getName());
 
         List<String> functionSignatureArguments = ScannerUtils.stringListParameterValueFrom(info, "arguments");
-        List<String> functionSignatureArgumentTypes = ScannerUtils.stringListParameterValueFrom(info, "types");
+        List<String> functionSignatureArgumentTypes = getArgumentTypes(info);
 
         if (functionSignatureArguments.size() != functionSignatureArgumentTypes.size()) {
             throw new ModuleDescriptorException("Script signature must have the same number of arguments/types pairs");
@@ -36,5 +43,12 @@ public class ScriptSignatureAnalyzer implements FieldInfoAnalyzer {
         ScriptSignatureDescriptor definition = new ScriptSignatureDescriptor();
         definition.setArguments(arguments);
         builder.scriptSignature(definition);
+    }
+
+    private List<String> getArgumentTypes(AnnotationInfo annotationInfo) {
+        Object[] payload = getParameterValue("types", EMPTY, annotationInfo);
+        return stream(payload)
+                .map(annotationClassRef -> ((AnnotationClassRef) annotationClassRef).getName())
+                .collect(toList());
     }
 }

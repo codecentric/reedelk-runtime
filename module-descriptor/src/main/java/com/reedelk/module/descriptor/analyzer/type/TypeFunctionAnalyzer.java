@@ -103,6 +103,7 @@ public class TypeFunctionAnalyzer {
     private String getSignatureFrom(AnnotationInfo annotationInfo, MethodInfo methodInfo) {
         String signature = stringParameterValueFrom(annotationInfo, "signature");
         if (TypeFunction.USE_DEFAULT_SIGNATURE.equals(signature)) {
+            // TODO: Create a utility function to generate arguments.
             // Infer from method info
             StringBuilder signatureBuilder = new StringBuilder(methodInfo.getName())
                     .append("(");

@@ -3,6 +3,8 @@ package com.reedelk.module.descriptor.analyzer.component;
 import com.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import com.reedelk.module.descriptor.analyzer.property.PropertyAnalyzer;
 import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentInputDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentOutputDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentType;
 import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import com.reedelk.runtime.api.annotation.Description;
@@ -27,14 +29,28 @@ public class ComponentAnalyzer {
         String description = getComponentDescription(classInfo);
         ComponentType componentType = getComponentType(classInfo);
         List<PropertyDescriptor> propertiesDescriptor = analyzeProperties(classInfo);
+        ComponentInputDescriptor inputDescriptor = analyzeComponentInput(classInfo);
+        ComponentOutputDescriptor outputDescriptor = analyzeComponentOutput(classInfo);
         return ComponentDescriptor.create()
+                .hidden(ScannerUtils.isHidden(classInfo))
+                .fullyQualifiedName(classInfo.getName())
+                .properties(propertiesDescriptor)
                 .displayName(displayName)
                 .description(description)
-                .hidden(ScannerUtils.isHidden(classInfo))
+                .output(outputDescriptor)
+                .input(inputDescriptor)
                 .type(componentType)
-                .fullyQualifiedName(classInfo.getName())
-                .propertyDescriptors(propertiesDescriptor)
                 .build();
+    }
+
+    private ComponentOutputDescriptor analyzeComponentOutput(ClassInfo classInfo) {
+        ComponentOutputAnalyzer analyzer = new ComponentOutputAnalyzer(classInfo);
+        return analyzer.analyze();
+    }
+
+    private ComponentInputDescriptor analyzeComponentInput(ClassInfo classInfo) {
+        ComponentInputAnalyzer analyzer = new ComponentInputAnalyzer(classInfo);
+        return analyzer.analyze();
     }
 
     private List<PropertyDescriptor> analyzeProperties(ClassInfo classInfo) {
