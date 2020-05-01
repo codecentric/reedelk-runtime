@@ -13,7 +13,7 @@ import java.util.Map;
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 import static java.util.stream.Collectors.toMap;
 
-public class TypeEnumFactory implements TypeDescriptorFactory {
+public class EnumFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {

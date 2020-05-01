@@ -3,7 +3,6 @@ package com.reedelk.module.descriptor.json;
 import com.reedelk.module.descriptor.ModuleDescriptorException;
 import com.reedelk.module.descriptor.analyzer.ModuleDescriptorAnalyzer;
 import com.reedelk.module.descriptor.model.ModuleDescriptor;
-import com.reedelk.module.descriptor.model.commons.WhenDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentType;
 import com.reedelk.module.descriptor.model.property.*;

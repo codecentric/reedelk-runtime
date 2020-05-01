@@ -2,8 +2,8 @@ package com.reedelk.module.descriptor.analyzer.property;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
-import com.reedelk.module.descriptor.analyzer.property.type.TypeDescriptorFactory;
-import com.reedelk.module.descriptor.analyzer.property.type.TypeDescriptorFactoryProvider;
+import com.reedelk.module.descriptor.analyzer.property.type.DescriptorFactory;
+import com.reedelk.module.descriptor.analyzer.property.type.DescriptorFactoryProvider;
 import com.reedelk.module.descriptor.model.property.PrimitiveDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
@@ -29,9 +29,9 @@ public class TypeAnalyzer implements FieldInfoAnalyzer {
         } else if (typeSignature instanceof ClassRefTypeSignature) {
             ClassRefTypeSignature classRef = (ClassRefTypeSignature) typeSignature;
             String fullyQualifiedClassName = classRef.getFullyQualifiedClassName();
-            TypeDescriptorFactory typeDescriptorFactory =
-                    TypeDescriptorFactoryProvider.from(fullyQualifiedClassName, fieldInfo, context);
-            PropertyTypeDescriptor typeDescriptor = typeDescriptorFactory.create(fullyQualifiedClassName, fieldInfo, context);
+            DescriptorFactory descriptorFactory =
+                    DescriptorFactoryProvider.from(fullyQualifiedClassName, fieldInfo, context);
+            PropertyTypeDescriptor typeDescriptor = descriptorFactory.create(fullyQualifiedClassName, fieldInfo, context);
             builder.type(typeDescriptor);
 
         } else {

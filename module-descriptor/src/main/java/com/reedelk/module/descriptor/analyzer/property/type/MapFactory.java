@@ -16,7 +16,7 @@ import java.util.List;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 
-public class TypeMapFactory implements TypeDescriptorFactory {
+public class MapFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
@@ -40,7 +40,7 @@ public class TypeMapFactory implements TypeDescriptorFactory {
 
         TypeArgument typeArgument = typeArguments.get(1);
         String valueTypeFullyQualifiedName = typeArgument.toString();
-        TypeDescriptorFactory factory = TypeDescriptorFactoryProvider.from(valueTypeFullyQualifiedName, fieldInfo, context);
+        DescriptorFactory factory = DescriptorFactoryProvider.from(valueTypeFullyQualifiedName, fieldInfo, context);
         PropertyTypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
         MapDescriptor descriptor = new MapDescriptor();

@@ -1,0 +1,46 @@
+{
+  "components": [
+    {
+      "hidden": false,
+      "displayName": "Test Processor Component",
+      "fullyQualifiedName": "com.test.component.TestProcessorComponent",
+      "type": "PROCESSOR",
+      "properties": [
+        {
+          "name": "propertyDoubleObject",
+          "example": "77.12",
+          "initValue": "234.553",
+          "hintValue": "1111.2222",
+          "description": "Property Double Object Info",
+          "displayName": "Property Double Object",
+          "defaultValue": "10.110",
+          "type": {
+            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "instance": {
+              "type": "java.lang.Double"
+            }
+          },
+          "scriptSignature": {
+            "arguments": [
+              {
+                "argumentName": "arg0",
+                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+              },
+              {
+                "argumentName": "arg1",
+                "argumentType": "java.lang.Exception"
+              }
+            ]
+          },
+          "whens": [
+            {
+              "propertyName": "myProperty",
+              "propertyValue": "VALUE1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "types": []
+}

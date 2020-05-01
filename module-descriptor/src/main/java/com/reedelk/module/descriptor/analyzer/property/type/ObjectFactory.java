@@ -15,7 +15,7 @@ import java.util.Optional;
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 import static java.util.stream.Collectors.toList;
 
-public class TypeObjectFactory implements TypeDescriptorFactory {
+public class ObjectFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {

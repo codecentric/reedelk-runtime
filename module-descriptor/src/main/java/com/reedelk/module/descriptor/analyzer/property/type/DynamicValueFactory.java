@@ -8,7 +8,7 @@ import io.github.classgraph.FieldInfo;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 
-public class TypeDynamicFactory implements TypeDescriptorFactory {
+public class DynamicValueFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {

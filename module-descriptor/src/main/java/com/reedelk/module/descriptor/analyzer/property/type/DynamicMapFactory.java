@@ -11,7 +11,7 @@ import io.github.classgraph.FieldInfo;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 
-public class TypeDynamicMapFactory implements TypeDescriptorFactory {
+public class DynamicMapFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {

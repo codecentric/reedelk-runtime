@@ -1,4 +1,4 @@
-package com.reedelk.module.descriptor.model.commons;
+package com.reedelk.module.descriptor.model.property;
 
 import java.io.Serializable;
 

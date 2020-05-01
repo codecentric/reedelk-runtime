@@ -10,7 +10,7 @@ import io.github.classgraph.FieldInfo;
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 import static java.util.Arrays.stream;
 
-public class TypeComboFactory implements TypeDescriptorFactory {
+public class ComboFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {

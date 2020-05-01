@@ -2,9 +2,9 @@ package com.reedelk.module.descriptor.analyzer.property;
 
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
-import com.reedelk.module.descriptor.model.commons.WhenDescriptor;
 import com.reedelk.module.descriptor.model.property.PrimitiveDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
+import com.reedelk.module.descriptor.model.property.WhenDescriptor;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
 import org.junit.jupiter.api.BeforeAll;

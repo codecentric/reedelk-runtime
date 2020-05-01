@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.ResourceTextDescriptor;
+import com.reedelk.module.descriptor.model.property.ResourceBinaryDescriptor;
 import com.reedelk.runtime.api.annotation.HintBrowseFile;
 import com.reedelk.runtime.api.annotation.WidthAuto;
 import com.reedelk.runtime.api.commons.PlatformTypes;
@@ -10,12 +10,12 @@ import io.github.classgraph.FieldInfo;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 
-public class TypeResourceTextFactory implements TypeDescriptorFactory {
+public class ResourceBinaryFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         return clazzByFullyQualifiedName(fullyQualifiedClassName)
-                .map(clazz -> PlatformTypes.isSupported(fullyQualifiedClassName) && isResourceText(clazz))
+                .map(clazz -> PlatformTypes.isSupported(fullyQualifiedClassName) && isResourceBinary(clazz))
                 .orElse(false);
     }
 
@@ -24,7 +24,7 @@ public class TypeResourceTextFactory implements TypeDescriptorFactory {
         boolean widthAuto = hasAnnotation(fieldInfo, WidthAuto.class);
         String hintBrowseFile = annotationValueOrDefaultFrom(fieldInfo, HintBrowseFile.class, null);
 
-        ResourceTextDescriptor descriptor = new ResourceTextDescriptor();
+        ResourceBinaryDescriptor descriptor = new ResourceBinaryDescriptor();
         descriptor.setHintBrowseFile(hintBrowseFile);
         if (widthAuto) descriptor.setWidthAuto(Boolean.TRUE);
         return descriptor;

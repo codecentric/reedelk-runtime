@@ -17,7 +17,7 @@ import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
 import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
 import static com.reedelk.runtime.api.commons.StringUtils.isNotBlank;
 
-public class TypeMimeTypeComboFactory implements TypeDescriptorFactory {
+public class MimeTypeComboFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {

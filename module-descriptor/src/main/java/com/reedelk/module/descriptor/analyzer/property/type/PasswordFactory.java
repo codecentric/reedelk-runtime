@@ -9,7 +9,7 @@ import io.github.classgraph.FieldInfo;
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.clazzByFullyQualifiedName;
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.isPassword;
 
-public class TypePasswordFactory implements TypeDescriptorFactory {
+public class PasswordFactory implements DescriptorFactory {
 
     @Override
     public boolean test(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {

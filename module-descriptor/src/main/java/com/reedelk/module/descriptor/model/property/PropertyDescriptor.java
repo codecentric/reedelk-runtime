@@ -1,7 +1,5 @@
 package com.reedelk.module.descriptor.model.property;
 
-import com.reedelk.module.descriptor.model.commons.WhenDescriptor;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
