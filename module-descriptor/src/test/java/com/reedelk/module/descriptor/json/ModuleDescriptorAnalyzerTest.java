@@ -42,6 +42,18 @@ class ModuleDescriptorAnalyzerTest {
         assertThat(expected.toString()).isEqualTo(actual.get().toString());
     }
 
+    @Test
+    void shouldReturnEmptyWhenJarFileDoesNotContainModuleDescriptorJsonFile() {
+        // Given
+        URL targetJarURL = ModuleDescriptorAnalyzerTest.class.getResource("/sample-module-xyz-without-descriptor.jar");
+
+        // When
+        Optional<ModuleDescriptor> actual = scanner.from(targetJarURL.getPath());
+
+        // Then
+        assertThat(actual).isNotPresent();
+    }
+
     private static ModuleDescriptor createTestModuleDescriptor() {
         PropertyTypeDescriptor doublePrimitive = new PrimitiveDescriptor();
         doublePrimitive.setType(Double.class);
