@@ -48,12 +48,12 @@ public class TypeFunctionAnalyzer {
             int cursorOffset = getParameterValue("cursorOffset", annotationInfo);
 
             if (TypeFunction.USE_DEFAULT_NAME.equals(name)) {
-                String error = format("Type function name must be defined for class level @TypeFunctions annotations (class: %s).", classInfo.getName());
+                String error = format("Name property must be defined for class level @TypeFunction annotation (class: %s).", classInfo.getName());
                 throw new ModuleDescriptorException(error);
             }
 
             if (TypeFunction.USE_DEFAULT_SIGNATURE.equals(signature)) {
-                String error = format("Type function signature must be defined for class level @TypeFunctions annotations (class: %s).", classInfo.getName());
+                String error = format("Signature property must be defined for class level @TypeFunction annotation (class: %s).", classInfo.getName());
                 throw new ModuleDescriptorException(error);
             }
 
