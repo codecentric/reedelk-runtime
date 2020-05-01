@@ -1,8 +1,5 @@
 package com.reedelk.module.descriptor.analyzer.commons;
 
-import io.github.classgraph.Resource;
-import io.github.classgraph.ResourceList;
-import io.github.classgraph.ScanResult;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
@@ -17,8 +14,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Optional;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
@@ -96,32 +91,6 @@ public class AssetUtils {
         }
     }
 
-    public static Image loadImage(ScanResult scanResult, String fullyQualifiedClassName) {
-        String imageFileName = imageNameFrom(fullyQualifiedClassName);
-        return findResourceMatchingLeafName(scanResult, imageFileName)
-                .map(AssetUtils::getImage)
-                .orElse(null);
-    }
-
-    public static Icon loadIcon(ScanResult scanResult, String fullyQualifiedClassName) {
-        String iconFileName = iconNameFrom(fullyQualifiedClassName);
-        return findResourceMatchingLeafName(scanResult, iconFileName)
-                .map(AssetUtils::getIcon)
-                .orElse(null);
-    }
-
-    private static Optional<Resource> findResourceMatchingLeafName(ScanResult scanResult, String leafFileName) {
-        ResourceList resourcesWithLeafName = scanResult.getResourcesWithLeafName(leafFileName);
-        Map<String, ResourceList> items = resourcesWithLeafName.asMap();
-        if (items.containsKey(leafFileName)) {
-            ResourceList resources = items.get(leafFileName);
-            if (!resources.isEmpty()) {
-                return Optional.ofNullable(resources.get(0));
-            }
-        }
-        return Optional.empty();
-    }
-
     public static Icon getIcon(URL iconURL) {
         if (iconURL == null) return null;
         try (InputStream is = iconURL.openStream()) {
@@ -144,24 +113,6 @@ public class AssetUtils {
             return null;
         } catch (IOException e) {
             LOG.error(e);
-            return null;
-        }
-    }
-
-    private static Icon getIcon(Resource resource) {
-        try (InputStream is = resource.open()) {
-            return getIcon(is);
-        } catch (IOException exception) {
-            LOG.error(exception);
-            return null;
-        }
-    }
-
-    private static Image getImage(Resource resource) {
-        try (InputStream is = resource.open()) {
-            return getImage(is);
-        } catch (IOException exception) {
-            LOG.error(exception);
             return null;
         }
     }
