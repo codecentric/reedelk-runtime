@@ -41,7 +41,7 @@ public class TypeAnalyzer {
             List<TypePropertyDescriptor> properties = propertyAnalyzer.analyze();
 
             TypeDescriptor descriptor = new TypeDescriptor();
-            descriptor.setFullyQualifiedName(classInfo.getName());
+            descriptor.setType(classInfo.getName());
             descriptor.setListItemType(listItemType);
             descriptor.setDisplayName(displayName);
             descriptor.setDescription(description);

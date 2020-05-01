@@ -8,7 +8,8 @@ public class TypeDescriptor {
     private boolean global;
 
     // The fully qualified name of the type.
-    private String fullyQualifiedName;
+    private String type;
+
     // The display name is to make something nicer, for instance if the name is Map for attributes
     // then the display name could be used to display e.g. MapXYZAttributes and so on.
     private String displayName;
@@ -27,12 +28,12 @@ public class TypeDescriptor {
         this.global = global;
     }
 
-    public String getFullyQualifiedName() {
-        return fullyQualifiedName;
+    public String getType() {
+        return type;
     }
 
-    public void setFullyQualifiedName(String fullyQualifiedName) {
-        this.fullyQualifiedName = fullyQualifiedName;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDisplayName() {
@@ -79,7 +80,7 @@ public class TypeDescriptor {
     public String toString() {
         return "TypeDescriptor{" +
                 "global=" + global +
-                ", fullyQualifiedName='" + fullyQualifiedName + '\'' +
+                ", type='" + type + '\'' +
                 ", displayName='" + displayName + '\'' +
                 ", description='" + description + '\'' +
                 ", listItemType='" + listItemType + '\'' +

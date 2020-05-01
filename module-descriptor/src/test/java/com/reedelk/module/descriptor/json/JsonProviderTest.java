@@ -79,7 +79,7 @@ class JsonProviderTest {
         typeDescriptor.setDescription("My type description");
         typeDescriptor.setListItemType(Map.class.getName());
 
-        typeDescriptor.setFullyQualifiedName("com.test.Utils");
+        typeDescriptor.setType("com.test.Utils");
         typeDescriptor.setProperties(singletonList(propertyDescriptor));
         typeDescriptor.setFunctions(singletonList(functionDescriptor));
 

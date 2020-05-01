@@ -9,4 +9,8 @@ public class AnalyzerTestUtils {
         ScanResult scanResult = ScannerTestUtils.scanWithResult(target);
         return scanResult.getClassInfo(target.getName());
     }
+
+    public static ScanResult scanResultOf(Class<?> target) {
+        return ScannerTestUtils.scanWithResult(target);
+    }
 }
