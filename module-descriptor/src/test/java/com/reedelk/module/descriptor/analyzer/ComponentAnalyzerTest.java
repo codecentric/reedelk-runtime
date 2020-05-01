@@ -31,16 +31,12 @@ class ComponentAnalyzerTest {
     @Mock
     private PropertyDescriptor descriptor3;
 
-
     private ComponentAnalyzer analyzer;
     private ClassInfo componentClassInfo;
 
-
     @BeforeEach
     void setUp() {
-        ScannerTestUtils.ScanContext scanContext = ScannerTestUtils.scan(TestComponent.class);
-
-        componentClassInfo = scanContext.targetComponentClassInfo;
+        componentClassInfo = AnalyzerTestUtils.classInfoOf(TestComponent.class);
 
         doReturn(of(descriptor1), of(descriptor2), of(descriptor3), empty())
                 .when(propertyAnalyzer).analyze(any(FieldInfo.class));

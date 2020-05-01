@@ -4,23 +4,10 @@ import com.reedelk.module.descriptor.model.property.*;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicValue;
 
-import java.util.List;
 import java.util.Map;
 
 public class ObjectFactories {
 
-    public static ObjectDescriptor createTypeObjectDescriptor(String fullyQualifiedName, List<PropertyDescriptor> propertiesDescriptor, Shared shared) {
-        ObjectDescriptor descriptor = new ObjectDescriptor();
-        descriptor.setTypeFullyQualifiedName(fullyQualifiedName);
-        descriptor.setCollapsible(Collapsible.NO);
-        descriptor.setShared(shared);
-        descriptor.setObjectProperties(propertiesDescriptor);
-        return descriptor;
-    }
-
-    public static ObjectDescriptor createTypeObjectDescriptor(String fullyQualifiedName, List<PropertyDescriptor> propertiesDescriptor) {
-        return createTypeObjectDescriptor(fullyQualifiedName, propertiesDescriptor, Shared.NO);
-    }
 
     public static PrimitiveDescriptor createTypePrimitiveDescriptor(Class<?> clazzType) {
         PrimitiveDescriptor descriptor = new PrimitiveDescriptor();
