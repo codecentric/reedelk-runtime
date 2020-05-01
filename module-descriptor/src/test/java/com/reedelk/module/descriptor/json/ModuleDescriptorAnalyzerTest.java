@@ -1,62 +1,80 @@
 package com.reedelk.module.descriptor.json;
 
+import com.reedelk.module.descriptor.ModuleDescriptorException;
 import com.reedelk.module.descriptor.analyzer.ModuleDescriptorAnalyzer;
+import com.reedelk.module.descriptor.model.ModuleDescriptor;
+import com.reedelk.module.descriptor.model.commons.WhenDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
+import com.reedelk.module.descriptor.model.component.ComponentType;
+import com.reedelk.module.descriptor.model.property.*;
+import com.reedelk.runtime.api.flow.FlowContext;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.net.URL;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ModuleDescriptorAnalyzerTest {
 
     private ModuleDescriptorAnalyzer scanner;
+    private ModuleDescriptor expected;
 
     @BeforeEach
     void setUp() {
         scanner = new ModuleDescriptorAnalyzer();
+        expected = createTestModuleDescriptor();
     }
 
-    // TODO: Fixme
-    /**
     @Test
     void shouldCorrectlyDeserializeFromJarFile() throws ModuleDescriptorException {
         // Given
         URL targetJarURL = ModuleDescriptorAnalyzerTest.class.getResource("/sample-module-xyz.jar");
 
         // When
-        ModuleDescriptor descriptor = scanner.from(targetJarURL.getPath(), "sample-module-xyz");
+        ModuleDescriptor actual = scanner.from(targetJarURL.getPath(), "sample-module-xyz");
 
         // Then
-        List<ComponentDescriptor> componentDescriptors = descriptor.getComponents();
-        assertThat(componentDescriptors).hasSize(1);
-        ComponentDescriptor componentDescriptor = componentDescriptors.get(0);
-        assertThat(componentDescriptor.getDisplayName()).isEqualTo("Test Processor Component");
-        assertThat(componentDescriptor.getType()).isEqualTo(ComponentType.PROCESSOR);
-        assertThat(componentDescriptor.getFullyQualifiedName()).isEqualTo("com.test.component.TestProcessorComponent");
-        assertThat(componentDescriptor.isHidden()).isEqualTo(false);
+        assertThat(expected.toString()).isEqualTo(actual.toString());
+    }
 
-        List<PropertyDescriptor> properties = componentDescriptor.getProperties();
-        assertThat(properties).hasSize(1);
+    private static ModuleDescriptor createTestModuleDescriptor() {
+        PropertyTypeDescriptor doublePrimitive = new TypePrimitiveDescriptor();
+        doublePrimitive.setType(Double.class);
 
-        PropertyDescriptor propertyDescriptor = properties.get(0);
-        assertThat(propertyDescriptor.getName()).isEqualTo("propertyDoubleObject");
-        assertThat(propertyDescriptor.getDisplayName()).isEqualTo("Property Double Object");
-        assertThat(propertyDescriptor.getDescription()).isEqualTo("Property Double Object Info");
-        assertThat(propertyDescriptor.getInitValue()).isEqualTo("234.553");
-        assertThat(propertyDescriptor.getDefaultValue()).isEqualTo("10.110");
-        assertThat(propertyDescriptor.getHintValue()).isEqualTo("1111.2222");
-        assertThat(propertyDescriptor.getExample()).isEqualTo("77.12");
+        ScriptSignatureDescriptor signatureDescriptor = new ScriptSignatureDescriptor();
+        signatureDescriptor.setArguments(asList(
+                new ScriptSignatureArgument("arg0", FlowContext.class.getName()),
+                new ScriptSignatureArgument("arg1", Exception.class.getName())));
 
-        TypePrimitiveDescriptor primitiveDescriptor = propertyDescriptor.getType();
-        assertThat(primitiveDescriptor.getType()).isEqualTo(Double.class);
+        WhenDescriptor whenDescriptor = new WhenDescriptor();
+        whenDescriptor.setPropertyName("myProperty");
+        whenDescriptor.setPropertyValue("VALUE1");
+        List<WhenDescriptor> whenDescriptors = singletonList(whenDescriptor);
 
-        ScriptSignatureDescriptor scriptSignature = propertyDescriptor.getScriptSignature();
+        PropertyDescriptor propertyDescriptor1 = new PropertyDescriptor();
+        propertyDescriptor1.setScriptSignature(signatureDescriptor);
+        propertyDescriptor1.setWhens(whenDescriptors);
+        propertyDescriptor1.setType(doublePrimitive);
+        propertyDescriptor1.setDescription("Property Double Object Info");
+        propertyDescriptor1.setDisplayName("Property Double Object");
+        propertyDescriptor1.setName("propertyDoubleObject");
+        propertyDescriptor1.setDefaultValue("10.110");
+        propertyDescriptor1.setHintValue("1111.2222");
+        propertyDescriptor1.setInitValue("234.553");
+        propertyDescriptor1.setExample("77.12");
 
-        List<ScriptSignatureArgument> arguments = scriptSignature.getArguments();
-        ScriptSignatureArgument stringStringPair = arguments.get(0);
-        // TODO: Assert that script signature is correct!
+        ComponentDescriptor component1 = new ComponentDescriptor();
+        component1.setDisplayName("Test Processor Component");
+        component1.setType(ComponentType.PROCESSOR);
+        component1.setFullyQualifiedName("com.test.component.TestProcessorComponent");
+        component1.setProperties(singletonList(propertyDescriptor1));
 
-        List<WhenDescriptor> whens = propertyDescriptor.getWhens();
-        assertThat(whens).hasSize(1);
-
-        WhenDescriptor when = whens.get(0);
-        assertThat(when.getPropertyName()).isEqualTo("myProperty");
-        assertThat(when.getPropertyValue()).isEqualTo("VALUE1");
-    }*/
+        ModuleDescriptor expected = new ModuleDescriptor();
+        expected.setComponents(singletonList(component1));
+        return expected;
+    }
 }
