@@ -126,7 +126,7 @@ public class TypeFunctionAnalyzer {
         String returnType = getParameterValue("returnType", UseDefaultType.class.getName(), annotationInfo);
         if (UseDefaultType.class.getName().equals(returnType)) {
             TypeSignature resultType = methodInfo.getTypeDescriptor().getResultType();
-            return resultType.toStringWithSimpleNames();
+            return resultType.toString(); // Fully qualified name
         } else {
             return returnType; // Fully qualified name.
         }
