@@ -22,12 +22,13 @@ class TypeAnalyzerTest {
 
         // Then
         assertThat(types.size()).isEqualTo(1);
+
         TypeDescriptor descriptor = types.get(0);
         assertThat(descriptor.getDescription()).isEqualTo("TypeAnalyzerComponent description");
         assertThat(descriptor.getDisplayName()).isEqualTo("MyTypeAnalyzerComponent");
-        assertThat(descriptor.getListItemType()).isEqualTo(Map.class.getName());
         assertThat(descriptor.getType()).isEqualTo(TypeAnalyzerComponent.class.getName());
-        assertThat(descriptor.getFunctions()).hasSize(1);
+        assertThat(descriptor.getListItemType()).isEqualTo(Map.class.getName());
         assertThat(descriptor.getProperties()).hasSize(1);
+        assertThat(descriptor.getFunctions()).hasSize(1);
     }
 }
