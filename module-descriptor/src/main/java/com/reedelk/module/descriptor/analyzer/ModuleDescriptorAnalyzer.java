@@ -13,6 +13,7 @@ import com.reedelk.module.descriptor.model.ModuleDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentType;
 import com.reedelk.module.descriptor.model.type.TypeDescriptor;
+import com.reedelk.runtime.api.RuntimeApi;
 import com.reedelk.runtime.api.annotation.Module;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.ClassGraph;
@@ -25,15 +26,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
-import static com.reedelk.module.descriptor.analyzer.commons.Messages.Analyzer.ERROR_FROM_DIRECTORY;
-import static com.reedelk.module.descriptor.analyzer.commons.Messages.Analyzer.ERROR_FROM_JAR_PATH;
+import static com.reedelk.module.descriptor.analyzer.commons.Messages.Analyzer.*;
 import static java.util.stream.Collectors.toList;
 
 public class ModuleDescriptorAnalyzer {
 
-    /**
-     * Used by IntelliJ flow designer to read components definitions from a given jar.
-     */
+    // Used by IntelliJ flow designer to read components definitions from a given jar.
     public Optional<ModuleDescriptor> from(String targetJarPath) {
         return ReadModuleDescriptor.from(targetJarPath).map(json -> {
             try {
@@ -55,9 +53,7 @@ public class ModuleDescriptorAnalyzer {
         });
     }
 
-    /**
-     * Used by maven-plugin to create module descriptor from compiled classes in the given directory.
-     */
+    // Used by maven-plugin to create module descriptor from compiled classes in the given directory.
     public ModuleDescriptor fromDirectory(String directory, String moduleName, boolean resolveImages) {
         try {
             ScanResult scanResult = instantiateScanner()
@@ -75,15 +71,13 @@ public class ModuleDescriptorAnalyzer {
         } catch (ModuleDescriptorException exception) {
             throw exception;
         } catch (Exception exception) {
-            String error = ERROR_FROM_DIRECTORY.format(directory, moduleName, resolveImages);
+            String error = ERROR_FROM_DIRECTORY.format(directory, moduleName, resolveImages, exception.getMessage());
             throw new ModuleDescriptorException(error, exception);
         }
     }
 
-    /**
-     * Used by IntelliJ flow designer to read system components definitions.
-     * The system components are read from the dependency in the classpath.
-     */
+    // Used by IntelliJ flow designer to read system components module descriptor definitions.
+    // The module descriptor is accessed using the *classpath* which loaded any of the system component classes.
     public ModuleDescriptor from(Class<?> systemComponentClazz) {
         URL resource = systemComponentClazz.getClassLoader().getResource(ModuleDescriptor.RESOURCE_FILE_NAME);
         ModuleDescriptor moduleDescriptor = JsonProvider.fromURL(resource);
@@ -97,14 +91,19 @@ public class ModuleDescriptorAnalyzer {
         return moduleDescriptor;
     }
 
-    public ModuleDescriptor fromPackage(String... whiteListPackages) {
+    // Returns the scanned types from the runtime api package. For instance it scans annotations
+    // on FlowContext, Message and other runtime api defined types.
+    public List<TypeDescriptor> scanRuntimeApiTypes() {
         try {
             ScanResult scanResult = instantiateScanner()
-                    .whitelistPackages(whiteListPackages)
+                    .whitelistPackages(RuntimeApi.class.getPackage().getName())
                     .scan();
-            return analyzeFrom(scanResult, "flow-control"); // TODO: This magic string needs to be checked!!
-        } catch (Exception e) {
-            throw new ModuleDescriptorException(e);
+            return typesOf(scanResult);
+        } catch (ModuleDescriptorException exception) {
+            throw exception;
+        } catch (Exception exception) {
+            String error = ERROR_SCAN_API_TYPES.format(exception.getMessage());
+            throw new ModuleDescriptorException(error, exception);
         }
     }
 

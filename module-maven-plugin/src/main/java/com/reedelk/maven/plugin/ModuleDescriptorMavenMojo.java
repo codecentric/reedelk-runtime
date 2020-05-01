@@ -3,7 +3,7 @@ package com.reedelk.maven.plugin;
 import com.reedelk.module.descriptor.analyzer.ModuleDescriptorAnalyzer;
 import com.reedelk.module.descriptor.json.JsonProvider;
 import com.reedelk.module.descriptor.model.ModuleDescriptor;
-import com.reedelk.runtime.api.RuntimeApi;
+import com.reedelk.module.descriptor.model.type.TypeDescriptor;
 import com.reedelk.runtime.api.commons.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -42,12 +43,11 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
             // Used by runtime-commons to also scan classes from runtime API (e.g: Message, FlowContext).
             if (scanApi) {
                 // Scan API
-                ModuleDescriptor scanApiModuleDescriptor = analyzer.fromPackage(RuntimeApi.class.getPackage().getName());
+                List<TypeDescriptor> runtimeApiTypes = analyzer.scanRuntimeApiTypes();
 
                 // Scan Module
                 ModuleDescriptor moduleDescriptor = analyzer.fromDirectory(compiledClasses, finalModuleName, false);
-                moduleDescriptor.getComponents().addAll(scanApiModuleDescriptor.getComponents());
-                moduleDescriptor.getTypes().addAll(scanApiModuleDescriptor.getTypes());
+                moduleDescriptor.getTypes().addAll(runtimeApiTypes);
 
                 // We only write if there are components, functions and types defined.
                 if (shouldWriteFile(moduleDescriptor)) {

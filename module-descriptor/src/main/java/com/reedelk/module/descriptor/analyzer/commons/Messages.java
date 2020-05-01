@@ -26,7 +26,8 @@ public class Messages {
     public enum Analyzer implements FormattedMessage {
 
         ERROR_FROM_JAR_PATH("Error reading module descriptor from jar path=[%s], cause=[%s]."),
-        ERROR_FROM_DIRECTORY("Error building module descriptor from directory=[%s], module name=[%s], resolve images=[%s].");
+        ERROR_FROM_DIRECTORY("Error building module descriptor from directory=[%s], module name=[%s], resolve images=[%s], cause=[%s]."),
+        ERROR_SCAN_API_TYPES("Error scanning runtime api types, cause=[%s].");
 
         private final String message;
 

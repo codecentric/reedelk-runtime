@@ -5,6 +5,16 @@ public class ModuleProperties {
     private ModuleProperties() {
     }
 
+    public static class System {
+
+        private System() {
+        }
+
+        // The name of the core runtime modules. The system components under this
+        // name are all the ones defined in com.reedelk.runtime.component package.
+        public static final String MODULE_NAME = "flow-control";
+    }
+
     public static class Bundle {
 
         private Bundle() {
