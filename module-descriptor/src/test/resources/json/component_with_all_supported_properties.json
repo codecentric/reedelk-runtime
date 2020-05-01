@@ -1209,7 +1209,7 @@
   "types": [
     {
       "global": true,
-      "fullyQualifiedName": "com.test.Utils",
+      "type": "com.test.Utils",
       "displayName": "Utils",
       "description": "My type description",
       "listItemType": "java.util.Map",
