@@ -22,4 +22,21 @@ public class Messages {
             return message;
         }
     }
+
+    public enum JsonProvider implements FormattedMessage {
+
+        JSON_SERIALIZE_ERROR("Could not serialize JSON of module descriptor, cause=[%s]."),
+        JSON_DESERIALIZE_ERROR("Could not deserialize JSON of module descriptor, cause=[%s].");
+
+        private final String message;
+
+        JsonProvider(String message) {
+            this.message = message;
+        }
+
+        @Override
+        public String template() {
+            return message;
+        }
+    }
 }

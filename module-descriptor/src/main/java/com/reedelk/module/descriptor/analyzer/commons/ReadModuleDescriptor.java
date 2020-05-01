@@ -16,7 +16,7 @@ public class ReadModuleDescriptor {
     private ReadModuleDescriptor() {
     }
 
-    public static Optional<String> from(String jarFilePath) throws ModuleDescriptorException {
+    public static Optional<String> from(String jarFilePath) {
         try (JarFile file = new JarFile(jarFilePath)) {
             ZipEntry componentsConfigFile = file.getEntry(ModuleDescriptor.RESOURCE_FILE_NAME);
             if (componentsConfigFile == null) return Optional.empty();

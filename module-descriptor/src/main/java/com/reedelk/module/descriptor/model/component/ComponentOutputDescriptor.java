@@ -1,8 +1,9 @@
 package com.reedelk.module.descriptor.model.component;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ComponentOutputDescriptor {
+public class ComponentOutputDescriptor implements Serializable {
 
     private String attributes;
     private String description;

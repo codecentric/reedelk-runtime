@@ -18,7 +18,6 @@ import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
-import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,68 +25,37 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
-import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
 public class ModuleDescriptorAnalyzer {
-
-    private static final Logger LOG = Logger.getLogger(ModuleDescriptorAnalyzer.class);
 
     /**
      * Used by IntelliJ designer to load components definitions from a given Jar. If the Jar
      * contains the pre-generated component's descriptors JSON file then it is used to create
      * the ModuleDescriptor object containing metadata about the Components. Otherwise the
      * classes in the Jar package are analyze to extract infos about the components provided in the module.
+     * A target JAR might not have a module descriptor.
      *
      * @param targetJarPath the  target path of the Jar from which we want to retrieve the module descriptor info.
      * @return the ModuleDescriptor.
      * @throws ModuleDescriptorException if the JSON could not be de-serialized.
      */
-    public ModuleDescriptor from(String targetJarPath, String moduleName) throws ModuleDescriptorException {
-        Optional<String> componentsDefinitionFromJar = ReadModuleDescriptor.from(targetJarPath);
-
-        LOG.info(format("Analyzing Module from target Jar path=[%s]. Component Descriptors Json file found=[%s] ",
-                targetJarPath, componentsDefinitionFromJar.isPresent()));
-
-        if (componentsDefinitionFromJar.isPresent()) {
-            String json = componentsDefinitionFromJar.get();
+    public Optional<ModuleDescriptor> from(String targetJarPath) {
+        return ReadModuleDescriptor.from(targetJarPath).map(json -> {
             try {
                 ModuleDescriptor moduleDescriptor = JsonProvider.fromJson(json);
-
-                // Load icons and images
                 moduleDescriptor.getComponents().forEach(componentDescriptor -> {
+                    // Load icons and images
                     Icon componentIcon = AssetUtils.loadIcon(targetJarPath, componentDescriptor.getFullyQualifiedName());
                     componentDescriptor.setIcon(componentIcon);
-
                     Image componentImage = AssetUtils.loadImage(targetJarPath, componentDescriptor.getFullyQualifiedName());
                     componentDescriptor.setImage(componentImage);
                 });
-
                 return moduleDescriptor;
             } catch (Exception exception) {
                 throw new ModuleDescriptorException(exception);
             }
-
-        } else {
-            try {
-                // Here there should be a strategy. If the target Jar path contains
-                // the json with the components definitions, then use that one, otherwise scan.
-                ScanResult scanResult = scanResultFrom(targetJarPath);
-                ModuleDescriptor moduleDescriptor = analyzeFrom(scanResult, moduleName);
-
-                // Load icons and images
-                moduleDescriptor.getComponents().forEach(componentDescriptor -> {
-                    Icon componentIcon = AssetUtils.loadIcon(scanResult, componentDescriptor.getFullyQualifiedName());
-                    componentDescriptor.setIcon(componentIcon);
-
-                    Image componentImage = AssetUtils.loadImage(scanResult, componentDescriptor.getFullyQualifiedName());
-                    componentDescriptor.setImage(componentImage);
-                });
-                return moduleDescriptor;
-            } catch (Exception exception) {
-                throw new ModuleDescriptorException(exception);
-            }
-        }
+        });
     }
 
     /**
@@ -99,7 +67,7 @@ public class ModuleDescriptorAnalyzer {
      * @param moduleName the name of the module.
      * @return the ModuleDescriptor build out of the annotations found in the compiled classes.
      */
-    public ModuleDescriptor fromDirectory(String directory, String moduleName, boolean resolveImages) throws ModuleDescriptorException {
+    public ModuleDescriptor fromDirectory(String directory, String moduleName, boolean resolveImages) {
         try {
             ScanResult scanResult = instantiateScanner()
                     .overrideClasspath(directory)
@@ -190,7 +158,7 @@ public class ModuleDescriptorAnalyzer {
                 .ignoreFieldVisibility();
     }
 
-    public ModuleDescriptor fromPackage(String... whiteListPackages) throws ModuleDescriptorException {
+    public ModuleDescriptor fromPackage(String... whiteListPackages) {
         try {
             ScanResult scanResult = instantiateScanner()
                     .whitelistPackages(whiteListPackages)

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -34,10 +35,11 @@ class ModuleDescriptorAnalyzerTest {
         URL targetJarURL = ModuleDescriptorAnalyzerTest.class.getResource("/sample-module-xyz.jar");
 
         // When
-        ModuleDescriptor actual = scanner.from(targetJarURL.getPath(), "sample-module-xyz");
+        Optional<ModuleDescriptor> actual = scanner.from(targetJarURL.getPath());
 
         // Then
-        assertThat(expected.toString()).isEqualTo(actual.toString());
+        assertThat(actual).isPresent();
+        assertThat(expected.toString()).isEqualTo(actual.get().toString());
     }
 
     private static ModuleDescriptor createTestModuleDescriptor() {

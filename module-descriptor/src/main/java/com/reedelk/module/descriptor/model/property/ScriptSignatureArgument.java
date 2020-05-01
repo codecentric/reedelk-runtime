@@ -1,6 +1,8 @@
 package com.reedelk.module.descriptor.model.property;
 
-public class ScriptSignatureArgument {
+import java.io.Serializable;
+
+public class ScriptSignatureArgument implements Serializable {
 
     private final String argumentName;
     private final String argumentType;
