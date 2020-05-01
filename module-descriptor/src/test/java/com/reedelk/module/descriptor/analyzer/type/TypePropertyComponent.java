@@ -2,14 +2,11 @@ package com.reedelk.module.descriptor.analyzer.type;
 
 import com.reedelk.runtime.api.annotation.TypeProperty;
 
-@TypeProperty(name = TypePropertyComponent.PROPERTY1, type = String.class)
-@TypeProperty(name = TypePropertyComponent.PROPERTY2, type = long.class)
+@TypeProperty(name = "property1", example = "Util.property1", description = "Property1 description", type = String.class)
+@TypeProperty(name = "property2", example = "Util.property2", description = "Property2 description", type = long.class)
 public class TypePropertyComponent {
 
-    static final String PROPERTY1 = "property1";
-    static final String PROPERTY2 = "property2";
-
-    @TypeProperty
+    @TypeProperty(example = "context.correlationId", description = "Returns the current flow correlation id.")
     public String correlationId;
 
 }

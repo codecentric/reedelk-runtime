@@ -40,7 +40,7 @@ public class TypePropertyAnalyzer {
             String name = stringParameterValueFrom(annotationInfo, "name");
 
             if (TypeProperty.USE_DEFAULT_NAME.equals(name)) {
-                String error = String.format("Type property name must be defined for class level @TypeProperty annotations (class: %s).", classInfo.getName());
+                String error = String.format("Name property must be defined for class level @TypeProperty annotations (class: %s).", classInfo.getName());
                 throw new ModuleDescriptorException(error);
             }
 
@@ -93,6 +93,6 @@ public class TypePropertyAnalyzer {
     private String getTypeFrom(AnnotationInfo annotationInfo, FieldInfo fieldInfo) {
         String type = getParameterValue("type", UseDefaultType.class.getName(), annotationInfo);
         return UseDefaultType.class.getName().equals(type) ?
-                fieldInfo.getTypeDescriptor().toStringWithSimpleNames() : type; // Fully qualified name.
+                fieldInfo.getTypeDescriptor().toString() : type; // Fully qualified name.
     }
 }
