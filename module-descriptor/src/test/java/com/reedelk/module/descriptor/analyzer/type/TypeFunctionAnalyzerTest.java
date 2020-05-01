@@ -40,7 +40,7 @@ class TypeFunctionAnalyzerTest {
     @Test
     void shouldThrowExceptionWhenFunctionNameNotPresentForClassLevelFunction() {
         // Given
-        ClassInfo classInfo = classInfoOf(TestFunctionComponentIncorrect.class);
+        ClassInfo classInfo = classInfoOf(TypeFunctionComponentIncorrect.class);
         TypeFunctionAnalyzer analyzer = new TypeFunctionAnalyzer(classInfo);
 
         // When
@@ -48,7 +48,7 @@ class TypeFunctionAnalyzerTest {
 
         // Then
         assertThat(thrown).hasMessage("Name property must be defined for class level @TypeFunction annotation " +
-                "(class: com.reedelk.module.descriptor.analyzer.type.TestFunctionComponentIncorrect).");
+                "(class: com.reedelk.module.descriptor.analyzer.type.TypeFunctionComponentIncorrect).");
     }
 
     private void assertExists(List<TypeFunctionDescriptor> collection,

@@ -1,5 +1,6 @@
 package com.reedelk.module.descriptor.analyzer.type;
 
+import com.reedelk.module.descriptor.ModuleDescriptorException;
 import com.reedelk.module.descriptor.model.type.TypePropertyDescriptor;
 import io.github.classgraph.ClassInfo;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import java.util.List;
 import static com.reedelk.module.descriptor.analyzer.AnalyzerTestUtils.classInfoOf;
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TypePropertyAnalyzerTest {
 
@@ -26,6 +28,20 @@ class TypePropertyAnalyzerTest {
         assertExists(properties, "property1", "Util.property1", String.class.getName(), "Property1 description");
         assertExists(properties, "property2", "Util.property2", long.class.getName(), "Property2 description");
         assertExists(properties, "correlationId", "context.correlationId", String.class.getName(), "Returns the current flow correlation id.");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenPropertyNameNotPresentForClassLevelProperty() {
+        // Given
+        ClassInfo classInfo = classInfoOf(TypePropertyComponentIncorrect.class);
+        TypePropertyAnalyzer analyzer = new TypePropertyAnalyzer(classInfo);
+
+        // When
+        ModuleDescriptorException thrown = assertThrows(ModuleDescriptorException.class, analyzer::analyze);
+
+        // Then
+        assertThat(thrown).hasMessage("Name property must be defined for class level " +
+                "@TypeProperty annotations (class: com.reedelk.module.descriptor.analyzer.type.TypePropertyComponentIncorrect).");
     }
 
     private void assertExists(List<TypePropertyDescriptor> collection,
