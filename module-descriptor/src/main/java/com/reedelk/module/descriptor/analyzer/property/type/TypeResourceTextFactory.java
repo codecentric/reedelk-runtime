@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeResourceTextDescriptor;
+import com.reedelk.module.descriptor.model.property.ResourceTextDescriptor;
 import com.reedelk.runtime.api.annotation.HintBrowseFile;
 import com.reedelk.runtime.api.annotation.WidthAuto;
 import com.reedelk.runtime.api.commons.PlatformTypes;
@@ -24,7 +24,7 @@ public class TypeResourceTextFactory implements TypeDescriptorFactory {
         boolean widthAuto = hasAnnotation(fieldInfo, WidthAuto.class);
         String hintBrowseFile = annotationValueOrDefaultFrom(fieldInfo, HintBrowseFile.class, null);
 
-        TypeResourceTextDescriptor descriptor = new TypeResourceTextDescriptor();
+        ResourceTextDescriptor descriptor = new ResourceTextDescriptor();
         descriptor.setHintBrowseFile(hintBrowseFile);
         if (widthAuto) descriptor.setWidthAuto(Boolean.TRUE);
         return descriptor;

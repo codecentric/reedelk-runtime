@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
+import com.reedelk.module.descriptor.model.property.ListDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeListDescriptor;
 import com.reedelk.runtime.api.annotation.DialogTitle;
 import com.reedelk.runtime.api.annotation.ListDisplayProperty;
 import com.reedelk.runtime.api.annotation.TabGroup;
@@ -41,7 +41,7 @@ public class TypeListFactory implements TypeDescriptorFactory {
         TypeDescriptorFactory factory = TypeDescriptorFactoryProvider.from(valueTypeFullyQualifiedName, fieldInfo, context);
         PropertyTypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
-        TypeListDescriptor descriptor = new TypeListDescriptor();
+        ListDescriptor descriptor = new ListDescriptor();
         descriptor.setListDisplayProperty(listDisplayProperty);
         descriptor.setDialogTitle(dialogTitle);
         descriptor.setValueType(valueType);

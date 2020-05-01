@@ -1,10 +1,10 @@
 package com.reedelk.module.descriptor.model.property;
 
-import com.reedelk.runtime.api.script.Script;
+import com.reedelk.runtime.api.annotation.Password;
 
-public class TypeScriptDescriptor implements PropertyTypeDescriptor {
+public class PasswordDescriptor implements PropertyTypeDescriptor {
 
-    private static final transient Class<?> type = Script.class;
+    private static final transient Class<?> type = Password.class;
 
     @Override
     public Class<?> getType() {
@@ -13,7 +13,7 @@ public class TypeScriptDescriptor implements PropertyTypeDescriptor {
 
     @Override
     public String toString() {
-        return "TypeScriptDescriptor{" +
+        return "PasswordDescriptor{" +
                 "type=" + type +
                 '}';
     }

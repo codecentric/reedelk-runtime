@@ -30,8 +30,8 @@ public class JsonProvider {
     public static String toJson(ModuleDescriptor moduleDescriptor) throws ModuleDescriptorException {
         try {
             return gson.toJson(moduleDescriptor);
-        } catch (Exception e) {
-            throw new ModuleDescriptorException("Could not write JSON From Module Descriptor", e);
+        } catch (Exception exception) {
+            throw new ModuleDescriptorException("Could not write JSON From Module Descriptor", exception);
         }
     }
 

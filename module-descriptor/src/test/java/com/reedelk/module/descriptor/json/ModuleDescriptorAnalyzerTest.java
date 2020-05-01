@@ -42,7 +42,7 @@ class ModuleDescriptorAnalyzerTest {
     }
 
     private static ModuleDescriptor createTestModuleDescriptor() {
-        PropertyTypeDescriptor doublePrimitive = new TypePrimitiveDescriptor();
+        PropertyTypeDescriptor doublePrimitive = new PrimitiveDescriptor();
         doublePrimitive.setType(Double.class);
 
         ScriptSignatureDescriptor signatureDescriptor = new ScriptSignatureDescriptor();

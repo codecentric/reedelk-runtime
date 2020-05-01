@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.model.property;
 
 import java.util.Map;
 
-public class TypeMapDescriptor extends CollectionAwareDescriptor {
+public class MapDescriptor extends CollectionAwareDescriptor {
 
     private static final transient Class<?> TYPE = Map.class;
 
@@ -41,7 +41,7 @@ public class TypeMapDescriptor extends CollectionAwareDescriptor {
 
     @Override
     public String toString() {
-        return "TypeMapDescriptor{" +
+        return "MapDescriptor{" +
                 "keyName='" + keyName + '\'' +
                 ", valueName='" + valueName + '\'' +
                 ", valueType=" + valueType +

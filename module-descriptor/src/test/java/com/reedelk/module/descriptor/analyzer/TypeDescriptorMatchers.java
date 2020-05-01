@@ -10,20 +10,20 @@ import java.util.Objects;
 
 public class TypeDescriptorMatchers {
 
-    public static Matcher<PropertyTypeDescriptor> ofPrimitiveType(TypePrimitiveDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofPrimitiveType(PrimitiveDescriptor expected) {
         return given -> {
-            if (given instanceof TypePrimitiveDescriptor) {
-                TypePrimitiveDescriptor actual = (TypePrimitiveDescriptor) given;
+            if (given instanceof PrimitiveDescriptor) {
+                PrimitiveDescriptor actual = (PrimitiveDescriptor) given;
                 return same(expected, actual);
             }
             return false;
         };
     }
 
-    public static Matcher<PropertyTypeDescriptor> ofTypeEnum(TypeEnumDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeEnum(EnumDescriptor expected) {
         return given -> {
-            if (given instanceof TypeEnumDescriptor) {
-                TypeEnumDescriptor actual = (TypeEnumDescriptor) given;
+            if (given instanceof EnumDescriptor) {
+                EnumDescriptor actual = (EnumDescriptor) given;
                 Map<String, String> expectedValueAndDisplayMap = expected.getNameAndDisplayNameMap();
                 Map<String, String> actualValueAndDisplayMap = actual.getNameAndDisplayNameMap();
                 return same(expected, actual) &&
@@ -33,30 +33,30 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<PropertyTypeDescriptor> ofTypeResourceText(TypeResourceTextDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeResourceText(ResourceTextDescriptor expected) {
         return given -> {
-            if (given instanceof TypeResourceTextDescriptor) {
-                TypeResourceTextDescriptor actual = (TypeResourceTextDescriptor) given;
+            if (given instanceof ResourceTextDescriptor) {
+                ResourceTextDescriptor actual = (ResourceTextDescriptor) given;
                 return same(expected, actual);
             }
             return false;
         };
     }
 
-    public static Matcher<PropertyTypeDescriptor> ofTypeResourceBinary(TypeResourceBinaryDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeResourceBinary(ResourceBinaryDescriptor expected) {
         return given -> {
-            if (given instanceof TypeResourceBinaryDescriptor) {
-                TypeResourceBinaryDescriptor actual = (TypeResourceBinaryDescriptor) given;
+            if (given instanceof ResourceBinaryDescriptor) {
+                ResourceBinaryDescriptor actual = (ResourceBinaryDescriptor) given;
                 return same(expected, actual);
             }
             return false;
         };
     }
 
-    public static Matcher<PropertyTypeDescriptor> ofTypeCombo(TypeComboDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeCombo(ComboDescriptor expected) {
         return given -> {
-            if (given instanceof TypeComboDescriptor) {
-                TypeComboDescriptor actual = (TypeComboDescriptor) given;
+            if (given instanceof ComboDescriptor) {
+                ComboDescriptor actual = (ComboDescriptor) given;
                 boolean expectedEditable = expected.isEditable();
                 boolean actualEditable = actual.isEditable();
                 String[] expectedComboValues = expected.getComboValues();
@@ -72,10 +72,10 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<PropertyTypeDescriptor> ofTypeMap(TypeMapDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeMap(MapDescriptor expected) {
         return given -> {
-            if (given instanceof TypeMapDescriptor) {
-                TypeMapDescriptor actual = (TypeMapDescriptor) given;
+            if (given instanceof MapDescriptor) {
+                MapDescriptor actual = (MapDescriptor) given;
                 String expectedTabGroup = expected.getTabGroup();
                 String actualTabGroup = actual.getTabGroup();
                 return same(expected, actual) &&
@@ -85,10 +85,10 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<PropertyTypeDescriptor> ofTypeList(TypeListDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeList(ListDescriptor expected) {
         return given -> {
-            if (given instanceof TypeListDescriptor) {
-                TypeListDescriptor actual = (TypeListDescriptor) given;
+            if (given instanceof ListDescriptor) {
+                ListDescriptor actual = (ListDescriptor) given;
                 PropertyTypeDescriptor expectedValueType = expected.getValueType();
                 PropertyTypeDescriptor actualValueType = actual.getValueType();
                 return Objects.equals(expectedValueType.getType(), actualValueType.getType());
@@ -97,30 +97,30 @@ public class TypeDescriptorMatchers {
         };
     }
 
-    public static Matcher<PropertyTypeDescriptor> ofTypeScript(TypeScriptDescriptor expected) {
+    public static Matcher<PropertyTypeDescriptor> ofTypeScript(ScriptDescriptor expected) {
         return given -> {
-            if (given instanceof TypeScriptDescriptor) {
-                TypeScriptDescriptor actual = (TypeScriptDescriptor) given;
+            if (given instanceof ScriptDescriptor) {
+                ScriptDescriptor actual = (ScriptDescriptor) given;
                 return same(expected, actual);
             }
             return false;
         };
     }
 
-    public static <T extends DynamicValue<?>> Matcher<PropertyTypeDescriptor> ofDynamicType(TypeDynamicValueDescriptor expected) {
+    public static <T extends DynamicValue<?>> Matcher<PropertyTypeDescriptor> ofDynamicType(DynamicValueDescriptor expected) {
         return given -> {
-            if (given instanceof TypeDynamicValueDescriptor) {
-                TypeDynamicValueDescriptor actual = (TypeDynamicValueDescriptor) given;
+            if (given instanceof DynamicValueDescriptor) {
+                DynamicValueDescriptor actual = (DynamicValueDescriptor) given;
                 return same(expected, actual);
             }
             return false;
         };
     }
 
-    public static <T extends DynamicMap<?>> Matcher<PropertyTypeDescriptor> ofDynamicMapType(TypeDynamicMapDescriptor expected) {
+    public static <T extends DynamicMap<?>> Matcher<PropertyTypeDescriptor> ofDynamicMapType(DynamicMapDescriptor expected) {
         return given -> {
-            if (given instanceof TypeDynamicMapDescriptor) {
-                TypeDynamicMapDescriptor actual = (TypeDynamicMapDescriptor) given;
+            if (given instanceof DynamicMapDescriptor) {
+                DynamicMapDescriptor actual = (DynamicMapDescriptor) given;
                 String expectedTabGroup = expected.getTabGroup();
                 String actualTabGroup = actual.getTabGroup();
                 return same(expected, actual) && expectedTabGroup.equals(actualTabGroup);

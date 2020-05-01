@@ -46,7 +46,7 @@ public class TypeObjectFactory implements TypeDescriptorFactory {
                 .map(Optional::get)
                 .collect(toList());
 
-        TypeObjectDescriptor descriptor = new TypeObjectDescriptor();
+        ObjectDescriptor descriptor = new ObjectDescriptor();
         descriptor.setTypeFullyQualifiedName(fullyQualifiedClassName);
         descriptor.setObjectProperties(allProperties);
         descriptor.setDialogTitle(dialogTitle);

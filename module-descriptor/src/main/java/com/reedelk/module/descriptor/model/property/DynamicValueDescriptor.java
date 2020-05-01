@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.model.property;
 
-public class TypeDynamicValueDescriptor implements PropertyTypeDescriptor {
+public class DynamicValueDescriptor implements PropertyTypeDescriptor {
 
     private transient Class<?> type;
 
@@ -16,7 +16,7 @@ public class TypeDynamicValueDescriptor implements PropertyTypeDescriptor {
 
     @Override
     public String toString() {
-        return "TypeDynamicValueDescriptor{" +
+        return "DynamicValueDescriptor{" +
                 "type=" + type +
                 '}';
     }

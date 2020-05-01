@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
 
-public class TypeObjectDescriptor implements PropertyTypeDescriptor {
+public class ObjectDescriptor implements PropertyTypeDescriptor {
 
     private static final transient Class<?> type = TypeObject.class;
 
@@ -66,7 +66,7 @@ public class TypeObjectDescriptor implements PropertyTypeDescriptor {
 
     @Override
     public String toString() {
-        return "TypeObjectDescriptor{" +
+        return "ObjectDescriptor{" +
                 "shared=" + shared +
                 ", dialogTitle='" + dialogTitle + '\'' +
                 ", collapsible=" + collapsible +

@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
+import com.reedelk.module.descriptor.model.property.DynamicMapDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeDynamicMapDescriptor;
 import com.reedelk.runtime.api.annotation.KeyName;
 import com.reedelk.runtime.api.annotation.TabGroup;
 import com.reedelk.runtime.api.annotation.ValueName;
@@ -28,7 +28,7 @@ public class TypeDynamicMapFactory implements TypeDescriptorFactory {
 
         Class<?> clazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
 
-        TypeDynamicMapDescriptor descriptor = new TypeDynamicMapDescriptor();
+        DynamicMapDescriptor descriptor = new DynamicMapDescriptor();
         descriptor.setValueName(valueName);
         descriptor.setTabGroup(tabGroup);
         descriptor.setKeyName(keyName);

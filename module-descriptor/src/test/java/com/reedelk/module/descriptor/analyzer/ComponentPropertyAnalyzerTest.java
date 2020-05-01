@@ -40,7 +40,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeIntegerTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeInteger = ObjectFactories.createTypePrimitiveDescriptor(int.class);
+        PrimitiveDescriptor typeInteger = ObjectFactories.createTypePrimitiveDescriptor(int.class);
 
         // Expect
         assertThatExistProperty(
@@ -53,7 +53,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeIntegerObjectProperty() {
         // Given
-        TypePrimitiveDescriptor typeIntegerObject = ObjectFactories.createTypePrimitiveDescriptor(Integer.class);
+        PrimitiveDescriptor typeIntegerObject = ObjectFactories.createTypePrimitiveDescriptor(Integer.class);
 
         // Expect
         assertThatExistProperty(
@@ -66,7 +66,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeLongTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeLong = ObjectFactories.createTypePrimitiveDescriptor(long.class);
+        PrimitiveDescriptor typeLong = ObjectFactories.createTypePrimitiveDescriptor(long.class);
 
         // Expect
         assertThatExistProperty(
@@ -79,7 +79,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeLongObjectProperty() {
         // Given
-        TypePrimitiveDescriptor typeLongObject =  ObjectFactories.createTypePrimitiveDescriptor(Long.class);
+        PrimitiveDescriptor typeLongObject =  ObjectFactories.createTypePrimitiveDescriptor(Long.class);
 
         // Expect
         assertThatExistProperty(
@@ -92,7 +92,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeFloatTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeFloat =  ObjectFactories.createTypePrimitiveDescriptor(float.class);
+        PrimitiveDescriptor typeFloat =  ObjectFactories.createTypePrimitiveDescriptor(float.class);
 
         // Expect
         assertThatExistProperty(
@@ -105,7 +105,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeFloatObjectTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeFloatObject =  ObjectFactories.createTypePrimitiveDescriptor(Float.class);
+        PrimitiveDescriptor typeFloatObject =  ObjectFactories.createTypePrimitiveDescriptor(Float.class);
 
         // Expect
         assertThatExistProperty(
@@ -118,7 +118,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDoubleTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeDouble =  ObjectFactories.createTypePrimitiveDescriptor(double.class);
+        PrimitiveDescriptor typeDouble =  ObjectFactories.createTypePrimitiveDescriptor(double.class);
 
         // Expect
         assertThatExistProperty(
@@ -131,7 +131,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDoubleObjectTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeDoubleObject =  ObjectFactories.createTypePrimitiveDescriptor(Double.class);
+        PrimitiveDescriptor typeDoubleObject =  ObjectFactories.createTypePrimitiveDescriptor(Double.class);
 
         // Expect
         assertThatExistProperty(
@@ -144,7 +144,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeBooleanTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeBoolean =  ObjectFactories.createTypePrimitiveDescriptor(boolean.class);
+        PrimitiveDescriptor typeBoolean =  ObjectFactories.createTypePrimitiveDescriptor(boolean.class);
 
         // Expect
         assertThatExistProperty(
@@ -157,7 +157,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeBooleanObjectTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeBooleanObject =  ObjectFactories.createTypePrimitiveDescriptor(Boolean.class);
+        PrimitiveDescriptor typeBooleanObject =  ObjectFactories.createTypePrimitiveDescriptor(Boolean.class);
 
         // Expect
         assertThatExistProperty(
@@ -172,7 +172,7 @@ class ComponentPropertyAnalyzerTest {
         // Given
         Map<String, String> enumValues =
                 ImmutableMap.of("VALUE1", "Value 1", "VALUE2", "VALUE2", "VALUE3", "Value 3");
-        TypeEnumDescriptor typeEnum = ObjectFactories.createTypeEnumDescriptor(enumValues);
+        EnumDescriptor typeEnum = ObjectFactories.createTypeEnumDescriptor(enumValues);
 
         // Expect
         assertThatExistProperty(
@@ -185,7 +185,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeStringTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeString =  ObjectFactories.createTypePrimitiveDescriptor(String.class);
+        PrimitiveDescriptor typeString =  ObjectFactories.createTypePrimitiveDescriptor(String.class);
 
         // Expect
         assertThatExistProperty(
@@ -198,7 +198,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeCharTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeChar =  ObjectFactories.createTypePrimitiveDescriptor(char.class);
+        PrimitiveDescriptor typeChar =  ObjectFactories.createTypePrimitiveDescriptor(char.class);
 
         // Expect
         assertThatExistProperty(
@@ -211,7 +211,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeCharObjectTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeChar =  ObjectFactories.createTypePrimitiveDescriptor(Character.class);
+        PrimitiveDescriptor typeChar =  ObjectFactories.createTypePrimitiveDescriptor(Character.class);
 
         // Expect
         assertThatExistProperty(
@@ -224,7 +224,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeBigIntegerTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeBigInteger =  ObjectFactories.createTypePrimitiveDescriptor(BigInteger.class);
+        PrimitiveDescriptor typeBigInteger =  ObjectFactories.createTypePrimitiveDescriptor(BigInteger.class);
 
         // Expect
         assertThatExistProperty(
@@ -237,7 +237,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeBigDecimalTypeProperty() {
         // Given
-        TypePrimitiveDescriptor typeBigDecimal =  ObjectFactories.createTypePrimitiveDescriptor(BigDecimal.class);
+        PrimitiveDescriptor typeBigDecimal =  ObjectFactories.createTypePrimitiveDescriptor(BigDecimal.class);
 
         // Expect
         assertThatExistProperty(
@@ -250,7 +250,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeResourceTextTypeProperty() {
         // Given
-        TypeResourceTextDescriptor typeResource = new TypeResourceTextDescriptor();
+        ResourceTextDescriptor typeResource = new ResourceTextDescriptor();
 
         // Expect
         assertThatExistProperty(
@@ -263,7 +263,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeResourceBinaryTypeProperty() {
         // Given
-        TypeResourceBinaryDescriptor typeResource = new TypeResourceBinaryDescriptor();
+        ResourceBinaryDescriptor typeResource = new ResourceBinaryDescriptor();
 
         // Expect
         assertThatExistProperty(
@@ -276,7 +276,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeResourceDynamicTypeProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicResource =
+        DynamicValueDescriptor typeDynamicResource =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicResource.class);
 
         // Expect
@@ -290,7 +290,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeComboTypeProperty() {
         // Given
-        TypeComboDescriptor typeCombo = ObjectFactories.createTypeComboDescriptor(true, new String[]{"one", "two", "three"}, "XXXXXXXXXXXX");
+        ComboDescriptor typeCombo = ObjectFactories.createTypeComboDescriptor(true, new String[]{"one", "two", "three"}, "XXXXXXXXXXXX");
 
         // Expect
         assertThatExistProperty(
@@ -305,7 +305,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMapTypeProperty() {
         // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Test tab group");
+        MapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Test tab group");
 
         // Expect
         assertThatExistProperty(
@@ -318,7 +318,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMapTypePropertyWithInitValues() {
         // Given
-        TypeMapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Init values tab group");
+        MapDescriptor typeMap = ObjectFactories.createTypeMapDescriptor("Init values tab group");
 
         // Expect
         assertThatExistProperty(
@@ -333,7 +333,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeListTypeProperty() {
         // Given
-        TypeListDescriptor typeList = ObjectFactories.createTypeListDescriptor(String.class);
+        ListDescriptor typeList = ObjectFactories.createTypeListDescriptor(String.class);
 
         // Expect
         assertThatExistProperty(
@@ -346,7 +346,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeListTypePropertyWithInitValues() {
         // Given
-        TypeListDescriptor typeList = ObjectFactories.createTypeListDescriptor(String.class);
+        ListDescriptor typeList = ObjectFactories.createTypeListDescriptor(String.class);
 
         // Expect
         assertThatExistProperty(
@@ -359,7 +359,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeScriptTypeProperty() {
         // Given
-        TypeScriptDescriptor typeScript = new TypeScriptDescriptor();
+        ScriptDescriptor typeScript = new ScriptDescriptor();
 
         // Expect
         assertThatExistProperty(
@@ -374,7 +374,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicBigDecimalProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicBigDecimal =
+        DynamicValueDescriptor typeDynamicBigDecimal =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicBigDecimal.class);
 
         // Expect
@@ -388,7 +388,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicBigIntegerProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicBigInteger =
+        DynamicValueDescriptor typeDynamicBigInteger =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicBigInteger.class);
 
         // Expect
@@ -402,7 +402,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicBooleanProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicBoolean =
+        DynamicValueDescriptor typeDynamicBoolean =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicBoolean.class);
 
         // Expect
@@ -416,7 +416,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicByteArrayProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicByteArray =
+        DynamicValueDescriptor typeDynamicByteArray =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicByteArray.class);
 
         // Expect
@@ -430,7 +430,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicDoubleProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicDouble =
+        DynamicValueDescriptor typeDynamicDouble =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicDouble.class);
 
         // Expect
@@ -444,7 +444,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicFloatProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicFloat =
+        DynamicValueDescriptor typeDynamicFloat =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicFloat.class);
 
         // Expect
@@ -458,7 +458,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicIntegerProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicInteger =
+        DynamicValueDescriptor typeDynamicInteger =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicInteger.class);
 
         // Expect
@@ -472,7 +472,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicLongProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicLong =
+        DynamicValueDescriptor typeDynamicLong =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicLong.class);
 
         // Expect
@@ -486,7 +486,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicObjectProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicObject =
+        DynamicValueDescriptor typeDynamicObject =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicObject.class);
 
         // Expect
@@ -500,7 +500,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicStringProperty() {
         // Given
-        TypeDynamicValueDescriptor typeDynamicString =
+        DynamicValueDescriptor typeDynamicString =
                 ObjectFactories.createTypeDynamicValueDescriptor(DynamicString.class);
 
         // Expect
@@ -516,7 +516,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeDynamicStringMapProperty() {
         // Given
-        TypeDynamicMapDescriptor typeDynamicMapDescriptor =
+        DynamicMapDescriptor propertyDynamicMapDescriptor =
                 ObjectFactories.createTypeDynamicMapDescriptor(DynamicStringMap.class, "My dynamic string map");
 
         // Expect
@@ -524,7 +524,7 @@ class ComponentPropertyAnalyzerTest {
                 "dynamicStringMapProperty",
                 "Dynamic string map",
                 InitValue.USE_DEFAULT_VALUE,
-                ofDynamicMapType(typeDynamicMapDescriptor));
+                ofDynamicMapType(propertyDynamicMapDescriptor));
     }
 
     // Mime Type Combo
@@ -532,7 +532,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldCorrectlyAnalyzeMimeTypeComboProperty() {
         // Given
-        TypeComboDescriptor typeComboDescriptor =
+        ComboDescriptor comboDescriptor =
                 ObjectFactories.createTypeComboDescriptor(true, MIME_TYPES_ARRAY, MimeType.MIME_TYPE_PROTOTYPE);
 
         // Expect
@@ -540,7 +540,7 @@ class ComponentPropertyAnalyzerTest {
                 "mimeType",
                 "Mime type",
                 "*/*",
-                ofTypeCombo(typeComboDescriptor));
+                ofTypeCombo(comboDescriptor));
     }
 
     @Test
@@ -552,7 +552,7 @@ class ComponentPropertyAnalyzerTest {
         String[] comboMimeTypesArray = predefinedMimeTypes.toArray(new String[]{});
 
         // Given
-        TypeComboDescriptor typeComboDescriptor =
+        ComboDescriptor comboDescriptor =
                 ObjectFactories.createTypeComboDescriptor(true, comboMimeTypesArray, MimeType.MIME_TYPE_PROTOTYPE);
 
         // Expect
@@ -560,7 +560,7 @@ class ComponentPropertyAnalyzerTest {
                 "mimeTypeCustom",
                 "Mime type with additional types",
                 "img/xyz",
-                ofTypeCombo(typeComboDescriptor));
+                ofTypeCombo(comboDescriptor));
     }
 
     // Special cases
@@ -581,7 +581,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldReturnFieldNameWhenPropertyAnnotationDoesNotContainPropertyDisplayName() {
         // Given
-        TypePrimitiveDescriptor typeFloat =  ObjectFactories.createTypePrimitiveDescriptor(float.class);
+        PrimitiveDescriptor typeFloat =  ObjectFactories.createTypePrimitiveDescriptor(float.class);
 
         // Expect
         assertThatExistProperty(
@@ -594,7 +594,7 @@ class ComponentPropertyAnalyzerTest {
     @Test
     void shouldReturnDefaultIntValueWhenDefaultAnnotationDoesNotSpecifyAnyValue() {
         // Given
-        TypePrimitiveDescriptor typeInteger =  ObjectFactories.createTypePrimitiveDescriptor(int.class);
+        PrimitiveDescriptor typeInteger =  ObjectFactories.createTypePrimitiveDescriptor(int.class);
 
         // Expect
         assertThatExistProperty(

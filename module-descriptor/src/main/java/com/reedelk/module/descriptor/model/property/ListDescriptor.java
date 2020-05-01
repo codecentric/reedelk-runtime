@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.model.property;
 
 import java.util.List;
 
-public class TypeListDescriptor extends CollectionAwareDescriptor {
+public class ListDescriptor extends CollectionAwareDescriptor {
 
     private static final transient Class<?> TYPE = List.class;
 
@@ -32,7 +32,7 @@ public class TypeListDescriptor extends CollectionAwareDescriptor {
 
     @Override
     public String toString() {
-        return "TypeListDescriptor{" +
+        return "ListDescriptor{" +
                 "valueType=" + valueType +
                 ", listDisplayProperty='" + listDisplayProperty + '\'' +
                 ", tabGroup='" + tabGroup + '\'' +

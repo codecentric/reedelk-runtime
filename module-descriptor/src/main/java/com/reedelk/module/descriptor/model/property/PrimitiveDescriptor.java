@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.model.property;
 
-public class TypePrimitiveDescriptor implements PropertyTypeDescriptor {
+public class PrimitiveDescriptor implements PropertyTypeDescriptor {
 
     private transient Class<?> type;
 
@@ -16,7 +16,7 @@ public class TypePrimitiveDescriptor implements PropertyTypeDescriptor {
 
     @Override
     public String toString() {
-        return "TypePrimitiveDescriptor{" +
+        return "PrimitiveDescriptor{" +
                 "type=" + type +
                 '}';
     }

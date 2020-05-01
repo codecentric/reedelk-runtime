@@ -1,10 +1,10 @@
 package com.reedelk.module.descriptor.model.property;
 
-import com.reedelk.runtime.api.resource.ResourceBinary;
+import com.reedelk.runtime.api.resource.ResourceText;
 
-public class TypeResourceBinaryDescriptor extends ResourceAwareDescriptor {
+public class ResourceTextDescriptor extends ResourceAwareDescriptor {
 
-    private transient Class<?> type = ResourceBinary.class;
+    private transient Class<?> type = ResourceText.class;
 
     @Override
     public Class<?> getType() {
@@ -13,7 +13,7 @@ public class TypeResourceBinaryDescriptor extends ResourceAwareDescriptor {
 
     @Override
     public String toString() {
-        return "TypeResourceBinaryDescriptor{" +
+        return "ResourceTextDescriptor{" +
                 "widthAuto=" + widthAuto +
                 ", hintBrowseFile='" + hintBrowseFile + '\'' +
                 '}';

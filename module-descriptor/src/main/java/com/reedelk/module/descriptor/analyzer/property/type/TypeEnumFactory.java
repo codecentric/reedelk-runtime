@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
+import com.reedelk.module.descriptor.model.property.EnumDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeEnumDescriptor;
 import com.reedelk.runtime.api.annotation.DisplayName;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.FieldInfo;
@@ -31,7 +31,7 @@ public class TypeEnumFactory implements TypeDescriptorFactory {
                 .collect(toMap(FieldInfo::getName, field ->
                         annotationValueOrDefaultFrom(field, DisplayName.class, field.getName())));
 
-        TypeEnumDescriptor descriptor = new TypeEnumDescriptor();
+        EnumDescriptor descriptor = new EnumDescriptor();
         descriptor.setNameAndDisplayNameMap(nameAndDisplayName);
         return descriptor;
     }

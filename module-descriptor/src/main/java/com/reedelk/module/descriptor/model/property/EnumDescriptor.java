@@ -3,7 +3,7 @@ package com.reedelk.module.descriptor.model.property;
 
 import java.util.Map;
 
-public class TypeEnumDescriptor implements PropertyTypeDescriptor {
+public class EnumDescriptor implements PropertyTypeDescriptor {
 
     private static final transient Class<?> type = Enum.class;
     private Map<String, String> nameAndDisplayNameMap;
@@ -23,7 +23,7 @@ public class TypeEnumDescriptor implements PropertyTypeDescriptor {
 
     @Override
     public String toString() {
-        return "TypeEnumDescriptor{" +
+        return "EnumDescriptor{" +
                 "type=" + type +
                 ", nameAndDisplayNameMap=" + nameAndDisplayNameMap +
                 '}';

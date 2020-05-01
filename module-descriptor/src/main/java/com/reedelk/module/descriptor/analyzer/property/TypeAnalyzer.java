@@ -4,9 +4,9 @@ import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext
 import com.reedelk.module.descriptor.analyzer.component.UnsupportedType;
 import com.reedelk.module.descriptor.analyzer.property.type.TypeDescriptorFactory;
 import com.reedelk.module.descriptor.analyzer.property.type.TypeDescriptorFactoryProvider;
+import com.reedelk.module.descriptor.model.property.PrimitiveDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypePrimitiveDescriptor;
 import io.github.classgraph.BaseTypeSignature;
 import io.github.classgraph.ClassRefTypeSignature;
 import io.github.classgraph.FieldInfo;
@@ -21,7 +21,7 @@ public class TypeAnalyzer implements FieldInfoAnalyzer {
         // Primitive
         if (typeSignature instanceof BaseTypeSignature) {
             Class<?> clazz = ((BaseTypeSignature) typeSignature).getType();
-            TypePrimitiveDescriptor typeDescriptor = new TypePrimitiveDescriptor();
+            PrimitiveDescriptor typeDescriptor = new PrimitiveDescriptor();
             typeDescriptor.setType(clazz);
             builder.type(typeDescriptor);
 

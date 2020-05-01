@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
+import com.reedelk.module.descriptor.model.property.ComboDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeComboDescriptor;
 import com.reedelk.runtime.api.annotation.MimeTypeCombo;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import com.reedelk.runtime.api.message.content.MimeType;
@@ -37,7 +37,7 @@ public class TypeMimeTypeComboFactory implements TypeDescriptorFactory {
         }
         String[] comboMimeTypesArray = predefinedMimeTypes.toArray(new String[]{});
 
-        TypeComboDescriptor descriptor = new TypeComboDescriptor();
+        ComboDescriptor descriptor = new ComboDescriptor();
         descriptor.setEditable(true);
         descriptor.setComboValues(comboMimeTypesArray);
         descriptor.setPrototype(MimeType.MIME_TYPE_PROTOTYPE);

@@ -3,9 +3,9 @@ package com.reedelk.module.descriptor.analyzer.property;
 import com.reedelk.module.descriptor.analyzer.ScannerTestUtils;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.property.PropertyDescriptor;
+import com.reedelk.module.descriptor.model.property.ScriptDescriptor;
 import com.reedelk.module.descriptor.model.property.ScriptSignatureArgument;
 import com.reedelk.module.descriptor.model.property.ScriptSignatureDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeScriptDescriptor;
 import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import io.github.classgraph.ClassInfo;
@@ -46,7 +46,7 @@ class ScriptSignatureAnalyzerTest {
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
                         .name(propertyName)
-                        .type(new TypeScriptDescriptor());
+                        .type(new ScriptDescriptor());
 
         // When
         analyzer.handle(property, builder, context);
@@ -75,7 +75,7 @@ class ScriptSignatureAnalyzerTest {
         PropertyDescriptor.Builder builder =
                 PropertyDescriptor.builder()
                         .name(propertyName)
-                        .type(new TypeScriptDescriptor());
+                        .type(new ScriptDescriptor());
 
         // When
         analyzer.handle(property, builder, context);

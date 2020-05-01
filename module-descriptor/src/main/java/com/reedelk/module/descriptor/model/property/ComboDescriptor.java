@@ -4,7 +4,7 @@ import com.reedelk.runtime.api.annotation.Combo;
 
 import java.util.Arrays;
 
-public class TypeComboDescriptor implements PropertyTypeDescriptor {
+public class ComboDescriptor implements PropertyTypeDescriptor {
 
     private static final transient Class<?> type = Combo.class;
     private boolean editable;
@@ -42,7 +42,7 @@ public class TypeComboDescriptor implements PropertyTypeDescriptor {
 
     @Override
     public String toString() {
-        return "TypeComboDescriptor{" +
+        return "ComboDescriptor{" +
                 "type=" + type +
                 ", editable=" + editable +
                 ", prototype='" + prototype + '\'' +

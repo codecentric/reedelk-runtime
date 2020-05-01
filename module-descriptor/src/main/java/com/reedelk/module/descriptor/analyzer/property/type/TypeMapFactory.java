@@ -1,8 +1,8 @@
 package com.reedelk.module.descriptor.analyzer.property.type;
 
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
+import com.reedelk.module.descriptor.model.property.MapDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeMapDescriptor;
 import com.reedelk.runtime.api.annotation.DialogTitle;
 import com.reedelk.runtime.api.annotation.KeyName;
 import com.reedelk.runtime.api.annotation.TabGroup;
@@ -43,7 +43,7 @@ public class TypeMapFactory implements TypeDescriptorFactory {
         TypeDescriptorFactory factory = TypeDescriptorFactoryProvider.from(valueTypeFullyQualifiedName, fieldInfo, context);
         PropertyTypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
-        TypeMapDescriptor descriptor = new TypeMapDescriptor();
+        MapDescriptor descriptor = new MapDescriptor();
         descriptor.setDialogTitle(dialogTitle);
         descriptor.setValueType(valueType);
         descriptor.setValueName(valueName);

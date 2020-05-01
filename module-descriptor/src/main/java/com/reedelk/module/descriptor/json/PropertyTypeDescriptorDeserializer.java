@@ -2,7 +2,7 @@ package com.reedelk.module.descriptor.json;
 
 import com.google.gson.*;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.module.descriptor.model.property.TypeDescriptors;
+import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptorFactory;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 
 import java.lang.reflect.Type;
@@ -33,7 +33,7 @@ class PropertyTypeDescriptorDeserializer implements JsonDeserializer<PropertyTyp
         JsonElement typeDescriptorClassName = myObject.get(PropertyTypeDescriptorAttributes.CLASSNAME.value());
 
         // Instantiate the type descriptor class.
-        Class<? extends PropertyTypeDescriptor> typeDescriptorClazz = TypeDescriptors.from(typeDescriptorClassName.getAsString());
+        Class<? extends PropertyTypeDescriptor> typeDescriptorClazz = PropertyTypeDescriptorFactory.from(typeDescriptorClassName.getAsString());
 
         // Deserialize the content of  the type descriptor
         JsonObject instanceObject = myObject.getAsJsonObject(PropertyTypeDescriptorAttributes.INSTANCE.value());

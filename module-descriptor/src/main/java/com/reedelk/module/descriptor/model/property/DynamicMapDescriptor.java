@@ -1,6 +1,6 @@
 package com.reedelk.module.descriptor.model.property;
 
-public class TypeDynamicMapDescriptor extends TypeMapDescriptor {
+public class DynamicMapDescriptor extends MapDescriptor {
 
     private transient Class<?> type;
 
@@ -16,7 +16,7 @@ public class TypeDynamicMapDescriptor extends TypeMapDescriptor {
 
     @Override
     public String toString() {
-        return "TypeDynamicMapDescriptor{" +
+        return "DynamicMapDescriptor{" +
                 "type=" + type +
                 ", tabGroup='" + tabGroup + '\'' +
                 '}';

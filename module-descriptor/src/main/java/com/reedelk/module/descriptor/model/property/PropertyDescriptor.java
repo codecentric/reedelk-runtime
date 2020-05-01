@@ -148,6 +148,11 @@ public class PropertyDescriptor implements Serializable {
 
         private List<WhenDescriptor> whens = new ArrayList<>();
 
+        public Builder group(String group) {
+            this.group = group;
+            return this;
+        }
+
         public Builder example(String example) {
             this.example = example;
             return this;
@@ -155,16 +160,6 @@ public class PropertyDescriptor implements Serializable {
 
         public Builder name(String propertyName) {
             this.name = propertyName;
-            return this;
-        }
-
-        public Builder group(String group) {
-            this.group = group;
-            return this;
-        }
-
-        public Builder type(PropertyTypeDescriptor type) {
-            this.type = type;
             return this;
         }
 
@@ -180,6 +175,11 @@ public class PropertyDescriptor implements Serializable {
 
         public Builder displayName(String displayName) {
             this.displayName = displayName;
+            return this;
+        }
+
+        public Builder type(PropertyTypeDescriptor type) {
+            this.type = type;
             return this;
         }
 

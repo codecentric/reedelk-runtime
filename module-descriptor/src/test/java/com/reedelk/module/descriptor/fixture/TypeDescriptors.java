@@ -73,38 +73,38 @@ public class TypeDescriptors {
             Shared.YES);
 
     private static PropertyTypeDescriptor newTypePrimitiveDescriptor(Class<?> clazz) {
-        PropertyTypeDescriptor descriptor = new TypePrimitiveDescriptor();
+        PropertyTypeDescriptor descriptor = new PrimitiveDescriptor();
         descriptor.setType(clazz);
         return descriptor;
     }
 
     private static PropertyTypeDescriptor newTypeDynamicValueDescriptor(Class<?> clazz) {
-        TypeDynamicValueDescriptor descriptor = new TypeDynamicValueDescriptor();
+        DynamicValueDescriptor descriptor = new DynamicValueDescriptor();
         descriptor.setType(clazz);
         return descriptor;
     }
 
     private static PropertyTypeDescriptor newTypeMapDescriptor(String tabGroup) {
-        TypeMapDescriptor descriptor = new TypeMapDescriptor();
+        MapDescriptor descriptor = new MapDescriptor();
         descriptor.setTabGroup(tabGroup);
         return descriptor;
     }
 
     private static PropertyTypeDescriptor newTypeDynamicMapDescriptor(Class<?> clazz, String tabGroup) {
-        TypeDynamicMapDescriptor descriptor = new TypeDynamicMapDescriptor();
+        DynamicMapDescriptor descriptor = new DynamicMapDescriptor();
         descriptor.setType(clazz);
         descriptor.setTabGroup(tabGroup);
         return descriptor;
     }
 
     private static PropertyTypeDescriptor newTypeEnumDescriptor(Map<String, String> nameAndDisplayNameMap) {
-        TypeEnumDescriptor descriptor = new TypeEnumDescriptor();
+        EnumDescriptor descriptor = new EnumDescriptor();
         descriptor.setNameAndDisplayNameMap(nameAndDisplayNameMap);
         return descriptor;
     }
 
     private static PropertyTypeDescriptor newTypeDescriptorObject(String fullyQualifiedName, List<PropertyDescriptor> properties, Collapsible collapsible, Shared shared) {
-        TypeObjectDescriptor descriptor = new TypeObjectDescriptor();
+        ObjectDescriptor descriptor = new ObjectDescriptor();
         descriptor.setShared(shared);
         descriptor.setCollapsible(collapsible);
         descriptor.setObjectProperties(properties);
@@ -113,19 +113,19 @@ public class TypeDescriptors {
     }
 
     private static PropertyTypeDescriptor newTypeDescriptorResourceBinary() {
-        return new TypeResourceBinaryDescriptor();
+        return new ResourceBinaryDescriptor();
     }
 
     private static PropertyTypeDescriptor newTypeDescriptorResourceText() {
-        return new TypeResourceTextDescriptor();
+        return new ResourceTextDescriptor();
     }
 
     private static PropertyTypeDescriptor newTypeDescriptorPassword() {
-        return new TypePasswordDescriptor();
+        return new PasswordDescriptor();
     }
 
     private static PropertyTypeDescriptor newTypeDescriptorCombo(boolean editable, String prototype, String... comboValues) {
-        TypeComboDescriptor descriptor = new TypeComboDescriptor();
+        ComboDescriptor descriptor = new ComboDescriptor();
         descriptor.setEditable(editable);
         descriptor.setPrototype(prototype);
         descriptor.setComboValues(comboValues);
@@ -133,6 +133,6 @@ public class TypeDescriptors {
     }
 
     private static PropertyTypeDescriptor newTypeScriptDescriptor() {
-        return new TypeScriptDescriptor();
+        return new ScriptDescriptor();
     }
 }
