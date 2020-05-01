@@ -23,6 +23,23 @@ public class Messages {
         }
     }
 
+    public enum Analyzer implements FormattedMessage {
+
+        ERROR_FROM_JAR_PATH("Error reading module descriptor from jar path=[%s], cause=[%s]."),
+        ERROR_FROM_DIRECTORY("Error building module descriptor from directory=[%s], module name=[%s], resolve images=[%s].");
+
+        private final String message;
+
+        Analyzer(String message) {
+            this.message = message;
+        }
+
+        @Override
+        public String template() {
+            return message;
+        }
+    }
+
     public enum JsonProvider implements FormattedMessage {
 
         JSON_SERIALIZE_ERROR("Could not serialize JSON of module descriptor, cause=[%s]."),

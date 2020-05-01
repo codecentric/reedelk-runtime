@@ -25,20 +25,14 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
+import static com.reedelk.module.descriptor.analyzer.commons.Messages.Analyzer.ERROR_FROM_DIRECTORY;
+import static com.reedelk.module.descriptor.analyzer.commons.Messages.Analyzer.ERROR_FROM_JAR_PATH;
 import static java.util.stream.Collectors.toList;
 
 public class ModuleDescriptorAnalyzer {
 
     /**
-     * Used by IntelliJ designer to load components definitions from a given Jar. If the Jar
-     * contains the pre-generated component's descriptors JSON file then it is used to create
-     * the ModuleDescriptor object containing metadata about the Components. Otherwise the
-     * classes in the Jar package are analyze to extract infos about the components provided in the module.
-     * A target JAR might not have a module descriptor.
-     *
-     * @param targetJarPath the  target path of the Jar from which we want to retrieve the module descriptor info.
-     * @return the ModuleDescriptor.
-     * @throws ModuleDescriptorException if the JSON could not be de-serialized.
+     * Used by IntelliJ flow designer to read components definitions from a given jar.
      */
     public Optional<ModuleDescriptor> from(String targetJarPath) {
         return ReadModuleDescriptor.from(targetJarPath).map(json -> {
@@ -52,20 +46,17 @@ public class ModuleDescriptorAnalyzer {
                     componentDescriptor.setImage(componentImage);
                 });
                 return moduleDescriptor;
+            } catch (ModuleDescriptorException exception) {
+                throw exception;
             } catch (Exception exception) {
-                throw new ModuleDescriptorException(exception);
+                String error = ERROR_FROM_JAR_PATH.format(targetJarPath, exception.getMessage());
+                throw new ModuleDescriptorException(error, exception);
             }
         });
     }
 
     /**
-     * Used by reedelk-maven-plugin. Once the Descriptor has been returned, it serializes the Object into a JSON file
-     * into the module/resources directory so that it can later be used by the IntelliJ Designer to load component's
-     * definitions.
-     *
-     * @param directory  the target/classes folder of the compiled module.
-     * @param moduleName the name of the module.
-     * @return the ModuleDescriptor build out of the annotations found in the compiled classes.
+     * Used by maven-plugin to create module descriptor from compiled classes in the given directory.
      */
     public ModuleDescriptor fromDirectory(String directory, String moduleName, boolean resolveImages) {
         try {
@@ -81,26 +72,40 @@ public class ModuleDescriptorAnalyzer {
                 });
             }
             return moduleDescriptor;
+        } catch (ModuleDescriptorException exception) {
+            throw exception;
         } catch (Exception exception) {
-            throw new ModuleDescriptorException(exception);
+            String error = ERROR_FROM_DIRECTORY.format(directory, moduleName, resolveImages);
+            throw new ModuleDescriptorException(error, exception);
         }
     }
 
     /**
-     * Used by IntelliJ designer to load info about system components. The system components are a dependency imported
-     * in the IntelliJ plugin, hence we use the classloader to load the resources instead of accessing the .jar file.
+     * Used by IntelliJ flow designer to read system components definitions.
+     * The system components are read from the dependency in the classpath.
      */
     public ModuleDescriptor from(Class<?> systemComponentClazz) {
         URL resource = systemComponentClazz.getClassLoader().getResource(ModuleDescriptor.RESOURCE_FILE_NAME);
         ModuleDescriptor moduleDescriptor = JsonProvider.fromURL(resource);
-        // Load images
         moduleDescriptor.getComponents().forEach(componentDescriptor -> {
+            // Load images
             URL iconURL = systemComponentClazz.getClassLoader().getResource(componentDescriptor.getFullyQualifiedName() + "-icon.png");
             componentDescriptor.setIcon(AssetUtils.getIcon(iconURL));
             URL imageURL = systemComponentClazz.getClassLoader().getResource(componentDescriptor.getFullyQualifiedName() + ".png");
             componentDescriptor.setImage(AssetUtils.getImage(imageURL));
         });
         return moduleDescriptor;
+    }
+
+    public ModuleDescriptor fromPackage(String... whiteListPackages) {
+        try {
+            ScanResult scanResult = instantiateScanner()
+                    .whitelistPackages(whiteListPackages)
+                    .scan();
+            return analyzeFrom(scanResult, "flow-control"); // TODO: This magic string needs to be checked!!
+        } catch (Exception e) {
+            throw new ModuleDescriptorException(e);
+        }
     }
 
     private ModuleDescriptor analyzeFrom(final ScanResult scanResult, final String moduleName) {
@@ -128,6 +133,7 @@ public class ModuleDescriptorAnalyzer {
                 .map(classInfo -> ScannerUtils.annotationValueOrDefaultFrom(classInfo, Module.class, moduleName))
                 .orElse(moduleName);
     }
+
     private List<ComponentDescriptor> componentsOf(ScanResult scanResult) {
         ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(ModuleComponent.class.getName());
         return classInfoList.stream()
@@ -144,28 +150,11 @@ public class ModuleDescriptorAnalyzer {
                 .collect(toList());
     }
 
-    private static ScanResult scanResultFrom(String targetPath) {
-        return instantiateScanner()
-                .overrideClasspath(targetPath)
-                .scan();
-    }
-
     private static ClassGraph instantiateScanner() {
         return new ClassGraph()
                 .enableFieldInfo()
                 .enableMethodInfo()
                 .enableAnnotationInfo()
                 .ignoreFieldVisibility();
-    }
-
-    public ModuleDescriptor fromPackage(String... whiteListPackages) {
-        try {
-            ScanResult scanResult = instantiateScanner()
-                    .whitelistPackages(whiteListPackages)
-                    .scan();
-            return analyzeFrom(scanResult, "flow-control");
-        } catch (Exception e) {
-            throw new ModuleDescriptorException(e);
-        }
     }
 }
