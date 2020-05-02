@@ -10,7 +10,7 @@ public class DisplayNameAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String displayName = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, Property.class, fieldInfo.getName());
+        String displayName = ScannerUtils.annotationValueFrom(fieldInfo, Property.class, fieldInfo.getName());
         if (Property.USE_DEFAULT_NAME.equals(displayName)) {
             String propertyName = fieldInfo.getName();
             builder.displayName(propertyName);

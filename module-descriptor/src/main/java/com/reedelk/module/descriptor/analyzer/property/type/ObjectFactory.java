@@ -25,7 +25,7 @@ public class ObjectFactory implements DescriptorFactory {
 
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        String dialogTitle = annotationValueOrDefaultFrom(fieldInfo, DialogTitle.class, null);
+        String dialogTitle = annotationValueFrom(fieldInfo, DialogTitle.class, null);
 
         // We check that it is a user defined object type (with Implementor).
         // We check that we can resolve class info. If we can, then ..

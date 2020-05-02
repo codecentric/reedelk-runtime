@@ -10,7 +10,7 @@ public class ExampleAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String example = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, Example.class, null);
+        String example = ScannerUtils.annotationValueFrom(fieldInfo, Example.class, null);
         builder.example(example);
     }
 }

@@ -10,7 +10,7 @@ public class HintAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String hintValue = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, Hint.class, null);
+        String hintValue = ScannerUtils.annotationValueFrom(fieldInfo, Hint.class, null);
         builder.hintValue(hintValue);
     }
 }

@@ -10,7 +10,7 @@ public class DefaultValueAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String defaultValue = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, DefaultValue.class, null);
+        String defaultValue = ScannerUtils.annotationValueFrom(fieldInfo, DefaultValue.class, null);
         builder.defaultValue(defaultValue);
     }
 }

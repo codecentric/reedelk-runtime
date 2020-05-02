@@ -22,9 +22,9 @@ public class DynamicMapFactory implements DescriptorFactory {
 
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
-        String keyName = annotationValueOrDefaultFrom(fieldInfo, KeyName.class, null);
-        String valueName = annotationValueOrDefaultFrom(fieldInfo, ValueName.class, null);
+        String tabGroup = annotationValueFrom(fieldInfo, TabGroup.class, null);
+        String keyName = annotationValueFrom(fieldInfo, KeyName.class, null);
+        String valueName = annotationValueFrom(fieldInfo, ValueName.class, null);
 
         Class<?> clazz = clazzByFullyQualifiedNameOrThrow(fullyQualifiedClassName);
 

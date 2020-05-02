@@ -14,7 +14,6 @@ import io.github.classgraph.FieldInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.getParameterValue;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
@@ -45,7 +44,7 @@ public class ScriptSignatureAnalyzer implements FieldInfoAnalyzer {
     }
 
     private List<String> getArgumentTypes(AnnotationInfo annotationInfo) {
-        Object[] payload = getParameterValue("types", EMPTY, annotationInfo);
+        Object[] payload = ScannerUtils.parameterValueFrom("types", EMPTY, annotationInfo);
         return stream(payload)
                 .map(annotationClassRef -> ((AnnotationClassRef) annotationClassRef).getName())
                 .collect(toList());

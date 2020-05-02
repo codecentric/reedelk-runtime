@@ -11,7 +11,7 @@ public class InitValueAnalyzer implements FieldInfoAnalyzer {
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
         String initValueAsString =
-                ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, InitValue.class, InitValue.USE_DEFAULT_VALUE);
+                ScannerUtils.annotationValueFrom(fieldInfo, InitValue.class, InitValue.USE_DEFAULT_VALUE);
         builder.initValue(initValueAsString);
     }
 }

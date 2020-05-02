@@ -27,10 +27,10 @@ public class MapFactory implements DescriptorFactory {
 
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        String keyName = annotationValueOrDefaultFrom(fieldInfo, KeyName.class, null);
-        String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
-        String valueName = annotationValueOrDefaultFrom(fieldInfo, ValueName.class, null);
-        String dialogTitle = annotationValueOrDefaultFrom(fieldInfo, DialogTitle.class, null);
+        String keyName = annotationValueFrom(fieldInfo, KeyName.class, null);
+        String tabGroup = annotationValueFrom(fieldInfo, TabGroup.class, null);
+        String valueName = annotationValueFrom(fieldInfo, ValueName.class, null);
+        String dialogTitle = annotationValueFrom(fieldInfo, DialogTitle.class, null);
 
         // The second type is the map value types. We must find out the value type of the Map.
         // The Value type could be a primitive type or a custom object type.

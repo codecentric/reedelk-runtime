@@ -29,7 +29,7 @@ public class EnumFactory implements DescriptorFactory {
                 .stream()
                 .filter(filterByFullyQualifiedClassNameType(fullyQualifiedClassName))
                 .collect(toMap(FieldInfo::getName, field ->
-                        annotationValueOrDefaultFrom(field, DisplayName.class, field.getName())));
+                        annotationValueFrom(field, DisplayName.class, field.getName())));
 
         EnumDescriptor descriptor = new EnumDescriptor();
         descriptor.setNameAndDisplayNameMap(nameAndDisplayName);

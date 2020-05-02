@@ -22,7 +22,7 @@ public class ResourceTextFactory implements DescriptorFactory {
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         boolean widthAuto = hasAnnotation(fieldInfo, WidthAuto.class);
-        String hintBrowseFile = annotationValueOrDefaultFrom(fieldInfo, HintBrowseFile.class, null);
+        String hintBrowseFile = annotationValueFrom(fieldInfo, HintBrowseFile.class, null);
 
         ResourceTextDescriptor descriptor = new ResourceTextDescriptor();
         descriptor.setHintBrowseFile(hintBrowseFile);

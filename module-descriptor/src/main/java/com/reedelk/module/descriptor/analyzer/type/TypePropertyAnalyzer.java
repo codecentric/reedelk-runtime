@@ -11,7 +11,9 @@ import io.github.classgraph.FieldInfo;
 
 import java.util.List;
 
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.*;
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.parameterValueFrom;
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.repeatableAnnotation;
+import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
 import static java.util.stream.Collectors.toList;
 
 // Only classes with @Type annotation are scanned for @TypeProperty annotations.
@@ -35,9 +37,9 @@ public class TypePropertyAnalyzer {
 
     private List<TypePropertyDescriptor> classLevelTypeProperties() {
         return repeatableAnnotation(classInfo, TypeProperty.class, TypeProperties.class).stream().map(annotationInfo -> {
-            String description = stringParameterValueFrom(annotationInfo, "description");
-            String example = stringParameterValueFrom(annotationInfo, "example");
-            String name = stringParameterValueFrom(annotationInfo, "name");
+            String name = parameterValueFrom("name", TypeProperty.USE_DEFAULT_NAME, annotationInfo);
+            String description = parameterValueFrom("description", EMPTY, annotationInfo);
+            String example = parameterValueFrom("example", EMPTY, annotationInfo);
 
             if (TypeProperty.USE_DEFAULT_NAME.equals(name)) {
                 String error = String.format("Name property must be defined for class level @TypeProperty annotations (class: %s).", classInfo.getName());
@@ -64,9 +66,9 @@ public class TypePropertyAnalyzer {
                 .stream()
                 .map(fieldInfo -> {
                     AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(TypeProperty.class.getName());
-                    String description = stringParameterValueFrom(annotationInfo, "description");
-                    String example = stringParameterValueFrom(annotationInfo, "example");
-                    String name = stringParameterValueFrom(annotationInfo, "name");
+                    String name = parameterValueFrom("name", TypeProperty.USE_DEFAULT_NAME, annotationInfo);
+                    String description = parameterValueFrom("description", EMPTY, annotationInfo);
+                    String example = parameterValueFrom("example", EMPTY, annotationInfo);
 
                     String realName = TypeProperty.USE_DEFAULT_NAME.equals(name) ? fieldInfo.getName() : name;
                     String fieldType = getTypeFrom(annotationInfo, fieldInfo); // The field type is inferred from the field definition.
@@ -82,7 +84,7 @@ public class TypePropertyAnalyzer {
     }
 
     private String getTypeFromOrThrowWhenDefault(AnnotationInfo annotationInfo) {
-        String type = getParameterValue("type", UseDefaultType.class.getName(), annotationInfo);
+        String type = parameterValueFrom("type", UseDefaultType.class.getName(), annotationInfo);
         if (UseDefaultType.class.getName().equals(type)) {
             throw new ModuleDescriptorException("Return type must be defined for class level @TypeProperty annotations.");
         } else {
@@ -91,7 +93,7 @@ public class TypePropertyAnalyzer {
     }
 
     private String getTypeFrom(AnnotationInfo annotationInfo, FieldInfo fieldInfo) {
-        String type = getParameterValue("type", UseDefaultType.class.getName(), annotationInfo);
+        String type = parameterValueFrom("type", UseDefaultType.class.getName(), annotationInfo);
         return UseDefaultType.class.getName().equals(type) ?
                 fieldInfo.getTypeDescriptor().toString() : type; // Fully qualified name.
     }

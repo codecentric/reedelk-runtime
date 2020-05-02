@@ -65,13 +65,13 @@ public class ComponentAnalyzer {
 
     // The ClassInfo component descriptor *must* have the ModuleComponent annotation if we get here.
     private String getComponentDisplayName(ClassInfo componentClassInfo) {
-        return ScannerUtils.annotationValueOrDefaultFrom(
+        return ScannerUtils.annotationValueFrom(
                 componentClassInfo, ModuleComponent.class, componentClassInfo.getSimpleName());
     }
 
     // The ClassInfo component descriptor *must* have the ModuleComponent annotation if we get here.
     private String getComponentDescription(ClassInfo componentClassInfo) {
-        return ScannerUtils.annotationValueOrDefaultFrom(
+        return ScannerUtils.annotationValueFrom(
                 componentClassInfo, Description.class, null);
     }
 

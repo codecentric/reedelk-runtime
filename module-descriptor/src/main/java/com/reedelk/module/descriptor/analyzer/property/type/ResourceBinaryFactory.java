@@ -22,7 +22,7 @@ public class ResourceBinaryFactory implements DescriptorFactory {
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         boolean widthAuto = hasAnnotation(fieldInfo, WidthAuto.class);
-        String hintBrowseFile = annotationValueOrDefaultFrom(fieldInfo, HintBrowseFile.class, null);
+        String hintBrowseFile = annotationValueFrom(fieldInfo, HintBrowseFile.class, null);
 
         ResourceBinaryDescriptor descriptor = new ResourceBinaryDescriptor();
         descriptor.setHintBrowseFile(hintBrowseFile);

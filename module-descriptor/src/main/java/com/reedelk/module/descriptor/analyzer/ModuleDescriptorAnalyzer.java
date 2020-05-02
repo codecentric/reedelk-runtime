@@ -129,7 +129,7 @@ public class ModuleDescriptorAnalyzer {
         ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(Module.class.getName());
         return classInfoList.stream()
                 .findFirst()
-                .map(classInfo -> ScannerUtils.annotationValueOrDefaultFrom(classInfo, Module.class, moduleName))
+                .map(classInfo -> ScannerUtils.annotationValueFrom(classInfo, Module.class, moduleName))
                 .orElse(moduleName);
     }
 

@@ -29,7 +29,7 @@ public class MimeTypeComboFactory implements DescriptorFactory {
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         List<String> predefinedMimeTypes = MimeType.ALL.stream().map(MimeType::toString).collect(Collectors.toList());
-        String additionalMimeTypes = annotationParameterValueOrDefaultFrom(fieldInfo, MimeTypeCombo.class, "additionalTypes", EMPTY);
+        String additionalMimeTypes = annotationParameterValueFrom(fieldInfo, MimeTypeCombo.class, "additionalTypes", EMPTY);
         if (isNotBlank(additionalMimeTypes)) {
             String[] additionalTypes = additionalMimeTypes.split(",");
             predefinedMimeTypes = new ArrayList<>(predefinedMimeTypes);

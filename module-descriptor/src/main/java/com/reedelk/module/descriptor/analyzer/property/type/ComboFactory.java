@@ -21,9 +21,9 @@ public class ComboFactory implements DescriptorFactory {
 
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        boolean editable = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "editable", false);
-        Object[] comboValues = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "comboValues", new String[]{});
-        String prototype = annotationParameterValueOrDefaultFrom(fieldInfo, Combo.class, "prototype", null);
+        boolean editable = annotationParameterValueFrom(fieldInfo, Combo.class, "editable", false);
+        Object[] comboValues = annotationParameterValueFrom(fieldInfo, Combo.class, "comboValues", new String[]{});
+        String prototype = annotationParameterValueFrom(fieldInfo, Combo.class, "prototype", null);
         String[] items = stream(comboValues).map(value -> (String) value).toArray(String[]::new);
 
         ComboDescriptor descriptor = new ComboDescriptor();

@@ -12,7 +12,7 @@ import io.github.classgraph.ScanResult;
 import java.util.List;
 import java.util.Map;
 
-import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.annotationParameterValueOrDefaultFrom;
+import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.annotationParameterValueFrom;
 import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
 import static java.util.stream.Collectors.toList;
 
@@ -29,8 +29,8 @@ public class TypeAnalyzer {
         ClassInfoList types = scanResult.getClassesWithAnnotation(Type.class.getName());
         return types.stream().map(classInfo -> {
 
-            boolean global = annotationParameterValueOrDefaultFrom(classInfo, Type.class, "global", false);
-            String description = annotationParameterValueOrDefaultFrom(classInfo, Type.class, "description", EMPTY);
+            boolean global = annotationParameterValueFrom(classInfo, Type.class, "global", false);
+            String description = annotationParameterValueFrom(classInfo, Type.class, "description", EMPTY);
             String displayName = displayNameFrom(classInfo);
             String listItemType = getListItemType(classInfo);
 
@@ -59,7 +59,7 @@ public class TypeAnalyzer {
     // class name. Therefore we can use the Display name to let the user know they can use the functions
     // using MyDisplayName.myFunction().
     private String displayNameFrom(ClassInfo classInfo) {
-        String displayName = annotationParameterValueOrDefaultFrom(classInfo, Type.class, "displayName", Type.USE_DEFAULT_DISPLAY_NAME);
+        String displayName = annotationParameterValueFrom(classInfo, Type.class, "displayName", Type.USE_DEFAULT_DISPLAY_NAME);
         if (Type.USE_DEFAULT_DISPLAY_NAME.equals(displayName)) {
             Class<?> aClass = classInfo.loadClass();
             if (Map.class.isAssignableFrom(aClass)) return Map.class.getSimpleName();
@@ -71,7 +71,7 @@ public class TypeAnalyzer {
     }
 
     private String getListItemType(ClassInfo classInfo) {
-        String listItemType = annotationParameterValueOrDefaultFrom(classInfo, Type.class, "listItemType", UseDefaultType.class.getName());
+        String listItemType = annotationParameterValueFrom(classInfo, Type.class, "listItemType", UseDefaultType.class.getName());
         if (UseDefaultType.class.getName().equals(listItemType)) {
             Class<?> aClass = classInfo.loadClass();
             return List.class.isAssignableFrom(aClass) ?

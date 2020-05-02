@@ -26,9 +26,9 @@ public class ListFactory implements DescriptorFactory {
 
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
-        String tabGroup = annotationValueOrDefaultFrom(fieldInfo, TabGroup.class, null);
-        String dialogTitle = annotationValueOrDefaultFrom(fieldInfo, DialogTitle.class, null);
-        String listDisplayProperty = annotationValueOrDefaultFrom(fieldInfo, ListDisplayProperty.class, null);
+        String tabGroup = annotationValueFrom(fieldInfo, TabGroup.class, null);
+        String dialogTitle = annotationValueFrom(fieldInfo, DialogTitle.class, null);
+        String listDisplayProperty = annotationValueFrom(fieldInfo, ListDisplayProperty.class, null);
 
         // We must find out the value type of the List.
         // The Value type could be a primitive type or a custom object type.

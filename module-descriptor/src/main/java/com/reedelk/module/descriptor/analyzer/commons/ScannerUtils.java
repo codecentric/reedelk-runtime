@@ -40,18 +40,6 @@ public class ScannerUtils {
                 !hasAnnotation(fieldInfo, Hidden.class);
     }
 
-    public static String stringParameterValueFrom(AnnotationInfo info, String parameterName) {
-        AnnotationParameterValueList parameterValues = info.getParameterValues();
-        AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
-        return parameterValue != null ? (String) parameterValue.getValue() : null;
-    }
-
-    public static String stringParameterValueFrom(AnnotationInfo info, String parameterName, String defaultValue) {
-        AnnotationParameterValueList parameterValues = info.getParameterValues();
-        AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
-        return parameterValue != null ? (String) parameterValue.getValue() : defaultValue;
-    }
-
     public static List<String> stringListParameterValueFrom(AnnotationInfo info, String parameterName) {
         AnnotationParameterValueList parameterValues = info.getParameterValues();
         AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
@@ -104,36 +92,36 @@ public class ScannerUtils {
         return annotationInfos;
     }
 
-    public static <T> T annotationValueOrDefaultFrom(FieldInfo fieldInfo, Class<?> annotationClazz, T defaultValue) {
+    public static <T> T annotationValueFrom(FieldInfo fieldInfo, Class<?> annotationClazz, T defaultValue) {
         if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
             return defaultValue;
         }
         AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
-        return annotationValueOrDefaultFrom(defaultValue, annotationInfo);
+        return annotationValueFrom(defaultValue, annotationInfo);
     }
 
-    public static <T> T annotationValueOrDefaultFrom(ClassInfo classInfo, Class<?> annotationClazz, T defaultValue) {
+    public static <T> T annotationValueFrom(ClassInfo classInfo, Class<?> annotationClazz, T defaultValue) {
         if (!classInfo.hasAnnotation(annotationClazz.getName())) {
             return defaultValue;
         }
         AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
-        return annotationValueOrDefaultFrom(defaultValue, annotationInfo);
+        return annotationValueFrom(defaultValue, annotationInfo);
     }
 
-    public static <T> T annotationParameterValueOrDefaultFrom(FieldInfo fieldInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
+    public static <T> T annotationParameterValueFrom(FieldInfo fieldInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
         if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
             return defaultValue;
         }
         AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
-        return getParameterValue(annotationParamName, defaultValue, annotationInfo);
+        return parameterValueFrom(annotationParamName, defaultValue, annotationInfo);
     }
 
-    public static <T> T annotationParameterValueOrDefaultFrom(ClassInfo classInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
+    public static <T> T annotationParameterValueFrom(ClassInfo classInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
         if (!classInfo.hasAnnotation(annotationClazz.getName())) {
             return defaultValue;
         }
         AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
-        return getParameterValue(annotationParamName, defaultValue, annotationInfo);
+        return parameterValueFrom(annotationParamName, defaultValue, annotationInfo);
     }
 
     /**
@@ -246,8 +234,8 @@ public class ScannerUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getParameterValue(String annotationParamName, T defaultValue, AnnotationInfo annotationInfo) {
-        Object parameterValue = getParameterValue(annotationInfo, annotationParamName);
+    public static <T> T parameterValueFrom(String annotationParamName, T defaultValue, AnnotationInfo annotationInfo) {
+        Object parameterValue = parameterValueFrom(annotationInfo, annotationParamName);
         if (parameterValue instanceof AnnotationEnumValue) {
             return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();
         } else if (parameterValue instanceof AnnotationClassRef) {
@@ -258,27 +246,14 @@ public class ScannerUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T getParameterValue(String annotationParamName, AnnotationInfo annotationInfo) {
-        Object parameterValue = getParameterValue(annotationInfo, annotationParamName);
-        if (parameterValue instanceof AnnotationEnumValue) {
-            return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();
-        } else if (parameterValue instanceof AnnotationClassRef) {
-            AnnotationClassRef classRef = ((AnnotationClassRef) parameterValue);
-            return (T) classRef.getName();
-        } else {
-            return (T) parameterValue;
-        }
-    }
-
-    private static Object getParameterValue(AnnotationInfo info, String parameterName) {
+    private static Object parameterValueFrom(AnnotationInfo info, String parameterName) {
         AnnotationParameterValueList parameterValues = info.getParameterValues();
         AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
         return parameterValue == null ? parameterValue : parameterValue.getValue();
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T annotationValueOrDefaultFrom(T defaultValue, AnnotationInfo annotationInfo) {
+    private static <T> T annotationValueFrom(T defaultValue, AnnotationInfo annotationInfo) {
         AnnotationParameterValueList parameterValues = annotationInfo.getParameterValues();
         if (parameterValues == null) return defaultValue;
         return parameterValues.get(ANNOTATION_DEFAULT_PARAM_NAME) == null ?

@@ -10,7 +10,7 @@ public class GroupAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {
-        String group = ScannerUtils.annotationValueOrDefaultFrom(fieldInfo, Group.class, null);
+        String group = ScannerUtils.annotationValueFrom(fieldInfo, Group.class, null);
         builder.group(group);
     }
 }
