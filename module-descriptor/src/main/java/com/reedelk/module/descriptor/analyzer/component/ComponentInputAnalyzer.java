@@ -28,7 +28,7 @@ public class ComponentInputAnalyzer {
 
         AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(ComponentInput.class.getName());
         List<String> inputPayload = getInputPayload(annotationInfo);
-        String description = ScannerUtils.parameterValueFrom("description", StringUtils.EMPTY, annotationInfo);
+        String description = ScannerUtils.parameterValueFrom(annotationInfo, "description", StringUtils.EMPTY);
 
         ComponentInputDescriptor descriptor = new ComponentInputDescriptor();
         descriptor.setDescription(description);
@@ -37,7 +37,7 @@ public class ComponentInputAnalyzer {
     }
 
     private List<String> getInputPayload(AnnotationInfo annotationInfo) {
-        Object[] payload = ScannerUtils.parameterValueFrom("payload", EMPTY, annotationInfo);
+        Object[] payload = ScannerUtils.parameterValueFrom(annotationInfo, "payload", EMPTY);
         return stream(payload)
                 .map(annotationClassRef -> ((AnnotationClassRef) annotationClassRef).getName())
                 .collect(toList());

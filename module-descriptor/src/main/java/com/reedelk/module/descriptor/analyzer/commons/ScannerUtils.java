@@ -50,6 +50,56 @@ public class ScannerUtils {
                 stream(array).map(o -> (String) o).collect(Collectors.toList());
     }
 
+    public static <T> T annotationValueFrom(FieldInfo fieldInfo, Class<?> annotationClazz, T defaultValue) {
+        if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
+            return defaultValue;
+        }
+        AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
+        return annotationValueFrom(annotationInfo, defaultValue);
+    }
+
+    public static <T> T annotationValueFrom(ClassInfo classInfo, Class<?> annotationClazz, T defaultValue) {
+        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
+            return defaultValue;
+        }
+        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
+        return annotationValueFrom(annotationInfo, defaultValue);
+    }
+
+    public static <T> T annotationParameterValueFrom(FieldInfo fieldInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
+        if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
+            return defaultValue;
+        }
+        AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
+        return parameterValueFrom(annotationInfo, annotationParamName, defaultValue);
+    }
+
+    public static <T> T annotationParameterValueFrom(ClassInfo classInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
+        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
+            return defaultValue;
+        }
+        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
+        return parameterValueFrom(annotationInfo, annotationParamName, defaultValue);
+    }
+
+    public static Class<?> clazzByFullyQualifiedNameOrThrow(String fullyQualifiedClassName) {
+        return clazzByFullyQualifiedName(fullyQualifiedClassName)
+                .orElseThrow(() -> new UnsupportedType(fullyQualifiedClassName));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T parameterValueFrom(AnnotationInfo annotationInfo, String paramName, T defaultValue) {
+        Object parameterValue = parameterValueFrom(annotationInfo, paramName);
+        if (parameterValue instanceof AnnotationEnumValue) {
+            return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();
+        } else if (parameterValue instanceof AnnotationClassRef) {
+            AnnotationClassRef classRef = ((AnnotationClassRef) parameterValue);
+            return (T) classRef.getName();
+        } else {
+            return parameterValue == null ? defaultValue : (T) parameterValue;
+        }
+    }
+
     public static List<AnnotationInfo> repeatableAnnotation(ClassInfo classInfo, Class<?> singleClazz, Class<?> repeatableClass) {
         List<AnnotationInfo> annotationInfos = new ArrayList<>();
         for (AnnotationInfo info : classInfo.getAnnotationInfo()) {
@@ -90,38 +140,6 @@ public class ScannerUtils {
             }
         }
         return annotationInfos;
-    }
-
-    public static <T> T annotationValueFrom(FieldInfo fieldInfo, Class<?> annotationClazz, T defaultValue) {
-        if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
-            return defaultValue;
-        }
-        AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
-        return annotationValueFrom(defaultValue, annotationInfo);
-    }
-
-    public static <T> T annotationValueFrom(ClassInfo classInfo, Class<?> annotationClazz, T defaultValue) {
-        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
-            return defaultValue;
-        }
-        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
-        return annotationValueFrom(defaultValue, annotationInfo);
-    }
-
-    public static <T> T annotationParameterValueFrom(FieldInfo fieldInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
-        if (!fieldInfo.hasAnnotation(annotationClazz.getName())) {
-            return defaultValue;
-        }
-        AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(annotationClazz.getName());
-        return parameterValueFrom(annotationParamName, defaultValue, annotationInfo);
-    }
-
-    public static <T> T annotationParameterValueFrom(ClassInfo classInfo, Class<?> annotationClazz, String annotationParamName, T defaultValue) {
-        if (!classInfo.hasAnnotation(annotationClazz.getName())) {
-            return defaultValue;
-        }
-        AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(annotationClazz.getName());
-        return parameterValueFrom(annotationParamName, defaultValue, annotationInfo);
     }
 
     /**
@@ -228,24 +246,6 @@ public class ScannerUtils {
         }
     }
 
-    public static Class<?> clazzByFullyQualifiedNameOrThrow(String fullyQualifiedClassName) {
-        return clazzByFullyQualifiedName(fullyQualifiedClassName)
-                .orElseThrow(() -> new UnsupportedType(fullyQualifiedClassName));
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T parameterValueFrom(String annotationParamName, T defaultValue, AnnotationInfo annotationInfo) {
-        Object parameterValue = parameterValueFrom(annotationInfo, annotationParamName);
-        if (parameterValue instanceof AnnotationEnumValue) {
-            return (T) ((AnnotationEnumValue) parameterValue).loadClassAndReturnEnumValue();
-        } else if (parameterValue instanceof AnnotationClassRef) {
-            AnnotationClassRef classRef = ((AnnotationClassRef) parameterValue);
-            return (T) classRef.getName();
-        } else {
-            return parameterValue == null ? defaultValue : (T) parameterValue;
-        }
-    }
-
     private static Object parameterValueFrom(AnnotationInfo info, String parameterName) {
         AnnotationParameterValueList parameterValues = info.getParameterValues();
         AnnotationParameterValue parameterValue = parameterValues.get(parameterName);
@@ -253,7 +253,7 @@ public class ScannerUtils {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T annotationValueFrom(T defaultValue, AnnotationInfo annotationInfo) {
+    private static <T> T annotationValueFrom(AnnotationInfo annotationInfo, T defaultValue) {
         AnnotationParameterValueList parameterValues = annotationInfo.getParameterValues();
         if (parameterValues == null) return defaultValue;
         return parameterValues.get(ANNOTATION_DEFAULT_PARAM_NAME) == null ?

@@ -23,8 +23,8 @@ public class WhenAnalyzer implements FieldInfoAnalyzer {
     }
 
     private WhenDescriptor processWhenInfo(AnnotationInfo info) {
-        String propertyName = parameterValueFrom("propertyName", EMPTY, info);
-        String propertyValue = parameterValueFrom("propertyValue", EMPTY, info);
+        String propertyName = parameterValueFrom(info, "propertyName", EMPTY);
+        String propertyValue = parameterValueFrom(info, "propertyValue", EMPTY);
         WhenDescriptor definition = new WhenDescriptor();
         definition.setPropertyName(propertyName);
         definition.setPropertyValue(propertyValue);

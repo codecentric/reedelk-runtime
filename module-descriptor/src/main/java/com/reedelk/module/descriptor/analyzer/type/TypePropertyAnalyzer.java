@@ -37,9 +37,9 @@ public class TypePropertyAnalyzer {
 
     private List<TypePropertyDescriptor> classLevelTypeProperties() {
         return repeatableAnnotation(classInfo, TypeProperty.class, TypeProperties.class).stream().map(annotationInfo -> {
-            String name = parameterValueFrom("name", TypeProperty.USE_DEFAULT_NAME, annotationInfo);
-            String description = parameterValueFrom("description", EMPTY, annotationInfo);
-            String example = parameterValueFrom("example", EMPTY, annotationInfo);
+            String name = parameterValueFrom(annotationInfo, "name", TypeProperty.USE_DEFAULT_NAME);
+            String description = parameterValueFrom(annotationInfo, "description", EMPTY);
+            String example = parameterValueFrom(annotationInfo, "example", EMPTY);
 
             if (TypeProperty.USE_DEFAULT_NAME.equals(name)) {
                 String error = String.format("Name property must be defined for class level @TypeProperty annotations (class: %s).", classInfo.getName());
@@ -66,9 +66,9 @@ public class TypePropertyAnalyzer {
                 .stream()
                 .map(fieldInfo -> {
                     AnnotationInfo annotationInfo = fieldInfo.getAnnotationInfo(TypeProperty.class.getName());
-                    String name = parameterValueFrom("name", TypeProperty.USE_DEFAULT_NAME, annotationInfo);
-                    String description = parameterValueFrom("description", EMPTY, annotationInfo);
-                    String example = parameterValueFrom("example", EMPTY, annotationInfo);
+                    String name = parameterValueFrom(annotationInfo, "name", TypeProperty.USE_DEFAULT_NAME);
+                    String description = parameterValueFrom(annotationInfo, "description", EMPTY);
+                    String example = parameterValueFrom(annotationInfo, "example", EMPTY);
 
                     String realName = TypeProperty.USE_DEFAULT_NAME.equals(name) ? fieldInfo.getName() : name;
                     String fieldType = getTypeFrom(annotationInfo, fieldInfo); // The field type is inferred from the field definition.
@@ -84,7 +84,7 @@ public class TypePropertyAnalyzer {
     }
 
     private String getTypeFromOrThrowWhenDefault(AnnotationInfo annotationInfo) {
-        String type = parameterValueFrom("type", UseDefaultType.class.getName(), annotationInfo);
+        String type = parameterValueFrom(annotationInfo, "type", UseDefaultType.class.getName());
         if (UseDefaultType.class.getName().equals(type)) {
             throw new ModuleDescriptorException("Return type must be defined for class level @TypeProperty annotations.");
         } else {
@@ -93,7 +93,7 @@ public class TypePropertyAnalyzer {
     }
 
     private String getTypeFrom(AnnotationInfo annotationInfo, FieldInfo fieldInfo) {
-        String type = parameterValueFrom("type", UseDefaultType.class.getName(), annotationInfo);
+        String type = parameterValueFrom(annotationInfo, "type", UseDefaultType.class.getName());
         return UseDefaultType.class.getName().equals(type) ?
                 fieldInfo.getTypeDescriptor().toString() : type; // Fully qualified name.
     }

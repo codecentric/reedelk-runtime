@@ -44,7 +44,7 @@ public class ScriptSignatureAnalyzer implements FieldInfoAnalyzer {
     }
 
     private List<String> getArgumentTypes(AnnotationInfo annotationInfo) {
-        Object[] payload = ScannerUtils.parameterValueFrom("types", EMPTY, annotationInfo);
+        Object[] payload = ScannerUtils.parameterValueFrom(annotationInfo, "types", EMPTY);
         return stream(payload)
                 .map(annotationClassRef -> ((AnnotationClassRef) annotationClassRef).getName())
                 .collect(toList());
