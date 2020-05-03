@@ -1,12 +1,13 @@
 package com.reedelk.module.descriptor.model.component;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentInputDescriptor implements Serializable {
 
     private String description;
-    private List<String> payload;
+    private List<String> payload = new ArrayList<>();
 
     public List<String> getPayload() {
         return payload;
