@@ -7,7 +7,8 @@ import com.reedelk.runtime.api.annotation.TypeProperty;
 import java.io.Serializable;
 import java.util.Map;
 
-@Type(description = "The FlowContext type encapsulates the execution context for a flow. " +
+@Type(displayName = "FlowContext",
+        description = "The FlowContext type encapsulates the execution context for a flow. " +
                 "The execution context allows to store and retrieve data which can be accessed by components during " +
                 "the execution of a flow. For example the correlation id which is a unique identifier generated " +
                 "every time a flow is executed.")
