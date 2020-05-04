@@ -12,7 +12,7 @@ import io.github.classgraph.ClassRefTypeSignature;
 import io.github.classgraph.FieldInfo;
 import io.github.classgraph.TypeSignature;
 
-public class TypeAnalyzer implements FieldInfoAnalyzer {
+public class PropertyTypeAnalyzer implements FieldInfoAnalyzer {
 
     @Override
     public void handle(FieldInfo fieldInfo, PropertyDescriptor.Builder builder, ComponentAnalyzerContext context) {

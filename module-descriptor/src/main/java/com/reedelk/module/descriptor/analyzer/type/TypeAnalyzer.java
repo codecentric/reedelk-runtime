@@ -33,6 +33,7 @@ public class TypeAnalyzer {
             String description = annotationParameterValueFrom(classInfo, Type.class, "description", EMPTY);
             String displayName = displayNameFrom(classInfo);
             String listItemType = getListItemType(classInfo);
+            String extendsType = superClassOf(classInfo);
 
             TypeFunctionAnalyzer functionAnalyzer = new TypeFunctionAnalyzer(classInfo);
             List<TypeFunctionDescriptor> functions = functionAnalyzer.analyze();
@@ -41,8 +42,9 @@ public class TypeAnalyzer {
             List<TypePropertyDescriptor> properties = propertyAnalyzer.analyze();
 
             TypeDescriptor descriptor = new TypeDescriptor();
-            descriptor.setType(classInfo.getName());
             descriptor.setListItemType(listItemType);
+            descriptor.setType(classInfo.getName());
+            descriptor.setExtendsType(extendsType);
             descriptor.setDisplayName(displayName);
             descriptor.setDescription(description);
             descriptor.setProperties(properties);
@@ -51,6 +53,11 @@ public class TypeAnalyzer {
             return descriptor;
 
         }).collect(toList());
+    }
+
+    private String superClassOf(ClassInfo classInfo) {
+        return classInfo.getSuperclass() != null ?
+                classInfo.getSuperclass().getName() : null;
     }
 
     // We don't want to confuse the user to keep track of lots of objects implementing just Map.

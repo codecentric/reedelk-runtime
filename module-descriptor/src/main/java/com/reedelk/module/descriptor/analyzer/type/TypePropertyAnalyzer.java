@@ -61,7 +61,7 @@ public class TypePropertyAnalyzer {
     }
 
     private List<TypePropertyDescriptor> fieldLevelTypeProperties() {
-        return classInfo.getFieldInfo()
+        return classInfo.getDeclaredFieldInfo()
                 .filter(fieldInfo -> fieldInfo.hasAnnotation(TypeProperty.class.getName()))
                 .stream()
                 .map(fieldInfo -> {

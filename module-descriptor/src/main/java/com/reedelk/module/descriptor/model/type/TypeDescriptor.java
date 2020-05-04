@@ -9,6 +9,8 @@ public class TypeDescriptor {
 
     // The fully qualified name of the type.
     private String type;
+    // The fully qualified name of the type it extends (example: public class DatabaseAttributes extends MessageAttributes).
+    private String extendsType;
 
     // The display name is to make something nicer, for instance if the name is Map for attributes
     // then the display name could be used to display e.g. MapXYZAttributes and so on.
@@ -34,6 +36,14 @@ public class TypeDescriptor {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getExtendsType() {
+        return extendsType;
+    }
+
+    public void setExtendsType(String extendsType) {
+        this.extendsType = extendsType;
     }
 
     public String getDisplayName() {

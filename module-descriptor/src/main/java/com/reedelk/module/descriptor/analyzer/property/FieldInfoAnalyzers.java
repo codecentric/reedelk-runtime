@@ -15,7 +15,7 @@ public class FieldInfoAnalyzers {
 
     private static final List<FieldInfoAnalyzer> FIELD_INFO_ANALYZERS =
             asList(new NameAnalyzer(),
-                    new TypeAnalyzer(),
+                    new PropertyTypeAnalyzer(),
                     new WhenAnalyzer(),
                     new HintAnalyzer(),
                     new GroupAnalyzer(),

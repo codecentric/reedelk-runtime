@@ -1,6 +1,7 @@
 package com.reedelk.module.descriptor.analyzer.type;
 
 import com.reedelk.module.descriptor.model.type.TypeDescriptor;
+import com.reedelk.runtime.api.message.MessageAttributes;
 import io.github.classgraph.ScanResult;
 import org.junit.jupiter.api.Test;
 
@@ -21,11 +22,14 @@ class TypeAnalyzerTest {
         List<TypeDescriptor> types = analyzer.analyze();
 
         // Then
-        assertThat(types.size()).isEqualTo(1);
+        assertThat(types.size()).isEqualTo(2); // TypeAnalyzerComponent and superclass MessageAttributes.
 
-        TypeDescriptor descriptor = types.get(0);
+        TypeDescriptor descriptor = types.stream().filter(typeDescriptor -> typeDescriptor.getType()
+                .equals(TypeAnalyzerComponent.class.getName())).findFirst().get();
+
         assertThat(descriptor.getDescription()).isEqualTo("TypeAnalyzerComponent description");
         assertThat(descriptor.getDisplayName()).isEqualTo("MyTypeAnalyzerComponent");
+        assertThat(descriptor.getExtendsType()).isEqualTo(MessageAttributes.class.getName());
         assertThat(descriptor.getType()).isEqualTo(TypeAnalyzerComponent.class.getName());
         assertThat(descriptor.getListItemType()).isEqualTo(Map.class.getName());
         assertThat(descriptor.getProperties()).hasSize(1);

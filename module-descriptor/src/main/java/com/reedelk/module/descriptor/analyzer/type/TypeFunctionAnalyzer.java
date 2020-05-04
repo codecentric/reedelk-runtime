@@ -77,7 +77,7 @@ public class TypeFunctionAnalyzer {
     }
 
     private List<TypeFunctionDescriptor> methodLevelTypeFunctions() {
-        return classInfo.getMethodInfo()
+        return classInfo.getDeclaredMethodInfo()
                 .filter(methodInfo -> methodInfo.hasAnnotation(TypeFunction.class.getName()))
                 .stream()
                 .map(methodInfo -> {

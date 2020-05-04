@@ -19,7 +19,6 @@ public class ComponentDescriptor implements Serializable {
     private String displayName;
     private String description;
     private String fullyQualifiedName;
-
     private ComponentType type;
     private ComponentInputDescriptor input;
     private ComponentOutputDescriptor output;
@@ -116,7 +115,7 @@ public class ComponentDescriptor implements Serializable {
     @Override
     public String toString() {
         return "ComponentDescriptor{" +
-                ", hidden=" + hidden +
+                "hidden=" + hidden +
                 ", displayName='" + displayName + '\'' +
                 ", description='" + description + '\'' +
                 ", fullyQualifiedName='" + fullyQualifiedName + '\'' +
@@ -190,11 +189,9 @@ public class ComponentDescriptor implements Serializable {
             descriptor.displayName = displayName;
             descriptor.description = description;
             descriptor.fullyQualifiedName = fullyQualifiedName;
-
             descriptor.type = type;
             descriptor.input = input;
             descriptor.output = output;
-
             descriptor.properties.addAll(properties);
             return descriptor;
         }
