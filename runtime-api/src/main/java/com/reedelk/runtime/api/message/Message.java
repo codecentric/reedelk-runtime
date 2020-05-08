@@ -24,7 +24,7 @@ public interface Message extends Serializable {
      * the payload stream if it is a stream.
      */
     @TypeFunction(
-            returnType = Object.class,
+            returnType = MessagePayload.class,
             signature = "payload()",
             example = "message.payload()",
             description = "Returns the payload (data) of the message. " +

@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import static com.reedelk.runtime.api.message.MessageAttributeKey.COMPONENT_NAME;
 
 // TODO: Find a way to make it read only?
+// TODO: Review all annotations.
 @Type(description = "The message attributes type contains attributes " +
         "set by processors in the out message after their execution. " +
         "Message attributes contain information collected during the execution of a given component. " +

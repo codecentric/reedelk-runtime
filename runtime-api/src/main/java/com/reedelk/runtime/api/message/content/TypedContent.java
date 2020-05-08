@@ -2,6 +2,7 @@ package com.reedelk.runtime.api.message.content;
 
 import com.reedelk.runtime.api.annotation.Type;
 import com.reedelk.runtime.api.annotation.TypeFunction;
+import com.reedelk.runtime.api.message.MessagePayload;
 
 import java.io.Serializable;
 
@@ -50,7 +51,7 @@ public interface TypedContent<T, StreamType> extends Serializable {
     }
 
     @TypeFunction(
-            returnType = Object.class,
+            returnType = MessagePayload.class,
             signature = "data()",
             example = "message.content().data()",
             description = "Returns the actual data which could be could be a text, " +
