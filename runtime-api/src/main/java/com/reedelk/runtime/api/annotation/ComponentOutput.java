@@ -18,4 +18,9 @@ public @interface ComponentOutput {
     Class<?>[] payload() default Object.class;
 
     String description() default StringUtils.EMPTY;
+
+    // Marker interface to let the auto-completion know that
+    // the payload and attributes should be taken from the previous component instead.
+    class PreviousComponent extends MessageAttributes {
+    }
 }
