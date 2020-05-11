@@ -1,14 +1,14 @@
 package com.reedelk.runtime.component;
 
-import com.reedelk.runtime.api.annotation.*;
+import com.reedelk.runtime.api.annotation.Description;
+import com.reedelk.runtime.api.annotation.Example;
+import com.reedelk.runtime.api.annotation.ModuleComponent;
+import com.reedelk.runtime.api.annotation.Property;
 import com.reedelk.runtime.api.component.Component;
 import com.reedelk.runtime.api.script.dynamicmap.DynamicBooleanMap;
 import com.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 
 @ModuleComponent("Router")
-@ComponentOutput(
-        attributes = ComponentOutput.PreviousComponent.class,
-        payload = ComponentOutput.PreviousComponent.class)
 @Description("A router component allows to execute only one of the branches following " +
                 "the component based on a given condition which must be defined for each branch. " +
                 "A default condition is mandatory, which represents the default branch to be executed " +
