@@ -4,8 +4,8 @@ public enum ComponentType {
 
     INBOUND,
     PROCESSOR,
-    COMPONENT,
+    COMPONENT, // TODO: Do I really need this item?
     JOIN,
-    UNKNOWN
+    UNKNOWN // TODO: Do i reeally need thi sitem?
 
 }
