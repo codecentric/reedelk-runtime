@@ -1,8 +1,14 @@
 package com.reedelk.platform.commons;
 
-public class SerializationException extends RuntimeException {
+import com.reedelk.runtime.api.exception.PlatformException;
 
-    public SerializationException(final String msg, final Throwable cause) {
-        super(msg, cause);
+public class SerializationException extends PlatformException {
+
+    public SerializationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public SerializationException(Throwable cause) {
+        super(cause);
     }
 }

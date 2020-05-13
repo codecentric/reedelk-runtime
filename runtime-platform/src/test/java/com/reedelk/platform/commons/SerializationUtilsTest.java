@@ -1,45 +1,56 @@
 package com.reedelk.platform.commons;
 
+import com.reedelk.platform.test.utils.TestComponent;
+import com.reedelk.runtime.api.message.Message;
+import com.reedelk.runtime.api.message.MessageAttributes;
+import com.reedelk.runtime.api.message.MessageBuilder;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
+import java.io.Serializable;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SerializationUtilsTest {
 
     @Test
-    void shouldCloneCorrectly() {
+    void shouldCloneMessageCorrectly() {
         // Given
-        MessageEntry entry1 = new MessageEntry(23f);
-        MessageEntry entry2 = new MessageEntry(112.2f);
-
-        String aString = "a description";
-        int anInt = 2343;
-        Collection<String> aListOfStrings = asList("one", "two", "three");
-        Collection<MessageEntry> aListOfObjects = asList(entry1, entry2);
-        MessageObjectSample message = new MessageObjectSample(anInt, aString, aListOfStrings, aListOfObjects);
+        MyAttributes myAttributes = new MyAttributes();
+        MyObject myObject = new MyObject(432);
+        Message message = MessageBuilder.get(TestComponent.class)
+                .attributes(myAttributes)
+                .withJavaObject(myObject)
+                .build();
 
         // When
-        MessageObjectSample clone = SerializationUtils.clone(message);
+        Message clone = SerializationUtils.clone(message);
 
         // Then
-        assertThat(clone).isNotEqualTo(message);
-        assertThat(clone.getaString()).isEqualTo(aString);
-        assertThat(clone.getAnInt()).isEqualTo(anInt);
-        assertThat(clone.getaSimpleCollection()).containsExactlyInAnyOrder("one", "two", "three");
+        assertThat(clone).isNotSameAs(message);
+        assertThat(clone.attributes()).isNotSameAs(myAttributes);
+        assertThat(clone.attributes()).containsEntry("attr1", "attr1 value");
+        assertThat(clone.attributes()).containsEntry("attr2", "attr2 value");
+        assertThat(clone.attributes()).containsEntry("attr3", "attr3 value");
 
-        Collection<MessageEntry> messageEntries = clone.getaComplexCollection();
-        assertThatContainsEntryWith(messageEntries, 23f);
-        assertThatContainsEntryWith(messageEntries, 112.2f);
-        assertThat(messageEntries).doesNotContain(entry1, entry2);
+        MyObject actualMyObject = clone.payload();
+        assertThat(actualMyObject).isNotSameAs(myObject);
+        assertThat(actualMyObject.value).isEqualTo(432);
     }
 
-    private void assertThatContainsEntryWith(Collection<MessageEntry> messageEntries, float targetValue) {
-        boolean found = messageEntries
-                .stream()
-                .anyMatch(messageEntry -> messageEntry.getValue() == targetValue);
-        assertThat(found).isTrue();
+    static class MyAttributes extends MessageAttributes {
+        MyAttributes() {
+            put("attr1", "attr1 value");
+            put("attr2", "attr2 value");
+            put("attr3", "attr3 value");
+        }
+    }
+
+    static class MyObject implements Serializable {
+
+        int value;
+
+        public MyObject(int value) {
+            this.value = value;
+        }
     }
 }
