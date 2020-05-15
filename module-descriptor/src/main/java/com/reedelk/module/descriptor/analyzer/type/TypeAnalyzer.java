@@ -10,10 +10,10 @@ import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.annotationParameterValueFrom;
 import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
+import static com.reedelk.runtime.api.commons.StringUtils.isNotBlank;
 import static java.util.stream.Collectors.toList;
 
 public class TypeAnalyzer {
@@ -31,8 +31,8 @@ public class TypeAnalyzer {
 
             boolean global = annotationParameterValueFrom(classInfo, Type.class, "global", false);
             String description = annotationParameterValueFrom(classInfo, Type.class, "description", EMPTY);
-            String displayName = displayNameFrom(classInfo);
             String listItemType = getListItemType(classInfo);
+            String displayName = getDisplayName(classInfo);
             String extendsType = superClassOf(classInfo);
 
             TypeFunctionAnalyzer functionAnalyzer = new TypeFunctionAnalyzer(classInfo);
@@ -55,26 +55,14 @@ public class TypeAnalyzer {
         }).collect(toList());
     }
 
+    private String getDisplayName(ClassInfo classInfo) {
+        String displayName = annotationParameterValueFrom(classInfo, Type.class, "displayName", EMPTY);
+        return isNotBlank(displayName) ? displayName : null;
+    }
+
     private String superClassOf(ClassInfo classInfo) {
         return classInfo.getSuperclass() != null ?
                 classInfo.getSuperclass().getName() : null;
-    }
-
-    // We don't want to confuse the user to keep track of lots of objects implementing just Map.
-    // Map types are displayed as maps, so that it is less confusing for the user.
-    // We can bind to the script engine global functions with a different name than the fully qualified
-    // class name. Therefore we can use the Display name to let the user know they can use the functions
-    // using MyDisplayName.myFunction().
-    private String displayNameFrom(ClassInfo classInfo) {
-        String displayName = annotationParameterValueFrom(classInfo, Type.class, "displayName", Type.USE_DEFAULT_DISPLAY_NAME);
-        if (Type.USE_DEFAULT_DISPLAY_NAME.equals(displayName)) {
-            Class<?> aClass = classInfo.loadClass();
-            if (Map.class.isAssignableFrom(aClass)) return Map.class.getSimpleName();
-            if (List.class.isAssignableFrom(aClass)) return List.class.getSimpleName();
-            return aClass.getSimpleName();
-        } else {
-            return displayName;
-        }
     }
 
     private String getListItemType(ClassInfo classInfo) {

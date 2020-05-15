@@ -20,10 +20,7 @@ public @interface Type {
 
     String description() default StringUtils.EMPTY;
 
-    // For Objects extending Map -> Map (can be overridden for special cases where Map is extended with custom methods and becomes an API base type)
-    // For Objects extending List -> List
-    // Object class simple name in all the other cases.
-    String USE_DEFAULT_DISPLAY_NAME = "###USE_DEFAULT_DISPLAY_NAME###";
-
-    String displayName() default USE_DEFAULT_DISPLAY_NAME;
+    // A user display name to be used when displaying the
+    // type in autocomplete suggestions or component input/output.
+    String displayName() default StringUtils.EMPTY;
 }
