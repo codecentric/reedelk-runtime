@@ -27,9 +27,9 @@ class ComponentOutputAnalyzerTest {
 
         // Then
         assertThat(actual).isNotNull();
-        assertThat(actual.getAttributes()).isEqualTo(MyAttributes.class.getName());
         assertThat(actual.getDescription()).isEqualTo("My output description");
         assertThat(actual.getPayload()).isEqualTo(asList("long", "java.lang.Byte[]"));
+        assertThat(actual.getAttributes()).isEqualTo(singletonList(MyAttributes.class.getName()));
     }
 
     @Test
@@ -43,9 +43,9 @@ class ComponentOutputAnalyzerTest {
 
         // Then
         assertThat(actual).isNotNull();
-        assertThat(actual.getAttributes()).isEqualTo(MessageAttributes.class.getName());
         assertThat(actual.getDescription()).isEqualTo(StringUtils.EMPTY);
         assertThat(actual.getPayload()).isEqualTo(singletonList(Object.class.getName()));
+        assertThat(actual.getAttributes()).isEqualTo(singletonList(MessageAttributes.class.getName()));
     }
 
     @Test

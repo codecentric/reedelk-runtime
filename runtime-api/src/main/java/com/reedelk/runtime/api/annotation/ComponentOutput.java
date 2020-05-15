@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 public @interface ComponentOutput {
 
     // Message attributes are *ALWAYS* in a map. See Message Attributes interface.
-    Class<? extends MessageAttributes> attributes() default MessageAttributes.class;
+    Class<? extends MessageAttributes>[] attributes() default MessageAttributes.class;
 
     Class<?>[] payload() default Object.class;
 

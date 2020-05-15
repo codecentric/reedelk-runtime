@@ -6,15 +6,15 @@ import java.util.List;
 
 public class ComponentOutputDescriptor implements Serializable {
 
-    private String attributes;
     private String description;
     private List<String> payload = new ArrayList<>();
+    private List<String> attributes = new ArrayList<>();
 
-    public String getAttributes() {
+    public List<String> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(String attributes) {
+    public void setAttributes(List<String> attributes) {
         this.attributes = attributes;
     }
 

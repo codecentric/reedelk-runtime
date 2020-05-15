@@ -25,14 +25,15 @@ public class ComponentOutputAnalyzer {
         this.classInfo = classInfo;
     }
     private static final Object[] EMPTY = new Object[] {};
+    private static final Object[] DEFAULT_ATTRIBUTES = new Object[] { MessageAttributes.class };
 
     public ComponentOutputDescriptor analyze() {
         if (!hasAnnotation(classInfo, ComponentOutput.class)) return null;
 
         AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(ComponentOutput.class.getName());
 
-        String attributesType = ScannerUtils.parameterValueFrom(annotationInfo, "attributes", MessageAttributes.class.getName());
         String description = ScannerUtils.parameterValueFrom(annotationInfo, "description", StringUtils.EMPTY);
+        List<String> attributesType = getOutputAttributes(annotationInfo);
         List<String> outputPayload = getOutputPayload(annotationInfo);
         if (outputPayload.isEmpty()) {
             String error = format("Component Output payload types must not be empty (class: %s).", classInfo.getName());
@@ -46,9 +47,17 @@ public class ComponentOutputAnalyzer {
         return descriptor;
     }
 
+
     private List<String> getOutputPayload(AnnotationInfo annotationInfo) {
         Object[] payload = ScannerUtils.parameterValueFrom(annotationInfo, "payload", EMPTY);
         return stream(payload)
+                .map(annotationClassRef -> ((AnnotationClassRef) annotationClassRef).getName())
+                .collect(toList());
+    }
+
+    private List<String> getOutputAttributes(AnnotationInfo annotationInfo) {
+        Object[] attributes = ScannerUtils.parameterValueFrom(annotationInfo, "attributes", DEFAULT_ATTRIBUTES);
+        return stream(attributes)
                 .map(annotationClassRef -> ((AnnotationClassRef) annotationClassRef).getName())
                 .collect(toList());
     }
