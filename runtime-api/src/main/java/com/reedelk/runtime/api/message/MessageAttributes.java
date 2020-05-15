@@ -25,7 +25,7 @@ import static com.reedelk.runtime.api.message.MessageAttributeKey.COMPONENT_NAME
         description = "The name of the component setting the attributes.")
 public class MessageAttributes extends TreeMap<String, Serializable> {
 
-    protected MessageAttributes() {
+    public MessageAttributes() {
         super(String.CASE_INSENSITIVE_ORDER);
     }
 
