@@ -18,6 +18,11 @@ public @interface Type {
     // Used only for lists, to know which type they hold.
     Class<?> listItemType() default UseDefaultType.class;
 
+    // Used only for maps, to know which key and value type they hold.
+    Class<?> mapKeyType() default UseDefaultType.class;
+    Class<?> mapValueType() default UseDefaultType.class;
+
+    // A short description of the type.
     String description() default StringUtils.EMPTY;
 
     // A user display name to be used when displaying the

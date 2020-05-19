@@ -17,7 +17,12 @@ public class TypeDescriptor {
     private String displayName;
     private String description;
 
+    // List
     private String listItemType;
+
+    // Map
+    private String mapKeyType;
+    private String mapValueType;
 
     private List<TypeFunctionDescriptor> functions = new ArrayList<>();
     private List<TypePropertyDescriptor> properties = new ArrayList<>();
@@ -70,6 +75,22 @@ public class TypeDescriptor {
         this.listItemType = listItemType;
     }
 
+    public String getMapKeyType() {
+        return mapKeyType;
+    }
+
+    public void setMapKeyType(String mapKeyType) {
+        this.mapKeyType = mapKeyType;
+    }
+
+    public String getMapValueType() {
+        return mapValueType;
+    }
+
+    public void setMapValueType(String mapValueType) {
+        this.mapValueType = mapValueType;
+    }
+
     public List<TypeFunctionDescriptor> getFunctions() {
         return functions;
     }
@@ -91,9 +112,12 @@ public class TypeDescriptor {
         return "TypeDescriptor{" +
                 "global=" + global +
                 ", type='" + type + '\'' +
+                ", extendsType='" + extendsType + '\'' +
                 ", displayName='" + displayName + '\'' +
                 ", description='" + description + '\'' +
                 ", listItemType='" + listItemType + '\'' +
+                ", mapKeyType='" + mapKeyType + '\'' +
+                ", mapValueType='" + mapValueType + '\'' +
                 ", functions=" + functions +
                 ", properties=" + properties +
                 '}';

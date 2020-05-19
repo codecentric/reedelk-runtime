@@ -10,6 +10,7 @@ import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.reedelk.module.descriptor.analyzer.commons.ScannerUtils.annotationParameterValueFrom;
 import static com.reedelk.runtime.api.commons.StringUtils.EMPTY;
@@ -31,9 +32,11 @@ public class TypeAnalyzer {
 
             boolean global = annotationParameterValueFrom(classInfo, Type.class, "global", false);
             String description = annotationParameterValueFrom(classInfo, Type.class, "description", EMPTY);
+            String mapValueType = getMapValueType(classInfo);
             String listItemType = getListItemType(classInfo);
             String displayName = getDisplayName(classInfo);
             String extendsType = superClassOf(classInfo);
+            String mapKeyType = getMapKeyType(classInfo);
 
             TypeFunctionAnalyzer functionAnalyzer = new TypeFunctionAnalyzer(classInfo);
             List<TypeFunctionDescriptor> functions = functionAnalyzer.analyze();
@@ -47,6 +50,8 @@ public class TypeAnalyzer {
             descriptor.setExtendsType(extendsType);
             descriptor.setDisplayName(displayName);
             descriptor.setDescription(description);
+            descriptor.setMapValueType(mapValueType);
+            descriptor.setMapKeyType(mapKeyType);
             descriptor.setProperties(properties);
             descriptor.setFunctions(functions);
             descriptor.setGlobal(global);
@@ -74,6 +79,30 @@ public class TypeAnalyzer {
                     Object.class.getName() : null;
         } else {
             return listItemType; // Fully qualified name.
+        }
+    }
+
+    private String getMapKeyType(ClassInfo classInfo) {
+        String mapKeyType = annotationParameterValueFrom(classInfo, Type.class, "mapKeyType", UseDefaultType.class.getName());
+        if (UseDefaultType.class.getName().equals(mapKeyType)) {
+            Class<?> aClass = classInfo.loadClass();
+            return Map.class.isAssignableFrom(aClass) ?
+                    // We only set it if the class is a map.
+                    Object.class.getName() : null;
+        } else {
+            return mapKeyType; // Fully qualified name.
+        }
+    }
+
+    private String getMapValueType(ClassInfo classInfo) {
+        String mapValueType = annotationParameterValueFrom(classInfo, Type.class, "mapValueType", UseDefaultType.class.getName());
+        if (UseDefaultType.class.getName().equals(mapValueType)) {
+            Class<?> aClass = classInfo.loadClass();
+            return Map.class.isAssignableFrom(aClass) ?
+                    // We only set it if the class is a map.
+                    Object.class.getName() : null;
+        } else {
+            return mapValueType; // Fully qualified name.
         }
     }
 }
