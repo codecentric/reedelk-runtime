@@ -9,6 +9,7 @@
       "type": "PROCESSOR",
       "properties": [
         {
+          "mandatory": false,
           "name": "propertyBooleanObject",
           "example": "false",
           "initValue": "true",
@@ -45,6 +46,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyBoolean",
           "initValue": "true",
           "hintValue": "true",
@@ -76,6 +78,7 @@
           ]
         },
         {
+          "mandatory": true,
           "name": "propertyDoubleObject",
           "example": "3342.543111",
           "initValue": "234.54223",
@@ -109,6 +112,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDouble",
           "initValue": "333.8764",
           "hintValue": "771.32212",
@@ -140,6 +144,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyFloatObject",
           "initValue": "3.1f",
           "hintValue": "1.2f",
@@ -171,6 +176,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyFloat",
           "initValue": "1.8f",
           "hintValue": "7.2f",
@@ -202,6 +208,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyIntegerObject",
           "initValue": "122",
           "hintValue": "809",
@@ -233,6 +240,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyInteger",
           "initValue": "544",
           "hintValue": "764",
@@ -264,6 +272,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyLongObject",
           "initValue": "892L",
           "hintValue": "444L",
@@ -295,6 +304,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyLong",
           "example": "711222L",
           "initValue": "1L",
@@ -328,6 +338,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyString",
           "initValue": "Test property string",
           "hintValue": "Test property string hint",
@@ -359,6 +370,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyBigInteger",
           "initValue": "4222222",
           "hintValue": "1123",
@@ -390,6 +402,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyBigDecimal",
           "initValue": "234.2343",
           "hintValue": "11.2343",
@@ -421,6 +434,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyMap",
           "initValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
           "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
@@ -453,6 +467,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyEnum",
           "initValue": "STREAM",
           "hintValue": "AUTO",
@@ -488,6 +503,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicLong",
           "initValue": "432L",
           "hintValue": "8L",
@@ -519,6 +535,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicFloat",
           "initValue": "432.23f",
           "hintValue": "8.1f",
@@ -550,6 +567,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicDouble",
           "initValue": "1432.23d",
           "hintValue": "18.1d",
@@ -581,6 +599,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicObject",
           "initValue": "Test",
           "hintValue": "Test hint",
@@ -612,6 +631,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicString",
           "initValue": "Test string",
           "hintValue": "Test string hint",
@@ -643,6 +663,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicBoolean",
           "initValue": "true",
           "hintValue": "Test boolean hint",
@@ -674,6 +695,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicInteger",
           "initValue": "4",
           "hintValue": "Test integer hint",
@@ -705,6 +727,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicResource",
           "initValue": "#[\u0027my-resource.png\u0027]",
           "hintValue": "Test resource hint",
@@ -736,6 +759,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicByteArray",
           "initValue": "Test Dynamic Byte Array",
           "hintValue": "Test byte array hint",
@@ -767,6 +791,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicBigInteger",
           "initValue": "2348111",
           "hintValue": "1199888",
@@ -798,6 +823,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicBigDecimal",
           "initValue": "234.8111",
           "hintValue": "1.199888",
@@ -829,6 +855,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicStringMap",
           "initValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027,\u0027key2\u0027:\u0027#[\u0027value2\u0027]\u0027}",
           "hintValue": "{\u0027key1\u0027:\u0027#[\u0027value1\u0027]\u0027}",
@@ -861,6 +888,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyScript",
           "initValue": "#[\u0027Test\u0027]",
           "hintValue": "#[\u0027Test Hint\u0027]",
@@ -892,6 +920,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyCombo",
           "initValue": "Item1",
           "hintValue": "Item2",
@@ -930,6 +959,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyPassword",
           "initValue": "my password",
           "hintValue": "my password hint",
@@ -961,6 +991,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyResourceText",
           "initValue": "assets/my-text.txt",
           "hintValue": "assets/images/my-text.txt",
@@ -992,6 +1023,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyResourceBinary",
           "initValue": "assets/my-image.png",
           "hintValue": "assets/images/my-image.png",
@@ -1023,6 +1055,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyTypeObject",
           "description": "Property Type Object Info",
           "displayName": "Property Type Object",
@@ -1034,6 +1067,7 @@
               "typeFullyQualifiedName": "com.reedelk.component.TestImplementor",
               "objectProperties": [
                 {
+                  "mandatory": false,
                   "name": "nestedProperty1",
                   "initValue": "my nested property 1",
                   "hintValue": "nested property 1 hint",
@@ -1065,6 +1099,7 @@
                   ]
                 },
                 {
+                  "mandatory": false,
                   "name": "nestedProperty2",
                   "initValue": "5",
                   "hintValue": "12",
@@ -1127,6 +1162,7 @@
       "type": "INBOUND",
       "properties": [
         {
+          "mandatory": false,
           "name": "propertyStringWithInitValue",
           "initValue": "###USE_DEFAULT_VALUE###",
           "hintValue": "Test string with default hint",
@@ -1141,6 +1177,7 @@
           "whens": []
         },
         {
+          "mandatory": false,
           "name": "propertyDynamicString",
           "initValue": "Test string",
           "hintValue": "Test string hint",
@@ -1172,6 +1209,7 @@
           ]
         },
         {
+          "mandatory": false,
           "name": "propertyMap",
           "initValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",
           "hintValue": "{\u0027key1\u0027:\u0027value1\u0027,\u0027key2\u0027:\u0027value2\u0027}",

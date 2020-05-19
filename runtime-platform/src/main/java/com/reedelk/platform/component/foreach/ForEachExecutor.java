@@ -9,13 +9,10 @@ import com.reedelk.platform.execution.FlowExecutorFactory;
 import com.reedelk.platform.execution.MessageAndContext;
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
-import com.reedelk.platform.services.scriptengine.ScriptEngine;
 import com.reedelk.runtime.api.component.Join;
-import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.api.message.content.Pair;
-import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import com.reedelk.runtime.component.ForEach;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
@@ -35,8 +32,6 @@ public class ForEachExecutor implements FlowExecutor {
     public Publisher<MessageAndContext> execute(Publisher<MessageAndContext> publisher, ExecutionNode currentNode, ExecutionGraph graph) {
 
         ForEachWrapper forEach = (ForEachWrapper) currentNode.getComponent();
-
-        DynamicObject collection = forEach.getCollection();
 
         ExecutionNode firstEachNode = forEach.getFirstEachNode();
 
@@ -59,13 +54,9 @@ public class ForEachExecutor implements FlowExecutor {
 
         Flux<MessageAndContext> forEachResults = Flux.from(publisher).flatMap(messageAndContext -> {
 
-            FlowContext flowContext = messageAndContext.getFlowContext();
-
             Message message = messageAndContext.getMessage();
 
-            Object payload = ScriptEngine.getInstance()
-                    .evaluate(collection, flowContext, message)
-                    .orElse(null);
+            Object payload = message.payload();
 
             List<Mono<MessageAndContext>> each =
                     createEachBranchesFromPayload(graph, firstEachNode, messageAndContext, payload);

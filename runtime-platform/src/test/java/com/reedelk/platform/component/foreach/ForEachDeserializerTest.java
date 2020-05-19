@@ -30,12 +30,10 @@ public class ForEachDeserializerTest extends AbstractDeserializerTest {
     @Test
     void shouldCorrectlyDeserializeForEachComponent() {
         // Given
-        String expectedCollection = "#[['one','two','three']]";
         JSONArray nextArray =
                 ComponentsBuilder.createNextComponentsArray(component6Name, component5Name);
 
         JSONObject componentDefinition = ComponentsBuilder.forComponent(ForEach.class)
-                .with("collection", expectedCollection)
                 .with("next", nextArray)
                 .build();
 
@@ -55,7 +53,6 @@ public class ForEachDeserializerTest extends AbstractDeserializerTest {
         ForEachWrapper forEachWrapper = (ForEachWrapper) forEachExecutionNode.getComponent();
         assertThat(forEachWrapper.getFirstEachNode()).isEqualTo(component6);
         assertThat(forEachWrapper.getStopNode()).isEqualTo(stopNode1);
-        assertThat(forEachWrapper.getCollection().body()).isEqualTo(expectedCollection);
 
         // Assert graph is built correctly
         verify(graph).putEdge(parent, forEachExecutionNode);

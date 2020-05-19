@@ -8,6 +8,7 @@ import static com.reedelk.runtime.api.commons.Preconditions.checkState;
 
 public class PropertyDescriptor implements Serializable {
 
+    private boolean mandatory;
     private String name;
     private String group;
     private String example;
@@ -20,6 +21,10 @@ public class PropertyDescriptor implements Serializable {
     private ScriptSignatureDescriptor scriptSignature;
 
     private List<WhenDescriptor> whens;
+
+    public boolean isMandatory() {
+        return mandatory;
+    }
 
     public String getName() {
         return name;
@@ -133,6 +138,7 @@ public class PropertyDescriptor implements Serializable {
 
     public static class Builder {
 
+        private boolean mandatory;
         private String name;
         private String group;
         private String example;
@@ -145,6 +151,11 @@ public class PropertyDescriptor implements Serializable {
         private ScriptSignatureDescriptor scriptSignature;
 
         private List<WhenDescriptor> whens = new ArrayList<>();
+
+        public Builder mandatory() {
+            this.mandatory = true;
+            return this;
+        }
 
         public Builder group(String group) {
             this.group = group;
@@ -213,6 +224,7 @@ public class PropertyDescriptor implements Serializable {
             descriptor.example = example;
             descriptor.hintValue = hintValue;
             descriptor.initValue = initValue;
+            descriptor.mandatory  = mandatory;
             descriptor.description = description;
             descriptor.displayName = displayName;
             descriptor.defaultValue = defaultValue;

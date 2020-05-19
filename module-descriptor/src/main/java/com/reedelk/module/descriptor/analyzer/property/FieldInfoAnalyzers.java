@@ -21,6 +21,7 @@ public class FieldInfoAnalyzers {
                     new GroupAnalyzer(),
                     new ExampleAnalyzer(),
                     new InitValueAnalyzer(),
+                    new MandatoryAnalyzer(),
                     new DescriptionAnalyzer(),
                     new DisplayNameAnalyzer(),
                     new DefaultValueAnalyzer(),

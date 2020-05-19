@@ -7,16 +7,9 @@ import java.util.List;
 public class ComponentOutputDescriptor implements Serializable {
 
     private String description;
+    private String dynamicPropertyName;
     private List<String> payload = new ArrayList<>();
     private List<String> attributes = new ArrayList<>();
-
-    public List<String> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<String> attributes) {
-        this.attributes = attributes;
-    }
 
     public String getDescription() {
         return description;
@@ -24,6 +17,14 @@ public class ComponentOutputDescriptor implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDynamicPropertyName() {
+        return dynamicPropertyName;
+    }
+
+    public void setDynamicPropertyName(String dynamicPropertyName) {
+        this.dynamicPropertyName = dynamicPropertyName;
     }
 
     public List<String> getPayload() {
@@ -34,12 +35,21 @@ public class ComponentOutputDescriptor implements Serializable {
         this.payload = payload;
     }
 
+    public List<String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<String> attributes) {
+        this.attributes = attributes;
+    }
+
     @Override
     public String toString() {
         return "ComponentOutputDescriptor{" +
-                "attributes='" + attributes + '\'' +
-                ", description='" + description + '\'' +
+                "description='" + description + '\'' +
+                ", dynamicPropertyName='" + dynamicPropertyName + '\'' +
                 ", payload=" + payload +
+                ", attributes=" + attributes +
                 '}';
     }
 }

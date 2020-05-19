@@ -19,8 +19,17 @@ public @interface ComponentOutput {
 
     String description() default StringUtils.EMPTY;
 
+    // The name of the dynamic expression property from which
+    // the payload type should be inferred from.
+    String dynamicPropertyName() default StringUtils.EMPTY;
+
     // Marker interface to let the auto-completion know that
     // the payload and attributes should be taken from the previous component instead.
+    // We extend this class from message attributes in order to use this class
+    // inside the attributes array as well.
     class PreviousComponent extends MessageAttributes {
+    }
+
+    class InferFromDynamicProperty {
     }
 }

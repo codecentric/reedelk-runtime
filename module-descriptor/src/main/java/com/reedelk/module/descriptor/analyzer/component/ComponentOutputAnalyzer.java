@@ -35,6 +35,7 @@ public class ComponentOutputAnalyzer {
         AnnotationInfo annotationInfo = classInfo.getAnnotationInfo(ComponentOutput.class.getName());
 
         String description = ScannerUtils.parameterValueFrom(annotationInfo, "description", StringUtils.EMPTY);
+        String dynamicPropertyName = ScannerUtils.parameterValueFrom(annotationInfo, "dynamicPropertyName", StringUtils.EMPTY);
         List<String> attributesType = getOutputAttributes(annotationInfo);
         List<String> outputPayload = getOutputPayload(annotationInfo);
         if (outputPayload.isEmpty()) {
@@ -43,6 +44,7 @@ public class ComponentOutputAnalyzer {
         }
 
         ComponentOutputDescriptor descriptor = new ComponentOutputDescriptor();
+        descriptor.setDynamicPropertyName(dynamicPropertyName);
         descriptor.setAttributes(attributesType);
         descriptor.setDescription(description);
         descriptor.setPayload(outputPayload);

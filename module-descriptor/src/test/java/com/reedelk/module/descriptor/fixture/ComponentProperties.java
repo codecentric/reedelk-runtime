@@ -36,6 +36,7 @@ public class ComponentProperties {
 
     public static PropertyDescriptor propertyDoubleObject =
             PropertyDescriptor.builder()
+                    .mandatory()
                     .name("propertyDoubleObject")
                     .initValue("234.54223")
                     .example("3342.543111")

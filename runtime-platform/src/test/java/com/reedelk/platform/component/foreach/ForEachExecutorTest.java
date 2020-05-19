@@ -5,10 +5,8 @@ import com.reedelk.platform.execution.MessageAndContext;
 import com.reedelk.platform.graph.ExecutionGraph;
 import com.reedelk.platform.graph.ExecutionNode;
 import com.reedelk.runtime.api.commons.ImmutableMap;
-import com.reedelk.runtime.api.commons.ModuleContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.content.TypedPublisher;
-import com.reedelk.runtime.api.script.dynamicvalue.DynamicObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
@@ -25,8 +23,6 @@ import static org.mockito.Mockito.spy;
 
 class ForEachExecutorTest extends AbstractExecutionTest {
 
-    private ModuleContext context = new ModuleContext(1L);
-
     private ForEachExecutor executor = spy(new ForEachExecutor());
 
     private ExecutionNode forEachNode;
@@ -36,7 +32,6 @@ class ForEachExecutorTest extends AbstractExecutionTest {
     @BeforeEach
     void setUp() {
         ForEachWrapper forEachWrapper = spy(new ForEachWrapper());
-        forEachWrapper.setCollection(DynamicObject.from("#[message.payload()]", context));
 
         forEachNode = newExecutionNode(forEachWrapper);
         eachNode1 = newExecutionNode(new AddPostfixSyncProcessor("-each1"));
@@ -153,32 +148,6 @@ class ForEachExecutorTest extends AbstractExecutionTest {
         // Then
         StepVerifier.create(endPublisher)
                 .assertNext(assertMessageContainsItems("onetwo-each1-each2"))
-                .verifyComplete();
-    }
-
-    @Test
-    void shouldApplyForEachFromScriptEvaluation() {
-        // Given
-        ForEachWrapper forEachWrapper = spy(new ForEachWrapper());
-        forEachWrapper.setCollection(DynamicObject.from("#[['one', 'two', 'three', 'four']]", context));
-
-        ExecutionNode forEachNode = newExecutionNode(forEachWrapper);
-
-        ExecutionGraph graph = ForEachTestGraphBuilder.get()
-                .inbound(inbound)
-                .forEach(forEachNode)
-                .forEachSequence(eachNode1, eachNode2)
-                .build();
-
-        MessageAndContext event = newEventWithContent("Should be ignored");
-        Publisher<MessageAndContext> publisher = Mono.just(event);
-
-        // When
-        Publisher<MessageAndContext> endPublisher = executor.execute(publisher, forEachNode, graph);
-
-        // Then
-        StepVerifier.create(endPublisher)
-                .assertNext(assertMessageContainsItems("one-each1-each2", "two-each1-each2", "three-each1-each2", "four-each1-each2"))
                 .verifyComplete();
     }
 
