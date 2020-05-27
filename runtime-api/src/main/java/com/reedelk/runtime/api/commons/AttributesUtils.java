@@ -15,9 +15,9 @@ public class AttributesUtils {
      */
     public static MessageAttributes merge(List<Message> messages) {
         MessageAttributes mergedAttributes = new MessageAttributes();
-        for (Message message : messages) {
-            MessageAttributes messageAttributes = message.attributes();
-            mergedAttributes.putAll(messageAttributes);
+        for (Message currentMessage : messages) {
+            MessageAttributes currentAttributes = currentMessage.attributes();
+            mergedAttributes.putAll(currentAttributes);
         }
         return mergedAttributes;
     }
