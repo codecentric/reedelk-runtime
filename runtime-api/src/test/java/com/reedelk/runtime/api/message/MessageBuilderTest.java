@@ -11,8 +11,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -340,27 +338,6 @@ class MessageBuilderTest {
             assertThat(content).isInstanceOf(StringContent.class);
             assertThat(content.data()).isEqualTo(expectedValue);
             assertThat(content.mimeType()).isEqualTo(mimeType);
-        }
-
-        @SuppressWarnings("rawtypes")
-        @Test
-        void shouldCorrectlyBuildListContentFromTypedPublisher() {
-            // Given
-            DataRow<Serializable> row1 = DefaultDataRow.create(asList("column1", "column2"), asList(1, 2));
-            DataRow<Serializable> row2 = DefaultDataRow.create(asList("column1", "column2"), asList(1, 2));
-            TypedPublisher<DataRow> stream = TypedPublisher.from(Flux.just(row1, row2), DataRow.class);
-
-            // When
-            Message message = MessageBuilder.get(MyComponent.class).withTypedPublisher(stream).build();
-
-            // Then
-            TypedContent<List<DataRow>, DataRow> content = message.content();
-            assertThat(content).isInstanceOf(ListContent.class);
-            assertThat(content.isStream()).isTrue();
-            assertThat(content.getStreamType()).isEqualTo(DataRow.class);
-            assertThat(content.getType()).isEqualTo(List.class);
-            assertThat(content.mimeType()).isEqualTo(MimeType.APPLICATION_JAVA);
-            assertThat(content.data()).isEqualTo(Arrays.asList(row1, row2));
         }
 
         @Test
