@@ -125,9 +125,10 @@ public class ForEachExecutor implements FlowExecutor {
                                                  ExecutionNode firstEachNode,
                                                  MessageAndContext messageAndContext,
                                                  Object item) {
-        Message messageWithItem = item == null ?
-                MessageBuilder.get(ForEach.class).empty().build() :
-                MessageBuilder.get(ForEach.class).withJavaObject(item).build();
+        Message originalMessage = messageAndContext.getMessage();
+        Message messageWithItem = item == null ? // We must copy in the new for each message the attributes from the previous component.
+                MessageBuilder.get(ForEach.class).attributes(originalMessage.attributes()).empty().build() :
+                MessageBuilder.get(ForEach.class).attributes(originalMessage.attributes()).withJavaObject(item).build();
         MessageAndContext messageAndContextWithItem = messageAndContext.copyWithMessage(messageWithItem);
         Mono<MessageAndContext> parent = Mono.just(messageAndContextWithItem);
         Publisher<MessageAndContext> eachPublisher = FlowExecutorFactory.get().execute(parent, firstEachNode, graph);
