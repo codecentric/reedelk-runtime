@@ -21,21 +21,21 @@ import java.util.Map;
         name = "put",
         cursorOffset = 1,
         returnType = Void.class,
-        signature = "put(key: String, object: Object)",
+        signature = "put(String key, Object object)",
         example = "context.put('myJson', message.payload())",
         description = "Puts an object with the given key into the flow context.")
 @TypeFunction(
         name = "get",
         cursorOffset = 1,
         returnType = Serializable.class,
-        signature = "get(key: String)",
+        signature = "get(String key)",
         example = "context.get('myJson')",
         description = "Retrieves the object stored in the context given the key.")
 @TypeFunction(
         name = "contains",
         cursorOffset = 1,
         returnType = boolean.class,
-        signature = "contains(key: String)",
+        signature = "contains(String key)",
         example = "context.contains('myJson')",
         description = "Checks whether an object with the given key exists in the context.")
 @TypeFunction(
