@@ -13,7 +13,6 @@ import java.util.TreeMap;
 import static com.reedelk.runtime.api.message.MessageAttributeKey.COMPONENT_NAME;
 
 // TODO: Find a way to make it read only?
-// TODO: Review all annotations.
 @Type(displayName = "MessageAttributes",
         mapKeyType = String.class,
         mapValueType = Serializable.class,
