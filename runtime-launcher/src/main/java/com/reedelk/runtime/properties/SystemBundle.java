@@ -20,8 +20,9 @@ public class SystemBundle {
                 "httpcore-osgi-4.4.13.jar",
                 "httpclient-osgi-4.5.12.jar",
                 "httpasyncclient-osgi-4.1.4.jar",
+                "jsr305-3.0.2.jar",
                 "reactive-streams-1.0.3.jar",
-                "reactor-core-3.2.18.RELEASE.jar",
+                "reactor-core-3.3.6.RELEASE.jar",
                 "runtime-api.jar", // NAME_CONVENTION
                 "runtime-commons.jar", // NAME_CONVENTION
                 "runtime-platform.jar")); // NAME_CONVENTION

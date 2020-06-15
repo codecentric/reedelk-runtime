@@ -69,7 +69,7 @@
                                     com.reedelk.runtime.api.*,
                                     org.osgi.*,
                                     org.reactivestreams.*,
-                                    reactor.*,
+                                    reactor.*;resolution:="optional",
                                     org.apache.http.*,
                                     org.slf4j,
                                     org.slf4j.helpers,
