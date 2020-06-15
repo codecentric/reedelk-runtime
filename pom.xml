@@ -28,7 +28,7 @@
         <osgi.core.version>6.0.0</osgi.core.version>
         <osgi.service.component.version>1.4.0</osgi.service.component.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <reactor.version>3.2.16.RELEASE</reactor.version>
+        <reactor.version>3.2.18.RELEASE</reactor.version>
         <sl4j.api.version>1.7.26</sl4j.api.version>
         <log4.version>1.2.17</log4.version>
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
