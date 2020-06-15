@@ -4,24 +4,28 @@ import com.reedelk.runtime.api.annotation.Type;
 import com.reedelk.runtime.api.annotation.TypeFunction;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+
+import static com.reedelk.runtime.api.commons.Preconditions.checkNotNull;
 
 @Type(description = "An attachment encapsulates an HTTP multipart form data object or an email attachment.")
-@SuppressWarnings("unchecked")
 public class Attachment implements Serializable {
 
     private final String name;
-    private final TypedContent<?,?> content;
+    private final byte[] data;
+    private final MimeType mimeType;
     private final Map<String,String> attributes = new HashMap<>();
 
     // The name of an attachment might be null. This might be the case when the user
     // creates an HTTP Multipart attachment from the script language. In that case the name
     // of the part is the key of the attachments map.
-    private Attachment(String name, TypedContent<?,?> content, Map<String,String> attributes) {
+    private Attachment(String name, byte[] data, MimeType mimeType, Map<String,String> attributes) {
+        checkNotNull(mimeType, "attachment mimeType must not be null");
         this.name = name;
-        this.content = content;
+        this.data = data;
+        this.mimeType = mimeType;
         this.attributes.putAll(attributes);
     }
 
@@ -37,38 +41,20 @@ public class Attachment implements Serializable {
         return name;
     }
 
-    public String getName() {
-        return name;
+    @TypeFunction(
+            signature = "data()",
+            example = "attachment.data()",
+            description = "Returns the data of the attachment.")
+    public byte[] data() {
+        return data;
     }
 
     @TypeFunction(
-            signature = "payload()",
-            example = "attachment.payload()",
-            description = "Returns the payload of the attachment.")
-    public <T> T payload() {
-        return (T) Optional.ofNullable(content)
-                .map(TypedContent::data)
-                .orElse(null);
-    }
-
-    @TypeFunction(
-            signature = "getPayload()",
-            example = "attachment.getPayload()",
-            description = "Returns the payload of the attachment.")
-    public <T> T getPayload() {
-        return payload();
-    }
-
-    @TypeFunction(
-            signature = "content()",
-            example = "attachment.content()",
-            description = "Returns the content of the attachment.")
-    public <T, StreamType, U extends TypedContent<T, StreamType>> U content() {
-        return (U) content;
-    }
-
-    public <T, StreamType, U extends TypedContent<T, StreamType>> U getContent() {
-        return (U) content;
+            signature = "mimeType()",
+            example = "attachment.mimeType()",
+            description = "Returns the mime type of the attachment.")
+    public MimeType mimeType() {
+        return mimeType;
     }
 
     @TypeFunction(
@@ -79,15 +65,12 @@ public class Attachment implements Serializable {
         return attributes;
     }
 
-    public Map<String, String> getAttributes() {
-        return attributes;
-    }
-
     @Override
     public String toString() {
         return "Attachment{" +
                 "name='" + name + '\'' +
-                ", content=" + content +
+                ", data=" + Arrays.toString(data) +
+                ", mimeType=" + mimeType +
                 ", attributes=" + attributes +
                 '}';
     }
@@ -95,7 +78,8 @@ public class Attachment implements Serializable {
     public static class Builder {
 
         private String name;
-        private TypedContent<?,?> content;
+        private byte[] data;
+        private MimeType mimeType;
         private Map<String,String> attributes = new HashMap<>();
 
         public Builder() {
@@ -106,8 +90,13 @@ public class Attachment implements Serializable {
             return this;
         }
 
-        public Builder content(TypedContent<?,?> content) {
-            this.content = content;
+        public Builder data(byte[] data) {
+            this.data = data;
+            return this;
+        }
+
+        public Builder mimeType(MimeType mimeType) {
+            this.mimeType = mimeType;
             return this;
         }
 
@@ -117,7 +106,7 @@ public class Attachment implements Serializable {
         }
 
         public Attachment build() {
-            return new Attachment(name, content, attributes);
+            return new Attachment(name, data, mimeType, attributes);
         }
     }
 

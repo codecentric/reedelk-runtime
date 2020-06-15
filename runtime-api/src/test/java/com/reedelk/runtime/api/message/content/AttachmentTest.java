@@ -27,7 +27,8 @@ class AttachmentTest {
     void shouldIsAttachmentMapReturnTrueWhenNotEmpty() {
         // Given
         Attachment attachment = Attachment.builder()
-                .content(new StringContent("Test", MimeType.TEXT_PLAIN))
+                .data("Test".getBytes())
+                .mimeType(MimeType.TEXT_PLAIN)
                 .attribute("attr1", "my-attribute")
                 .build();
         Map<String, Attachment> attachmentMap =
@@ -44,7 +45,8 @@ class AttachmentTest {
     void shouldIsAttachmentMapReturnFalseWhenKeyIsInteger() {
         // Given
         Attachment attachment = Attachment.builder()
-                .content(new StringContent("Test", MimeType.TEXT_PLAIN))
+                .data("Test".getBytes())
+                .mimeType(MimeType.TEXT_PLAIN)
                 .attribute("attr1", "my-attribute")
                 .build();
         Map<Integer, Attachment> attachmentMap =

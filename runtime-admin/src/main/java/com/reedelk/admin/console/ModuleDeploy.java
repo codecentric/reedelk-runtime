@@ -46,12 +46,12 @@ public class ModuleDeploy implements ProcessorSync {
 
         Attachment part = parts.get(UPLOADED_MODULE_PART_NAME);
 
-        checkState(part.getAttributes().containsKey(ATTRIBUTE_FILE_NAME),
+        checkState(part.attributes().containsKey(ATTRIBUTE_FILE_NAME),
                 "Attribute file name missing");
 
         // Windows Explorer sends the file name including the path.
         // Therefore we must extract just the name of the deployed module.
-        String jarFileNameMaybeWithPath = part.getAttributes().get(ATTRIBUTE_FILE_NAME);
+        String jarFileNameMaybeWithPath = part.attributes().get(ATTRIBUTE_FILE_NAME);
 
         String jarFileName = new File(jarFileNameMaybeWithPath).getName();
 
@@ -62,7 +62,7 @@ public class ModuleDeploy implements ProcessorSync {
 
         Path uploadFinalFileName = Paths.get(uploadDirectory, jarFileName);
 
-        byte[] jarArchiveBytes = (byte[]) part.getContent().data();
+        byte[] jarArchiveBytes = part.data();
 
         ByteArrayUtils.writeTo(uploadFinalFileName.toString(), jarArchiveBytes);
 

@@ -1,7 +1,6 @@
 package com.reedelk.runtime.commons;
 
 import com.reedelk.runtime.api.message.content.Attachment;
-import com.reedelk.runtime.api.message.content.ByteArrayContent;
 import com.reedelk.runtime.api.message.content.MimeType;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,8 @@ class ObjectToBytesTest {
         // Given
         Attachment attachment = Attachment.builder()
                 .attribute("attr1", "attr1-value")
-                .content(new ByteArrayContent("byte daat".getBytes(), MimeType.APPLICATION_BINARY))
+                .data("byte daat".getBytes())
+                .mimeType(MimeType.APPLICATION_BINARY)
                 .build();
 
         // When
