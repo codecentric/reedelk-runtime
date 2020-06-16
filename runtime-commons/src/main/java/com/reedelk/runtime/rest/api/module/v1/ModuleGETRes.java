@@ -12,7 +12,7 @@ public class ModuleGETRes {
     private String moduleFilePath;
 
     private Collection<FlowGETRes> flows = Collections.emptyList();
-    private Collection<String> errors = Collections.emptyList();
+    private Collection<ErrorGETRes> errors = Collections.emptyList();
     private Collection<String> resolvedComponents = Collections.emptyList();
     private Collection<String> unresolvedComponents = Collections.emptyList();
 
@@ -64,11 +64,11 @@ public class ModuleGETRes {
         this.flows = flows;
     }
 
-    public Collection<String> getErrors() {
+    public Collection<ErrorGETRes> getErrors() {
         return errors;
     }
 
-    public void setErrors(Collection<String> errors) {
+    public void setErrors(Collection<ErrorGETRes> errors) {
         this.errors = errors;
     }
 

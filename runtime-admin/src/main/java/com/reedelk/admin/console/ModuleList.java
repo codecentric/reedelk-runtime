@@ -6,6 +6,7 @@ import com.reedelk.runtime.api.flow.FlowContext;
 import com.reedelk.runtime.api.message.Message;
 import com.reedelk.runtime.api.message.MessageBuilder;
 import com.reedelk.runtime.rest.api.InternalAPI;
+import com.reedelk.runtime.rest.api.module.v1.ErrorGETRes;
 import com.reedelk.runtime.rest.api.module.v1.FlowGETRes;
 import com.reedelk.runtime.rest.api.module.v1.ModuleGETRes;
 import com.reedelk.runtime.rest.api.module.v1.ModulesGETRes;
@@ -45,17 +46,26 @@ public class ModuleList implements ProcessorSync {
                     ModuleGETRes dto = new ModuleGETRes();
                     dto.setName(module.getName());
                     dto.setState(module.getState());
-                    dto.setErrors(module.getErrors());
                     dto.setVersion(module.getVersion());
                     dto.setModuleId(module.getModuleId());
                     dto.setModuleFilePath(module.getModuleFilePath());
                     dto.setResolvedComponents(module.getResolvedComponents());
                     dto.setUnresolvedComponents(module.getUnresolvedComponents());
+
+                    // Map Flow
                     dto.setFlows(module.getFlows().stream().map(flowDto -> {
                         FlowGETRes flow = new FlowGETRes();
                         flow.setId(flowDto.getId());
                         flow.setTitle(flowDto.getTitle());
                         return flow;
+                    }).collect(toList()));
+
+                    // Map Error
+                    dto.setErrors(module.getErrors().stream().map(errorDto -> {
+                        ErrorGETRes error = new ErrorGETRes();
+                        error.setStacktrace(errorDto.getStacktrace());
+                        error.setMessage(errorDto.getMessage());
+                        return error;
                     }).collect(toList()));
                     return dto;
                 }).collect(toList());

@@ -14,12 +14,14 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static com.reedelk.runtime.rest.api.InternalAPI.Health;
 import static com.reedelk.runtime.rest.api.InternalAPI.HotSwap;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 class InternalAPITest {
 
@@ -72,6 +74,22 @@ class InternalAPITest {
             flow2.setId("eeffgghh");
             flow2.setTitle("Flow2 title");
 
+            ErrorGETRes error1 = new ErrorGETRes();
+            error1.setStacktrace("error1 stacktrace");
+            error1.setMessage("error1");
+
+            ErrorGETRes error2 = new ErrorGETRes();
+            error2.setStacktrace("error2 stacktrace");
+            error2.setMessage("error2");
+
+            ErrorGETRes error3 = new ErrorGETRes();
+            error3.setStacktrace("error3 stacktrace");
+            error3.setMessage("error3");
+
+            ErrorGETRes error4 = new ErrorGETRes();
+            error4.setStacktrace("error4 stacktrace");
+            error4.setMessage("error4");
+
             ModuleGETRes module1 = new ModuleGETRes();
             module1.setName("HttpComponents");
             module1.setState("INSTALLED");
@@ -79,7 +97,7 @@ class InternalAPITest {
             module1.setVersion("0.9.0");
             module1.setModuleFilePath("file:/Users/test/testingflows/target/HttpComponents-0.9.0.jar");
             module1.setFlows(asList(flow1, flow2));
-            module1.setErrors(asList("exception1", "exception2"));
+            module1.setErrors(asList(error1, error2));
             module1.setResolvedComponents(asList("com.reedelk.runtime.component.1", "com.reedelk.runtime.component.2"));
             module1.setUnresolvedComponents(asList("com.reedelk.runtime.component.3", "com.reedelk.runtime.component.4"));
 
@@ -89,7 +107,7 @@ class InternalAPITest {
             module2.setModuleId(12L);
             module2.setVersion("0.9.0");
             module2.setModuleFilePath("file:/Users/test/testingflows/target/myflows-0.9.0.jar");
-            module2.setErrors(asList("exception3", "exception4"));
+            module2.setErrors(asList(error3, error4));
             module2.setResolvedComponents(asList("com.reedelk.runtime.component.X1", "com.reedelk.runtime.component.X2"));
             module2.setUnresolvedComponents(asList("com.reedelk.runtime.component.X4", "com.reedelk.runtime.component.X5"));
 
@@ -111,6 +129,22 @@ class InternalAPITest {
         @Test
         void shouldModulesGETResDeserializeCorrectly() {
             // Given
+            ErrorGETRes error1 = new ErrorGETRes();
+            error1.setStacktrace("error1 stacktrace");
+            error1.setMessage("error1");
+
+            ErrorGETRes error2 = new ErrorGETRes();
+            error2.setStacktrace("error2 stacktrace");
+            error2.setMessage("error2");
+
+            ErrorGETRes error3 = new ErrorGETRes();
+            error3.setStacktrace("error3 stacktrace");
+            error3.setMessage("error3");
+
+            ErrorGETRes error4 = new ErrorGETRes();
+            error4.setStacktrace("error4 stacktrace");
+            error4.setMessage("error4");
+
             String json = JSONS.ModulesGETRes.string();
 
             // When
@@ -129,7 +163,7 @@ class InternalAPITest {
             module1.setVersion("0.9.0");
             module1.setModuleId(234L);
             module1.setModuleFilePath("file:/Users/test/testingflows/target/HttpComponents-0.9.0.jar");
-            module1.setErrors(asList("exception1", "exception2"));
+            module1.setErrors(asList(error1, error2));
             module1.setResolvedComponents(asList("com.reedelk.runtime.component.1", "com.reedelk.runtime.component.2"));
             module1.setUnresolvedComponents(asList("com.reedelk.runtime.component.3", "com.reedelk.runtime.component.4"));
 
@@ -142,7 +176,7 @@ class InternalAPITest {
             module2.setVersion("0.9.0");
             module2.setModuleId(12L);
             module2.setModuleFilePath("file:/Users/test/testingflows/target/myflows-0.9.0.jar");
-            module2.setErrors(asList("exception3", "exception4"));
+            module2.setErrors(asList(error3, error4));
             module2.setResolvedComponents(asList("com.reedelk.runtime.component.X1", "com.reedelk.runtime.component.X2"));
             module2.setUnresolvedComponents(asList("com.reedelk.runtime.component.X4", "com.reedelk.runtime.component.X5"));
 
@@ -401,11 +435,14 @@ class InternalAPITest {
         }
 
     }
+
     private void assertExistsModule(Collection<ModuleGETRes> modules, ModuleGETRes expected) {
         for (ModuleGETRes module : modules) {
             String name = module.getName();
             if (expected.getName().equals(name)) {
-                assertThatContainsInAnyOrder(module.getErrors(), expected.getErrors());
+                Collection<ErrorGETRes> actualErrors = module.getErrors();
+                Collection<ErrorGETRes> expectedErrors = expected.getErrors();
+                assertSameErrors(actualErrors, expectedErrors);
                 assertThatContainsInAnyOrder(module.getUnresolvedComponents(), expected.getUnresolvedComponents());
                 assertThatContainsInAnyOrder(module.getResolvedComponents(), expected.getResolvedComponents());
                 assertThat(module.getState()).isEqualTo(expected.getState());
@@ -413,6 +450,23 @@ class InternalAPITest {
             }
         }
         Assertions.fail("Could not find matching module");
+    }
+
+    private void assertSameErrors(Collection<ErrorGETRes> actualErrors, Collection<ErrorGETRes> expectedErrors) {
+        for (ErrorGETRes actualError : actualErrors) {
+            boolean found = expectedErrors
+                    .stream()
+                    .anyMatch(errorGETRes -> isSameError(actualError, errorGETRes));
+            if (!found) fail("Could not find matching error");
+        }
+    }
+
+    private boolean isSameError(ErrorGETRes error1, ErrorGETRes error2) {
+        String message1 = error1.getMessage();
+        String message2 = error2.getMessage();
+        String stacktrace1 = error1.getStacktrace();
+        String stacktrace2 = error2.getStacktrace();
+        return Objects.equals(message1, message2) && Objects.equals(stacktrace1, stacktrace2);
     }
 
     private void assertThatContainsInAnyOrder(Collection<String> actual, Collection<String> expected) {

@@ -34,11 +34,16 @@ let ModuleDetailsRenderer = (function() {
     	    detailsContent += Template.DetailsRowItem('Unresolved components:', unresolved);
     	}
 
-    	// The JSON containing the exceptions string contains new lines. 
+		let errorMessages = module.errors.map(function(error){ return error.message.replace(/\n/g, "<br/>")}).join('<hr>');
+		if (errorMessages) {
+			detailsContent += Template.DetailsRowItem('Error messages:', errorMessages);
+		}
+
+    	// The JSON containing the Error contains new lines in the stacktrace.
     	// We replace '\n' with the HTML '<br/>' whenever a new line is found.
-    	let errors = module.errors.map(function(error){ return error.replace(/\n/g, "<br/>")}).join('<hr>');
-    	if (errors) {
-    	    detailsContent += Template.DetailsRowItem('Errors:', errors);
+    	let errorStacktraces = module.errors.map(function(error){ return error.stacktrace.replace(/\n/g, "<br/>")}).join('<hr>');
+    	if (errorStacktraces) {
+    	    detailsContent += Template.DetailsRowItem('Error Stacktraces:', errorStacktraces);
     	}
 
     	return Template.DetailsContainer(detailsContent);

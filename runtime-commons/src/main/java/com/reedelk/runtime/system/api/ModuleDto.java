@@ -11,8 +11,8 @@ public class ModuleDto {
     private String version;
     private String moduleFilePath;
 
-    private Collection<FlowDto> flowDtos = Collections.emptyList();
-    private Collection<String> errors = Collections.emptyList();
+    private Collection<FlowDto> flows = Collections.emptyList();
+    private Collection<ErrorDto> errors = Collections.emptyList();
     private Collection<String> resolvedComponents = Collections.emptyList();
     private Collection<String> unresolvedComponents = Collections.emptyList();
 
@@ -57,18 +57,18 @@ public class ModuleDto {
     }
 
     public Collection<FlowDto> getFlows() {
-        return flowDtos;
+        return flows;
     }
 
-    public void setFlows(Collection<FlowDto> flowDtos) {
-        this.flowDtos = flowDtos;
+    public void setFlows(Collection<FlowDto> flows) {
+        this.flows = flows;
     }
 
-    public Collection<String> getErrors() {
+    public Collection<ErrorDto> getErrors() {
         return errors;
     }
 
-    public void setErrors(Collection<String> errors) {
+    public void setErrors(Collection<ErrorDto> errors) {
         this.errors = errors;
     }
 

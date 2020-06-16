@@ -1,46 +1,63 @@
-{
-  "modules": [
-    {
-      "resolvedComponents": [
-        "com.reedelk.runtime.component.X1",
-        "com.reedelk.runtime.component.X2"
-      ],
-      "name": "MyFlows",
-      "state": "STARTED",
-      "version": "0.9.0",
-      "moduleId": 12,
-      "moduleFilePath": "file:/Users/test/testingflows/target/myflows-0.9.0.jar",
-      "errors": [
-        "exception3",
-        "exception4"
-      ],
-      "unresolvedComponents": [
-        "com.reedelk.runtime.component.X4",
-        "com.reedelk.runtime.component.X5"
-      ]
-    },
-    {
-      "resolvedComponents": [
-        "com.reedelk.runtime.component.1",
-        "com.reedelk.runtime.component.2"
-      ],
-      "name": "HttpComponents",
-      "state": "INSTALLED",
-      "version": "0.9.0",
-      "moduleId": 234,
-      "moduleFilePath": "file:/Users/test/testingflows/target/HttpComponents-0.9.0.jar",
-      "flows": [
-        {"id": "aabbccdd", "title": "Flow1 title"},
-        {"id": "eeffgghh", "title": "Flow2 title"}
-      ],
-      "errors": [
-        "exception1",
-        "exception2"
-      ],
-      "unresolvedComponents": [
-        "com.reedelk.runtime.component.3",
-        "com.reedelk.runtime.component.4"
-      ]
-    }
-  ]
-}
+{"modules": [
+  {
+    "resolvedComponents": [
+      "com.reedelk.runtime.component.1",
+      "com.reedelk.runtime.component.2"
+    ],
+    "flows": [
+      {
+        "id": "aabbccdd",
+        "title": "Flow1 title"
+      },
+      {
+        "id": "eeffgghh",
+        "title": "Flow2 title"
+      }
+    ],
+    "name": "HttpComponents",
+    "moduleFilePath": "file:/Users/test/testingflows/target/HttpComponents-0.9.0.jar",
+    "state": "INSTALLED",
+    "moduleId": 234,
+    "unresolvedComponents": [
+      "com.reedelk.runtime.component.3",
+      "com.reedelk.runtime.component.4"
+    ],
+    "version": "0.9.0",
+    "errors": [
+      {
+        "stacktrace": "error1 stacktrace",
+        "message": "error1"
+      },
+      {
+        "stacktrace": "error2 stacktrace",
+        "message": "error2"
+      }
+    ]
+  },
+  {
+    "resolvedComponents": [
+      "com.reedelk.runtime.component.X1",
+      "com.reedelk.runtime.component.X2"
+    ],
+    "flows": [],
+    "name": "MyFlows",
+    "moduleFilePath": "file:/Users/test/testingflows/target/myflows-0.9.0.jar",
+    "state": "STARTED",
+    "moduleId": 12,
+    "unresolvedComponents": [
+      "com.reedelk.runtime.component.X4",
+      "com.reedelk.runtime.component.X5"
+    ],
+    "version": "0.9.0",
+    "errors": [
+      {
+        "stacktrace": "error3 stacktrace",
+        "message": "error3"
+      },
+      {
+        "stacktrace": "error4 stacktrace",
+        "message": "error4"
+      }
+    ]
+  }
+]}

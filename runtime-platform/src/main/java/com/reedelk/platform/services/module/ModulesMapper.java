@@ -2,18 +2,18 @@ package com.reedelk.platform.services.module;
 
 import com.reedelk.platform.module.Module;
 import com.reedelk.platform.module.state.ModuleState;
-import com.reedelk.runtime.api.commons.StackTraceUtils;
+import com.reedelk.runtime.system.api.ErrorDto;
 import com.reedelk.runtime.system.api.FlowDto;
 import com.reedelk.runtime.system.api.ModuleDto;
 
 import java.util.Collection;
 
 import static com.reedelk.platform.module.state.ModuleState.*;
-import static java.util.stream.Collectors.toList;
 
 public class ModulesMapper {
 
     private final FlowsMapper flowsMapper = new FlowsMapper();
+    private final ErrorsMapper errorsMapper = new ErrorsMapper();
 
     public ModuleDto map(Module module) {
         ModuleState state = module.state();
@@ -29,23 +29,17 @@ public class ModulesMapper {
         }
         if (STARTED == state) {
             // Flows are only available when the state is STARTED.
-            Collection<FlowDto> flowDTOs = flowsMapper.map(module.flows());
-            moduleDto.setFlows(flowDTOs);
+            Collection<FlowDto> flows = flowsMapper.map(module.flows());
+            moduleDto.setFlows(flows);
         }
         if (UNRESOLVED == state) {
             moduleDto.setUnresolvedComponents(module.unresolvedComponents());
             moduleDto.setResolvedComponents(module.resolvedComponents());
         }
         if (ERROR == state) {
-            moduleDto.setErrors(serializeExceptions(module.errors()));
+            Collection<ErrorDto> errors = errorsMapper.map(module.errors());
+            moduleDto.setErrors(errors);
         }
         return moduleDto;
-    }
-
-    private Collection<String> serializeExceptions(Collection<Exception> exceptions) {
-        return exceptions
-                .stream()
-                .map(StackTraceUtils::asString)
-                .collect(toList());
     }
 }
