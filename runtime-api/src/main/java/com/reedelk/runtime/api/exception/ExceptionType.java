@@ -4,9 +4,10 @@ import com.reedelk.runtime.api.annotation.Type;
 import com.reedelk.runtime.api.annotation.TypeFunction;
 import com.reedelk.runtime.api.annotation.TypeProperty;
 
-@Type(description = "The Error type encapsulates an error thrown by the execution of a component.")
+@Type(displayName = "Exception",
+        description = "The Exception type encapsulates an error thrown by the execution of a component.")
 @TypeProperty(name = "message", example = "error.message", type = String.class, description = "Returns the error message.")
-public interface Error {
+public interface ExceptionType {
 
     @TypeFunction(
             signature = "toString()",
