@@ -29,7 +29,6 @@ public class ModuleHotSwap implements ProcessorSync {
     @Override
     public Message apply(FlowContext flowContext, Message message) {
 
-        // TODO: If there is an exception this is a problem. Need to use converter.
         String payload = message.payload();
 
         String resultJson = hotSwap(payload, flowContext);
