@@ -2,17 +2,11 @@ package com.reedelk.runtime.api.exception;
 
 import com.reedelk.runtime.api.annotation.Type;
 import com.reedelk.runtime.api.annotation.TypeFunction;
+import com.reedelk.runtime.api.annotation.TypeProperty;
 
-// TODO: I think that this one should be specific to the methods provided by the RESTListener which might wrap
-// the error to provide additional info like status code and so on.
-@Type(description = "The Error type encapsulates an error.")
+@Type(description = "The Error type encapsulates an error thrown by the execution of a component.")
+@TypeProperty(name = "message", example = "error.message", type = String.class, description = "Returns the error message.")
 public interface Error {
-
-    @TypeFunction(
-            signature = "getMessage()",
-            example = "error.getMessage()",
-            description = "Returns the error message.")
-    String getMessage();
 
     @TypeFunction(
             signature = "toString()",
