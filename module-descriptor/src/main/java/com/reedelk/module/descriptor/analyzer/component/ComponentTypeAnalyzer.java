@@ -20,6 +20,8 @@ class ComponentTypeAnalyzer {
             return ComponentType.PROCESSOR;
         } else if (isJoin(classInfo)) {
             return ComponentType.JOIN;
+        } else if (isComponent(classInfo)) {
+            return ComponentType.COMPONENT;
         } else {
             return ComponentType.UNKNOWN;
         }
@@ -60,6 +62,16 @@ class ComponentTypeAnalyzer {
      */
     private boolean isJoin(ClassInfo componentClassInfo) {
         return implementsInterface(componentClassInfo, Join.class);
+    }
+
+    /**
+     * A component is just a component if it implements the Component interface.
+     *
+     * @param componentClassInfo the class info descriptor.
+     * @return true if this class descriptor describes a Component, false otherwise.
+     */
+    private boolean isComponent(ClassInfo componentClassInfo) {
+        return implementsInterface(componentClassInfo, Component.class);
     }
 
     private static boolean implementsInterface(ClassInfo componentClassInfo, Class target) {
