@@ -10,10 +10,10 @@ import static com.reedelk.runtime.commons.RuntimeMessage.message;
 
 public class SystemConfiguration {
 
-    private static final String HOME_DIR = "com.esb.home.dir";
-    private static final String CONFIG_DIR_PATH = "com.esb.config.dir";
-    private static final String CONFIG_LOGS_PATH = "com.esb.logs.dir";
-    private static final String MODULES_DIR_PATH = "com.esb.modules.dir";
+    private static final String HOME_DIR = "com.reedelk.home.dir";
+    private static final String CONFIG_DIR_PATH = "com.reedelk.config.dir";
+    private static final String CONFIG_LOGS_PATH = "com.reedelk.logs.dir";
+    private static final String MODULES_DIR_PATH = "com.reedelk.modules.dir";
 
     public static String modulesDirectory() {
         String bundleDir = System.getProperty(MODULES_DIR_PATH);
