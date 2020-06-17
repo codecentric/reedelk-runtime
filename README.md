@@ -16,9 +16,10 @@ $ git clone https://github.com/reedelk/reedelk-runtime.git
 $ git clone https://github.com/reedelk/module-core.git
 $ git clone https://github.com/reedelk/module-csv.git
 $ git clone https://github.com/reedelk/module-ftp.git
+$ git clone https://github.com/reedelk/module-google-drive-v3.git
+$ git clone https://github.com/reedelk/module-json.git
 $ git clone https://github.com/reedelk/module-database.git
 $ git clone https://github.com/reedelk/module-file.git
-$ git clone https://github.com/reedelk/module-json.git
 $ git clone https://github.com/reedelk/module-mail.git
 $ git clone https://github.com/reedelk/module-mongodb.git
 $ git clone https://github.com/reedelk/module-rabbitmq.git
