@@ -5,7 +5,7 @@ var ModulesTableRenderer = (function() {
 	];
 
 	var excludedModulesFromList = [
-		'runtime-admin',  // NAME_CONVENTION
+		'runtime-admin-console',  // NAME_CONVENTION
 	];
 
 	var render = function(modules) {

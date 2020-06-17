@@ -29,7 +29,7 @@ public class SystemBundle {
     }
 
     public static String adminConsole() {
-        return "runtime-admin.jar"; // NAME_CONVENTION
+        return "runtime-admin-console.jar"; // NAME_CONVENTION
     }
 
     public static String basePath() {

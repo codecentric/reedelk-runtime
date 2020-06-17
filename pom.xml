@@ -43,7 +43,7 @@
         <module>runtime-api</module>
         <module>runtime-commons</module>
         <module>runtime-platform</module> <!-- NAME_CONVENTION -->
-        <module>runtime-admin</module>
+        <module>runtime-admin-console</module><!-- NAME_CONVENTION -->
         <module>runtime-launcher</module>
         <module>module-parent</module>
         <module>module-descriptor</module>

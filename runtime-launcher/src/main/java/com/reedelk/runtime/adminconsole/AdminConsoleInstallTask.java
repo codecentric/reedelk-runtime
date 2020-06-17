@@ -15,8 +15,8 @@ public class AdminConsoleInstallTask extends ApplicationTask {
 
     @Override
     protected void doRun() {
-        // Async, runtime-admin console is not mandatory.
-        // We prefer to install the runtime-admin console later, so that
+        // Async, runtime-admin-console is not mandatory.
+        // We prefer to install the runtime-admin-console later, so that
         // the runtime can start faster.
         application.installAdminConsole();
     }

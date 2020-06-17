@@ -13,7 +13,7 @@
     </parent>
 
     <packaging>bundle</packaging>
-    <artifactId>runtime-admin</artifactId> <!-- NAME_CONVENTION -->
+    <artifactId>runtime-admin-console</artifactId> <!-- NAME_CONVENTION -->
 
     <dependencies>
         <dependency>
