@@ -28,6 +28,8 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
     private String resourcesDirectory;
     @Parameter(property = "project.name")
     private String projectName;
+    @Parameter(property = "project.version")
+    private String projectVersion;
     @Parameter(property = "moduleName")
     private String moduleName;
     @Parameter(property = "scanApi")
@@ -47,6 +49,7 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
 
                 // Scan Module
                 ModuleDescriptor moduleDescriptor = analyzer.fromDirectory(compiledClasses, finalModuleName, false);
+                moduleDescriptor.setVersion(projectVersion);
                 moduleDescriptor.getTypes().addAll(runtimeApiTypes);
 
                 // We only write if there are components, functions and types defined.
@@ -57,6 +60,7 @@ public class ModuleDescriptorMavenMojo extends AbstractMojo {
             } else {
 
                 ModuleDescriptor moduleDescriptor = analyzer.fromDirectory(compiledClasses, finalModuleName, false);
+                moduleDescriptor.setVersion(projectVersion);
 
                 // We only write if there are components, functions and types defined.
                 if (shouldWriteFile(moduleDescriptor)) {

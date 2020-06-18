@@ -14,9 +14,11 @@ import com.reedelk.module.descriptor.model.component.ComponentDescriptor;
 import com.reedelk.module.descriptor.model.component.ComponentType;
 import com.reedelk.module.descriptor.model.type.TypeDescriptor;
 import com.reedelk.runtime.api.RuntimeApi;
+import com.reedelk.runtime.api.annotation.Description;
 import com.reedelk.runtime.api.annotation.Module;
 import com.reedelk.runtime.api.annotation.ModuleComponent;
 import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
 
@@ -25,6 +27,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static com.reedelk.module.descriptor.analyzer.commons.Messages.Analyzer.*;
 import static java.util.stream.Collectors.toList;
@@ -98,7 +101,7 @@ public class ModuleDescriptorAnalyzer {
             ScanResult scanResult = instantiateScanner()
                     .whitelistPackages(RuntimeApi.class.getPackage().getName())
                     .scan();
-            return typesOf(scanResult);
+            return moduleTypesOf(scanResult);
         } catch (ModuleDescriptorException exception) {
             throw exception;
         } catch (Exception exception) {
@@ -109,31 +112,22 @@ public class ModuleDescriptorAnalyzer {
 
     private ModuleDescriptor analyzeFrom(final ScanResult scanResult, final String moduleName) {
         String moduleDisplayName = moduleDisplayNameOf(scanResult, moduleName);
-        List<ComponentDescriptor> components = componentsOf(scanResult);
-        List<TypeDescriptor> types = typesOf(scanResult);
+        String moduleDescription = moduleDescriptionOf(scanResult);
+        Boolean isBuiltIn = moduleIsBuiltInOf(scanResult);
+        List<ComponentDescriptor> components = moduleComponentsOf(scanResult);
+        List<TypeDescriptor> types = moduleTypesOf(scanResult);
 
         ModuleDescriptor moduleDescriptor = new ModuleDescriptor();
         moduleDescriptor.setDisplayName(moduleDisplayName);
+        moduleDescriptor.setDescription(moduleDescription);
         moduleDescriptor.setComponents(components);
+        moduleDescriptor.setBuiltIn(isBuiltIn);
         moduleDescriptor.setName(moduleName);
         moduleDescriptor.setTypes(types);
         return moduleDescriptor;
     }
 
-    private List<TypeDescriptor> typesOf(ScanResult scanResult) {
-        TypeAnalyzer analyzer = new TypeAnalyzer(scanResult);
-        return analyzer.analyze();
-    }
-
-    private String moduleDisplayNameOf(ScanResult scanResult, String moduleName) {
-        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(Module.class.getName());
-        return classInfoList.stream()
-                .findFirst()
-                .map(classInfo -> ScannerUtils.annotationValueFrom(classInfo, Module.class, moduleName))
-                .orElse(moduleName);
-    }
-
-    private List<ComponentDescriptor> componentsOf(ScanResult scanResult) {
+    private List<ComponentDescriptor> moduleComponentsOf(ScanResult scanResult) {
         ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(ModuleComponent.class.getName());
         return classInfoList.stream()
                 .map(classInfo -> {
@@ -147,6 +141,35 @@ public class ModuleDescriptorAnalyzer {
                 })
                 .filter(descriptor -> !ComponentType.UNKNOWN.equals(descriptor.getType()))
                 .collect(toList());
+    }
+
+    private List<TypeDescriptor> moduleTypesOf(ScanResult scanResult) {
+        TypeAnalyzer analyzer = new TypeAnalyzer(scanResult);
+        return analyzer.analyze();
+    }
+
+    private Boolean moduleIsBuiltInOf(ScanResult scanResult) {
+        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(Module.class.getName());
+        return classInfoList.stream()
+                .findFirst()
+                .map((Function<ClassInfo, Boolean>) classInfo -> ScannerUtils.annotationParameterValueFrom(classInfo, Module.class, "builtIn", null))
+                .orElse(null);
+    }
+
+    private String moduleDisplayNameOf(ScanResult scanResult, String moduleName) {
+        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(Module.class.getName());
+        return classInfoList.stream()
+                .findFirst()
+                .map(classInfo -> ScannerUtils.annotationValueFrom(classInfo, Module.class, moduleName))
+                .orElse(moduleName);
+    }
+
+    private String moduleDescriptionOf(ScanResult scanResult) {
+        ClassInfoList classInfoList = scanResult.getClassesWithAnnotation(Module.class.getName());
+        return classInfoList.stream()
+                .findFirst()
+                .map((Function<ClassInfo, String>) classInfo -> ScannerUtils.annotationValueFrom(classInfo, Description.class, null))
+                .orElse(null);
     }
 
     private static ClassGraph instantiateScanner() {

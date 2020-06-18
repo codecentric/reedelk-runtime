@@ -23,6 +23,18 @@ public class ModuleDescriptor {
      */
     private String displayName;
     /**
+     * The description of this module
+     */
+    private String description;
+    /**
+     * The version of this module
+     */
+    private String version;
+    /**
+     * Some modules are built-in and packaged together with the runtime (such as flow-control)
+     */
+    private Boolean builtIn;
+    /**
      * A list of components descriptors. A module might contain 0 or more components
      * to be used inside integration flows.
      */
@@ -49,6 +61,30 @@ public class ModuleDescriptor {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public Boolean getBuiltIn() {
+        return builtIn;
+    }
+
+    public void setBuiltIn(Boolean builtIn) {
+        this.builtIn = builtIn;
     }
 
     public List<ComponentDescriptor> getComponents() {

@@ -16,4 +16,6 @@ public @interface Module {
 
     String value() default USE_DEFAULT_NAME;
 
+    boolean builtIn() default false;
+
 }
