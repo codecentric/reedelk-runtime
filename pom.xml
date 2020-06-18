@@ -168,6 +168,9 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
                         <version>2.8</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -212,13 +215,6 @@
         </pluginManagement>
 
         <plugins>
-            <!--  Force maven deploy plugin to this version, so that it supports 'altReleaseDeploymentRepository'
-            and 'altSnapshotDeploymentRepository' in .m2/settings.xml -->
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8</version>
-            </plugin>
-
             <!-- Surefire - unit tests-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
