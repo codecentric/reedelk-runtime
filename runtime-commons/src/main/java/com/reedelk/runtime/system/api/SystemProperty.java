@@ -10,4 +10,6 @@ public interface SystemProperty {
 
     String version();
 
+    String qualifier();
+
 }

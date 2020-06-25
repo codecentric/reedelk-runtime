@@ -39,7 +39,8 @@ public class RuntimeConfiguration extends Properties {
         configuration.put("com.reedelk.system.api.configuration.modules.directory", SystemConfiguration.modulesDirectory());
         // NAME_CONVENTION
         configuration.put("com.reedelk.system.api.configuration.runtime.version", Version.getVersion());
-
+        // NAME_CONVENTION
+        configuration.put("com.reedelk.system.api.configuration.runtime.qualifier", Version.getQualifier());
         return configuration;
     }
 

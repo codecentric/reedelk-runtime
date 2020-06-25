@@ -33,13 +33,10 @@ public class SystemHealth implements ProcessorSync {
     }
 
     private String healthStatus() {
-
         HealthGETRes health = new HealthGETRes();
-
         health.setStatus(UP_STATUS);
-
         health.setVersion(systemProperty.version());
-
+        health.setQualifier(systemProperty.qualifier());
         return InternalAPI.Health.V1.GET.Res.serialize(health);
     }
 }

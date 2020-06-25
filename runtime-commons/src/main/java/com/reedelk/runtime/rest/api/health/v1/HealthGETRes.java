@@ -4,6 +4,7 @@ public class HealthGETRes {
 
     private String version;
     private String status;
+    private String qualifier;
 
     public HealthGETRes() { }
 
@@ -21,5 +22,13 @@ public class HealthGETRes {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getQualifier() {
+        return qualifier;
+    }
+
+    public void setQualifier(String qualifier) {
+        this.qualifier = qualifier;
     }
 }

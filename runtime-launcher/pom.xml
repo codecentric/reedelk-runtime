@@ -13,6 +13,10 @@
 
     <artifactId>runtime-launcher</artifactId>
 
+    <properties>
+        <version.qualifier>CE</version.qualifier>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.felix</groupId>

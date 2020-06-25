@@ -9,6 +9,7 @@ public final class Version {
     private static final String VERSION = "${project.version}";
     private static final String GROUPID = "${project.groupId}";
     private static final String ARTIFACTID = "${project.artifactId}";
+    private static final String QUALIFIER = "${version.qualifier}";
 
     public static String getVersion() {
         return VERSION;
@@ -20,6 +21,10 @@ public final class Version {
 
     public static String getArtifactId() {
         return ARTIFACTID;
+    }
+
+    public static String getQualifier() {
+        return QUALIFIER;
     }
 
 }

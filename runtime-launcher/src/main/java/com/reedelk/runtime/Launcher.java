@@ -42,7 +42,7 @@ public class Launcher {
 
     public static void main(String[] args) {
 
-        String banner = message("runtime.banner", "  ", " ", " ", " ", " ", " ", Version.getVersion());
+        String banner = message("runtime.banner", "  ", " ", " ", " ", " ", " ", Version.getQualifier(), Version.getVersion());
         System.out.println(banner);
 
         long start = System.currentTimeMillis();

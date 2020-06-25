@@ -9,6 +9,7 @@ public class DefaultSystemPropertyService implements SystemProperty {
     private final String homeDirectory;
     private final String modulesDirectory;
     private final String runtimeVersion;
+    private final String runtimeQualifier;
 
     public DefaultSystemPropertyService(BundleContext context) {
         // NAME_CONVENTION
@@ -19,6 +20,8 @@ public class DefaultSystemPropertyService implements SystemProperty {
         modulesDirectory = context.getProperty("com.reedelk.system.api.configuration.modules.directory");
         // NAME_CONVENTION
         runtimeVersion = context.getProperty("com.reedelk.system.api.configuration.runtime.version");
+        // NAME_CONVENTION
+        runtimeQualifier = context.getProperty("com.reedelk.system.api.configuration.runtime.qualifier");
     }
 
     @Override
@@ -39,5 +42,10 @@ public class DefaultSystemPropertyService implements SystemProperty {
     @Override
     public String version() {
         return runtimeVersion;
+    }
+
+    @Override
+    public String qualifier() {
+        return runtimeQualifier;
     }
 }
