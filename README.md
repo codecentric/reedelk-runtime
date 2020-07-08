@@ -1,3 +1,8 @@
+[![][reedelk-logo]][reedelk-url]
+
+[![License: WTFPL](https://img.shields.io/badge/License-CPAL-blue.svg)](https://github.com/reedelk/reedelk-runtime/blob/develop/LICENSE.txt)
+[![Twitter](https://img.shields.io/twitter/follow/reedelk.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=reedelk)
+
 # Reedelk Runtime Platform (Community Edition)
 
 Reedelk is a lightweight integration platform which allows to design, build and execute integration flows connecting data and applications.
@@ -61,3 +66,8 @@ See attached image 'intellij-application-config.png' for the 'Application' confi
 - JDK 8 / JDK 11
 - Apache Maven 3.6.0
 - Python 3.7.2
+
+
+
+[reedelk-url]: https://www.reedelk.com/
+[reedelk-logo]: https://www.reedelk.com/github/reedelk-logo-github-readme.png
