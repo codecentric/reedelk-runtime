@@ -19,7 +19,7 @@ public class ResponseObject extends AbstractOpenApiSerializable implements Imple
     @Property("Description")
     @Hint("Successful Response")
     @Description("A short description of the response.")
-    private String description = Default.SUCCESS_RESPONSE.message;
+    private String description;
 
     @Property("Content")
     @KeyName("Media Type")
