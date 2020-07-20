@@ -1,6 +1,6 @@
 [![][reedelk-logo]][reedelk-url]
 
-[![License: WTFPL](https://img.shields.io/badge/License-CPAL-blue.svg)](https://github.com/reedelk/reedelk-runtime/blob/develop/LICENSE.txt)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Kong/kong/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/follow/reedelk.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=reedelk)
 
 # Reedelk Runtime Platform (Community Edition)
