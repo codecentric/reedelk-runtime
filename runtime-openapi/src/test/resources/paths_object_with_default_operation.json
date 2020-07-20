@@ -1,0 +1,11 @@
+{
+  "/mypath": {
+    "post": {
+      "responses": {
+        "default": {
+          "description": "My Response"
+        }
+      }
+    }
+  }
+}

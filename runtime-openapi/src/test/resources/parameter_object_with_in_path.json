@@ -1,0 +1,7 @@
+{
+  "name": "",
+  "in": "path",
+  "style": "form",
+  "required": true,
+  "schema": {"type": "string"}
+}

@@ -1,0 +1,10 @@
+{
+  "schemas": {
+    "MyString": {
+      "type": "string"
+    },
+    "MyInteger": {
+      "type": "integer"
+    }
+  }
+}

@@ -24,4 +24,12 @@ public class PathsObject extends AbstractOpenApiSerializable {
         });
         return pathsObject;
     }
+
+    public Map<String, Map<RestMethod, OperationObject>> getPaths() {
+        return paths;
+    }
+
+    public void setPaths(Map<String, Map<RestMethod, OperationObject>> paths) {
+        this.paths = paths;
+    }
 }

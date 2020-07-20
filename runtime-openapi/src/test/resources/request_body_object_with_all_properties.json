@@ -1,0 +1,5 @@
+{
+  "description": "My request body",
+  "content": {"application/json": {"example": "{\"id\":\"Dog\",\"name\":\"John\"}"}},
+  "required": true
+}

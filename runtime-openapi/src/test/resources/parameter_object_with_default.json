@@ -1,0 +1,6 @@
+{
+  "name": "",
+  "in": "query",
+  "style": "form",
+  "schema": {"type": "string"}
+}

@@ -1,0 +1,11 @@
+{
+  "/": {
+    "delete": {
+      "responses": {
+        "default": {
+          "description": "My Response"
+        }
+      }
+    }
+  }
+}

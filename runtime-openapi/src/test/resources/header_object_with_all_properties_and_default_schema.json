@@ -1,0 +1,12 @@
+{
+  "description": "My header description",
+  "style": "spaceDelimited",
+  "schema": {
+    "type": "array",
+    "items": {"type": "string"}
+  },
+  "example": "my header value",
+  "explode": true,
+  "deprecated": true,
+  "allowReserved": true
+}

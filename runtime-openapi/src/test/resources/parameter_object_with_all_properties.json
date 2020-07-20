@@ -1,0 +1,15 @@
+{
+  "name": "param1",
+  "description": "My parameter description",
+  "in": "query",
+  "style": "simple",
+  "schema": {
+    "type": "array",
+    "items": {"type": "string"}
+  },
+  "explode": true,
+  "deprecated": true,
+  "required": true,
+  "allowEmptyValue": true,
+  "allowReserved": true
+}

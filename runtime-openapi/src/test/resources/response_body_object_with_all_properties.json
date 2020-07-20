@@ -1,0 +1,27 @@
+{
+  "description": "My response description",
+  "content": {
+    "application/json": {
+      "example": "{\"id\":\"Dog\",\"name\":\"John\"}"
+    },
+    "text/xml": {
+      "example": "<note><to>Tove<\/to><from>Jani<\/from><heading>Reminder<\/heading><body>Don't forget me this weekend!<\/body><\/note>"
+    }
+  },
+  "headers": {
+    "x-my-header1": {
+      "description": "My header 1",
+      "style": "simple",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "x-my-header2": {
+      "description": "My header 2",
+      "style": "simple",
+      "schema": {
+        "type": "string"
+      }
+    }
+  }
+}

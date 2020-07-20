@@ -1,0 +1,6 @@
+{
+  "schema": {
+    "$ref": "#/components/schemas/Pet"
+  },
+  "example": "{\"id\":\"Dog\",\"name\":\"John\"}"
+}

@@ -1,0 +1,44 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/resource/{id}/{group}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "group",
+            "in": "path",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "My Response"
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}

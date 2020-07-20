@@ -1,0 +1,26 @@
+{
+  "/mypath": {
+    "get": {
+      "tags": [
+        "tag1",
+        "tag2"
+      ],
+      "summary": "My summary",
+      "description": "My response description",
+      "operationId": "myOperationId",
+      "responses": {
+        "200": {
+          "description": "200 Response",
+          "content": {
+            "application/json": {
+              "example": "{ \"name\": \"Mark\" }"
+            }
+          }
+        },
+        "401": {
+          "description": "401 Response"
+        }
+      }
+    }
+  }
+}
