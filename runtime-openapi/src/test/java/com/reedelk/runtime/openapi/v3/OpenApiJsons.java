@@ -61,17 +61,31 @@ public class OpenApiJsons {
 
     public enum ServerObject implements Provider {
 
-        WithAllProperties() {
+        WithAllPropertiesJson() {
             @Override
             public String path() {
-                return "server_object_with_all_properties.json";
+                return "server/server_object_with_all_properties.json";
             }
         },
 
-        WithDefaultProperties() {
+        WithAllPropertiesYaml() {
             @Override
             public String path() {
-                return "server_object_with_default_properties.json";
+                return "server/server_object_with_all_properties.yaml";
+            }
+        },
+
+        WithDefaultPropertiesJson() {
+            @Override
+            public String path() {
+                return "server/server_object_with_default_properties.json";
+            }
+        },
+
+        WithDefaultPropertiesYaml() {
+            @Override
+            public String path() {
+                return "server/server_object_with_default_properties.yaml";
             }
         },
     }

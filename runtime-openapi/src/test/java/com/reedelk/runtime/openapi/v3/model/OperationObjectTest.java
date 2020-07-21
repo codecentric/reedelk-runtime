@@ -38,7 +38,7 @@ class OperationObjectTest extends AbstractOpenApiSerializableTest {
         operation.setRequestBody(requestBody);
 
         // Expect
-        assertSerializedCorrectly(operation, OpenApiJsons.OperationObject.WithAllProperties);
+        assertSerializeJSON(operation, OpenApiJsons.OperationObject.WithAllProperties);
     }
 
     @Test
@@ -47,6 +47,6 @@ class OperationObjectTest extends AbstractOpenApiSerializableTest {
         OperationObject operation = new OperationObject();
 
         // Expect
-        assertSerializedCorrectly(operation, OpenApiJsons.OperationObject.WithDefault);
+        assertSerializeJSON(operation, OpenApiJsons.OperationObject.WithDefault);
     }
 }

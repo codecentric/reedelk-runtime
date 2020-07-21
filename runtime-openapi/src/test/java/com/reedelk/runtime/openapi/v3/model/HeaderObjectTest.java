@@ -19,7 +19,7 @@ class HeaderObjectTest extends AbstractOpenApiSerializableTest {
         header.setPredefinedSchema(PredefinedSchema.ARRAY_STRING);
 
         // Expect
-        assertSerializedCorrectly(header, OpenApiJsons.HeaderObject.WithAllPropertiesAndDefaultSchema);
+        assertSerializeJSON(header, OpenApiJsons.HeaderObject.WithAllPropertiesAndDefaultSchema);
     }
 
     /**
@@ -50,6 +50,6 @@ class HeaderObjectTest extends AbstractOpenApiSerializableTest {
         HeaderObject header = new HeaderObject();
 
         // Expect
-        assertSerializedCorrectly(header, OpenApiJsons.HeaderObject.WithDefaults);
+        assertSerializeJSON(header, OpenApiJsons.HeaderObject.WithDefaults);
     }
 }

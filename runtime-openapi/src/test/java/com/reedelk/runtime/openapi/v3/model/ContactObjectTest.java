@@ -14,7 +14,7 @@ public class ContactObjectTest extends AbstractOpenApiSerializableTest {
         contact.setEmail("support@example.com");
 
         // Expect
-        assertSerializedCorrectly(contact, OpenApiJsons.ContactObject.WithAllProperties);
+        assertSerializeJSON(contact, OpenApiJsons.ContactObject.WithAllProperties);
     }
 
     @Test
@@ -23,6 +23,6 @@ public class ContactObjectTest extends AbstractOpenApiSerializableTest {
         ContactObject contact = new ContactObject();
 
         // Expect (expect empty, because there are no required properties for contact)
-        assertSerializedCorrectly(contact, OpenApiJsons.ContactObject.WithDefaultProperties);
+        assertSerializeJSON(contact, OpenApiJsons.ContactObject.WithDefaultProperties);
     }
 }

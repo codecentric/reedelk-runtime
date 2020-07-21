@@ -8,7 +8,9 @@ import java.util.Map;
 
 public class ServerObject extends AbstractOpenApiSerializable {
 
-    private String url = "/"; // Default server URL: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schema
+    // @Mandatory
+    // Default server URL is Mandatory: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#serverObject
+    private String url = "/";
     private String description;
     private Map<String, ServerVariableObject> variables;
 
@@ -38,10 +40,10 @@ public class ServerObject extends AbstractOpenApiSerializable {
 
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        set(map, "url", url);
-        set(map, "description", description);
-        set(map, "variables", variables, context);
-        return map;
+        Map<String, Object> serverObject = new LinkedHashMap<>();
+        set(serverObject, "url", url);
+        set(serverObject, "description", description);
+        set(serverObject, "variables", variables, context);
+        return serverObject;
     }
 }

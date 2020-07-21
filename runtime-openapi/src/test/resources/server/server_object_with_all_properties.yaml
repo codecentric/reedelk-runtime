@@ -1,0 +1,11 @@
+url: https://{environment}.{domain}.com/v1
+description: Development server
+variables:
+  environment:
+    default: dev
+    description: Environment variable
+    enum: [dev, uat, prod]
+  domain:
+    default: localhost
+    description: Domain variable
+    enum: [localhost, mydomain1, mydomain2]

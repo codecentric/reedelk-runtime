@@ -16,7 +16,7 @@ class ServerVariableObjectTest extends AbstractOpenApiSerializableTest {
         serverVariable.setDefaultValue("dev");
 
         // Expect
-        assertSerializedCorrectly(serverVariable, OpenApiJsons.ServerVariableObject.WithAllProperties);
+        assertSerializeJSON(serverVariable, OpenApiJsons.ServerVariableObject.WithAllProperties);
     }
 
     @Test
@@ -25,6 +25,6 @@ class ServerVariableObjectTest extends AbstractOpenApiSerializableTest {
         ServerVariableObject serverVariable = new ServerVariableObject();
 
         // When
-        assertSerializedCorrectly(serverVariable, OpenApiJsons.ServerVariableObject.WithDefaultProperties);
+        assertSerializeJSON(serverVariable, OpenApiJsons.ServerVariableObject.WithDefaultProperties);
     }
 }

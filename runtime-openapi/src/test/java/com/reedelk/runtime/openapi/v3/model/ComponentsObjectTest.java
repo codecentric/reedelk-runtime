@@ -44,6 +44,6 @@ class ComponentsObjectTest extends AbstractOpenApiSerializableTest {
         OpenApiSerializableContext context = new OpenApiSerializableContext(componentsObject);
 
         // Expect
-        assertSerializedCorrectly(context, componentsObject, OpenApiJsons.ComponentsObject.WithNoSchemas);
+        assertSerializeJSON(context, componentsObject, OpenApiJsons.ComponentsObject.WithNoSchemas);
     }
 }

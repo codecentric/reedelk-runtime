@@ -13,7 +13,7 @@ class LicenseObjectTest extends AbstractOpenApiSerializableTest {
         license.setUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
 
         // Expect
-        assertSerializedCorrectly(license, OpenApiJsons.LicenseObject.WithAllProperties);
+        assertSerializeJSON(license, OpenApiJsons.LicenseObject.WithAllProperties);
     }
 
     @Test
@@ -22,6 +22,6 @@ class LicenseObjectTest extends AbstractOpenApiSerializableTest {
         LicenseObject license = new LicenseObject();
 
         // Expect
-        assertSerializedCorrectly(license, OpenApiJsons.LicenseObject.WithDefaultProperties);
+        assertSerializeJSON(license, OpenApiJsons.LicenseObject.WithDefaultProperties);
     }
 }

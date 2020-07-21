@@ -17,6 +17,6 @@ class OpenApiObjectTest extends AbstractOpenApiSerializableTest {
         OpenApiObject openApi = new OpenApiObject();
 
         // Expect
-        assertSerializedCorrectly(openApi, OpenApiJsons.OpenApiObject.WithDefaultInfoAndServersAndPaths);
+        assertSerializeJSON(openApi, OpenApiJsons.OpenApiObject.WithDefaultInfoAndServersAndPaths);
     }
 }

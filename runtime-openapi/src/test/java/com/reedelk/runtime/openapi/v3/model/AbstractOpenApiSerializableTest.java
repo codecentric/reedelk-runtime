@@ -6,21 +6,31 @@ import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public abstract class AbstractOpenApiSerializableTest {
 
-    protected void assertSerializedCorrectly(OpenApiSerializable serializable, OpenApiJsons.Provider expected) {
+    protected void assertSerializeJSON(OpenApiSerializable serializable, OpenApiJsons.Provider expected) {
         ComponentsObject componentsObject = new ComponentsObject();
         OpenApiSerializableContext context = new OpenApiSerializableContext(componentsObject);
         String actualJson = serializable.toJson(context);
-        assertSerializedCorrectly(actualJson, expected);
+        assertSerializeJSON(actualJson, expected);
     }
 
-    protected void assertSerializedCorrectly(OpenApiSerializableContext context, OpenApiSerializable serializable, OpenApiJsons.Provider expected) {
+    protected void assertSerializeYAML(OpenApiSerializable serializable, OpenApiJsons.Provider expected) {
+        ComponentsObject componentsObject = new ComponentsObject();
+        OpenApiSerializableContext context = new OpenApiSerializableContext(componentsObject);
+        String actualYaml = serializable.toYaml(context);
+        String expectedYaml = expected.string();
+        assertThat(actualYaml).isEqualToNormalizingNewlines(expectedYaml);
+    }
+
+    protected void assertSerializeJSON(OpenApiSerializableContext context, OpenApiSerializable serializable, OpenApiJsons.Provider expected) {
         String actualJson = serializable.toJson(context);
-        assertSerializedCorrectly(actualJson, expected);
+        assertSerializeJSON(actualJson, expected);
     }
 
-    protected void assertSerializedCorrectly(String actual, OpenApiJsons.Provider expected) {
+    protected void assertSerializeJSON(String actual, OpenApiJsons.Provider expected) {
         String expectedJson = expected.string();
         JSONAssert.assertEquals(expectedJson, actual, JSONCompareMode.STRICT);
     }

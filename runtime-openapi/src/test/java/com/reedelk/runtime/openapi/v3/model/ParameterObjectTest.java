@@ -22,7 +22,7 @@ class ParameterObjectTest extends AbstractOpenApiSerializableTest {
         parameter.setPredefinedSchema(PredefinedSchema.ARRAY_STRING);
 
         // Expect
-        assertSerializedCorrectly(parameter, OpenApiJsons.ParameterObject.WithAllProperties);
+        assertSerializeJSON(parameter, OpenApiJsons.ParameterObject.WithAllProperties);
     }
 
     @Test
@@ -31,7 +31,7 @@ class ParameterObjectTest extends AbstractOpenApiSerializableTest {
         ParameterObject parameter = new ParameterObject();
 
         // Expect
-        assertSerializedCorrectly(parameter, OpenApiJsons.ParameterObject.WithDefault);
+        assertSerializeJSON(parameter, OpenApiJsons.ParameterObject.WithDefault);
     }
 
     @Test
@@ -41,6 +41,6 @@ class ParameterObjectTest extends AbstractOpenApiSerializableTest {
         parameter.setIn(ParameterLocation.path);
 
         // Expect
-        assertSerializedCorrectly(parameter, OpenApiJsons.ParameterObject.WithInPath);
+        assertSerializeJSON(parameter, OpenApiJsons.ParameterObject.WithInPath);
     }
 }

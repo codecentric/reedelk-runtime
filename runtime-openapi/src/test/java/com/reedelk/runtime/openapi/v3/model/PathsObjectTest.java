@@ -14,7 +14,7 @@ class PathsObjectTest extends AbstractOpenApiSerializableTest {
         PathsObject paths = new PathsObject();
 
         // Expect
-        assertSerializedCorrectly(paths, OpenApiJsons.PathsObject.WithDefaultPaths);
+        assertSerializeJSON(paths, OpenApiJsons.PathsObject.WithDefaultPaths);
     }
 /**
     @Test
