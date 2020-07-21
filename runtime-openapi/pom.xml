@@ -13,22 +13,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.reedelk</groupId>
-            <artifactId>runtime-api</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.26</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.component.annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Test dependencies -->
