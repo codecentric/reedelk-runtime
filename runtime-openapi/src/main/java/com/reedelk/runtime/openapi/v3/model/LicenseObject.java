@@ -32,8 +32,8 @@ public class LicenseObject extends AbstractOpenApiSerializable {
     @Override
     public Map<String, Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("name", ofNullable(name).orElse("API License"));
-        map.put("url", url);
+        set(map, "name", ofNullable(name).orElse("API License"));
+        set(map, "url", url);
         return map;
     }
 }

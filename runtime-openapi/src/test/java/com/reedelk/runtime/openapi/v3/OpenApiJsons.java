@@ -10,34 +10,62 @@ public class OpenApiJsons {
 
     public enum InfoObject implements Provider {
 
-        WithAllProperties() {
+        WithAllPropertiesJson() {
             @Override
             public String path() {
-                return "info_object_with_all_properties.json";
+                return "info/info_object_with_all_properties.json";
             }
         },
 
-        WithDefaultProperties() {
+        WithAllPropertiesYaml() {
             @Override
             public String path() {
-                return "info_object_with_default_properties.json";
+                return "info/info_object_with_all_properties.yaml";
+            }
+        },
+
+        WithDefaultPropertiesJson() {
+            @Override
+            public String path() {
+                return "info/info_object_with_default_properties.json";
+            }
+        },
+
+        WithDefaultPropertiesYaml() {
+            @Override
+            public String path() {
+                return "info/info_object_with_default_properties.yaml";
             }
         }
     }
 
     public enum LicenseObject implements Provider {
 
-        WithAllProperties() {
+        WithAllPropertiesJson() {
             @Override
             public String path() {
-                return "license_object_with_all_properties.json";
+                return "license/license_object_with_all_properties.json";
             }
         },
 
-        WithDefaultProperties() {
+        WithAllPropertiesYaml() {
             @Override
             public String path() {
-                return "license_object_with_default_properties.json";
+                return "license/license_object_with_all_properties.yaml";
+            }
+        },
+
+        WithDefaultPropertiesJson() {
+            @Override
+            public String path() {
+                return "license/license_object_with_default_properties.json";
+            }
+        },
+
+        WithDefaultPropertiesYaml() {
+            @Override
+            public String path() {
+                return "license/license_object_with_default_properties.yaml";
             }
         }
     }
@@ -92,19 +120,33 @@ public class OpenApiJsons {
 
     public enum ServerVariableObject implements Provider {
 
-        WithAllProperties() {
+        WithAllPropertiesJson() {
             @Override
             public String path() {
-                return "server_variable_object_with_all_properties.json";
+                return "servervariable/server_variable_object_with_all_properties.json";
             }
         },
 
-        WithDefaultProperties() {
+        WithAllPropertiesYaml() {
             @Override
             public String path() {
-                return "server_variable_object_with_default_properties.json";
+                return "servervariable/server_variable_object_with_all_properties.yaml";
             }
         },
+
+        WithDefaultPropertiesJson() {
+            @Override
+            public String path() {
+                return "servervariable/server_variable_object_with_default_properties.json";
+            }
+        },
+
+        WithDefaultPropertiesYaml() {
+            @Override
+            public String path() {
+                return "servervariable/server_variable_object_with_default_properties.yaml";
+            }
+        }
     }
 
     public enum OpenApiObject implements Provider {

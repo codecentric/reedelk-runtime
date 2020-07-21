@@ -26,7 +26,8 @@ class InfoObjectTest extends AbstractOpenApiSerializableTest {
         info.setLicense(license);
 
         // Expect
-        assertSerializeJSON(info, OpenApiJsons.InfoObject.WithAllProperties);
+        assertSerializeJSON(info, OpenApiJsons.InfoObject.WithAllPropertiesJson);
+        assertSerializeYAML(info, OpenApiJsons.InfoObject.WithAllPropertiesYaml);
     }
 
     @Test
@@ -35,6 +36,7 @@ class InfoObjectTest extends AbstractOpenApiSerializableTest {
         InfoObject info = new InfoObject();
 
         // Expect
-        assertSerializeJSON(info, OpenApiJsons.InfoObject.WithDefaultProperties);
+        assertSerializeJSON(info, OpenApiJsons.InfoObject.WithDefaultPropertiesJson);
+        assertSerializeYAML(info, OpenApiJsons.InfoObject.WithDefaultPropertiesYaml);
     }
 }

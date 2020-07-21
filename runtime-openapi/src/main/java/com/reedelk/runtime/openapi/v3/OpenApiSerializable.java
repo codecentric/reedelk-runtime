@@ -21,4 +21,10 @@ public interface OpenApiSerializable {
         Yaml yaml = new Yaml();
         return yaml.dump(serialized);
     }
+
+    // REST Listener Model
+    default String toRestListenerModel(OpenApiSerializableContext context) {
+        Map<String, Object> serialized = serialize(context);
+        return new JSONObject(serialized).toString(JSON_INDENT_FACTOR);
+    }
 }
