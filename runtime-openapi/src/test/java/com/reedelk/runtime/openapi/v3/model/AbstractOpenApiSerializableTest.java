@@ -11,15 +11,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class AbstractOpenApiSerializableTest {
 
     protected void assertSerializeJSON(OpenApiSerializable serializable, OpenApiJsons.Provider expected) {
-        ComponentsObject componentsObject = new ComponentsObject();
-        OpenApiSerializableContext context = new OpenApiSerializableContext(componentsObject);
+        OpenApiSerializableContext context = new OpenApiSerializableContext();
         String actualJson = serializable.toJson(context);
         assertSerializeJSON(actualJson, expected);
     }
 
     protected void assertSerializeYAML(OpenApiSerializable serializable, OpenApiJsons.Provider expected) {
-        ComponentsObject componentsObject = new ComponentsObject();
-        OpenApiSerializableContext context = new OpenApiSerializableContext(componentsObject);
+        OpenApiSerializableContext context = new OpenApiSerializableContext();
         String actualYaml = serializable.toYaml(context);
         String expectedYaml = expected.string();
         assertThat(actualYaml).isEqualToNormalizingNewlines(expectedYaml);

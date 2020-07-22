@@ -1,13 +1,5 @@
 package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.model.SchemaReference;
-import org.json.JSONObject;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static java.util.Optional.ofNullable;
-
 public class JsonSchemaUtils {
 
     private static final String JSON_PROPERTY_SCHEMA = "schema";
@@ -16,6 +8,8 @@ public class JsonSchemaUtils {
     private JsonSchemaUtils() {
     }
 
+    // TODO:
+    /**
     public static void setSchema(OpenApiSerializableContext context,
                                  JSONObject serialized,
                                  PredefinedSchema predefinedSchema,
@@ -33,5 +27,5 @@ public class JsonSchemaUtils {
             // Predefined schema
             serialized.put(JSON_PROPERTY_SCHEMA, new JSONObject(predefinedSchema.schema()));
         }
-    }
+    }*/
 }

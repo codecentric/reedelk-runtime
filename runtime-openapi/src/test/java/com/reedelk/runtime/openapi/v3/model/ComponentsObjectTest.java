@@ -41,7 +41,7 @@ class ComponentsObjectTest extends AbstractOpenApiSerializableTest {
     void shouldCorrectlySerializeWhenNoSchemas() {
         // Given
         ComponentsObject componentsObject = new ComponentsObject();
-        OpenApiSerializableContext context = new OpenApiSerializableContext(componentsObject);
+        OpenApiSerializableContext context = new OpenApiSerializableContext();
 
         // Expect
         assertSerializeJSON(context, componentsObject, OpenApiJsons.ComponentsObject.WithNoSchemas);

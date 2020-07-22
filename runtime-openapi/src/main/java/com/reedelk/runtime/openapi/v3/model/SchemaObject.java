@@ -24,8 +24,11 @@ public class SchemaObject extends AbstractOpenApiSerializable {
 
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
-        String jsonSchema = schema.data();
-        JSONObject schemaAsJsonObject = new JSONObject(jsonSchema);
+
+        // TODO: Complete me
+        //String jsonSchema = schema.data(context);
+
+        JSONObject schemaAsJsonObject = new JSONObject("{}");
         PROPERTIES_TO_EXCLUDE_FROM_SCHEMA.forEach(propertyName ->
                 removePropertyIfExists(schemaAsJsonObject, propertyName));
         return schemaAsJsonObject.toMap();
