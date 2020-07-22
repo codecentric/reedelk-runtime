@@ -125,28 +125,27 @@ public class ParameterObject extends AbstractOpenApiSerializable {
     @Override
     public Map<String, Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("name", Optional.ofNullable(name).orElse(""));
-        map.put("description", description);
-        map.put("in", ofNullable(in).orElse(query).name().toLowerCase());
-        map.put("style", style.name());
+        set(map, "name", Optional.ofNullable(name).orElse(""));
+        set(map, "description", description);
+        set(map, "in", ofNullable(in).orElse(query).name().toLowerCase());
+        set(map, "style", style.name());
+        set(map, "example", example);
+        set(map, "explode", explode);
+        set(map, "deprecated", deprecated);
 
         // TODO
        // JsonSchemaUtils.setSchema(context, map, predefinedSchema, schema);
 
-        map.put("example", example);
-        map.put("explode", explode);
-        map.put("deprecated", deprecated);
-
         // If the parameter location is "path", this property is REQUIRED and its value MUST be true.
         // Otherwise, the property MAY be included and its default value is false.
         if (ParameterLocation.path.equals(in)) {
-            map.put("required", Boolean.TRUE);
+            set(map, "required", Boolean.TRUE);
         } else {
-            map.put("required", required);
+            set(map, "required", required);
         }
 
-        map.put("allowEmptyValue", allowEmptyValue);
-        map.put("allowReserved", allowReserved);
+        set(map, "allowEmptyValue", allowEmptyValue);
+        set(map, "allowReserved", allowReserved);
         return map;
     }
 }
