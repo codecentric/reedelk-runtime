@@ -97,6 +97,7 @@ public class OperationObject extends AbstractOpenApiSerializable {
         set(map, "description", description);
         set(map, "operationId", operationId);
         set(map, "parameters", parameters, context);
+        if (requestBody != null) set(map, "requestBody", requestBody, context);
         if (responses.isEmpty()) {
             // make sure at least one default response is present if there are
             // no user defined responses.
