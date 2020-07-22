@@ -1,6 +1,7 @@
 package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
+import com.reedelk.runtime.openapi.v3.JsonSchemaUtils;
 import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
 import com.reedelk.runtime.openapi.v3.PredefinedSchema;
 
@@ -89,8 +90,7 @@ public class HeaderObject extends AbstractOpenApiSerializable {
         set(map, "description", description);
         set(map, "style", style.name());
 
-        // TODO
-        //JsonSchemaUtils.setSchema(context, map, predefinedSchema, schema);
+        JsonSchemaUtils.setSchema(context, map, predefinedSchema, schema);
 
         set(map, "example", example);
         set(map, "explode", explode);

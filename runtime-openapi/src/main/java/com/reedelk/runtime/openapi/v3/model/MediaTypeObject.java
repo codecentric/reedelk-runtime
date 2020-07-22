@@ -35,6 +35,7 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
 
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "schema", schemaMap);
+
         if (example != null) {
             set(map, "example", new JSONObject(example.data()).toMap());
         }

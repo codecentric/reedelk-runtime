@@ -92,11 +92,11 @@ public class OperationObject extends AbstractOpenApiSerializable {
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        setList(map, "tags", tags);
+        set(map, "exclude", exclude);
+        set(map, "deprecated", deprecated);
         set(map, "summary", summary);
         set(map, "description", description);
         set(map, "operationId", operationId);
-        set(map, "parameters", parameters, context);
         if (requestBody != null) set(map, "requestBody", requestBody, context);
         if (responses.isEmpty()) {
             // make sure at least one default response is present if there are
@@ -104,6 +104,8 @@ public class OperationObject extends AbstractOpenApiSerializable {
             responses.put("default", new ResponseObject());
         }
         set(map, "responses", responses, context);
+        set(map, "parameters", parameters, context);
+        setList(map, "tags", tags);
         return map;
     }
 }
