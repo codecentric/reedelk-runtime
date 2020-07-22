@@ -2,6 +2,7 @@ package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
 import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,12 +35,15 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
 
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "schema", schemaMap);
+        if (example != null) {
+            set(map, "example", new JSONObject(example.data()).toMap());
+        }
         return map;
     }
 }
 
-/**
- * Example:
+/*
+ * Media Type: Example:
  * {
  *   "application/json": {
  *     "schema": {
