@@ -72,4 +72,9 @@ public class OpenApiObject extends AbstractOpenApiSerializable {
         set(map, "components", components, context);
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

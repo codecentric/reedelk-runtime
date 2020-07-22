@@ -41,6 +41,11 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
         }
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }
 
 /*

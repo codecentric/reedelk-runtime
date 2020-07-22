@@ -11,6 +11,14 @@ public class PathsObject extends AbstractOpenApiSerializable {
 
     private Map<String, Map<RestMethod, OperationObject>> paths = new TreeMap<>();
 
+    public Map<String, Map<RestMethod, OperationObject>> getPaths() {
+        return paths;
+    }
+
+    public void setPaths(Map<String, Map<RestMethod, OperationObject>> paths) {
+        this.paths = paths;
+    }
+
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> pathsObject = new LinkedHashMap<>();
@@ -24,11 +32,8 @@ public class PathsObject extends AbstractOpenApiSerializable {
         return pathsObject;
     }
 
-    public Map<String, Map<RestMethod, OperationObject>> getPaths() {
-        return paths;
-    }
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
 
-    public void setPaths(Map<String, Map<RestMethod, OperationObject>> paths) {
-        this.paths = paths;
     }
 }

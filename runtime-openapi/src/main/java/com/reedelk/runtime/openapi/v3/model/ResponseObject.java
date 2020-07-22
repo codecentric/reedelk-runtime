@@ -45,4 +45,9 @@ public class ResponseObject extends AbstractOpenApiSerializable {
         set(responseObject, "headers", headers, context);
         return responseObject;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

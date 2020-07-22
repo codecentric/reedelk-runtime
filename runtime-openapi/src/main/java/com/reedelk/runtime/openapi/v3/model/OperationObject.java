@@ -108,4 +108,9 @@ public class OperationObject extends AbstractOpenApiSerializable {
         setList(map, "tags", tags);
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

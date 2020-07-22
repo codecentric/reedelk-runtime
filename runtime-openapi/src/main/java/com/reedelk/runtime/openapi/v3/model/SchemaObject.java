@@ -21,4 +21,9 @@ public class SchemaObject extends AbstractOpenApiSerializable {
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
         return SchemaSerializer.serialize(context, schema);
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

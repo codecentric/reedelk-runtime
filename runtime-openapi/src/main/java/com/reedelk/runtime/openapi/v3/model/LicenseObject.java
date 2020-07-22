@@ -36,4 +36,9 @@ public class LicenseObject extends AbstractOpenApiSerializable {
         set(map, "url", url);
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

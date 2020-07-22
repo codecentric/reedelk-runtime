@@ -76,4 +76,9 @@ public class InfoObject extends AbstractOpenApiSerializable {
         set(map, "version", ofNullable(version).orElse("v1")); // REQUIRED
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

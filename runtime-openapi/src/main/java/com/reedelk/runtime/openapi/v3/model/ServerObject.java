@@ -48,5 +48,10 @@ public class ServerObject extends AbstractOpenApiSerializable {
         set(serverObject, "variables", variables, context);
         return serverObject;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }
 

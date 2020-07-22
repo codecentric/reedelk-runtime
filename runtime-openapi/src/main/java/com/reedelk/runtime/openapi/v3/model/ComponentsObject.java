@@ -40,4 +40,9 @@ public class ComponentsObject extends AbstractOpenApiSerializable {
         set(map,"schemas", schemasMap);
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

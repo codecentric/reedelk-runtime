@@ -50,4 +50,9 @@ public class RequestBodyObject extends AbstractOpenApiSerializable {
         set(map, "required", required);
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }

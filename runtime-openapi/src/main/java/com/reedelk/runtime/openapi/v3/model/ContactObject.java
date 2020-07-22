@@ -44,4 +44,9 @@ public class ContactObject extends AbstractOpenApiSerializable {
         set(map, "email", email);
         return map;
     }
+
+    @Override
+    public void deserialize(Map<String, Object> serialized) {
+
+    }
 }
