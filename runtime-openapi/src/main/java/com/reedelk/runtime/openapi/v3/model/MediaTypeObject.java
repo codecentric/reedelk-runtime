@@ -29,12 +29,48 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
 
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
-        Map<String, Object> map = new LinkedHashMap<>();
+        Map<String, Object> schemaMap = new LinkedHashMap<>();
+        set(schemaMap, "$ref", context.schemaReference(schema));
 
-        // TODO:
-        //JsonSchemaUtils.setSchema(context, serialized, PredefinedSchema.NONE, schema);
-        // TODO:
-        //set(map, "example", example);
+        Map<String, Object> map = new LinkedHashMap<>();
+        set(map, "schema", schemaMap);
         return map;
     }
 }
+
+/**
+ * Example:
+ * {
+ *   "application/json": {
+ *     "schema": {
+ *          "$ref": "#/components/schemas/Pet"
+ *     },
+ *     "examples": {
+ *       "cat" : {
+ *         "summary": "An example of a cat",
+ *         "value":
+ *           {
+ *             "name": "Fluffy",
+ *             "petType": "Cat",
+ *             "color": "White",
+ *             "gender": "male",
+ *             "breed": "Persian"
+ *           }
+ *       },
+ *       "dog": {
+ *         "summary": "An example of a dog with a cat's name",
+ *         "value" :  {
+ *           "name": "Puma",
+ *           "petType": "Dog",
+ *           "color": "Black",
+ *           "gender": "Female",
+ *           "breed": "Mixed"
+ *         },
+ *       "frog": {
+ *           "$ref": "#/components/examples/frog-example"
+ *         }
+ *       }
+ *     }
+ *   }
+ * }
+ */

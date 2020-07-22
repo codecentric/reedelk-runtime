@@ -10,8 +10,11 @@ public class OpenApiSerializableContext {
 
     private static final String COMPONENTS_SCHEMA_REF_TEMPLATE = "#/components/schemas/%s";
 
-    private final Map<String,SchemaReference> SCHEMA_MAP = new HashMap();
+    private final Map<String,SchemaReference> SCHEMA_MAP = new HashMap<>();
 
+    public String schemaReference(SchemaReference schema) {
+        return String.format(COMPONENTS_SCHEMA_REF_TEMPLATE, schema.getSchemaId());
+    }
 
     public void schemaRegister(SchemaReference schema) {
         if (!SCHEMA_MAP.containsKey(schema.getSchemaId())) {
