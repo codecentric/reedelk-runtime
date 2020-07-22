@@ -12,11 +12,4 @@ public class SchemaReference {
         this.schemaId = schemaId;
     }
 
-    public String data() {
-        return null;
-    }
-
-    public String path() {
-        return null;
-    }
 }
