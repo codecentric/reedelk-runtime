@@ -1,15 +1,9 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-public class SchemaReference {
+public interface SchemaReference {
 
-    private String schemaId;
+    String getSchemaId();
 
-    public String getSchemaId() {
-        return schemaId;
-    }
-
-    public void setSchemaId(String schemaId) {
-        this.schemaId = schemaId;
-    }
+    String getSchemaData();
 
 }

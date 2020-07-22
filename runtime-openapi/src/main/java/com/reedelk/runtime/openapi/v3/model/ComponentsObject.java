@@ -6,6 +6,7 @@ import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ComponentsObject extends AbstractOpenApiSerializable {
 
@@ -25,6 +26,17 @@ public class ComponentsObject extends AbstractOpenApiSerializable {
         Map<String, Object> schemasMap = new LinkedHashMap<>();
         schemas.forEach((schemaId, schemaObject) ->
                 set(schemasMap, schemaId, schemaObject.serialize(context)));
+
+        Set<String> schemasIds = context.schemasIds();
+        schemasIds.forEach(schemaId -> {
+            if (!schemas.containsKey(schemaId)) {
+                // Add the schema only if it does not exists. Meaning that the user
+                // has not already added the schema.
+                Map<String, Object> serializedSchema = SchemaSerializer.serialize(context, schemaId);
+                set(schemasMap, schemaId, serializedSchema);
+            }
+        });
+
         set(map,"schemas", schemasMap);
         return map;
     }

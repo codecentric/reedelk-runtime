@@ -68,6 +68,7 @@ public class OpenApiObject extends AbstractOpenApiSerializable {
 
         set(map, "servers", servers, context);
         set(map, "paths", paths, context); // REQUIRED
+
         set(map, "components", components, context);
         return map;
     }
