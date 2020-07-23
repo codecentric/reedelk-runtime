@@ -30,15 +30,18 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
 
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
-        Map<String, Object> schemaMap = new LinkedHashMap<>();
-        set(schemaMap, "$ref", context.schemaReference(schema));
-
         Map<String, Object> map = new LinkedHashMap<>();
-        set(map, "schema", schemaMap);
+
+        if (schema != null) {
+            Map<String, Object> schemaMap = new LinkedHashMap<>();
+            set(schemaMap, "$ref", context.schemaReference(schema));
+            set(map, "schema", schemaMap);
+        }
 
         if (example != null) {
             set(map, "example", new JSONObject(example.data()).toMap());
         }
+
         return map;
     }
 
