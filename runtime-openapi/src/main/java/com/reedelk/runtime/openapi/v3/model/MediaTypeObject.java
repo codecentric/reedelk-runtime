@@ -25,7 +25,8 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
         return schema;
     }
 
-    public void setSchema(SchemaReference schema) {
+    public void setSchema(SchemaReference schema, OpenApiSerializableContext context) {
+        context.schemaRegister(schema);
         this.schema = schema;
     }
 
