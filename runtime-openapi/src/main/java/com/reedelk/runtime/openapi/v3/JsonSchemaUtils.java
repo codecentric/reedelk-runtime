@@ -15,37 +15,35 @@ public class JsonSchemaUtils {
     private JsonSchemaUtils() {
     }
 
+    // Sets the following structure in the parent if the predefined schema is 'NONE'.
+    // schema {
+    //      "$ref": "#/components/schemas/mySchema"
+    // }
+    // Otherwise it sets the predefined schema:
+    // schema {
+    //      "type": "integer"
+    //      "format": "int64"
+    // }
     public static void setSchema(OpenApiSerializableContext context,
                                  Map<String, Object> parent,
                                  PredefinedSchema predefinedSchema,
                                  SchemaReference schema) {
         // Custom schema
         if (PredefinedSchema.NONE.equals(predefinedSchema)) {
-            Optional.ofNullable(schema).ifPresent(theSchema -> {
-                // schema {
-                //      "$ref": "#/components/schemas/mySchema"
-                // }
-                Map<String, Object> schemaReferenceObject = new LinkedHashMap<>();
-                schemaReferenceObject.put(JSON_PROPERTY_REF, context.schemaReference(schema));
-                parent.put(JSON_PROPERTY_SCHEMA, schemaReferenceObject);
-            });
+            setSchema(context, parent, schema);
         } else {
-            // Predefined schema
-            // schema {
-            //      "type": "integer"
-            //      "format": "int64"
-            // }
             parent.put(JSON_PROPERTY_SCHEMA, new JSONObject(predefinedSchema.schema()).toMap());
         }
     }
 
+    // Sets the following structure in the parent:
+    // schema {
+    //      "$ref": "#/components/schemas/mySchema"
+    // }
     public static void setSchema(OpenApiSerializableContext context,
                                  Map<String, Object> parent,
                                  SchemaReference schema) {
         Optional.ofNullable(schema).ifPresent(theSchema -> {
-            // schema {
-            //      "$ref": "#/components/schemas/mySchema"
-            // }
             Map<String, Object> schemaReferenceObject = new LinkedHashMap<>();
             schemaReferenceObject.put(JSON_PROPERTY_REF, context.schemaReference(schema));
             parent.put(JSON_PROPERTY_SCHEMA, schemaReferenceObject);
