@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.model.ExampleReference;
+import com.reedelk.runtime.openapi.v3.model.Example;
 import com.reedelk.runtime.openapi.v3.model.Schema;
 import org.json.JSONObject;
 
@@ -29,7 +29,7 @@ public abstract class AbstractOpenApiSerializable implements OpenApiSerializable
         });
     }
 
-    protected void set(Map<String, Object> parent, ExampleReference example) {
+    protected void set(Map<String, Object> parent, Example example) {
         set(parent, JSON_PROPERTY_EXAMPLE, new JSONObject(example.data()).toMap());
     }
 

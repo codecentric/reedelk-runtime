@@ -46,8 +46,28 @@ public class ResponseObject extends AbstractOpenApiSerializable {
         return responseObject;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        description = getString(serialized, "description");
+        if (serialized.containsKey("content")) {
+            Map<String,Map<String,Object>> contentMap = (Map<String, Map<String, Object>>) serialized.get("content");
+            contentMap.forEach((contentType, mediaTypeObjectMap) -> {
+                MediaTypeObject mediaTypeObject = new MediaTypeObject();
+                mediaTypeObject.deserialize(mediaTypeObjectMap);
+                content.put(contentType, mediaTypeObject);
+            });
+        }
+        if (serialized.containsKey("headers")) {
+            Map<String, Map<String,Object>> headersMap = (Map<String, Map<String, Object>>) serialized.get("headers");
+            headersMap.forEach((headerName, headerObjectMap) -> {
+                HeaderObject headerObject = new HeaderObject();
+                headerObject.deserialize(headerObjectMap);
+                headers.put(headerName, headerObject);
+            });
+        }
     }
+
+
+
 }

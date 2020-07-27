@@ -8,14 +8,14 @@ import java.util.Map;
 
 public class MediaTypeObject extends AbstractOpenApiSerializable {
 
-    private ExampleReference example;
+    private Example example;
     private Schema schema;
 
-    public ExampleReference getExample() {
+    public Example getExample() {
         return example;
     }
 
-    public void setExample(ExampleReference example) {
+    public void setExample(Example example) {
         this.example = example;
     }
 

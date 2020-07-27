@@ -109,6 +109,7 @@ public class OperationObject extends AbstractOpenApiSerializable {
         return map;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void deserialize(Map<String, Object> serialized) {
         exclude = getBoolean(serialized, "exclude");
@@ -118,7 +119,7 @@ public class OperationObject extends AbstractOpenApiSerializable {
         operationId = getString(serialized, "operationId");
         if (serialized.containsKey("requestBody")) {
             RequestBodyObject requestBodyObject = new RequestBodyObject();
-            requestBodyObject.deserialize((Map<String,Object>)serialized.get("requestBody"));
+            requestBodyObject.deserialize(getMap(serialized, "requestBody"));
             requestBody = requestBodyObject;
         }
         if (serialized.containsKey("responses")) {

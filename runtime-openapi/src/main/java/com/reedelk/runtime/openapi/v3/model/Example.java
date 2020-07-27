@@ -1,10 +1,10 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-public class ExampleReference {
+public class Example {
 
     private final String data;
 
-    public ExampleReference(String data) {
+    public Example(String data) {
         this.data = data;
     }
 

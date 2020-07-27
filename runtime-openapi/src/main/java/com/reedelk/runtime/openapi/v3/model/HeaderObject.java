@@ -89,6 +89,12 @@ public class HeaderObject extends AbstractOpenApiSerializable {
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        description = getString(serialized, "description");
+        style = ParameterStyle.valueOf(getString(serialized, "style"));
+        // TODO: Deserialize schema
+        example = getString(serialized, "example");
+        explode = getBoolean(serialized, "explode");
+        deprecated = getBoolean(serialized, "deprecated");
+        allowReserved = getBoolean(serialized, "allowReserved");
     }
 }
