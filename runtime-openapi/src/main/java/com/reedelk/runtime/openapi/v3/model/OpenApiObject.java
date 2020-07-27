@@ -77,6 +77,23 @@ public class OpenApiObject extends AbstractOpenApiSerializable {
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        if (serialized.containsKey("info")) {
+            info.deserialize(getMap(serialized, "info"));
+        }
+        if (serialized.containsKey("components")) {
+            components.deserialize(getMap(serialized, "components"));
+        }
+        if (serialized.containsKey("servers")) {
+            List<Map<String, Object>> serversList = getList(serialized, "servers");
+            serversList.forEach(objectMap -> {
+                ServerObject serverObject = new ServerObject();
+                serverObject.deserialize(objectMap);
+                servers.add(serverObject);
+            });
+        }
+        if (serialized.containsKey("paths")) {
+            paths.deserialize(getMap(serialized, "paths"));
+        }
+        basePath = getString(serialized, "basePath");
     }
 }

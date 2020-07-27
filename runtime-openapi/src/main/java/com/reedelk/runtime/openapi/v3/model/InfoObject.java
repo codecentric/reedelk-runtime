@@ -79,6 +79,17 @@ public class InfoObject extends AbstractOpenApiSerializable {
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        title = getString(serialized, "title");
+        description = getString(serialized, "description");
+        termsOfService = getString(serialized, "termsOfService");
+        version = getString(serialized, "version");
+        if (serialized.containsKey("contact")) {
+            contact = new ContactObject();
+            contact.deserialize(getMap(serialized, "contact"));
+        }
+        if (serialized.containsKey("license")) {
+            license = new LicenseObject();
+            license.deserialize(getMap(serialized, "license"));
+        }
     }
 }

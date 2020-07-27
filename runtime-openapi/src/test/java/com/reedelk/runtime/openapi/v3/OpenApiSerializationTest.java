@@ -20,10 +20,10 @@ public class OpenApiSerializationTest {
     void setUp() {
         context = new OpenApiSerializableContext();
 
-        SchemaReference schemaReference = new SchemaReference("mySchemaId", Fixture.Schemas.Pet.string());
+        Schema schema = new Schema("mySchemaId", Fixture.Schemas.Pet.string());
 
         MediaTypeObject mediaTypeObject = new MediaTypeObject();
-        mediaTypeObject.setSchema(schemaReference, context);
+        mediaTypeObject.setSchema(schema, context);
 
         Map<String, MediaTypeObject> contentTypeMediaTypeObject = new HashMap<>();
         contentTypeMediaTypeObject.put("application/json", mediaTypeObject);

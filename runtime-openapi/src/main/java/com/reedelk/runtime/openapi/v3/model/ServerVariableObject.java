@@ -48,8 +48,11 @@ public class ServerVariableObject extends AbstractOpenApiSerializable {
         return map;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        description = getString(serialized, "description");
+        defaultValue = getString(serialized, "defaultValue");
+        enumValues = (List<String>) serialized.get("enumValues");
     }
 }

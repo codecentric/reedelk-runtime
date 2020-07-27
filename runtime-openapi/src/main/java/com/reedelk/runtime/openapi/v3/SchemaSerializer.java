@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.model.SchemaReference;
+import com.reedelk.runtime.openapi.v3.model.Schema;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ public class SchemaSerializer {
 
     private static final List<String> PROPERTIES_TO_EXCLUDE_FROM_SCHEMA = Arrays.asList("$id", "$schema", "name");
 
-    public static Map<String,Object> serialize(OpenApiSerializableContext context, SchemaReference schema) {
+    public static Map<String,Object> serialize(OpenApiSerializableContext context, Schema schema) {
         String jsonSchema = context.schemaData(schema);
         return serialize(jsonSchema);
     }

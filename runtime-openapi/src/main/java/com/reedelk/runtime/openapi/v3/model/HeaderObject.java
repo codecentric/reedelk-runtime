@@ -1,9 +1,7 @@
 package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.JsonSchemaUtils;
 import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
-import com.reedelk.runtime.openapi.v3.PredefinedSchema;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,8 +10,7 @@ public class HeaderObject extends AbstractOpenApiSerializable {
 
     private String description;
     private ParameterStyle style = ParameterStyle.simple;
-    private PredefinedSchema predefinedSchema = PredefinedSchema.STRING;
-    private SchemaReference schema;
+    private Schema schema;
     private String example;
 
     private Boolean explode;
@@ -36,19 +33,11 @@ public class HeaderObject extends AbstractOpenApiSerializable {
         this.style = style;
     }
 
-    public PredefinedSchema getPredefinedSchema() {
-        return predefinedSchema;
-    }
-
-    public void setPredefinedSchema(PredefinedSchema predefinedSchema) {
-        this.predefinedSchema = predefinedSchema;
-    }
-
-    public SchemaReference getSchema() {
+    public Schema getSchema() {
         return schema;
     }
 
-    public void setSchema(SchemaReference schema, OpenApiSerializableContext context) {
+    public void setSchema(Schema schema, OpenApiSerializableContext context) {
         context.schemaRegister(schema);
         this.schema = schema;
     }
@@ -90,9 +79,7 @@ public class HeaderObject extends AbstractOpenApiSerializable {
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "description", description);
         set(map, "style", style.name());
-
-        JsonSchemaUtils.setSchema(context, map, predefinedSchema, schema);
-
+        set(map, schema, context);
         set(map, "example", example);
         set(map, "explode", explode);
         set(map, "deprecated", deprecated);

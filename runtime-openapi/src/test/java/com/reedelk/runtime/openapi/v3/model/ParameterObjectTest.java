@@ -1,7 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.Fixture;
-import com.reedelk.runtime.openapi.v3.PredefinedSchema;
 import org.junit.jupiter.api.Test;
 
 class ParameterObjectTest extends AbstractOpenApiSerializableTest {
@@ -19,7 +18,6 @@ class ParameterObjectTest extends AbstractOpenApiSerializableTest {
         parameter.setIn(ParameterLocation.query);
         parameter.setStyle(ParameterStyle.simple);
         parameter.setDescription("My parameter description");
-        parameter.setPredefinedSchema(PredefinedSchema.ARRAY_STRING);
 
         // Expect
         assertSerializeJSON(parameter, Fixture.ParameterObject.WithAllProperties);

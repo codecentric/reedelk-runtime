@@ -111,6 +111,33 @@ public class OperationObject extends AbstractOpenApiSerializable {
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
+        exclude = getBoolean(serialized, "exclude");
+        deprecated = getBoolean(serialized, "deprecated");
+        summary = getString(serialized, "summary");
+        description = getString(serialized, "description");
+        operationId = getString(serialized, "operationId");
+        if (serialized.containsKey("requestBody")) {
+            RequestBodyObject requestBodyObject = new RequestBodyObject();
+            requestBodyObject.deserialize((Map<String,Object>)serialized.get("requestBody"));
+            requestBody = requestBodyObject;
+        }
+        if (serialized.containsKey("responses")) {
+            Map<String,Map<String,Object>> responsesMap = (Map<String, Map<String, Object>>) serialized.get("responses");
+            responsesMap.forEach((responseStatusCode, responseObjectMap) -> {
+                ResponseObject responseObject = new ResponseObject();
+                responseObject.deserialize(responseObjectMap);
+                responses.put(responseStatusCode, responseObject);
+            });
+        }
+        if (serialized.containsKey("parameters")) {
+            List<Map<String,Object>> parametersList = (List<Map<String, Object>>) serialized.get("parameters");
+            parametersList.forEach(parameterMap -> {
+                ParameterObject parameterObject = new ParameterObject();
+                parameterObject.deserialize(parameterMap);
+                parameters.add(parameterObject);
+            });
+        }
 
+        tags = (List<String>) serialized.get("tags");
     }
 }

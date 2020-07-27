@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class SchemaObject extends AbstractOpenApiSerializable {
 
-    private SchemaReference schema;
+    private Schema schema;
 
-    public SchemaReference getSchema() {
+    public Schema getSchema() {
         return schema;
     }
 
-    public void setSchema(SchemaReference schema, OpenApiSerializableContext context) {
+    public void setSchema(Schema schema, OpenApiSerializableContext context) {
         context.schemaRegister(schema);
         this.schema = schema;
     }

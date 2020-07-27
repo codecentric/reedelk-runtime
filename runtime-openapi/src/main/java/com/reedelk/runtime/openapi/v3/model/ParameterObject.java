@@ -2,7 +2,6 @@ package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
 import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
-import com.reedelk.runtime.openapi.v3.PredefinedSchema;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,8 +16,7 @@ public class ParameterObject extends AbstractOpenApiSerializable {
     private String description;
     private ParameterLocation in;
     private ParameterStyle style = ParameterStyle.form;
-    private PredefinedSchema predefinedSchema = PredefinedSchema.STRING;
-    private SchemaReference schema;
+    private Schema schema;
     private String example;
     private Boolean explode;
     private Boolean deprecated;
@@ -58,19 +56,11 @@ public class ParameterObject extends AbstractOpenApiSerializable {
         this.style = style;
     }
 
-    public PredefinedSchema getPredefinedSchema() {
-        return predefinedSchema;
-    }
-
-    public void setPredefinedSchema(PredefinedSchema predefinedSchema) {
-        this.predefinedSchema = predefinedSchema;
-    }
-
-    public SchemaReference getSchema() {
+    public Schema getSchema() {
         return schema;
     }
 
-    public void setSchema(SchemaReference schema, OpenApiSerializableContext context) {
+    public void setSchema(Schema schema, OpenApiSerializableContext context) {
         context.schemaRegister(schema);
         this.schema = schema;
     }
@@ -133,10 +123,7 @@ public class ParameterObject extends AbstractOpenApiSerializable {
         set(map, "example", example);
         set(map, "explode", explode);
         set(map, "deprecated", deprecated);
-
-        // TODO
-       // JsonSchemaUtils.setSchema(context, map, predefinedSchema, schema);
-
+        set(map, schema, context);
         // If the parameter location is "path", this property is REQUIRED and its value MUST be true.
         // Otherwise, the property MAY be included and its default value is false.
         if (ParameterLocation.path.equals(in)) {
@@ -144,7 +131,6 @@ public class ParameterObject extends AbstractOpenApiSerializable {
         } else {
             set(map, "required", required);
         }
-
         set(map, "allowEmptyValue", allowEmptyValue);
         set(map, "allowReserved", allowReserved);
         return map;
@@ -152,6 +138,17 @@ public class ParameterObject extends AbstractOpenApiSerializable {
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        name = getString(serialized, "name");
+        description = getString(serialized, "description");
+        in = ParameterLocation.valueOf(getString(serialized, "in"));
+        style = ParameterStyle.valueOf(getString(serialized, "style"));
+        // TODO: Schema
+        // TODO: Example can it be a reference?
+        example = getString(serialized, "example");
+        explode = getBoolean(serialized, "explode");
+        deprecated = getBoolean(serialized, "deprecated");
+        required = getBoolean(serialized, "required");
+        allowEmptyValue = getBoolean(serialized, "allowEmptyValue");
+        allowReserved = getBoolean(serialized, "allowReserved");
     }
 }

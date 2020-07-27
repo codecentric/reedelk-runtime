@@ -51,7 +51,16 @@ public class ServerObject extends AbstractOpenApiSerializable {
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        url = getString(serialized, "url");
+        description = getString(serialized, "description");
+        if (serialized.containsKey("variables")) {
+            Map<String, Map<String, Object>> variablesMap = (Map<String, Map<String, Object>>) serialized.get("variables");
+            variablesMap.forEach((serverVariableKey, objectMap) -> {
+                ServerVariableObject serverVariableObject = new ServerVariableObject();
+                serverVariableObject.deserialize(objectMap);
+                variables.put(serverVariableKey, serverVariableObject);
+            });
+        }
     }
 }
 

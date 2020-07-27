@@ -1,9 +1,7 @@
 package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.JsonSchemaUtils;
 import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
-import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,7 +9,7 @@ import java.util.Map;
 public class MediaTypeObject extends AbstractOpenApiSerializable {
 
     private ExampleReference example;
-    private SchemaReference schema;
+    private Schema schema;
 
     public ExampleReference getExample() {
         return example;
@@ -21,11 +19,11 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
         this.example = example;
     }
 
-    public SchemaReference getSchema() {
+    public Schema getSchema() {
         return schema;
     }
 
-    public void setSchema(SchemaReference schema, OpenApiSerializableContext context) {
+    public void setSchema(Schema schema, OpenApiSerializableContext context) {
         context.schemaRegister(schema);
         this.schema = schema;
     }
@@ -33,59 +31,13 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
-
-        // Set the schema
-        if (schema != null) {
-            JsonSchemaUtils.setSchema(context, map, schema);
-        }
-
-        // Set the example
-        if (example != null) {
-            set(map, "example", new JSONObject(example.data()).toMap());
-        }
-
+        set(map, schema, context);
+        set(map, example);
         return map;
     }
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        // TODO: Here test how to deserialize schema and example
     }
 }
-
-/*
- * Media Type: Example:
- * {
- *   "application/json": {
- *     "schema": {
- *          "$ref": "#/components/schemas/Pet"
- *     },
- *     "examples": {
- *       "cat" : {
- *         "summary": "An example of a cat",
- *         "value":
- *           {
- *             "name": "Fluffy",
- *             "petType": "Cat",
- *             "color": "White",
- *             "gender": "male",
- *             "breed": "Persian"
- *           }
- *       },
- *       "dog": {
- *         "summary": "An example of a dog with a cat's name",
- *         "value" :  {
- *           "name": "Puma",
- *           "petType": "Dog",
- *           "color": "Black",
- *           "gender": "Female",
- *           "breed": "Mixed"
- *         },
- *       "frog": {
- *           "$ref": "#/components/examples/frog-example"
- *         }
- *       }
- *     }
- *   }
- * }
- */
