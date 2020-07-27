@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 
 class LicenseObjectTest extends AbstractOpenApiSerializableTest {
@@ -13,8 +13,8 @@ class LicenseObjectTest extends AbstractOpenApiSerializableTest {
         license.setUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
 
         // Expect
-        assertSerializeJSON(license, OpenApiJsons.LicenseObject.WithAllPropertiesJson);
-        assertSerializeYAML(license, OpenApiJsons.LicenseObject.WithAllPropertiesYaml);
+        assertSerializeJSON(license, Fixture.LicenseObject.WithAllPropertiesJson);
+        assertSerializeYAML(license, Fixture.LicenseObject.WithAllPropertiesYaml);
     }
 
     @Test
@@ -23,7 +23,7 @@ class LicenseObjectTest extends AbstractOpenApiSerializableTest {
         LicenseObject license = new LicenseObject();
 
         // Expect
-        assertSerializeJSON(license, OpenApiJsons.LicenseObject.WithDefaultPropertiesJson);
-        assertSerializeYAML(license, OpenApiJsons.LicenseObject.WithDefaultPropertiesYaml);
+        assertSerializeJSON(license, Fixture.LicenseObject.WithDefaultPropertiesJson);
+        assertSerializeYAML(license, Fixture.LicenseObject.WithDefaultPropertiesYaml);
     }
 }

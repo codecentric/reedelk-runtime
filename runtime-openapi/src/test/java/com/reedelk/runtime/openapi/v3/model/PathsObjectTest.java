@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,7 +14,7 @@ class PathsObjectTest extends AbstractOpenApiSerializableTest {
         PathsObject paths = new PathsObject();
 
         // Expect
-        assertSerializeJSON(paths, OpenApiJsons.PathsObject.WithDefaultPaths);
+        assertSerializeJSON(paths, Fixture.PathsObject.WithDefaultPaths);
     }
 /**
     @Test

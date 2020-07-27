@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -32,8 +32,8 @@ class ServerObjectTest extends AbstractOpenApiSerializableTest {
         server.setVariables(variables);
 
         // Expect
-        assertSerializeJSON(server, OpenApiJsons.ServerObject.WithAllPropertiesJson);
-        assertSerializeYAML(server, OpenApiJsons.ServerObject.WithAllPropertiesYaml);
+        assertSerializeJSON(server, Fixture.ServerObject.WithAllPropertiesJson);
+        assertSerializeYAML(server, Fixture.ServerObject.WithAllPropertiesYaml);
     }
 
     @Test
@@ -43,7 +43,7 @@ class ServerObjectTest extends AbstractOpenApiSerializableTest {
         server.setUrl("/");
 
         // Expect
-        assertSerializeJSON(server, OpenApiJsons.ServerObject.WithDefaultPropertiesJson);
-        assertSerializeYAML(server, OpenApiJsons.ServerObject.WithDefaultPropertiesYaml);
+        assertSerializeJSON(server, Fixture.ServerObject.WithDefaultPropertiesJson);
+        assertSerializeYAML(server, Fixture.ServerObject.WithDefaultPropertiesYaml);
     }
 }

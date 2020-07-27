@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import com.reedelk.runtime.openapi.v3.PredefinedSchema;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ class ParameterObjectTest extends AbstractOpenApiSerializableTest {
         parameter.setPredefinedSchema(PredefinedSchema.ARRAY_STRING);
 
         // Expect
-        assertSerializeJSON(parameter, OpenApiJsons.ParameterObject.WithAllProperties);
+        assertSerializeJSON(parameter, Fixture.ParameterObject.WithAllProperties);
     }
 
     @Test
@@ -31,7 +31,7 @@ class ParameterObjectTest extends AbstractOpenApiSerializableTest {
         ParameterObject parameter = new ParameterObject();
 
         // Expect
-        assertSerializeJSON(parameter, OpenApiJsons.ParameterObject.WithDefault);
+        assertSerializeJSON(parameter, Fixture.ParameterObject.WithDefault);
     }
 
     @Test
@@ -41,6 +41,6 @@ class ParameterObjectTest extends AbstractOpenApiSerializableTest {
         parameter.setIn(ParameterLocation.path);
 
         // Expect
-        assertSerializeJSON(parameter, OpenApiJsons.ParameterObject.WithInPath);
+        assertSerializeJSON(parameter, Fixture.ParameterObject.WithInPath);
     }
 }

@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 
 public class ContactObjectTest extends AbstractOpenApiSerializableTest {
@@ -14,7 +14,7 @@ public class ContactObjectTest extends AbstractOpenApiSerializableTest {
         contact.setEmail("support@example.com");
 
         // Expect
-        assertSerializeJSON(contact, OpenApiJsons.ContactObject.WithAllProperties);
+        assertSerializeJSON(contact, Fixture.ContactObject.WithAllProperties);
     }
 
     @Test
@@ -23,6 +23,6 @@ public class ContactObjectTest extends AbstractOpenApiSerializableTest {
         ContactObject contact = new ContactObject();
 
         // Expect (expect empty, because there are no required properties for contact)
-        assertSerializeJSON(contact, OpenApiJsons.ContactObject.WithDefaultProperties);
+        assertSerializeJSON(contact, Fixture.ContactObject.WithDefaultProperties);
     }
 }

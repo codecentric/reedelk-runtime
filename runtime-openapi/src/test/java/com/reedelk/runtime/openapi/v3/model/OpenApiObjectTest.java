@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 
 class OpenApiObjectTest extends AbstractOpenApiSerializableTest {
@@ -17,6 +17,6 @@ class OpenApiObjectTest extends AbstractOpenApiSerializableTest {
         OpenApiObject openApi = new OpenApiObject();
 
         // Expect
-        assertSerializeJSON(openApi, OpenApiJsons.OpenApiObject.WithDefaultInfoAndServersAndPaths);
+        assertSerializeJSON(openApi, Fixture.OpenApiObject.WithDefaultInfoAndServersAndPaths);
     }
 }

@@ -15,7 +15,6 @@ public class OpenApiObject extends AbstractOpenApiSerializable {
     private InfoObject info = new InfoObject();
     private ComponentsObject components = new ComponentsObject();
     private List<ServerObject> servers = new ArrayList<>();
-
     private PathsObject paths = new PathsObject();
     private String basePath;
 
@@ -33,6 +32,10 @@ public class OpenApiObject extends AbstractOpenApiSerializable {
 
     public void setServers(List<ServerObject> servers) {
         this.servers = servers;
+    }
+
+    public void setPaths(PathsObject paths) {
+        this.paths = paths;
     }
 
     public PathsObject getPaths() {
@@ -68,7 +71,6 @@ public class OpenApiObject extends AbstractOpenApiSerializable {
 
         set(map, "servers", servers, context);
         set(map, "paths", paths, context); // REQUIRED
-
         set(map, "components", components, context);
         return map;
     }

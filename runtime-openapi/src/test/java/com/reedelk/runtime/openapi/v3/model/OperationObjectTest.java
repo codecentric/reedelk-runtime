@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -38,7 +38,7 @@ class OperationObjectTest extends AbstractOpenApiSerializableTest {
         operation.setRequestBody(requestBody);
 
         // Expect
-        assertSerializeJSON(operation, OpenApiJsons.OperationObject.WithAllProperties);
+        assertSerializeJSON(operation, Fixture.OperationObject.WithAllProperties);
     }
 
     @Test
@@ -47,6 +47,6 @@ class OperationObjectTest extends AbstractOpenApiSerializableTest {
         OperationObject operation = new OperationObject();
 
         // Expect
-        assertSerializeJSON(operation, OpenApiJsons.OperationObject.WithDefault);
+        assertSerializeJSON(operation, Fixture.OperationObject.WithDefault);
     }
 }

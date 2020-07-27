@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class OpenApiJsons {
+public class Fixture {
 
     public enum InfoObject implements Provider {
 
@@ -372,12 +372,22 @@ public class OpenApiJsons {
         }
     }
 
+    public enum EndToEnd implements Provider {
+
+        SAMPLE;
+
+        @Override
+        public String path() {
+            return "endtoend/sample.json";
+        }
+    }
+
     public interface Provider {
 
         String path();
 
         default URL url() {
-            return OpenApiJsons.class.getResource("/" + path());
+            return Fixture.class.getResource("/" + path());
         }
 
         default String string() {

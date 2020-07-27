@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import com.reedelk.runtime.openapi.v3.PredefinedSchema;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ class HeaderObjectTest extends AbstractOpenApiSerializableTest {
         header.setPredefinedSchema(PredefinedSchema.ARRAY_STRING);
 
         // Expect
-        assertSerializeJSON(header, OpenApiJsons.HeaderObject.WithAllPropertiesAndDefaultSchema);
+        assertSerializeJSON(header, Fixture.HeaderObject.WithAllPropertiesAndDefaultSchema);
     }
 
     /**
@@ -50,6 +50,6 @@ class HeaderObjectTest extends AbstractOpenApiSerializableTest {
         HeaderObject header = new HeaderObject();
 
         // Expect
-        assertSerializeJSON(header, OpenApiJsons.HeaderObject.WithDefaults);
+        assertSerializeJSON(header, Fixture.HeaderObject.WithDefaults);
     }
 }

@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 
 class InfoObjectTest extends AbstractOpenApiSerializableTest {
@@ -26,8 +26,8 @@ class InfoObjectTest extends AbstractOpenApiSerializableTest {
         info.setLicense(license);
 
         // Expect
-        assertSerializeJSON(info, OpenApiJsons.InfoObject.WithAllPropertiesJson);
-        assertSerializeYAML(info, OpenApiJsons.InfoObject.WithAllPropertiesYaml);
+        assertSerializeJSON(info, Fixture.InfoObject.WithAllPropertiesJson);
+        assertSerializeYAML(info, Fixture.InfoObject.WithAllPropertiesYaml);
     }
 
     @Test
@@ -36,7 +36,7 @@ class InfoObjectTest extends AbstractOpenApiSerializableTest {
         InfoObject info = new InfoObject();
 
         // Expect
-        assertSerializeJSON(info, OpenApiJsons.InfoObject.WithDefaultPropertiesJson);
-        assertSerializeYAML(info, OpenApiJsons.InfoObject.WithDefaultPropertiesYaml);
+        assertSerializeJSON(info, Fixture.InfoObject.WithDefaultPropertiesJson);
+        assertSerializeYAML(info, Fixture.InfoObject.WithDefaultPropertiesYaml);
     }
 }

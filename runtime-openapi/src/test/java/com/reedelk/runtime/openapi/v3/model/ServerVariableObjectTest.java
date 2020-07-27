@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.OpenApiJsons;
+import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.asList;
@@ -16,8 +16,8 @@ class ServerVariableObjectTest extends AbstractOpenApiSerializableTest {
         serverVariable.setDefaultValue("dev");
 
         // Expect
-        assertSerializeJSON(serverVariable, OpenApiJsons.ServerVariableObject.WithAllPropertiesJson);
-        assertSerializeYAML(serverVariable, OpenApiJsons.ServerVariableObject.WithAllPropertiesYaml);
+        assertSerializeJSON(serverVariable, Fixture.ServerVariableObject.WithAllPropertiesJson);
+        assertSerializeYAML(serverVariable, Fixture.ServerVariableObject.WithAllPropertiesYaml);
     }
 
     @Test
@@ -26,7 +26,7 @@ class ServerVariableObjectTest extends AbstractOpenApiSerializableTest {
         ServerVariableObject serverVariable = new ServerVariableObject();
 
         // When
-        assertSerializeJSON(serverVariable, OpenApiJsons.ServerVariableObject.WithDefaultPropertiesJson);
-        assertSerializeYAML(serverVariable, OpenApiJsons.ServerVariableObject.WithDefaultPropertiesYaml);
+        assertSerializeJSON(serverVariable, Fixture.ServerVariableObject.WithDefaultPropertiesJson);
+        assertSerializeYAML(serverVariable, Fixture.ServerVariableObject.WithDefaultPropertiesYaml);
     }
 }
