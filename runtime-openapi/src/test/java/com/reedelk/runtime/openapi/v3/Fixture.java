@@ -374,11 +374,18 @@ public class Fixture {
 
     public enum EndToEnd implements Provider {
 
-        SAMPLE;
+        SAMPLE_JSON() {
+            @Override
+            public String path() {
+                return "endtoend/sample.json";
+            }
+        },
 
-        @Override
-        public String path() {
-            return "endtoend/sample.json";
+        SAMPLE_YAML() {
+            @Override
+            public String path() {
+                return "endtoend/sample.yaml";
+            }
         }
     }
 

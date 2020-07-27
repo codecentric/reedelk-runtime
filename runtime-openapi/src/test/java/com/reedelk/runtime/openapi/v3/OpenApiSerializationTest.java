@@ -1,6 +1,7 @@
 package com.reedelk.runtime.openapi.v3;
 
 import com.reedelk.runtime.openapi.v3.model.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -8,12 +9,17 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OpenApiSerializationJSONTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Test
-    void shouldCorrectlySerializeAsJSON() {
-        // Given
-        OpenApiSerializableContext context = new OpenApiSerializableContext();
+public class OpenApiSerializationTest {
+
+    private OpenApiObject openApiObject;
+    private OpenApiSerializableContext context;
+
+    @BeforeEach
+    void setUp() {
+        context = new OpenApiSerializableContext();
+
         SchemaReference schemaReference = new SchemaReference("mySchemaId", Fixture.Schemas.Pet.string());
 
         MediaTypeObject mediaTypeObject = new MediaTypeObject();
@@ -43,14 +49,28 @@ public class OpenApiSerializationJSONTest {
 
         PathsObject pathsObject = new PathsObject();
         pathsObject.setPaths(pathsMap);
-        OpenApiObject openApiObject = new OpenApiObject();
+
+        openApiObject = new OpenApiObject();
         openApiObject.setBasePath("/api/v3");
         openApiObject.setPaths(pathsObject);
+    }
 
+    @Test
+    void shouldCorrectlySerializeAsJSON() {
         // When
         String actual = openApiObject.toJson(context);
 
         // Then
-        JSONAssert.assertEquals(Fixture.EndToEnd.SAMPLE.string(), actual, JSONCompareMode.STRICT);
+        JSONAssert.assertEquals(Fixture.EndToEnd.SAMPLE_JSON.string(), actual, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void shouldCorrectlySerializeAsYAML() {
+        // When
+        String actual = openApiObject.toYaml(context);
+
+        // Then
+        String expected = Fixture.EndToEnd.SAMPLE_YAML.string();
+        assertThat(actual).isEqualToNormalizingWhitespace(expected);
     }
 }
