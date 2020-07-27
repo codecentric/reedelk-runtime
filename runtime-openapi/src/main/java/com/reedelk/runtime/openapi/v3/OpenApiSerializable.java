@@ -24,7 +24,11 @@ public interface OpenApiSerializable {
      */
     default String toJson(OpenApiSerializableContext context) {
         Map<String, Object> serialized = serialize(context);
-        return new JSONObject(serialized).toString(JSON_INDENT_FACTOR);
+        // We use the custom object factory to preserve position
+        // of serialized properties in the map.
+        JSONObject jsonObject = JsonObjectFactory.newJSONObject();
+        serialized.forEach(jsonObject::put);
+        return jsonObject.toString(JSON_INDENT_FACTOR);
     }
 
     /**

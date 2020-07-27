@@ -11,23 +11,10 @@ import java.util.Map;
 public class OpenApiSerializationJSONTest {
 
     @Test
-    void shouldDoSomething() {
-
-
+    void shouldCorrectlySerializeAsJSON() {
         // Given
         OpenApiSerializableContext context = new OpenApiSerializableContext();
-        SchemaReference schemaReference = new SchemaReference() {
-            @Override
-            public String getSchemaId() {
-                return "mySchemaId";
-            }
-
-            @Override
-            public String getSchemaData() {
-                return Fixture.Schemas.Pet.string();
-            }
-        };
-
+        SchemaReference schemaReference = new SchemaReference("mySchemaId", Fixture.Schemas.Pet.string());
 
         MediaTypeObject mediaTypeObject = new MediaTypeObject();
         mediaTypeObject.setSchema(schemaReference, context);
@@ -36,6 +23,7 @@ public class OpenApiSerializationJSONTest {
         contentTypeMediaTypeObject.put("application/json", mediaTypeObject);
 
         ResponseObject responseObject = new ResponseObject();
+        responseObject.setDescription("Content description");
         responseObject.setContent(contentTypeMediaTypeObject);
 
         Map<String, ResponseObject> responseCodeResponseMap = new HashMap<>();

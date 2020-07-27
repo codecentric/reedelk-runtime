@@ -1,4 +1,35 @@
 {
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/api/v3"
+    }
+  ],
+  "paths": {
+    "/order": {
+      "get": {
+        "summary": "GET Operation Summary",
+        "description": "GET Operation Description",
+        "operationId": "getOperation",
+        "responses": {
+          "200": {
+            "description": "Content description",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mySchemaId"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {
       "mySchemaId": {
@@ -51,35 +82,5 @@
         }
       }
     }
-  },
-  "servers": [
-    {
-      "url": "/api/v3"
-    }
-  ],
-  "openapi": "3.0.3",
-  "paths": {
-    "/order": {
-      "get": {
-        "summary": "GET Operation Summary",
-        "description": "GET Operation Description",
-        "operationId": "getOperation",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/mySchemaId"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "info": {
-    "title": "API",
-    "version": "v1"
   }
 }
