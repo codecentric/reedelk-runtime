@@ -1,6 +1,6 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.v3.model.SchemaReference;
 import org.json.JSONObject;
 
 import java.util.Arrays;

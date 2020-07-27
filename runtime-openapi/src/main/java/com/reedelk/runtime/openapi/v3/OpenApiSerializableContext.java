@@ -12,7 +12,7 @@ public class OpenApiSerializableContext {
 
     private final Map<String,SchemaReference> SCHEMA_MAP = new HashMap<>();
 
-    public String schemaReference(SchemaReference schema) {
+    String schemaReference(SchemaReference schema) {
         return String.format(COMPONENTS_SCHEMA_REF_TEMPLATE, schema.getSchemaId());
     }
 
@@ -22,11 +22,11 @@ public class OpenApiSerializableContext {
         }
     }
 
-    public String schemaData(SchemaReference schema) {
+    String schemaData(SchemaReference schema) {
         return schemaData(schema.getSchemaId());
     }
 
-    public String schemaData(String schemaId) {
+    String schemaData(String schemaId) {
         SchemaReference reference = SCHEMA_MAP.get(schemaId);
         return reference.getSchemaData();
     }

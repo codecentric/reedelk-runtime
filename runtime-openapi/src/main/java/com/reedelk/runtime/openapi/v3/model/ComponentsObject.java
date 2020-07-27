@@ -2,6 +2,7 @@ package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
 import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.v3.SchemaSerializer;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

@@ -15,8 +15,10 @@ public class JsonSchemaUtils {
     private JsonSchemaUtils() {
     }
 
-    public static void setSchema(OpenApiSerializableContext context, Map<String, Object> parent, PredefinedSchema predefinedSchema, SchemaReference schema) {
-
+    public static void setSchema(OpenApiSerializableContext context,
+                                 Map<String, Object> parent,
+                                 PredefinedSchema predefinedSchema,
+                                 SchemaReference schema) {
         // Custom schema
         if (PredefinedSchema.NONE.equals(predefinedSchema)) {
             Optional.ofNullable(schema).ifPresent(theSchema -> {
@@ -35,5 +37,18 @@ public class JsonSchemaUtils {
             // }
             parent.put(JSON_PROPERTY_SCHEMA, new JSONObject(predefinedSchema.schema()).toMap());
         }
+    }
+
+    public static void setSchema(OpenApiSerializableContext context,
+                                 Map<String, Object> parent,
+                                 SchemaReference schema) {
+        Optional.ofNullable(schema).ifPresent(theSchema -> {
+            // schema {
+            //      "$ref": "#/components/schemas/mySchema"
+            // }
+            Map<String, Object> schemaReferenceObject = new LinkedHashMap<>();
+            schemaReferenceObject.put(JSON_PROPERTY_REF, context.schemaReference(schema));
+            parent.put(JSON_PROPERTY_SCHEMA, schemaReferenceObject);
+        });
     }
 }
