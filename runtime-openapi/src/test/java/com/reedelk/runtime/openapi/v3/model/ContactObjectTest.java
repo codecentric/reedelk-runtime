@@ -1,5 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
+import com.reedelk.runtime.openapi.v3.ContactObject;
 import com.reedelk.runtime.openapi.v3.Fixture;
 import org.junit.jupiter.api.Test;
 

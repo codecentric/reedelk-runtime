@@ -1,16 +1,16 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.reedelk.runtime.openapi.v3.model.ParameterLocation.query;
+import static com.reedelk.runtime.openapi.v3.ParameterLocation.query;
 import static java.util.Optional.ofNullable;
 
-public class ParameterObject extends AbstractOpenApiSerializable {
+public class ParameterObject extends OpenApiSerializableAbstract {
 
     private String name;
     private String description;
@@ -61,7 +61,7 @@ public class ParameterObject extends AbstractOpenApiSerializable {
     }
 
     public void setSchema(Schema schema, OpenApiSerializableContext context) {
-        context.schemaRegister(schema);
+        context.setSchema(schema);
         this.schema = schema;
     }
 

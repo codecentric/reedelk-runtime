@@ -1,13 +1,13 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 
 import java.util.*;
 
 import static java.util.Optional.ofNullable;
 
-public class OpenApiObject extends AbstractOpenApiSerializable {
+public class OpenApiObjectAbstract extends OpenApiSerializableAbstract {
 
     private static final String OPEN_API_VERSION = "3.0.3";
     

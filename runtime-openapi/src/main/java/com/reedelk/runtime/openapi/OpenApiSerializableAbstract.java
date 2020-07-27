@@ -1,32 +1,20 @@
-package com.reedelk.runtime.openapi.v3;
+package com.reedelk.runtime.openapi;
 
-import com.reedelk.runtime.openapi.v3.model.Example;
-import com.reedelk.runtime.openapi.v3.model.Schema;
+import com.reedelk.runtime.openapi.v3.Example;
+import com.reedelk.runtime.openapi.v3.Schema;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-public abstract class AbstractOpenApiSerializable implements OpenApiSerializable {
+public abstract class OpenApiSerializableAbstract implements OpenApiSerializable {
 
     private static final String JSON_PROPERTY_EXAMPLE = "example";
-    private static final String JSON_PROPERTY_SCHEMA = "schema";
-    private static final String JSON_PROPERTY_REF = "$ref";
 
-    // Sets the following structure in the parent:
-    // schema {
-    //      "$ref": "#/components/schemas/mySchema"
-    // }
     protected void set(Map<String, Object> parent, Schema schema, OpenApiSerializableContext context) {
-        Optional.ofNullable(schema).ifPresent(theSchema -> {
-            if (theSchema.isReference()) {
-                Map<String, Object> schemaReferenceObject = new LinkedHashMap<>();
-                schemaReferenceObject.put(JSON_PROPERTY_REF, context.schemaReference(schema));
-                parent.put(JSON_PROPERTY_SCHEMA, schemaReferenceObject);
-            } else {
-                // TODO: Should we use YAML parser instead?
-                parent.put(JSON_PROPERTY_SCHEMA, new JSONObject(schema.getSchemaData()).toMap());
-            }
-        });
+        set(parent, "schema", schema.serialize(context));
     }
 
     protected void set(Map<String, Object> parent, Example example) {

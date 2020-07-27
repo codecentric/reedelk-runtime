@@ -1,6 +1,8 @@
 package com.reedelk.runtime.openapi.v3.model;
 
 import com.reedelk.runtime.openapi.v3.Fixture;
+import com.reedelk.runtime.openapi.v3.HeaderObject;
+import com.reedelk.runtime.openapi.v3.ParameterStyle;
 import org.junit.jupiter.api.Test;
 
 class HeaderObjectTest extends AbstractOpenApiSerializableTest {

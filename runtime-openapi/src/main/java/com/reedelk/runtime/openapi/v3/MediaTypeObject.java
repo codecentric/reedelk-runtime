@@ -1,12 +1,12 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MediaTypeObject extends AbstractOpenApiSerializable {
+public class MediaTypeObject extends OpenApiSerializableAbstract {
 
     private Example example;
     private Schema schema;
@@ -24,7 +24,7 @@ public class MediaTypeObject extends AbstractOpenApiSerializable {
     }
 
     public void setSchema(Schema schema, OpenApiSerializableContext context) {
-        context.schemaRegister(schema);
+        context.setSchema(schema);
         this.schema = schema;
     }
 

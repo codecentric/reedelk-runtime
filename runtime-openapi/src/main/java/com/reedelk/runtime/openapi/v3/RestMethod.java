@@ -1,4 +1,4 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
 public enum RestMethod {
     GET,

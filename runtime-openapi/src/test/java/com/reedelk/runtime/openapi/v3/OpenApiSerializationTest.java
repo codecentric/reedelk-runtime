@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.model.*;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class OpenApiSerializationTest {
 
-    private OpenApiObject openApiObject;
+    private OpenApiObjectAbstract openApiObject;
     private OpenApiSerializableContext context;
 
     @BeforeEach
@@ -50,7 +50,7 @@ public class OpenApiSerializationTest {
         PathsObject pathsObject = new PathsObject();
         pathsObject.setPaths(pathsMap);
 
-        openApiObject = new OpenApiObject();
+        openApiObject = new OpenApiObjectAbstract();
         openApiObject.setBasePath("/api/v3");
         openApiObject.setPaths(pathsObject);
     }

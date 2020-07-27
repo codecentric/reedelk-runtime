@@ -1,6 +1,6 @@
 package com.reedelk.runtime.openapi.v3.model;
 
-import com.reedelk.runtime.openapi.v3.Fixture;
+import com.reedelk.runtime.openapi.v3.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

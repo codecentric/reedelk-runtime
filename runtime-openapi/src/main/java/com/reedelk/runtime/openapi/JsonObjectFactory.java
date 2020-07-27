@@ -1,4 +1,4 @@
-package com.reedelk.runtime.openapi.v3;
+package com.reedelk.runtime.openapi;
 
 import org.json.JSONObject;
 

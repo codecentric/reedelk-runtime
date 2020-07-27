@@ -1,14 +1,14 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 
-public class InfoObject extends AbstractOpenApiSerializable {
+public class InfoObject extends OpenApiSerializableAbstract {
 
     private String title;
     private String description;

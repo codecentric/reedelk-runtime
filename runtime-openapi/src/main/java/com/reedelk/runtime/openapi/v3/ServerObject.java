@@ -1,13 +1,13 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.Mandatory;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.Precondition;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ServerObject extends AbstractOpenApiSerializable {
+public class ServerObject extends OpenApiSerializableAbstract {
 
     // @Mandatory (https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#serverObject)
     private String url;
@@ -40,7 +40,7 @@ public class ServerObject extends AbstractOpenApiSerializable {
 
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
-        Mandatory.check("url", url);
+        Precondition.checkNotNull("url", url);
 
         Map<String, Object> serverObject = new LinkedHashMap<>();
         set(serverObject, "url", url);

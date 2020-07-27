@@ -1,7 +1,7 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 import com.reedelk.runtime.openapi.v3.SchemaSerializer;
 
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ComponentsObject extends AbstractOpenApiSerializable {
+public class ComponentsObject extends OpenApiSerializableAbstract {
 
     private Map<String, SchemaObject> schemas = new HashMap<>();
 
@@ -27,7 +27,6 @@ public class ComponentsObject extends AbstractOpenApiSerializable {
         Map<String, Object> schemasMap = new LinkedHashMap<>();
         schemas.forEach((schemaId, schemaObject) ->
                 set(schemasMap, schemaId, schemaObject.serialize(context)));
-
         Set<String> schemasIds = context.schemasIds();
         schemasIds.forEach(schemaId -> {
             if (!schemas.containsKey(schemaId)) {
@@ -37,7 +36,6 @@ public class ComponentsObject extends AbstractOpenApiSerializable {
                 set(schemasMap, schemaId, serializedSchema);
             }
         });
-
         set(map,"schemas", schemasMap);
         return map;
     }

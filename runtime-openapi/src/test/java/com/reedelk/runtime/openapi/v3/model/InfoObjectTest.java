@@ -1,6 +1,9 @@
 package com.reedelk.runtime.openapi.v3.model;
 
+import com.reedelk.runtime.openapi.v3.ContactObject;
 import com.reedelk.runtime.openapi.v3.Fixture;
+import com.reedelk.runtime.openapi.v3.InfoObject;
+import com.reedelk.runtime.openapi.v3.LicenseObject;
 import org.junit.jupiter.api.Test;
 
 class InfoObjectTest extends AbstractOpenApiSerializableTest {

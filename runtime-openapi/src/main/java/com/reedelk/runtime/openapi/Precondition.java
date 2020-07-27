@@ -1,8 +1,8 @@
-package com.reedelk.runtime.openapi.v3;
+package com.reedelk.runtime.openapi;
 
-public class Mandatory {
+public class Precondition {
 
-    public static void check(String propertyName, String value) {
+    public static void checkNotNull(String propertyName, String value) {
         if (value == null) {
             throw new IllegalArgumentException(String.format("Property '%s' is mandatory", propertyName));
         }

@@ -1,12 +1,13 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 import com.reedelk.runtime.openapi.v3.SchemaSerializer;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class SchemaObject extends AbstractOpenApiSerializable {
+public class SchemaObject extends OpenApiSerializableAbstract {
 
     private Schema schema;
 
@@ -15,17 +16,19 @@ public class SchemaObject extends AbstractOpenApiSerializable {
     }
 
     public void setSchema(Schema schema, OpenApiSerializableContext context) {
-        context.schemaRegister(schema);
+        context.setSchema(schema);
         this.schema = schema;
     }
 
     @Override
     public Map<String,Object> serialize(OpenApiSerializableContext context) {
-        return SchemaSerializer.serialize(context, schema);
+        Map<String, Object> map = new LinkedHashMap<>();
+        set(map, schema, context);
+        return map;
     }
 
     @Override
     public void deserialize(Map<String, Object> serialized) {
-
+        // TODO: Here
     }
 }

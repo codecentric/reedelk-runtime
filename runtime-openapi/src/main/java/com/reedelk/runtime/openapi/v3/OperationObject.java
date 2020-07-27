@@ -1,11 +1,11 @@
-package com.reedelk.runtime.openapi.v3.model;
+package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.AbstractOpenApiSerializable;
-import com.reedelk.runtime.openapi.v3.OpenApiSerializableContext;
+import com.reedelk.runtime.openapi.OpenApiSerializableAbstract;
+import com.reedelk.runtime.openapi.OpenApiSerializableContext;
 
 import java.util.*;
 
-public class OperationObject extends AbstractOpenApiSerializable {
+public class OperationObject extends OpenApiSerializableAbstract {
 
     private Boolean exclude;
     private Boolean deprecated;

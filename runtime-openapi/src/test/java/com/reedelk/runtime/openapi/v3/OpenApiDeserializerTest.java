@@ -1,11 +1,11 @@
 package com.reedelk.runtime.openapi.v3;
 
-import com.reedelk.runtime.openapi.v3.model.OpenApiObject;
+import com.reedelk.runtime.openapi.OpenApiDeserializer;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DeserializerTest {
+class OpenApiDeserializerTest {
 
     @Test
     void shouldDeserializeFromJSON() {
@@ -13,7 +13,7 @@ class DeserializerTest {
         String input = Fixture.EndToEnd.SAMPLE_JSON.string();
 
         // When
-        OpenApiObject actual = Deserializer.from(input);
+        OpenApiObjectAbstract actual = OpenApiDeserializer.from(input);
 
         // Then
         assertThat(actual).isNotNull();
