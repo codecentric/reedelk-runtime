@@ -1,9 +1,0 @@
-{
-  "description": "Environment variable",
-  "default": "dev",
-  "enum": [
-    "dev",
-    "uat",
-    "prod"
-  ]
-}

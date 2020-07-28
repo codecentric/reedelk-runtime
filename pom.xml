@@ -41,7 +41,6 @@
 
     <modules>
         <module>runtime-api</module>
-        <module>runtime-openapi</module>
         <module>runtime-commons</module>
         <module>runtime-platform</module> <!-- NAME_CONVENTION -->
         <module>runtime-admin-console</module><!-- NAME_CONVENTION -->

@@ -1,9 +1,0 @@
-{
-  "description": "My header description",
-  "style": "spaceDelimited",
-  "schema": {"$ref": "#/components/schemas/Pet"},
-  "example": "my header value",
-  "explode": true,
-  "deprecated": true,
-  "allowReserved": true
-}

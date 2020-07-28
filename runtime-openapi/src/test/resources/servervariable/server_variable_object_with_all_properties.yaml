@@ -1,3 +1,0 @@
-default: dev
-description: Environment variable
-enum: [dev, uat, prod]

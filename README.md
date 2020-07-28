@@ -1,8 +1,8 @@
 [![][reedelk-logo]][reedelk-url]
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/reedelk/reedelk-runtime/blob/master/LICENSE)
+[![Join Reedelk Slack Developers Community](https://img.shields.io/badge/Slack-Join%20the%20chat%20room-blue)](https://join.slack.com/t/reedelk/shared_invite/zt-fz3wx56f-XDylXpqXERooKeOtrhdZug)
 [![Twitter](https://img.shields.io/twitter/follow/reedelk.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=reedelk)
-
 # Reedelk Runtime Platform (Community Edition)
 
 Reedelk is a lightweight integration platform which allows to design, build and execute integration flows connecting data and applications.
