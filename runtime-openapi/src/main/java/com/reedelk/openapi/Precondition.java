@@ -1,6 +1,6 @@
 package com.reedelk.openapi;
 
-public class Precondition1 {
+public class Precondition {
 
     public static void checkNotNull(String propertyName, String value) {
         if (value == null) {

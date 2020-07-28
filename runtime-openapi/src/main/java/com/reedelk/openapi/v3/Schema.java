@@ -1,7 +1,7 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Schema extends OpenApiSerializableAbstract1 {
+public class Schema extends OpenApiSerializableAbstract {
 
     private static final List<String> PROPERTIES_TO_EXCLUDE_FROM_SCHEMA = Arrays.asList("$id", "$schema", "name");
 
@@ -41,7 +41,7 @@ public class Schema extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String, Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String, Object> serialize(OpenApiSerializableContext context) {
         if (isReference()) {
             Map<String, Object> schemaReferenceObject = new LinkedHashMap<>();
             schemaReferenceObject.put(JSON_PROPERTY_REF, String.format(COMPONENTS_SCHEMA_REF_TEMPLATE, schemaId));

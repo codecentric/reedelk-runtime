@@ -1,13 +1,13 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.*;
 
 import static java.util.Optional.ofNullable;
 
-public class OpenApiObjectAbstract extends OpenApiSerializableAbstract1 {
+public class OpenApiObjectAbstract extends OpenApiSerializableAbstract {
 
     private static final String OPEN_API_VERSION = "3.0.3";
     
@@ -55,7 +55,7 @@ public class OpenApiObjectAbstract extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String, Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String, Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "openapi", OPEN_API_VERSION); // REQUIRED
         set(map, "info", info, context); // REQUIRED

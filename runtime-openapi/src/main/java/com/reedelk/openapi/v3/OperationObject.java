@@ -1,12 +1,12 @@
 package com.reedelk.openapi.v3;
 
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.*;
 
-public class OperationObject extends OpenApiSerializableAbstract1 {
+public class OperationObject extends OpenApiSerializableAbstract {
 
     private Boolean exclude;
     private Boolean deprecated;
@@ -91,7 +91,7 @@ public class OperationObject extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String,Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String,Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "exclude", exclude);
         set(map, "deprecated", deprecated);

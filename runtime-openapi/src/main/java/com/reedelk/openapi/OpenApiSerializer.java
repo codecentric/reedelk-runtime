@@ -12,7 +12,7 @@ public class OpenApiSerializer {
     /**
      * Serializes the open API object map to JSON.
      */
-    public static String toJson(OpenApiSerializable1 serializable, OpenApiSerializableContext1 context) {
+    public static String toJson(OpenApiSerializable serializable, OpenApiSerializableContext context) {
         Map<String, Object> serialized = serializable.serialize(context);
         // We use the custom object factory to preserve position
         // of serialized properties in the map.
@@ -24,7 +24,7 @@ public class OpenApiSerializer {
     /**
      * Serializes the open API object map to YAML.
      */
-    public static String toYaml(OpenApiSerializable1 serializable, OpenApiSerializableContext1 context) {
+    public static String toYaml(OpenApiSerializable serializable, OpenApiSerializableContext context) {
         Map<String, Object> serialized = serializable.serialize(context);
         Yaml yaml = new Yaml();
         return yaml.dump(serialized);

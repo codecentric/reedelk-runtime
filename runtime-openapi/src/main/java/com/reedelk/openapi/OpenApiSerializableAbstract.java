@@ -9,11 +9,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class OpenApiSerializableAbstract1 implements OpenApiSerializable1 {
+public abstract class OpenApiSerializableAbstract implements OpenApiSerializable {
 
     private static final String JSON_PROPERTY_EXAMPLE = "example";
 
-    protected void set(Map<String, Object> parent, Schema schema, com.reedelk.openapi.OpenApiSerializableContext1 context) {
+    protected void set(Map<String, Object> parent, Schema schema, OpenApiSerializableContext context) {
         //set(parent, "schema", schema.serialize(context));
     }
 
@@ -21,7 +21,7 @@ public abstract class OpenApiSerializableAbstract1 implements OpenApiSerializabl
         set(parent, JSON_PROPERTY_EXAMPLE, new JSONObject(example.data()).toMap());
     }
 
-    protected void set(Map<String,Object> object, String propertyName, Map<String, ? extends OpenApiSerializable1> serializableMap, OpenApiSerializableContext1 context) {
+    protected void set(Map<String,Object> object, String propertyName, Map<String, ? extends OpenApiSerializable> serializableMap, OpenApiSerializableContext context) {
         if (serializableMap != null && !serializableMap.isEmpty()) {
             Map<String, Object> map = new LinkedHashMap<>();
             serializableMap.forEach((key, mapObject) -> set(map, key, mapObject, context));
@@ -29,7 +29,7 @@ public abstract class OpenApiSerializableAbstract1 implements OpenApiSerializabl
         }
     }
 
-    protected void set(Map<String,Object> object, String propertyName, List<? extends OpenApiSerializable1> serializableList, OpenApiSerializableContext1 context) {
+    protected void set(Map<String,Object> object, String propertyName, List<? extends OpenApiSerializable> serializableList, OpenApiSerializableContext context) {
         if (serializableList != null && !serializableList.isEmpty()) {
             List<Map<String,Object>> listOfItems = new ArrayList<>();
            // serializableList.forEach(serializable -> listOfItems.add(serializable.serialize(context)));
@@ -37,7 +37,7 @@ public abstract class OpenApiSerializableAbstract1 implements OpenApiSerializabl
         }
     }
 
-    protected void set(Map<String,Object> object, String propertyName, OpenApiSerializable1 serializable, OpenApiSerializableContext1 context) {
+    protected void set(Map<String,Object> object, String propertyName, OpenApiSerializable serializable, OpenApiSerializableContext context) {
         if (serializable != null) {
            // object.put(propertyName, serializable.serialize(context));
         }

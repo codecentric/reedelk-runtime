@@ -1,7 +1,7 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import static com.reedelk.openapi.v3.ParameterLocation.query;
 import static java.util.Optional.ofNullable;
 
-public class ParameterObject extends OpenApiSerializableAbstract1 {
+public class ParameterObject extends OpenApiSerializableAbstract {
 
     private String name;
     private String description;
@@ -60,7 +60,7 @@ public class ParameterObject extends OpenApiSerializableAbstract1 {
         return schema;
     }
 
-    public void setSchema(Schema schema, OpenApiSerializableContext1 context) {
+    public void setSchema(Schema schema, OpenApiSerializableContext context) {
         context.setSchema(schema);
         this.schema = schema;
     }
@@ -114,7 +114,7 @@ public class ParameterObject extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String, Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String, Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "name", Optional.ofNullable(name).orElse(""));
         set(map, "description", description);

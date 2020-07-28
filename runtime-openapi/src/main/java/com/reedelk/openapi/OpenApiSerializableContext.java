@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OpenApiSerializableContext1 {
+public class OpenApiSerializableContext {
 
     private final Map<String, Schema> SCHEMAS_MAP = new HashMap<>();
 

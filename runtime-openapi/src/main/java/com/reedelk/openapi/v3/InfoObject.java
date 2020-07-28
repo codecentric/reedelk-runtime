@@ -1,14 +1,14 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 
-public class InfoObject extends OpenApiSerializableAbstract1 {
+public class InfoObject extends OpenApiSerializableAbstract {
 
     private String title;
     private String description;
@@ -66,7 +66,7 @@ public class InfoObject extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String, Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String, Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "title", ofNullable(title).orElse("API")); // REQUIRED
         set(map, "description", description);

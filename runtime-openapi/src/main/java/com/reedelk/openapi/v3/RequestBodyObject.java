@@ -1,13 +1,13 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class RequestBodyObject extends OpenApiSerializableAbstract1 {
+public class RequestBodyObject extends OpenApiSerializableAbstract {
 
     private Boolean required;
     private String description;
@@ -38,7 +38,7 @@ public class RequestBodyObject extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String,Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String,Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "description", description);
         // By specification, the content object must be present, even if it is empty.

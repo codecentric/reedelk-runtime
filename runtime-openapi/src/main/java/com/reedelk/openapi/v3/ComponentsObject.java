@@ -1,13 +1,13 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ComponentsObject extends OpenApiSerializableAbstract1 {
+public class ComponentsObject extends OpenApiSerializableAbstract {
 
     private Map<String, SchemaObject> schemas = new HashMap<>();
 
@@ -20,7 +20,7 @@ public class ComponentsObject extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String, Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String, Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
         Map<String, Object> schemasMap = new LinkedHashMap<>();
         schemas.forEach((schemaId, schemaObject) ->

@@ -1,14 +1,14 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class PathsObject extends OpenApiSerializableAbstract1 {
+public class PathsObject extends OpenApiSerializableAbstract {
 
     private Map<String, Map<RestMethod, OperationObject>> paths = new TreeMap<>();
 
@@ -21,7 +21,7 @@ public class PathsObject extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String,Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String,Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> pathsObject = new LinkedHashMap<>();
         paths.forEach((path, pathItemObject) -> {
             Map<String, Object> operationsByPathJsonObject = new LinkedHashMap<>();

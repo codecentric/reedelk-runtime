@@ -1,7 +1,7 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableAbstract1;
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableAbstract;
+import com.reedelk.openapi.OpenApiSerializableContext;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 
-public class ServerVariableObject extends OpenApiSerializableAbstract1 {
+public class ServerVariableObject extends OpenApiSerializableAbstract {
 
     private String description;
     private String defaultValue;
@@ -40,7 +40,7 @@ public class ServerVariableObject extends OpenApiSerializableAbstract1 {
     }
 
     @Override
-    public Map<String,Object> serialize(OpenApiSerializableContext1 context) {
+    public Map<String,Object> serialize(OpenApiSerializableContext context) {
         Map<String, Object> map = new LinkedHashMap<>();
         set(map, "default", ofNullable(defaultValue).orElse("default")); // REQUIRED
         set(map, "description", description);

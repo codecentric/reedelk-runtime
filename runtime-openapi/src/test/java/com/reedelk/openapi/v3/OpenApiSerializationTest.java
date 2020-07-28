@@ -1,6 +1,6 @@
 package com.reedelk.openapi.v3;
 
-import com.reedelk.openapi.OpenApiSerializableContext1;
+import com.reedelk.openapi.OpenApiSerializableContext;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashMap;
@@ -9,11 +9,11 @@ import java.util.Map;
 public class OpenApiSerializationTest {
 
     private OpenApiObjectAbstract openApiObject;
-    private OpenApiSerializableContext1 context;
+    private OpenApiSerializableContext context;
 
     @BeforeEach
     void setUp() {
-        context = new OpenApiSerializableContext1();
+        context = new OpenApiSerializableContext();
 
         Schema schema = new Schema("mySchemaId", Fixture.Schemas.Pet.string());
 

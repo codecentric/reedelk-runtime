@@ -5,7 +5,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
-public class OpenApiDeserializer1 {
+public class OpenApiDeserializer {
 
     public static OpenApiObjectAbstract from(String jsonOrYaml) {
         Yaml yaml = new Yaml();
