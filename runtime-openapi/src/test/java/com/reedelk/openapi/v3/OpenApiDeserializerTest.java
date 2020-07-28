@@ -13,9 +13,10 @@ class OpenApiDeserializerTest {
         String input = Fixture.EndToEnd.SAMPLE_JSON.string();
 
         // When
-        OpenApiObjectAbstract actual = OpenApiDeserializer.from(input);
+        OpenApiObject actual = OpenApiDeserializer.from(input);
 
         // Then
+
         assertThat(actual).isNotNull();
     }
 

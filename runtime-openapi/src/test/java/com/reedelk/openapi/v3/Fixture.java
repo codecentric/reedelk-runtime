@@ -75,14 +75,14 @@ public class Fixture {
         WithAllProperties() {
             @Override
             public String path() {
-                return "contact_object_with_all_properties.json";
+                return "contact/contact_object_with_all_properties.json";
             }
         },
 
         WithDefaultProperties() {
             @Override
             public String path() {
-                return "contact_object_with_default_properties.json";
+                return "contact/contact_object_with_default_properties.json";
             }
         }
     }
@@ -154,7 +154,7 @@ public class Fixture {
         WithDefaultInfoAndServersAndPaths() {
             @Override
             public String path() {
-                return "open_api_object_with_default_info_and_servers_and_paths.json";
+                return "openapi/open_api_object_with_default_info_and_servers_and_paths.json";
             }
         }
     }
@@ -164,28 +164,28 @@ public class Fixture {
         WithDefaultPaths() {
             @Override
             public String path() {
-                return "paths_object_with_default.json";
+                return "paths/paths_object_with_default.json";
             }
         },
 
         WithDefaultOperation() {
             @Override
             public String path() {
-                return "paths_object_with_default_operation.json";
+                return "paths/paths_object_with_default_operation.json";
             }
         },
 
         WithOperation() {
             @Override
             public String path() {
-                return "paths_object_with_operation.json";
+                return "paths/paths_object_with_operation.json";
             }
         },
 
         WithOperationWithNullPath() {
             @Override
             public String path() {
-                return "paths_object_with_operation_null_path.json";
+                return "paths/paths_object_with_operation_null_path.json";
             }
         }
     }
@@ -195,14 +195,14 @@ public class Fixture {
         WithNoSchemas() {
             @Override
             public String path() {
-                return "components_object_with_no_schemas.json";
+                return "components/components_object_with_no_schemas.json";
             }
         },
 
         WithSampleSchemas() {
             @Override
             public String path() {
-                return "components_object_with_sample_schemas.json";
+                return "components/components_object_with_sample_schemas.json";
             }
         }
     }
@@ -212,21 +212,21 @@ public class Fixture {
         WithDefaults() {
             @Override
             public String path() {
-                return "header_object_with_defaults.json";
+                return "header/header_object_with_defaults.json";
             }
         },
 
         WithAllPropertiesAndDefaultSchema() {
             @Override
             public String path() {
-                return "header_object_with_all_properties_and_default_schema.json";
+                return "header/header_object_with_all_properties_and_default_schema.json";
             }
         },
 
         WithAllPropertiesAndCustomSchema() {
             @Override
             public String path() {
-                return "header_object_with_all_properties_and_custom_schema.json";
+                return "header/header_object_with_all_properties_and_custom_schema.json";
             }
         }
     }
@@ -236,28 +236,28 @@ public class Fixture {
         WithSchema() {
             @Override
             public String path() {
-                return "media_type_object_with_schema.json";
+                return "mediatype/media_type_object_with_schema.json";
             }
         },
 
         WithExample() {
             @Override
             public String path() {
-                return "media_type_object_with_example.json";
+                return "mediatype/media_type_object_with_example.json";
             }
         },
 
         WithSchemaAndExample() {
             @Override
             public String path() {
-                return "media_type_object_with_schema_and_example.json";
+                return "mediatype/media_type_object_with_schema_and_example.json";
             }
         },
 
         WithDefault() {
             @Override
             public String path() {
-                return "media_type_with_default.json";
+                return "mediatype/media_type_with_default.json";
             }
         }
     }
@@ -267,14 +267,14 @@ public class Fixture {
         WithAllProperties() {
             @Override
             public String path() {
-                return "operation_object_with_all_properties.json";
+                return "operation/operation_object_with_all_properties.json";
             }
         },
 
         WithDefault() {
             @Override
             public String path() {
-                return "operation_object_with_default.json";
+                return "operation/operation_object_with_default.json";
             }
         }
     }
@@ -284,21 +284,21 @@ public class Fixture {
         WithAllProperties() {
             @Override
             public String path() {
-                return "parameter_object_with_all_properties.json";
+                return "parameter/parameter_object_with_all_properties.json";
             }
         },
 
         WithDefault() {
             @Override
             public String path() {
-                return "parameter_object_with_default.json";
+                return "parameter/parameter_object_with_default.json";
             }
         },
 
         WithInPath() {
             @Override
             public String path() {
-                return "parameter_object_with_in_path.json";
+                return "parameter/parameter_object_with_in_path.json";
             }
         }
     }
@@ -308,14 +308,14 @@ public class Fixture {
         WithAllProperties() {
             @Override
             public String path() {
-                return "request_body_object_with_all_properties.json";
+                return "requestbody/request_body_object_with_all_properties.json";
             }
         },
 
         WithDefault() {
             @Override
             public String path() {
-                return "request_body_object_with_default.json";
+                return "requestbody/request_body_object_with_default.json";
             }
         }
 
@@ -326,14 +326,14 @@ public class Fixture {
         WithAllProperties() {
             @Override
             public String path() {
-                return "response_body_object_with_all_properties.json";
+                return "responsebody/response_body_object_with_all_properties.json";
             }
         },
 
         WithDefault() {
             @Override
             public String path() {
-                return "response_body_object_with_default.json";
+                return "responsebody/response_body_object_with_default.json";
             }
         }
     }

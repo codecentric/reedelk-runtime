@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class OpenApiSerializationTest {
 
-    private OpenApiObjectAbstract openApiObject;
+    private OpenApiObject openApiObject;
     private OpenApiSerializableContext context;
 
     @BeforeEach
@@ -45,7 +45,7 @@ public class OpenApiSerializationTest {
         PathsObject pathsObject = new PathsObject();
         pathsObject.setPaths(pathsMap);
 
-        openApiObject = new OpenApiObjectAbstract();
+        openApiObject = new OpenApiObject();
         openApiObject.setBasePath("/api/v3");
         openApiObject.setPaths(pathsObject);
     }

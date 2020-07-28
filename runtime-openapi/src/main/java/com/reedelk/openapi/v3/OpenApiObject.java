@@ -7,16 +7,25 @@ import java.util.*;
 
 import static java.util.Optional.ofNullable;
 
-public class OpenApiObjectAbstract extends OpenApiSerializableAbstract {
+public class OpenApiObject extends OpenApiSerializableAbstract {
 
     private static final String OPEN_API_VERSION = "3.0.3";
     
     // Info Object is required by spec
+    private String openapi;
     private InfoObject info = new InfoObject();
     private ComponentsObject components = new ComponentsObject();
     private List<ServerObject> servers = new ArrayList<>();
     private PathsObject paths = new PathsObject();
     private String basePath;
+
+    public String getOpenapi() {
+        return openapi;
+    }
+
+    public void setOpenapi(String openapi) {
+        this.openapi = openapi;
+    }
 
     public InfoObject getInfo() {
         return info;
