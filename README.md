@@ -60,52 +60,46 @@ Reedelk components to be used inside integration flows. Get the Reedelk Flow Des
 
 ### Installation
 
-Clone the Reedelk runtime and all the modules repositories.
+Clone the Reedelk Runtime, module-rest and module-core repositories.
 
 ```
 $ git clone https://github.com/reedelk/reedelk-runtime.git
 $ git clone https://github.com/reedelk/module-core.git
-$ git clone https://github.com/reedelk/module-csv.git
-$ git clone https://github.com/reedelk/module-ftp.git
-$ git clone https://github.com/reedelk/module-google-drive-v3.git
-$ git clone https://github.com/reedelk/module-json.git
-$ git clone https://github.com/reedelk/module-database.git
-$ git clone https://github.com/reedelk/module-file.git
-$ git clone https://github.com/reedelk/module-mail.git
-$ git clone https://github.com/reedelk/module-mongodb.git
-$ git clone https://github.com/reedelk/module-rabbitmq.git
 $ git clone https://github.com/reedelk/module-rest.git
-$ git clone https://github.com/reedelk/module-scheduler.git
-$ git clone https://github.com/reedelk/module-xml.git
-$ git clone https://github.com/reedelk/modules.git
 ```
 
-Compile reedelk-runtime and all the modules
+Compile Reedelk Runtime project and the Module REST and Module Core.
 ```
 $ cd reedelk-runtime
 $ mvn clean
 $ mvn install
-$ cd ../modules
+
+$ cd ../module-core
+$ mvn clean
+$ mvn install
+
+$ cd ../module-rest
 $ mvn clean
 $ mvn install
 ```
 
 ### Importing the project in IntelliJ
 
-1. Select File -> Open -> Select {sources_dir}/reedelk-runtime/pom.xml -> When prompted select "Open as a project"
-2. Import Modules -> Select {sources_dir}/modules/pom.xml
+1. Select File -> Open -> Select {sources_directory}/reedelk-runtime/pom.xml -> When prompted select "Open as a project"
+2. Import REST Module -> Select {sources_directory}/module-rest/pom.xml
+3. Import Core Module -> Select {sources_directory}/module-core/pom.xml
 
 ### Running the runtime on Java 11
 
-Add to IntelliJ a new run config with the following VM options (only if you are running on JDK 11):
+Add to IntelliJ a new Run configuration with the following VM options (only if you are running on JDK 11):
 
 1. --add-opens java.base/java.net=ALL-UNNAMED
 2. -Dio.netty.allocator.type=unpooled
 
-  
-Main class to be used for Run Configuration config: com.reedelk.runtime.Launcher
+Main class to be used for Run Configuration config: com.reedelk.runtime.Launcher. 
+See the picture below for the 'Application' configuration settings in IntelliJ.
 
-See attached image 'intellij-application-config.png' for the 'Application' configuration settings in IntelliJ.
+[![][reedelk-intellij-project-setup]][reedelk-url]
 
 ### Build Tools
 
@@ -134,3 +128,4 @@ limitations under the License.
 [reedelk-url]: https://www.reedelk.com/
 [reedelk-logo]: https://www.reedelk.com/github/reedelk-logo-github-readme.png
 [reedelk-intellij-plugin]: https://www.reedelk.com/github/intellij-plugin.png
+[reedelk-intellij-project-setup]: https://www.reedelk.com/github/intellij-application-config.png
