@@ -4,7 +4,7 @@
 [![Twitter](https://img.shields.io/twitter/follow/reedelk.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=reedelk)
 # Reedelk Runtime Platform (Community Edition)
 
-Reedelk is a lightweight data integration platform which allows to design, build and execute integration flows connecting data and applications.
+Reedelk is a lightweight data integration platform which allows to design, build and execute integration flows connecting data and applications using pre-built components.
 Reedelk Integration Flow Designer helps companies building API-led integrations using an easy to use and integrated development plugin for [IntelliJ IDE](https://plugins.jetbrains.com/plugin/13420-reedelk-flow-designer).
 
 [![][reedelk-intellij-plugin]][reedelk-url]
@@ -18,7 +18,7 @@ Reedelk Integration Flow Designer helps companies building API-led integrations 
 ## Summary
 
 - [**Features**](#features)
-- [**Development Environment**](#development)
+- [**Development**](#development)
 - [**License**](#license)
 
 ## Features
@@ -28,7 +28,7 @@ lightweight in terms of memory and deployment size.
 
 - **Fast Bootstrap Time**: Reedelk Runtime bootstrap time is fast, around 3/4 seconds even 
 with hundreds of components installed. This characteristic makes it the perfect choice
-to be used within containers and cloud deployments where the ability of scaling fast is foundamental.
+to be used within Docker containers and cloud deployments where the ability of scaling fast is foundamental.
 
 - **Runtime Administration Console**: The modules deployed on Reedelk Data Integration Platform can be 
 managed from an Administration console. It provides for each installed module info about 
@@ -45,7 +45,6 @@ to generate blueprints of the REST flows defined in the API specification.
 - **Docker Support**: You can use pre-built Reedelk Docker images to easily deploy and run your integration modules in seconds. 
 Docker images are available for each version of Reedelk Data Integration Platform. 
 Check out this 5 minutes [video](https://youtu.be/zYFPCA1PDDQ) tutorial explaining how to develop and deploy a simple Microservice using a Reedelk Docker image.
-
 
 - **Reedelk IntelliJ Flow Designer**: The Reedelk IntelliJ flow designer plugin allows developers to quickly design, 
 create and deploy integration flows from IntelliJ IDE with an easy to use visual flow designer. The IntelliJ plugin has 
