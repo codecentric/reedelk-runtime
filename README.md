@@ -53,6 +53,8 @@ Reedelk components to be used inside integration flows. Get the Reedelk Flow Des
 
 - **Custom Components Development**: Extendable architecture for adding functionality with custom developed data integration components.
 
+- **Data Streaming Support**: Reedelk is based on [Project Reactor](https://projectreactor.io/) and it can handle streaming of data using data streams.
+
 
 ## Development
 
