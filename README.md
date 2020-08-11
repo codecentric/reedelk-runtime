@@ -17,7 +17,6 @@ Reedelk Integration Flow Designer helps companies building API-led integrations 
 
 ## Summary
 
-- [**Why Reedelk?**](#why-kong)
 - [**Features**](#features)
 - [**Development Environment**](#development)
 - [**License**](#license)
