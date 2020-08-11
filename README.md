@@ -28,11 +28,7 @@ lightweight in terms of memory and deployment size.
 
 - **Fast Bootstrap Time**: Reedelk Runtime bootstrap time is fast, around 3/4 seconds even 
 with hundreds of components installed. This characteristic makes it the perfect choice
-to be used within containers and cloud deployments where the ability of scaling fast is mandatory.
-
-- **Docker Support**: You can use pre-built Reedelk Docker images to easily deploy and run your integration modules. 
-Docker images are available for each version of Reedelk Data Integration Platform. 
-Check out this 5 minutes [video](https://youtu.be/zYFPCA1PDDQ) tutorial explaining how to develop and deploy a simple Microservice using a Reedelk Docker image.
+to be used within containers and cloud deployments where the ability of scaling fast is foundamental.
 
 - **Runtime Administration Console**: The modules deployed on Reedelk Data Integration Platform can be 
 managed from an Administration console. It provides for each installed module info about 
@@ -43,13 +39,19 @@ installation, update and removal of modules.
 - **OpenAPI Support**: Reedelk supports Open API initiative. Open API definitions are automatically generated and 
 published for all REST based integration flows. 
 The Open API definition can be customized with user defined metadata including JSON/XML schemas for HTTP responses, 
-path parameters, query parameters and headers.
+path parameters, query parameters and headers. OpenAPI definitions can also be imported from the Reedelk IntelliJ plugin
+to generate blueprints of the REST flows defined in the API specification.
+
+- **Docker Support**: You can use pre-built Reedelk Docker images to easily deploy and run your integration modules in seconds. 
+Docker images are available for each version of Reedelk Data Integration Platform. 
+Check out this 5 minutes [video](https://youtu.be/zYFPCA1PDDQ) tutorial explaining how to develop and deploy a simple Microservice using a Reedelk Docker image.
+
 
 - **Reedelk IntelliJ Flow Designer**: The Reedelk IntelliJ flow designer plugin allows developers to quickly design, 
 create and deploy integration flows from IntelliJ IDE with an easy to use visual flow designer. The IntelliJ plugin has 
 been designed to significantly decrease the time needed to develop, test and validate changes in the flows by providing 
 hot-swap capabilities and component aware suggestions. The plugin provides also a set of features to easily develop custom 
-Reedelk components to be used inside integration flows. Get the Reedelk Flow Designer plugin now from the Jetbrains Marketplace.
+Reedelk components to be used inside integration flows.
 
 - **Custom Components Development**: Extendable architecture for adding functionality with custom developed data integration components.
 
