@@ -91,8 +91,8 @@ Requests! If you are planning to develop a larger feature, come talk to us
 first!
 
 When contributing, please follow the guidelines provided in this document. They
-will cover topics such as the different Git branches we use, the commit message
-format to use or the appropriate code style.
+will cover topics such as the different Git branches we use or the commit message
+format to use.
 
 Once you have read them, and you are ready to submit your Pull Request, be sure
 to verify a few things:
