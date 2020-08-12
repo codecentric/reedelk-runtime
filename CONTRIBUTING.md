@@ -144,7 +144,12 @@ naming scheme when pushing your branch(es):
 To maintain a healthy Git history, we ask of you that you write your commit
 messages as follows:
 
-[type][scope][message]
+- The tense of your message must be **present**
+- The message must be prefixed by a **type** and a **scope**
+
+The format for a commit message is as follows:
+
+```[type][scope][message]```
 
 Where type is one of:
 - `feature`: code belonging to a new feature
