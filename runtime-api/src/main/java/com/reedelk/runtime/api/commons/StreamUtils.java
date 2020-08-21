@@ -50,7 +50,8 @@ public class StreamUtils {
 
         public static byte[] consume(Publisher<byte[]> stream) {
             List<byte[]> bytesBlocks = Flux.from(stream).collectList().block();
-            if (bytesBlocks == null) return new byte[]{};
+            if (bytesBlocks == null || bytesBlocks.size() == 0) return new byte[0];
+            if (bytesBlocks.size() == 1) return bytesBlocks.get(0);
 
             try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
                 bytesBlocks.forEach(bytesBlock -> {
@@ -73,9 +74,8 @@ public class StreamUtils {
         }
 
         public static String consume(Publisher<byte[]> byteArrayStream, Charset charset) {
-            Flux<String> streamAsString = Flux.from(byteArrayStream)
-                    .map(bytes -> new String(bytes, charset));
-            return consume(streamAsString);
+            byte[] byteArray = FromByteArray.consume(byteArrayStream);
+            return new String(byteArray, charset);
         }
 
         public static String consume(Publisher<String> stream) {
