@@ -420,24 +420,12 @@ class DeserializerConverterDefault implements DeserializerConverter {
             String value = JsonObjectConverter.getInstance().convert(String.class, object, key);
             return ResourceText.from(value);
         }
-
-        @Override
-        public ResourceText convert(JSONArray array, int index, DeserializerConverterContext context) {
-            String value = JsonObjectConverter.getInstance().convert(String.class, array, index);
-            return ResourceText.from(value);
-        }
     }
 
     private static class AsResourceBinary implements Converter<ResourceBinary> {
         @Override
         public ResourceBinary convert(JSONObject object, String key, DeserializerConverterContext context) {
             String value = JsonObjectConverter.getInstance().convert(String.class, object, key);
-            return ResourceBinary.from(value);
-        }
-
-        @Override
-        public ResourceBinary convert(JSONArray array, int index, DeserializerConverterContext context) {
-            String value = JsonObjectConverter.getInstance().convert(String.class, array, index);
             return ResourceBinary.from(value);
         }
     }

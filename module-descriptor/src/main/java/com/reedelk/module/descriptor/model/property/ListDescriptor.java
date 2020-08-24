@@ -8,7 +8,6 @@ public class ListDescriptor extends CollectionAwareDescriptor {
 
     private PropertyTypeDescriptor valueType;
     private String listDisplayProperty;
-    private String hintBrowseFile;
 
     @Override
     public Class<?> getType() {
@@ -29,14 +28,6 @@ public class ListDescriptor extends CollectionAwareDescriptor {
 
     public void setListDisplayProperty(String listDisplayProperty) {
         this.listDisplayProperty = listDisplayProperty;
-    }
-
-    public String getHintBrowseFile() {
-        return hintBrowseFile;
-    }
-
-    public void setHintBrowseFile(String hintBrowseFile) {
-        this.hintBrowseFile = hintBrowseFile;
     }
 
     @Override
