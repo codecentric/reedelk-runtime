@@ -434,6 +434,12 @@ class DeserializerConverterDefault implements DeserializerConverter {
             String value = JsonObjectConverter.getInstance().convert(String.class, object, key);
             return ResourceBinary.from(value);
         }
+
+        @Override
+        public ResourceBinary convert(JSONArray array, int index, DeserializerConverterContext context) {
+            String value = JsonObjectConverter.getInstance().convert(String.class, array, index);
+            return ResourceBinary.from(value);
+        }
     }
 
     private static class AsDynamicResource implements Converter<DynamicResource> {
