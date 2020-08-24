@@ -3,6 +3,7 @@ package com.reedelk.module.descriptor.analyzer.property.type;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.property.ListDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
+import com.reedelk.runtime.api.annotation.DialogTitle;
 import com.reedelk.runtime.api.annotation.ListDisplayProperty;
 import com.reedelk.runtime.api.annotation.TabGroup;
 import com.reedelk.runtime.api.commons.PlatformTypes;
@@ -26,6 +27,7 @@ public class ListFactory implements DescriptorFactory {
     @Override
     public PropertyTypeDescriptor create(String fullyQualifiedClassName, FieldInfo fieldInfo, ComponentAnalyzerContext context) {
         String tabGroup = annotationValueFrom(fieldInfo, TabGroup.class, null);
+        String dialogTitle = annotationValueFrom(fieldInfo, DialogTitle.class, null);
         String listDisplayProperty = annotationValueFrom(fieldInfo, ListDisplayProperty.class, null);
 
         // We must find out the value type of the List.
@@ -41,6 +43,7 @@ public class ListFactory implements DescriptorFactory {
 
         ListDescriptor descriptor = new ListDescriptor();
         descriptor.setListDisplayProperty(listDisplayProperty);
+        descriptor.setDialogTitle(dialogTitle);
         descriptor.setValueType(valueType);
         descriptor.setTabGroup(tabGroup);
         return descriptor;

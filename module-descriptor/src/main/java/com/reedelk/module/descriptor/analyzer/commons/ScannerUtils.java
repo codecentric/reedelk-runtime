@@ -256,16 +256,8 @@ public class ScannerUtils {
     private static <T> T annotationValueFrom(AnnotationInfo annotationInfo, T defaultValue) {
         AnnotationParameterValueList parameterValues = annotationInfo.getParameterValues();
         if (parameterValues == null) return defaultValue;
-        if (parameterValues.get(ANNOTATION_DEFAULT_PARAM_NAME) == null) {
-            return defaultValue;
-        } else {
-            Object value = parameterValues.getValue(ANNOTATION_DEFAULT_PARAM_NAME);
-            if (value instanceof AnnotationEnumValue) {
-                AnnotationEnumValue annotationEnumValue = (AnnotationEnumValue) value;
-                return (T) annotationEnumValue.getValueName();
-            } else {
-                return  (T) value;
-            }
-        }
+        return parameterValues.get(ANNOTATION_DEFAULT_PARAM_NAME) == null ?
+                defaultValue :
+                (T) parameterValues.getValue(ANNOTATION_DEFAULT_PARAM_NAME);
     }
 }
