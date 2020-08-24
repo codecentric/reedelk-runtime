@@ -3,9 +3,7 @@ package com.reedelk.module.descriptor.analyzer.property.type;
 import com.reedelk.module.descriptor.analyzer.component.ComponentAnalyzerContext;
 import com.reedelk.module.descriptor.model.property.ListDescriptor;
 import com.reedelk.module.descriptor.model.property.PropertyTypeDescriptor;
-import com.reedelk.runtime.api.annotation.DialogTitle;
-import com.reedelk.runtime.api.annotation.ListDisplayProperty;
-import com.reedelk.runtime.api.annotation.TabGroup;
+import com.reedelk.runtime.api.annotation.*;
 import com.reedelk.runtime.api.commons.PlatformTypes;
 import io.github.classgraph.ClassRefTypeSignature;
 import io.github.classgraph.FieldInfo;
@@ -29,6 +27,8 @@ public class ListFactory implements DescriptorFactory {
         String tabGroup = annotationValueFrom(fieldInfo, TabGroup.class, null);
         String dialogTitle = annotationValueFrom(fieldInfo, DialogTitle.class, null);
         String listDisplayProperty = annotationValueFrom(fieldInfo, ListDisplayProperty.class, null);
+        String listInput = annotationValueFrom(fieldInfo, ListInputType.class, ListInputType.ListInput.DEFAULT.name());
+        String hintBrowseFile = annotationValueFrom(fieldInfo, HintBrowseFile.class, null); // For ListInput.FILE
 
         // We must find out the value type of the List.
         // The Value type could be a primitive type or a custom object type.
@@ -42,7 +42,9 @@ public class ListFactory implements DescriptorFactory {
         PropertyTypeDescriptor valueType = factory.create(valueTypeFullyQualifiedName, fieldInfo, context);
 
         ListDescriptor descriptor = new ListDescriptor();
+        descriptor.setListInput(ListInputType.ListInput.valueOf(listInput));
         descriptor.setListDisplayProperty(listDisplayProperty);
+        descriptor.setHintBrowseFile(hintBrowseFile);
         descriptor.setDialogTitle(dialogTitle);
         descriptor.setValueType(valueType);
         descriptor.setTabGroup(tabGroup);

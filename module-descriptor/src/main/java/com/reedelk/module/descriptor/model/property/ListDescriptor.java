@@ -1,5 +1,7 @@
 package com.reedelk.module.descriptor.model.property;
 
+import com.reedelk.runtime.api.annotation.ListInputType;
+
 import java.util.List;
 
 public class ListDescriptor extends CollectionAwareDescriptor {
@@ -8,6 +10,8 @@ public class ListDescriptor extends CollectionAwareDescriptor {
 
     private PropertyTypeDescriptor valueType;
     private String listDisplayProperty;
+    private String hintBrowseFile;
+    private ListInputType.ListInput listInput;
 
     @Override
     public Class<?> getType() {
@@ -28,6 +32,22 @@ public class ListDescriptor extends CollectionAwareDescriptor {
 
     public void setListDisplayProperty(String listDisplayProperty) {
         this.listDisplayProperty = listDisplayProperty;
+    }
+
+    public void setListInput(ListInputType.ListInput listInput) {
+        this.listInput = listInput;
+    }
+
+    public ListInputType.ListInput getListInput() {
+        return listInput;
+    }
+
+    public String getHintBrowseFile() {
+        return hintBrowseFile;
+    }
+
+    public void setHintBrowseFile(String hintBrowseFile) {
+        this.hintBrowseFile = hintBrowseFile;
     }
 
     @Override
