@@ -1,5 +1,10 @@
 [
   {
+    "version": "1.0.3",
+    "date": "//TODO",
+    "release-notes": "<ul><li>bugfix: mime type parser did not correctly parse charset.</li></ul>"
+  },
+  {
     "version": "1.0.2",
     "date": "26/8/2020",
     "release-notes": "<ul><li>OpenAPI Import tool bugfixes.</li></ul>"
