@@ -39,6 +39,20 @@ class MimeTypeTest {
         }
 
         @Test
+        void shouldParseCorrectlyCharsetWhenLowerCased() {
+            // Given
+            String mimeType = "application/json;charset=utf-8";
+
+            // When
+            MimeType actualMimeType = MimeType.parse(mimeType);
+
+            // Then
+            assertThat(actualMimeType.toString()).isEqualTo("application/json; charset=UTF-8");
+            assertThat(actualMimeType.getCharset().isPresent()).isTrue();
+            assertThat(actualMimeType.getCharset().get()).isEqualTo(Charset.forName("UTF-8"));
+        }
+
+        @Test
         void shouldParseReturnUnknownWhenGivenStringIsNull() {
             // When
             MimeType actualMimeType = MimeType.parse(null);
@@ -64,6 +78,16 @@ class MimeTypeTest {
             // Then
             assertThat(actualMimeType).isEqualTo(MimeType.TEXT_HTML);
             assertThat(actualMimeType.getFileExtensions()).isEqualTo(MimeType.TEXT_HTML.getFileExtensions());
+        }
+
+        @Test
+        void shouldParseCorrectlyWithParameters() {
+            // When
+            MimeType actualMimeType = MimeType.parse("multipart/form-data; boundary=example-1; another=valueAnother");
+
+            // Then
+            assertThat(actualMimeType.toString()).isEqualTo("multipart/form-data; boundary=example-1; another=valueAnother");
+            assertThat(actualMimeType).isEqualTo(MimeType.MULTIPART_FORM_DATA);
         }
     }
 

@@ -57,6 +57,10 @@ public class MimeType implements Serializable {
         return new MimeType(primaryType, subType, null, javaType, params, fileExtensions);
     }
 
+    public static MimeType of(String primaryType, String subType, Map<String, String> params, List<String> fileExtensions, Class<?> javaType, String charset) {
+        return new MimeType(primaryType, subType, charset, javaType, params, fileExtensions);
+    }
+
     public static MimeType parse(String mimeType) {
         return parse(mimeType, UNKNOWN);
     }
@@ -144,25 +148,34 @@ public class MimeType implements Serializable {
     private static MimeType internalParse(String mimeType) {
         String[] parts = mimeType.split(";");
         Map<String, String> params = new HashMap<>();
+        String charset = null;
 
         for (int i = 1; i < parts.length; ++i) {
             String p = parts[i];
             String[] subParts = p.split("=");
-            if (subParts.length == 2)
-                params.put(subParts[0].trim(), subParts[1].trim());
+            if (subParts.length == 2) {
+                String paramKey = subParts[0].trim();
+                String paramValue = subParts[1].trim();
+                if (CHARSET_PARAM.equals(paramKey)) charset = paramValue; // We don't add it as a param
+                else params.put(subParts[0].trim(), subParts[1].trim());
+            }
         }
         String fullType = parts[0].trim();
 
         if (fullType.equals("*")) fullType = "*/*";
 
         String[] types = fullType.split("/");
-        String primaryType = types[0].trim();
-        String subType = types[1].trim();
+        String primaryType = toLowercase(types[0].trim());
+        String subType = toLowercase(types[1].trim());
 
         MimeType matching = MIME_TYPE_JAVA.get(PrimaryAndSubtypeKey.from(primaryType, subType));
         Class<?> aClass = matching.getJavaType();
         List<String> fileExtensions = matching.getFileExtensions();
-        return of(primaryType, subType, params, fileExtensions, aClass);
+        return of(primaryType, subType, params, fileExtensions, aClass, charset);
+    }
+
+    private static String toLowercase(String value) {
+        return value == null ? value : value.toLowerCase();
     }
 
     private Charset getCharset(String given, Map<String, String> params) {
@@ -529,9 +542,8 @@ public class MimeType implements Serializable {
         this.params.forEach((k, v) ->
                 buffer.append("; ")
                         .append(k)
-                        .append("=\"")
-                        .append(v)
-                        .append("\""));
+                        .append("=")
+                        .append(v));
         return this.primaryType + "/" + this.subType + (this.getCharset().isPresent() ? "; charset=" +
                 this.getCharset().get().name() : "") +
                 (!this.params.isEmpty() ? buffer.toString() : "");
