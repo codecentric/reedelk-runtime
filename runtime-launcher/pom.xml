@@ -15,6 +15,7 @@
 
     <properties>
         <version.qualifier>CE</version.qualifier>
+        <additional.bundles></additional.bundles>
     </properties>
 
     <dependencies>
@@ -120,8 +121,7 @@
                             <goal>filter-sources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>src/main/java/com/reedelk/runtime/properties
-                            </outputDirectory>
+                            <outputDirectory>src/main/java/com/reedelk/runtime/properties</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
