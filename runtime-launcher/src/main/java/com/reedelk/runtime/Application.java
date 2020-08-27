@@ -1,5 +1,6 @@
 package com.reedelk.runtime;
 
+import com.reedelk.runtime.commons.EnterpriseOnlyModule;
 import com.reedelk.runtime.properties.RuntimeConfiguration;
 import com.reedelk.runtime.properties.SystemBundle;
 import com.reedelk.runtime.properties.SystemConfiguration;
@@ -91,7 +92,11 @@ public class Application {
         try {
             bundle.start();
         } catch (BundleException exception) {
-            String errorMessage = message("runtime.start.module.error", bundle.getSymbolicName(), exception.getMessage());
+            boolean enterpriseOnlyModule = EnterpriseOnlyModule.is(exception);
+            String errorMessage = enterpriseOnlyModule ?
+                    message("license.only.module", bundle.getSymbolicName()) :
+                    message("runtime.start.module.error", bundle.getSymbolicName(), exception.getMessage());
+
             logger.error(errorMessage);
 
             try {

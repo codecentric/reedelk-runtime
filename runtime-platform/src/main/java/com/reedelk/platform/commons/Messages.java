@@ -114,6 +114,7 @@ public class Messages {
 
     public enum Module implements FormattedMessage {
 
+        LICENSE_ONLY_MODULE("[%s] has not been installed (license required)."),
         FILE_FIND_IO_ERROR("An I/O occurred while reading file=[%s] in module with id=[%d], name=[%s]: %s"),
         START_FAILED("Could not start module named=[%s]"),
         INSTALL_SUCCESS("Module [%s] installed"),

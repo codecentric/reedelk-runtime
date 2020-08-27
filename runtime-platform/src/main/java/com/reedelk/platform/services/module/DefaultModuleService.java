@@ -1,5 +1,6 @@
 package com.reedelk.platform.services.module;
 
+import com.reedelk.platform.commons.EnterpriseOnlyModule;
 import com.reedelk.platform.module.ModulesManager;
 import com.reedelk.runtime.api.commons.Unchecked;
 import com.reedelk.runtime.api.exception.PlatformException;
@@ -171,8 +172,11 @@ public class DefaultModuleService implements ModuleService {
             }
             return installedBundle.getBundleId();
         } catch (BundleException exception) {
-            String errorMessage = START_FAILED.format(installedBundle.getSymbolicName());
-            throw new PlatformException(errorMessage, exception);
+            String errorMessage = EnterpriseOnlyModule.is(exception) ?
+                    LICENSE_ONLY_MODULE.format(installedBundle.getSymbolicName()) :
+                    START_FAILED.format(installedBundle.getSymbolicName());
+            uninstallSilently(installedBundle);
+            throw new PlatformException(errorMessage);
         }
     }
 
@@ -193,6 +197,14 @@ public class DefaultModuleService implements ModuleService {
         boolean deleteSuccessful = fileToDelete.delete();
         if (!deleteSuccessful && logger.isWarnEnabled()) {
             logger.warn(REMOVE_FILE_NOT_SUCCESSFUL.format(fileToDelete.getPath()));
+        }
+    }
+
+    private void uninstallSilently(Bundle installedBundle) {
+        try {
+            installedBundle.uninstall();
+        } catch (BundleException ignored) {
+            // nothing we can do to recover
         }
     }
 }
