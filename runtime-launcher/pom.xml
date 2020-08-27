@@ -95,10 +95,11 @@
                         <fileset>
                             <directory>src/main/resources/system</directory>
                             <includes>
-                                <include>runtime-platform.jar</include> <!-- NAME_CONVENTION -->
                                 <include>runtime-admin-console.jar</include> <!-- NAME_CONVENTION -->
                                 <include>runtime-api.jar</include> <!-- NAME_CONVENTION -->
                                 <include>runtime-commons.jar</include> <!-- NAME_CONVENTION -->
+                                <include>runtime-license.jar</include> <!-- NAME_CONVENTION -->
+                                <include>runtime-platform.jar</include> <!-- NAME_CONVENTION -->
                             </includes>
                         </fileset>
                         <fileset>
