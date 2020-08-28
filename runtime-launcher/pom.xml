@@ -121,7 +121,9 @@
                             <goal>filter-sources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>src/main/java/com/reedelk/runtime/properties</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <sourceDirectory>templates</sourceDirectory>
+                            <outputDirectory>src/main</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

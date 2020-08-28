@@ -1,31 +1,32 @@
 package com.reedelk.runtime.properties;
 
-import java.util.Arrays;
+import com.reedelk.runtime.PlatformLauncherException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toList;
 
 public class SystemBundle {
 
+    private static final String BUNDLES_CONFIGURATION = "/system/bundles.configuration";
+
     public static Collection<String> all() {
-        return Collections.unmodifiableList(Arrays.asList(
-                "org.osgi.util.function-1.1.0.jar",
-                "org.osgi.util.promise-1.1.1.jar",
-                "org.osgi.util.pushstream-1.0.1.jar",
-                "org.apache.felix.configadmin-1.9.16.jar",
-                "org.osgi.service.component-1.4.0.jar",
-                "org.apache.felix.scr-2.1.16.jar",
-                "pax-logging-api-1.11.0.jar",
-                "pax-logging-logback-1.11.0.jar",
-                "json-20190722.jar",
-                "httpcore-osgi-4.4.13.jar",
-                "httpclient-osgi-4.5.12.jar",
-                "httpasyncclient-osgi-4.1.4.jar",
-                "jsr305-3.0.2.jar",
-                "reactive-streams-1.0.3.jar",
-                "reactor-core-3.3.6.RELEASE.jar",
-                "runtime-api.jar", // NAME_CONVENTION
-                "runtime-commons.jar", // NAME_CONVENTION
-                "runtime-platform.jar")); // NAME_CONVENTION
+        try (InputStream resourceAsStream = SystemBundle.class.getResourceAsStream(BUNDLES_CONFIGURATION);
+        InputStreamReader isReader = new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
+        BufferedReader bufferedReader = new BufferedReader(isReader)) {
+            return bufferedReader
+                    .lines()
+                    .filter(SKIP_EMPTY_LINES)
+                    .collect(toList());
+        } catch (IOException exception) {
+            throw new PlatformLauncherException("Could not read bundles configuration", exception);
+        }
     }
 
     public static String adminConsole() {
@@ -35,4 +36,7 @@ public class SystemBundle {
     public static String basePath() {
         return "/system/";
     }
+
+    private static final Predicate<String> SKIP_EMPTY_LINES =
+            value -> value != null && value.length() > 0;
 }
