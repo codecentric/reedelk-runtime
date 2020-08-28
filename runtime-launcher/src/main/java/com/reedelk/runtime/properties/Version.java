@@ -6,10 +6,10 @@ package com.reedelk.runtime.properties;
  */
 public final class Version {
 
-    private static final String VERSION = "1.0.3";
+    private static final String VERSION = "1.0.4-SNAPSHOT";
     private static final String GROUPID = "com.reedelk";
     private static final String ARTIFACTID = "runtime-launcher";
-    private static final String QUALIFIER = "EE";
+    private static final String QUALIFIER = "CE";
 
     public static String getVersion() {
         return VERSION;
