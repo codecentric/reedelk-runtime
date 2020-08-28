@@ -16,4 +16,4 @@ reactor-core-3.3.6.RELEASE.jar
 runtime-api.jar
 runtime-commons.jar
 runtime-platform.jar
-
+module-license.jar
