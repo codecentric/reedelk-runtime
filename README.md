@@ -64,6 +64,7 @@ Reedelk components to be used inside integration flows.
 Clone the Reedelk Runtime, module-rest and module-core repositories.
 
 ```
+$ git clone https://github.com/reedelk/reedelk-openapi.git
 $ git clone https://github.com/reedelk/reedelk-runtime.git
 $ git clone https://github.com/reedelk/module-core.git
 $ git clone https://github.com/reedelk/module-rest.git
@@ -71,17 +72,21 @@ $ git clone https://github.com/reedelk/module-rest.git
 
 Compile Reedelk Runtime project and the Module REST and Module Core.
 ```
-$ cd reedelk-runtime
-$ mvn clean
+$ cd reedelk-openapi
 $ mvn install
+$ cd ..
+
+$ cd reedelk-runtime
+$ mvn install
+$ cd ..
 
 $ cd ../module-core
-$ mvn clean
 $ mvn install
+$ cd ..
 
 $ cd ../module-rest
-$ mvn clean
 $ mvn install
+$ cd ..
 ```
 
 ### Importing the project in IntelliJ
