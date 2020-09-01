@@ -89,20 +89,35 @@ $ mvn install
 $ cd ..
 ```
 
+If you are looking to work on a specific module, after following the instruction above
+checkout your module and install it:
+
+```
+$ git clone https://github.com/reedelk/module-XYZ.git
+$ cd module-XYZ
+$ mvn install
+$ cd ..
+```
+
 ### Importing the project in IntelliJ
 
 1. Select File -> Open -> Select {sources_directory}/reedelk-runtime/pom.xml -> When prompted select "Open as a project"
-2. Import REST Module -> Select {sources_directory}/module-rest/pom.xml
-3. Import Core Module -> Select {sources_directory}/module-core/pom.xml
+2. Select File -> Project Structure -> Select 'Modules' under Project Settings -> Click on '+' -> Import Module -> Select {sources_directory}/module-rest/pom.xml
+3. Select File -> Project Structure -> Select 'Modules' under Project Settings -> Click on '+' -> Import Module -> Select {sources_directory}/module-core/pom.xml
 
 ### Running the runtime on Java 11
 
-Add to IntelliJ a new Run configuration with the following VM options (only if you are running on JDK 11):
+Add to IntelliJ a new 'Application' Template Run configuration with the following VM options (only if you are running on JDK 11):
 
-1. --add-opens java.base/java.net=ALL-UNNAMED
-2. -Dio.netty.allocator.type=unpooled
+* --add-opens java.base/java.net=ALL-UNNAMED
+* -Dio.netty.allocator.type=unpooled
 
-Main class to be used for Run Configuration config: com.reedelk.runtime.Launcher. 
+Main class to be used for 'Application' Run Configuration config:
+* com.reedelk.runtime.Launcher
+
+Use classpath of module:
+* runtime-launcher
+ 
 See the picture below for the 'Application' configuration settings in IntelliJ.
 
 [![][reedelk-intellij-project-setup]][reedelk-url]

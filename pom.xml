@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.reedelk</groupId>
-    <artifactId>runtime</artifactId>
+    <artifactId>reedelk-runtime</artifactId>
     <packaging>pom</packaging>
     <version>${revision}</version>
 
