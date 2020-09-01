@@ -1,7 +1,7 @@
 [
   {
-    "version": "1.0.3",
-    "date": "//TODO",
+    "version": "1.0.4",
+    "date": "1/9/2020",
     "release-notes": "<ul><li>bugfix: mime type parser did not correctly parse charset.</li></ul>"
   },
   {
