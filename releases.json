@@ -1,8 +1,8 @@
 [
   {
     "version": "1.0.5",
-    "date": "17/9/2020",
-    "release-notes": "<ul><li>misc: logger should rely on root logger level rather than specifying for each package a logger level.</li></ul>"
+    "date": "16/9/2020",
+    "release-notes": "<ul><li>misc: logger should rely on root logger level rather than specifying for each package a logger level.</li><li>bugfix: startup script did not correctly include libs directory.</li></ul>"
   },
   {
     "version": "1.0.4",
