@@ -146,6 +146,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
+
 [reedelk-url]: https://www.reedelk.com/
 [reedelk-logo]: https://www.reedelk.com/github/reedelk-logo-github-readme.png
 [reedelk-intellij-plugin]: https://www.reedelk.com/github/intellij-plugin.png
