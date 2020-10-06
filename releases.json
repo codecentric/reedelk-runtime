@@ -1,5 +1,10 @@
 [
   {
+    "version": "1.0.6",
+    "date": "6/10/2020",
+    "release-notes": "<ul><li>Release containing updated module-rest, module-core, module-xml and module-rabbitmq.</li></ul>"
+  },
+  {
     "version": "1.0.5",
     "date": "16/9/2020",
     "release-notes": "<ul><li>misc: logger should rely on root logger level rather than specifying for each package a logger level.</li><li>bugfix: startup script did not correctly include libs directory.</li></ul>"
