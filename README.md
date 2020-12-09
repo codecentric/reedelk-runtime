@@ -87,7 +87,7 @@ $ git clone https://github.com/reedelk/module-scheduler.git
 $ git clone https://github.com/reedelk/module-xml.git
 ```
 
-Compile OpenaAPI library, Reedelk Runtime project and the modules.
+Compile Open API library, Reedelk Runtime project and the modules.
 ```
 $ cd reedelk-openapi
 $ mvn install
@@ -102,21 +102,10 @@ $ mvn install
 $ cd ..
 ```
 
-If you are looking to work on a specific module, after following the instruction above
-checkout your module and install it:
-
-```
-$ git clone https://github.com/reedelk/module-XYZ.git
-$ cd module-XYZ
-$ mvn install
-$ cd ..
-```
-
 ### Importing the project in IntelliJ
 
 1. Select File -> Open -> Select {sources_directory}/reedelk-runtime/pom.xml -> When prompted select "Open as a project"
-2. Select File -> Project Structure -> Select 'Modules' under Project Settings -> Click on '+' -> Import Module -> Select {sources_directory}/module-rest/pom.xml
-3. Select File -> Project Structure -> Select 'Modules' under Project Settings -> Click on '+' -> Import Module -> Select {sources_directory}/module-core/pom.xml
+2. Select File -> Project Structure -> Select 'Modules' under Project Settings -> Click on '+' -> Import Module -> Select {sources_directory}/modules/pom.xml
 
 ### Running the runtime on Java 11
 
