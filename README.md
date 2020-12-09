@@ -66,11 +66,28 @@ Clone the Reedelk Runtime, module-rest and module-core repositories.
 ```
 $ git clone https://github.com/reedelk/reedelk-openapi.git
 $ git clone https://github.com/reedelk/reedelk-runtime.git
+$ git clone https://github.com/reedelk/modules.git
+$ git clone https://github.com/reedelk/module-aws-s3.git
+$ git clone https://github.com/reedelk/module-azure-storage.git
 $ git clone https://github.com/reedelk/module-core.git
+$ git clone https://github.com/reedelk/module-csv.git
+$ git clone https://github.com/reedelk/module-database.git
+$ git clone https://github.com/reedelk/module-file.git
+$ git clone https://github.com/reedelk/module-ftp.git
+$ git clone https://github.com/reedelk/module-google-drive-v3.git
+$ git clone https://github.com/reedelk/module-json.git
+$ git clone https://github.com/reedelk/module-jwt.git
+$ git clone https://github.com/reedelk/module-kafka.git
+$ git clone https://github.com/reedelk/module-mail.git
+$ git clone https://github.com/reedelk/module-mongodb.git
+$ git clone https://github.com/reedelk/module-rabbitmq.git
 $ git clone https://github.com/reedelk/module-rest.git
+$ git clone https://github.com/reedelk/module-salesforce.git
+$ git clone https://github.com/reedelk/module-scheduler.git
+$ git clone https://github.com/reedelk/module-xml.git
 ```
 
-Compile Reedelk Runtime project and the Module REST and Module Core.
+Compile OpenaAPI library, Reedelk Runtime project and the modules.
 ```
 $ cd reedelk-openapi
 $ mvn install
@@ -80,11 +97,7 @@ $ cd reedelk-runtime
 $ mvn install
 $ cd ..
 
-$ cd ../module-core
-$ mvn install
-$ cd ..
-
-$ cd ../module-rest
+$ cd modules
 $ mvn install
 $ cd ..
 ```
