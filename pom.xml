@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.reedelk</groupId>
+    <groupId>de.codecentric.reedelk</groupId>
     <artifactId>reedelk-runtime</artifactId>
     <packaging>pom</packaging>
     <version>${revision}</version>
 
     <properties>
-        <revision>1.0.6</revision>
+        <revision>1.1.0-SNAPSHOT</revision>
         <assertj.version>3.11.1</assertj.version>
         <groovy.version>3.0.3</groovy.version>
         <json.version>20190722</json.version>
@@ -199,7 +199,7 @@
 
                     <!-- Reedelk Plugin (generates components-descriptors.json) for the module being built -->
                     <plugin>
-                        <groupId>com.reedelk</groupId>
+                        <groupId>de.codecentric.reedelk</groupId>
                         <artifactId>module-maven-plugin</artifactId>
                         <version>${revision}</version>
                         <executions>

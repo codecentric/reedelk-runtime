@@ -17,7 +17,7 @@
           "description": "Property Boolean Object Info",
           "displayName": "Property Boolean Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Boolean"
             }
@@ -30,7 +30,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -53,7 +53,7 @@
           "description": "Property Boolean Info",
           "displayName": "Property Boolean",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "boolean"
             }
@@ -66,7 +66,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -87,7 +87,7 @@
           "displayName": "Property Double Object",
           "defaultValue": "11.32",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Double"
             }
@@ -100,7 +100,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -119,7 +119,7 @@
           "description": "Property Double Info",
           "displayName": "Property Double",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "double"
             }
@@ -132,7 +132,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -151,7 +151,7 @@
           "description": "Property Float Object Info",
           "displayName": "Property Float Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Float"
             }
@@ -164,7 +164,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -183,7 +183,7 @@
           "description": "Property Float Info",
           "displayName": "Property Float",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "float"
             }
@@ -196,7 +196,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -215,7 +215,7 @@
           "description": "Property Integer Object Info",
           "displayName": "Property Integer Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Integer"
             }
@@ -228,7 +228,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -247,7 +247,7 @@
           "description": "Property Integer Info",
           "displayName": "Property Integer",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "int"
             }
@@ -260,7 +260,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -279,7 +279,7 @@
           "description": "Property Long Object Info",
           "displayName": "Property Long Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.lang.Long"
             }
@@ -292,7 +292,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -313,7 +313,7 @@
           "displayName": "Property Long",
           "defaultValue": "2L",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "long"
             }
@@ -326,7 +326,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -345,7 +345,7 @@
           "description": "Property String Info",
           "displayName": "Property String",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -358,7 +358,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -377,7 +377,7 @@
           "description": "Property Big Integer Info",
           "displayName": "Property BigInteger",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.math.BigInteger"
             }
@@ -390,7 +390,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -409,7 +409,7 @@
           "description": "Property Big Decimal Info",
           "displayName": "Property BigDecimal",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.math.BigDecimal"
             }
@@ -422,7 +422,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -441,7 +441,7 @@
           "description": "Property Map Info",
           "displayName": "Property Map",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.MapDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.MapDescriptor",
             "instance": {
               "tabGroup": "myTestGroup1",
               "type": "java.util.Map"
@@ -455,7 +455,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -474,7 +474,7 @@
           "description": "Property Enum Info",
           "displayName": "Property Enum",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.EnumDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.EnumDescriptor",
             "instance": {
               "nameAndDisplayNameMap": {
                 "AUTO": "Auto",
@@ -491,7 +491,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -510,7 +510,7 @@
           "description": "Property Dynamic Long Info",
           "displayName": "Property Dynamic Long",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Long"
             }
@@ -523,7 +523,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -542,7 +542,7 @@
           "description": "Property Dynamic Float Info",
           "displayName": "Property Dynamic Float",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Float"
             }
@@ -555,7 +555,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -574,7 +574,7 @@
           "description": "Property Dynamic Double Info",
           "displayName": "Property Dynamic Double",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Double"
             }
@@ -587,7 +587,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -606,7 +606,7 @@
           "description": "Property Dynamic Object Info",
           "displayName": "Property Dynamic Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Object"
             }
@@ -619,7 +619,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -638,7 +638,7 @@
           "description": "Property Dynamic String Info",
           "displayName": "Property Dynamic String",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -651,7 +651,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -670,7 +670,7 @@
           "description": "Property Dynamic Boolean Info",
           "displayName": "Property Dynamic Boolean",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Boolean"
             }
@@ -683,7 +683,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -702,7 +702,7 @@
           "description": "Property Dynamic Integer Info",
           "displayName": "Property Dynamic Integer",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.Integer"
             }
@@ -715,7 +715,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -734,7 +734,7 @@
           "description": "Property Dynamic Resource Info",
           "displayName": "Property Dynamic Resource",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -747,7 +747,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -766,7 +766,7 @@
           "description": "Property Dynamic Byte Array Info",
           "displayName": "Property Dynamic byte array",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "[B"
             }
@@ -779,7 +779,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -798,7 +798,7 @@
           "description": "Property Dynamic Big Integer Info",
           "displayName": "Property Dynamic Big Integer",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.math.BigInteger"
             }
@@ -811,7 +811,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -830,7 +830,7 @@
           "description": "Property Dynamic Big Decimal Info",
           "displayName": "Property Dynamic Big Decimal",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.math.BigDecimal"
             }
@@ -843,7 +843,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -862,7 +862,7 @@
           "description": "Property Dynamic String Map Info",
           "displayName": "Property Dynamic String Map",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicMapDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicMapDescriptor",
             "instance": {
               "tabGroup": "myTestGroup2",
               "type": "java.lang.String"
@@ -876,7 +876,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -895,9 +895,9 @@
           "description": "Property Script Info",
           "displayName": "Property Script",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.ScriptDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.ScriptDescriptor",
             "instance": {
-              "type": "com.reedelk.runtime.api.script.Script"
+              "type": "de.codecentric.reedelk.runtime.api.script.Script"
             }
           },
           "scriptSignature": {
@@ -908,7 +908,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -927,7 +927,7 @@
           "description": "Property Combo Info",
           "displayName": "Property Combo",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.ComboDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.ComboDescriptor",
             "instance": {
               "editable": true,
               "prototype": "XX",
@@ -936,7 +936,7 @@
                 "Item2",
                 "Item3"
               ],
-              "type": "com.reedelk.runtime.api.annotation.Combo"
+              "type": "de.codecentric.reedelk.runtime.api.annotation.Combo"
             }
           },
           "scriptSignature": {
@@ -947,7 +947,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -966,9 +966,9 @@
           "description": "Property Password Info",
           "displayName": "Property Password",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PasswordDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PasswordDescriptor",
             "instance": {
-              "type": "com.reedelk.runtime.api.annotation.Password"
+              "type": "de.codecentric.reedelk.runtime.api.annotation.Password"
             }
           },
           "scriptSignature": {
@@ -979,7 +979,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -998,9 +998,9 @@
           "description": "Property Resource Text Info",
           "displayName": "Property Resource Text",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.ResourceTextDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.ResourceTextDescriptor",
             "instance": {
-              "type": "com.reedelk.runtime.api.resource.ResourceText"
+              "type": "de.codecentric.reedelk.runtime.api.resource.ResourceText"
             }
           },
           "scriptSignature": {
@@ -1011,7 +1011,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -1030,9 +1030,9 @@
           "description": "Property Resource Binary Info",
           "displayName": "Property Resource Binary",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.ResourceBinaryDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.ResourceBinaryDescriptor",
             "instance": {
-              "type": "com.reedelk.runtime.api.resource.ResourceBinary"
+              "type": "de.codecentric.reedelk.runtime.api.resource.ResourceBinary"
             }
           },
           "scriptSignature": {
@@ -1043,7 +1043,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -1060,11 +1060,11 @@
           "description": "Property Type Object Info",
           "displayName": "Property Type Object",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.ObjectDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.ObjectDescriptor",
             "instance": {
               "shared": "YES",
               "collapsible": "YES",
-              "typeFullyQualifiedName": "com.reedelk.component.TestImplementor",
+              "typeFullyQualifiedName": "de.codecentric.reedelk.component.TestImplementor",
               "objectProperties": [
                 {
                   "mandatory": false,
@@ -1074,7 +1074,7 @@
                   "description": "Property Nested 1 Info",
                   "displayName": "Nested Property 1",
                   "type": {
-                    "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+                    "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
                     "instance": {
                       "type": "java.lang.String"
                     }
@@ -1087,7 +1087,7 @@
                       },
                       {
                         "argumentName": "output",
-                        "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                        "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
                       }
                     ]
                   },
@@ -1106,7 +1106,7 @@
                   "description": "Property Nested 2 Info",
                   "displayName": "Nested Property 2",
                   "type": {
-                    "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+                    "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
                     "instance": {
                       "type": "int"
                     }
@@ -1119,7 +1119,7 @@
                       },
                       {
                         "argumentName": "output",
-                        "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                        "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
                       }
                     ]
                   },
@@ -1131,7 +1131,7 @@
                   ]
                 }
               ],
-              "type": "com.reedelk.module.descriptor.model.property.ObjectDescriptor$TypeObject"
+              "type": "de.codecentric.reedelk.module.descriptor.model.property.ObjectDescriptor$TypeObject"
             }
           },
           "scriptSignature": {
@@ -1142,7 +1142,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -1169,7 +1169,7 @@
           "description": "Property String With Default Info",
           "displayName": "Property String With Init Value",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.PrimitiveDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -1184,7 +1184,7 @@
           "description": "Property Dynamic String Info",
           "displayName": "Property Dynamic String",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.DynamicValueDescriptor",
             "instance": {
               "type": "java.lang.String"
             }
@@ -1197,7 +1197,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },
@@ -1216,7 +1216,7 @@
           "description": "Property Map Info",
           "displayName": "Property Map",
           "type": {
-            "classname": "com.reedelk.module.descriptor.model.property.MapDescriptor",
+            "classname": "de.codecentric.reedelk.module.descriptor.model.property.MapDescriptor",
             "instance": {
               "tabGroup": "myTestGroup1",
               "type": "java.util.Map"
@@ -1230,7 +1230,7 @@
               },
               {
                 "argumentName": "output",
-                "argumentType": "com.reedelk.runtime.api.flow.FlowContext"
+                "argumentType": "de.codecentric.reedelk.runtime.api.flow.FlowContext"
               }
             ]
           },

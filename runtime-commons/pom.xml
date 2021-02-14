@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.reedelk</groupId>
+        <groupId>de.codecentric.reedelk</groupId>
         <artifactId>reedelk-runtime</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.reedelk</groupId>
+            <groupId>de.codecentric.reedelk</groupId>
             <artifactId>runtime-api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -91,8 +91,9 @@
             </plugin>
 
             <plugin>
-                <groupId>com.reedelk</groupId>
+                <groupId>de.codecentric.reedelk</groupId>
                 <artifactId>module-maven-plugin</artifactId>
+                <version>1.0.6</version>
                 <configuration>
                     <moduleName>flow-control</moduleName>
                     <scanApi>true</scanApi>

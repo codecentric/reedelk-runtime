@@ -1,6 +1,0 @@
-{
-  "id": "customer-api-connection-config",
-  "implementor": "com.reedelk.platform.test.utils.TestConfiguration",
-  "port": 8822,
-  "hostname": "localhost"
-}

@@ -4,7 +4,7 @@
   "description": "Deploys a module into the {runtime}/modules folder and installs it",
   "flow": [
     {
-      "implementor": "com.reedelk.rest.component.RESTListener",
+      "implementor": "de.codecentric.reedelk.rest.component.RESTListener",
       "description": "Deploy a module into the ESB",
       "configuration": {"ref": "8d689312-0cc5-4e0b-aec6-f17025627aa1"},
       "path": "/api/module/deploy",
@@ -22,7 +22,7 @@
       }
     },
     {
-      "implementor": "com.reedelk.admin.console.ModuleDeploy",
+      "implementor": "de.codecentric.reedelk.admin.console.ModuleDeploy",
       "description": "Module Deploy"
     }
   ]
