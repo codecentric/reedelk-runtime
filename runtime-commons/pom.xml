@@ -93,7 +93,7 @@
             <plugin>
                 <groupId>de.codecentric.reedelk</groupId>
                 <artifactId>module-maven-plugin</artifactId>
-                <version>1.0.6</version>
+                <version>${revision}</version>
                 <configuration>
                     <moduleName>flow-control</moduleName>
                     <scanApi>true</scanApi>

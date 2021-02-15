@@ -40,6 +40,7 @@
     </properties>
 
     <modules>
+        <module>module-maven-plugin</module> <!-- NAME_CONVENTION -->
         <module>runtime-api</module> <!-- NAME_CONVENTION -->
         <module>runtime-commons</module> <!-- NAME_CONVENTION -->
         <module>runtime-platform</module> <!-- NAME_CONVENTION -->
@@ -47,7 +48,6 @@
         <module>runtime-launcher</module> <!-- NAME_CONVENTION -->
         <module>module-parent</module> <!-- NAME_CONVENTION -->
         <module>module-descriptor</module> <!-- NAME_CONVENTION -->
-        <module>module-maven-plugin</module> <!-- NAME_CONVENTION -->
     </modules>
 
     <dependencyManagement>
