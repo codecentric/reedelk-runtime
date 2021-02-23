@@ -65,27 +65,27 @@ Reedelk components to be used inside integration flows.
 Clone the Reedelk Runtime, module-rest and module-core repositories.
 
 ```
-$ git clone https://github.com/reedelk/reedelk-openapi.git
-$ git clone https://github.com/reedelk/reedelk-runtime.git
-$ git clone https://github.com/reedelk/modules.git
-$ git clone https://github.com/reedelk/module-aws-s3.git
-$ git clone https://github.com/reedelk/module-azure-storage.git
-$ git clone https://github.com/reedelk/module-core.git
-$ git clone https://github.com/reedelk/module-csv.git
-$ git clone https://github.com/reedelk/module-database.git
-$ git clone https://github.com/reedelk/module-file.git
-$ git clone https://github.com/reedelk/module-ftp.git
-$ git clone https://github.com/reedelk/module-google-drive-v3.git
-$ git clone https://github.com/reedelk/module-json.git
-$ git clone https://github.com/reedelk/module-jwt.git
-$ git clone https://github.com/reedelk/module-kafka.git
-$ git clone https://github.com/reedelk/module-mail.git
-$ git clone https://github.com/reedelk/module-mongodb.git
-$ git clone https://github.com/reedelk/module-rabbitmq.git
-$ git clone https://github.com/reedelk/module-rest.git
-$ git clone https://github.com/reedelk/module-salesforce.git
-$ git clone https://github.com/reedelk/module-scheduler.git
-$ git clone https://github.com/reedelk/module-xml.git
+$ git clone https://github.com/codecentric/reedelk-openapi.git
+$ git clone https://github.com/codecentric/reedelk-runtime.git
+$ git clone https://github.com/codecentric/modules.git
+$ git clone https://github.com/codecentric/reedelk-module-aws-s3.git
+$ git clone https://github.com/codecentric/reedelk-module-azure-storage.git
+$ git clone https://github.com/codecentric/reedelk-module-core.git
+$ git clone https://github.com/codecentric/reedelk-module-csv.git
+$ git clone https://github.com/codecentric/reedelk-module-database.git
+$ git clone https://github.com/codecentric/reedelk-module-file.git
+$ git clone https://github.com/codecentric/reedelk-module-ftp.git
+$ git clone https://github.com/codecentric/reedelk-module-google-drive-v3.git
+$ git clone https://github.com/codecentric/reedelk-module-json.git
+$ git clone https://github.com/codecentric/reedelk-module-jwt.git
+$ git clone https://github.com/codecentric/reedelk-module-kafka.git
+$ git clone https://github.com/codecentric/reedelk-module-mail.git
+$ git clone https://github.com/codecentric/reedelk-module-mongodb.git
+$ git clone https://github.com/codecentric/reedelk-module-rabbitmq.git
+$ git clone https://github.com/codecentric/reedelk-module-rest.git
+$ git clone https://github.com/codecentric/reedelk-module-salesforce.git
+$ git clone https://github.com/codecentric/reedelk-module-scheduler.git
+$ git clone https://github.com/codecentric/reedelk-module-xml.git
 ```
 
 Compile Open API library, Reedelk Runtime project and the modules.
@@ -134,7 +134,7 @@ See the picture below for the 'Application' configuration settings in IntelliJ.
 ## License
 
 ```
-Copyright (c) 2019-2020 Apiable Oy - Reedelk is an Apiable product.
+Copyright (c) 2019-2021 
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
