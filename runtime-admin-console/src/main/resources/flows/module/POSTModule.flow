@@ -4,7 +4,7 @@
   "description": "Install or Update a module from the given path without copying the module file into the {runtime}/modules folder",
   "flow": [
     {
-      "implementor": "com.reedelk.rest.component.RESTListener",
+      "implementor": "de.codecentric.reedelk.rest.component.RESTListener",
       "description": "REST Listener",
       "configuration": {"ref": "8d689312-0cc5-4e0b-aec6-f17025627aa1"},
       "path": "/api/module",
@@ -22,7 +22,7 @@
       }
     },
     {
-      "implementor": "com.reedelk.admin.console.ModuleInstallOrUpdate",
+      "implementor": "de.codecentric.reedelk.admin.console.ModuleInstallOrUpdate",
       "description": "Install or update module"
     }
   ]

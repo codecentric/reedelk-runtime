@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.reedelk</groupId>
+        <groupId>de.codecentric.reedelk</groupId>
         <artifactId>reedelk-runtime</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
@@ -25,7 +25,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.reedelk</groupId>
+            <groupId>de.codecentric.reedelk</groupId>
             <artifactId>runtime-api</artifactId>
             <version>${revision}</version>
             <scope>provided</scope>

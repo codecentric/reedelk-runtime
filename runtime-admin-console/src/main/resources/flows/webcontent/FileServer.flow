@@ -4,7 +4,7 @@
   "description": "File Server Flow",
   "flow": [
     {
-      "implementor": "com.reedelk.rest.component.RESTListener",
+      "implementor": "de.codecentric.reedelk.rest.component.RESTListener",
       "description": "REST Listener",
       "configuration": {"ref": "8d689312-0cc5-4e0b-aec6-f17025627aa1"},
       "path": "/console/{page:.*}",
@@ -22,7 +22,7 @@
       }
     },
     {
-      "implementor": "com.reedelk.runtime.component.FlowReference",
+      "implementor": "de.codecentric.reedelk.runtime.component.FlowReference",
       "description": "Flow Reference",
       "ref": "9463ee4a-cf94-47f5-bc33-ae22c112f8e7"
     }

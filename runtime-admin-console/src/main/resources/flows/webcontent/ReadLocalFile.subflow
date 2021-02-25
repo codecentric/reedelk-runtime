@@ -3,7 +3,7 @@
   "title": "Read Local File",
   "description": "Read Local File Subflow",
   "subflow": [{
-    "implementor": "com.reedelk.admin.console.ReadFromResources",
+    "implementor": "de.codecentric.reedelk.admin.console.ReadFromResources",
     "description": "Read file from webapp folder",
     "resourceFile": "#['/webapp/' + message.attributes().get('pathParams').getOrDefault('page','index.html')]"
   }]

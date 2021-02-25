@@ -1,0 +1,12 @@
+{
+  "id": "45a5ce60-5c9d-4075-82a7-a1cb3662bbb2a",
+  "flow": [
+    {
+      "implementor": "de.codecentric.reedelk.platform.test.utils.AnotherInboundTestComponent",
+      "message": "Test inbound message"
+    },
+    {
+      "implementor": "de.codecentric.reedelk.runtime.component.Fork"
+    }
+  ]
+}
