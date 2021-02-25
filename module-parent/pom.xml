@@ -14,6 +14,9 @@
     <packaging>pom</packaging>
     <artifactId>module-parent</artifactId>
 
+    <name>module-parent</name>
+    <description>Reedelk Module Parent</description>
+
     <dependencies>
         <dependency>
             <groupId>de.codecentric.reedelk</groupId>
