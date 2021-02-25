@@ -216,7 +216,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>-->
-                    <plugin>
+                    <!--<plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>flatten-maven-plugin</artifactId>
                         <version>1.1.0</version>
@@ -239,7 +239,7 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin>-->
 
                     <!-- Reedelk Plugin (generates components-descriptors.json) for the module being built -->
                     <plugin>
