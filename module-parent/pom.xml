@@ -16,6 +16,27 @@
 
     <name>module-parent</name>
     <description>Reedelk Module Parent</description>
+    <url>https://github.com/codecentric/reedelk-runtime</url>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://opensource.org/licenses/Apache-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Daniel Kocot</name>
+            <email>daniel.kocot@codecentric.de</email>
+            <organization>codecentric AG</organization>
+            <organizationUrl>http://www.codecentric.de</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/codecentric/reedelk-runtime.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/reedelk-runtime.git</developerConnection>
+        <url>https://github.com/codecentric/reedelk-runtime/tree/master</url>
+    </scm>
 
     <dependencies>
         <dependency>
