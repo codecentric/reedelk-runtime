@@ -13,6 +13,7 @@
 
     <packaging>pom</packaging>
     <artifactId>module-parent</artifactId>
+    <name>module-parent</name>
 
     <profiles>
         <profile>
@@ -114,17 +115,7 @@
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
                             <updatePomFile>true</updatePomFile>
-                            <flattenMode>clean</flattenMode>
-                            <pomElements>
-                                <properties>interpolate</properties>
-                                <dependencies>resolve</dependencies>
-                                <build>remove</build>
-                                <pluginManagement>keep</pluginManagement>
-                                <dependencyManagement>remove</dependencyManagement>
-                                <name>resolve</name>
-                                <description>resolve</description>
-                                <profiles>keep</profiles>
-                            </pomElements>
+                            <flattenMode>oss</flattenMode>
                         </configuration>
                     </execution>
                 </executions>

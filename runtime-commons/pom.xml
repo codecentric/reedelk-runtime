@@ -13,6 +13,7 @@
 
     <packaging>bundle</packaging>
     <artifactId>runtime-commons</artifactId> <!-- NAME_CONVENTION -->
+    <name>runtime-commons</name>
 
     <dependencies>
         <dependency>
@@ -88,6 +89,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
             </plugin>
 
             <plugin>
