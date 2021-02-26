@@ -1,4 +1,4 @@
-name: github
+name: Maven Build
 
 on: [push]
 

@@ -49,7 +49,7 @@ jobs:
           tag_name: ${{ github.event.inputs.releaseversion }}
           release_name: ${{ github.event.inputs.releaseversion }}
           body: |
-            Grab the new version from Maven central https://repo1.maven.org/maven2/de/codecentric/reedelk/reedelk-runtime/${{ github.event.inputs.releaseversion }}
+            Grab the new version from Maven central https://repo1.maven.org/maven2/de/codecentric/reedelk/reedelk-runtime/${{ github.event.inputs.releaseversion }}/
             ### Things that changed in this release
             ${{ steps.changelog.outputs.changelog }}
           draft: false

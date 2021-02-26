@@ -81,10 +81,13 @@
 
     <build>
         <plugins>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-            </plugin>-->
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+            </plugin>
 
             <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
