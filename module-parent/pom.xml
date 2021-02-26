@@ -14,59 +14,6 @@
     <packaging>pom</packaging>
     <artifactId>module-parent</artifactId>
 
-    <name>module-parent</name>
-    <description>Reedelk Module Parent</description>
-    <url>https://github.com/codecentric/reedelk-runtime</url>
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://opensource.org/licenses/Apache-2.0</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>Daniel Kocot</name>
-            <email>daniel.kocot@codecentric.de</email>
-            <organization>codecentric AG</organization>
-            <organizationUrl>http://www.codecentric.de</organizationUrl>
-        </developer>
-    </developers>
-    <scm>
-        <connection>scm:git:git://github.com/codecentric/reedelk-runtime.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/reedelk-runtime.git</developerConnection>
-        <url>https://github.com/codecentric/reedelk-runtime/tree/master</url>
-    </scm>
-
-    <dependencies>
-        <dependency>
-            <groupId>de.codecentric.reedelk</groupId>
-            <artifactId>runtime-api</artifactId>
-            <version>${revision}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.cm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.component.annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.logging</groupId>
-            <artifactId>pax-logging-logback</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-        </dependency>
-    </dependencies>
-
     <profiles>
         <profile>
             <id>module-build</id>
@@ -167,7 +114,7 @@
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
                             <updatePomFile>true</updatePomFile>
-                            <flattenMode>oss</flattenMode>
+                            <flattenMode>clean</flattenMode>
                             <pomElements>
                                 <properties>interpolate</properties>
                                 <dependencies>resolve</dependencies>
@@ -181,7 +128,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
