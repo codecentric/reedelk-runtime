@@ -94,10 +94,13 @@
                 </executions>
             </plugin>
 
-            <!--<plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-            </plugin>-->
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

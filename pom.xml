@@ -46,7 +46,7 @@
     </distributionManagement>
 
     <properties>
-        <revision>1.0.7</revision>
+        <revision>1.0.8</revision>
         <assertj.version>3.11.1</assertj.version>
         <groovy.version>3.0.3</groovy.version>
         <json.version>20190722</json.version>
@@ -216,12 +216,13 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>-->
-                    <!--<plugin>
+                    <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>flatten-maven-plugin</artifactId>
                         <version>1.1.0</version>
                         <configuration>
                             <updatePomFile>true</updatePomFile>
+                            <flattenMode>oss</flattenMode>
                         </configuration>
                         <executions>
                             <execution>
@@ -239,7 +240,7 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>-->
+                    </plugin>
 
                     <!-- Reedelk Plugin (generates components-descriptors.json) for the module being built -->
                     <plugin>
