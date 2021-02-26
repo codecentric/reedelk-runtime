@@ -13,6 +13,8 @@
 
     <artifactId>runtime-launcher</artifactId>
 
+    <name>runtime-launcher</name>
+
     <properties>
         <version.qualifier>CE</version.qualifier>
         <additional.bundles></additional.bundles>
@@ -145,10 +147,13 @@
                 </configuration>
             </plugin>
 
-            <!--<plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-            </plugin>-->
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

@@ -14,6 +14,7 @@
 
     <packaging>bundle</packaging>
     <artifactId>runtime-admin-console</artifactId> <!-- NAME_CONVENTION -->
+    <name>runtime-admin-console</name>
 
     <dependencies>
         <dependency>

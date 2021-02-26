@@ -14,6 +14,8 @@
     <packaging>bundle</packaging>
     <artifactId>runtime-platform</artifactId> <!-- NAME_CONVENTION -->
 
+    <name>runtime-platform</name>
+
     <dependencies>
         <dependency>
             <groupId>de.codecentric.reedelk</groupId>
