@@ -13,6 +13,7 @@
 
     <packaging>bundle</packaging>
     <artifactId>runtime-api</artifactId>
+    <name>runtime-api</name>
 
 
     <dependencies>
