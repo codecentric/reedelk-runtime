@@ -38,7 +38,7 @@
                                 <Integration-Module>true</Integration-Module>
                                 <_noee>true</_noee>
                                 <Import-Package>
-                                    com.reedelk.runtime.api.*,
+                                    de.codecentric.reedelk.runtime.api.*,
                                     org.osgi.*,
                                     org.reactivestreams.*,
                                     reactor.*;resolution:="optional",
@@ -116,6 +116,16 @@
                             <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
                             <updatePomFile>true</updatePomFile>
                             <flattenMode>oss</flattenMode>
+                            <pomElements>
+                                <properties>interpolate</properties>
+                                <dependencies>resolve</dependencies>
+                                <build>remove</build>
+                                <pluginManagement>keep</pluginManagement>
+                                <dependencyManagement>remove</dependencyManagement>
+                                <name>resolve</name>
+                                <description>resolve</description>
+                                <profiles>keep</profiles>
+                            </pomElements>
                         </configuration>
                     </execution>
                 </executions>
