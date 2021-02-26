@@ -101,11 +101,11 @@
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
                         <Import-Package>
-                            com.reedelk.runtime.api.*,
-                            com.reedelk.runtime.commons.*,
-                            com.reedelk.runtime.component.*,
-                            com.reedelk.runtime.converter.*,
-                            com.reedelk.runtime.system.api.*,
+                            de.codecentric.reedelk.runtime.api.*,
+                            de.codecentric.reedelk.runtime.commons.*,
+                            de.codecentric.reedelk.runtime.component.*,
+                            de.codecentric.reedelk.runtime.converter.*,
+                            de.codecentric.reedelk.runtime.system.api.*,
                             org.json.*,
                             org.osgi.*,
                             sun.misc.*,

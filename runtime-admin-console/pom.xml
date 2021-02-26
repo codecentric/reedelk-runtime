@@ -65,9 +65,9 @@
                         <Embed-Transitive>true</Embed-Transitive>
                         <Integration-Module>true</Integration-Module>
                         <Import-Package>
-                            com.reedelk.runtime.api.*,
-                            com.reedelk.runtime.rest.api.*,
-                            com.reedelk.runtime.system.api.*,
+                            de.codecentric.reedelk.runtime.api.*,
+                            de.codecentric.reedelk.runtime.rest.api.*,
+                            de.codecentric.reedelk.runtime.system.api.*,
                             org.json.*,
                             org.osgi.*,
                             org.slf4j.*
