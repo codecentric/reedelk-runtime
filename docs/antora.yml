@@ -1,6 +1,6 @@
 name: reedelk-runtime
 title: Reedelk Runtime
 version: 2.0.0
-start_page:
 nav:
--
+- modules/ROOT/nav.adoc
+- modules/module-descriptor/nav.adoc
