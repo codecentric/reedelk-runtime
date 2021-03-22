@@ -1,1 +1,1 @@
-* xref:index.adoc[Runtime]
+* xref:index.adoc[Reedelk Runtime]
