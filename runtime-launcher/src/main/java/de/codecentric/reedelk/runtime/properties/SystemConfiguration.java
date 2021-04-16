@@ -50,14 +50,9 @@ public class SystemConfiguration {
         if (homeDir != null) {
             return Paths.get(homeDir).toString();
         } else {
-            try {
-                String parent = new File(Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
-                File parentFile = new File(parent);
-                return parentFile.getParent();
-            } catch (URISyntaxException e) {
-                String errorMessage = message("directory.home.error");
-                throw new RuntimeException(errorMessage, e);
-            }
+            String parent = System.getProperty("user.dir");
+            String launcher = parent + File.separator + "runtime-launcher";
+            return launcher;
         }
     }
 }
