@@ -1,6 +1,5 @@
 package de.codecentric.reedelk.platform.component.trycatch;
 
-import de.codecentric.reedelk.platform.commons.NextNode;
 import de.codecentric.reedelk.platform.execution.FlowExecutor;
 import de.codecentric.reedelk.platform.execution.FlowExecutorFactory;
 import de.codecentric.reedelk.platform.execution.MessageAndContext;
@@ -14,6 +13,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
+
+import static de.codecentric.reedelk.platform.commons.NextNode.of;
 
 public class TryCatchExecutor implements FlowExecutor {
 
@@ -55,7 +56,7 @@ public class TryCatchExecutor implements FlowExecutor {
 
         // If the Router is followed by other nodes, then we keep executing
         // the other nodes, otherwise we stop and we return the current publisher.
-        return NextNode.of(stopNode, graph)
+        return of(stopNode, graph)
                 .map(nodeAfterStop -> FlowExecutorFactory.get().execute(result, nodeAfterStop, graph))
                 .orElse(result); // The Router is the last execution node of the flow.
     }

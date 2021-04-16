@@ -1,7 +1,6 @@
 package de.codecentric.reedelk.platform.services.scriptengine.evaluator;
 
 import de.codecentric.reedelk.platform.services.scriptengine.evaluator.function.FunctionDefinitionBuilder;
-import de.codecentric.reedelk.platform.services.scriptengine.evaluator.function.FunctionDefinitionBuilderDefault;
 import de.codecentric.reedelk.platform.services.scriptengine.evaluator.function.FunctionDefinitionBuilderLazy;
 import de.codecentric.reedelk.runtime.api.commons.ScriptUtils;
 import de.codecentric.reedelk.runtime.api.flow.FlowContext;
@@ -14,6 +13,8 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 import static de.codecentric.reedelk.platform.services.scriptengine.evaluator.ValueProviders.STREAM_PROVIDER;
+import static de.codecentric.reedelk.platform.services.scriptengine.evaluator.function.FunctionDefinitionBuilderDefault.CONTEXT_AND_ERROR;
+import static de.codecentric.reedelk.platform.services.scriptengine.evaluator.function.FunctionDefinitionBuilderDefault.CONTEXT_AND_MESSAGE;
 
 public class DynamicValueStreamEvaluator extends AbstractDynamicValueEvaluator {
 
@@ -27,7 +28,7 @@ public class DynamicValueStreamEvaluator extends AbstractDynamicValueEvaluator {
             if (ScriptUtils.isEvaluateMessagePayload(dynamicValue)) {
                 return evaluateMessagePayload(dynamicValue.getEvaluatedType(), message);
             } else {
-                Publisher<T> publisher = execute(dynamicValue, STREAM_PROVIDER, FunctionDefinitionBuilderDefault.CONTEXT_AND_MESSAGE, flowContext, message);
+                Publisher<T> publisher = execute(dynamicValue, STREAM_PROVIDER, CONTEXT_AND_MESSAGE, flowContext, message);
                 return TypedPublisher.from(publisher, dynamicValue.getEvaluatedType());
             }
         } else {
@@ -38,7 +39,7 @@ public class DynamicValueStreamEvaluator extends AbstractDynamicValueEvaluator {
 
     @Override
     public <T> TypedPublisher<T> evaluateStream(DynamicValue<T> dynamicValue, FlowContext flowContext, Throwable throwable) {
-        return evaluateStream(dynamicValue, FunctionDefinitionBuilderDefault.CONTEXT_AND_ERROR, flowContext, throwable);
+        return evaluateStream(dynamicValue, CONTEXT_AND_ERROR, flowContext, throwable);
     }
 
     @Override

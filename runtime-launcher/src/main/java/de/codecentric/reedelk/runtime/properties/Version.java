@@ -6,7 +6,7 @@ package de.codecentric.reedelk.runtime.properties;
  */
 public final class Version {
 
-    private static final String VERSION = "1.1.0-SNAPSHOT";
+    private static final String VERSION = "2.1.0-alpha";
     private static final String GROUPID = "de.codecentric.reedelk";
     private static final String ARTIFACTID = "runtime-launcher";
     private static final String QUALIFIER = "CE";

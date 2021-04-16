@@ -1,6 +1,5 @@
 package de.codecentric.reedelk.platform.execution;
 
-import de.codecentric.reedelk.platform.commons.NextNode;
 import de.codecentric.reedelk.platform.execution.context.DefaultFlowContext;
 import de.codecentric.reedelk.platform.execution.scheduler.SchedulerProvider;
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
@@ -10,6 +9,8 @@ import de.codecentric.reedelk.runtime.api.message.Message;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
+
+import static de.codecentric.reedelk.platform.commons.NextNode.ofOrThrow;
 
 public class FlowExecutorEngine {
 
@@ -34,7 +35,7 @@ public class FlowExecutorEngine {
 
             ExecutionNode root = graph.getRoot();
 
-            ExecutionNode nodeAfterRoot = NextNode.ofOrThrow(root, graph);
+            ExecutionNode nodeAfterRoot = ofOrThrow(root, graph);
 
             Publisher<MessageAndContext> result =
                     FlowExecutorFactory.get().execute(publisher, nodeAfterRoot, graph);

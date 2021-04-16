@@ -1,11 +1,10 @@
 package de.codecentric.reedelk.platform.module;
 
 import de.codecentric.reedelk.platform.commons.ModuleStateLogger;
-import de.codecentric.reedelk.platform.module.state.*;
-import de.codecentric.reedelk.platform.module.state.Error;
 import de.codecentric.reedelk.platform.flow.Flow;
 import de.codecentric.reedelk.platform.lifecycle.ModuleResolveDependencies;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
+import de.codecentric.reedelk.platform.module.state.Error;
+import de.codecentric.reedelk.platform.module.state.*;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -147,7 +146,7 @@ public class Module implements State {
         Collection<Class<?>> allowedNextStates = ALLOWED_TRANSITIONS.get(state.getClass());
         boolean allowed = allowedNextStates.stream().anyMatch(transitionTo::isAssignableFrom);
 
-        Preconditions.checkState(allowed, format("Module cannot transition from state=%s to state=%s",
+        checkState(allowed, format("Module cannot transition from state=%s to state=%s",
                 state.getClass().getSimpleName(), transitionTo.getSimpleName()));
     }
 
@@ -195,10 +194,10 @@ public class Module implements State {
         }
 
         public Module build() {
-            Preconditions.checkArgument(name != null, "name");
-            Preconditions.checkArgument(version != null, "version");
-            Preconditions.checkArgument(moduleFilePath != null, "module file path");
-            Preconditions.checkArgument(deserializer != null, "module deserializer");
+            checkArgument(name != null, "name");
+            checkArgument(version != null, "version");
+            checkArgument(moduleFilePath != null, "module file path");
+            checkArgument(deserializer != null, "module deserializer");
             return new Module(moduleId, name, version, moduleFilePath, deserializer);
         }
     }

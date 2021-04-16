@@ -12,6 +12,8 @@ import de.codecentric.reedelk.runtime.component.Stop;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Implementor;
+
 public class ForEachDeserializer extends AbstractDeserializer {
 
     public ForEachDeserializer(ExecutionGraph graph, FlowDeserializerContext context) {
@@ -21,7 +23,7 @@ public class ForEachDeserializer extends AbstractDeserializer {
     @Override
     public ExecutionNode deserialize(ExecutionNode parent, JSONObject componentDefinition) {
 
-        String componentName = JsonParser.Implementor.name(componentDefinition);
+        String componentName = Implementor.name(componentDefinition);
 
         ExecutionNode stopComponent = context.instantiateComponent(Stop.class);
 

@@ -1,6 +1,5 @@
 package de.codecentric.reedelk.platform.pubsub;
 
-import de.codecentric.reedelk.platform.commons.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static de.codecentric.reedelk.platform.commons.Messages.PubSub.ERROR_DELIVERING_MESSAGE;
 import static de.codecentric.reedelk.platform.pubsub.Action.Module.UN_INSTALLED;
 
 public class Event {
@@ -69,7 +69,7 @@ public class Event {
                 method.invoke(subscriber, message);
             }
         } catch (Exception e) {
-            logger.error(Messages.PubSub.ERROR_DELIVERING_MESSAGE.format(), e);
+            logger.error(ERROR_DELIVERING_MESSAGE.format(), e);
         }
     }
 }

@@ -7,8 +7,6 @@ import de.codecentric.reedelk.runtime.api.flow.Disposable;
 import de.codecentric.reedelk.runtime.api.flow.FlowContext;
 import de.codecentric.reedelk.runtime.api.message.Message;
 import de.codecentric.reedelk.runtime.api.message.MessageAttributeKey;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
-import de.codecentric.reedelk.runtime.api.commons.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkArgument;
+import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkNotNull;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.isNotBlank;
 
 public class DefaultFlowContext extends SynchronizedMap<String, Object> implements FlowContext {
 
@@ -36,7 +36,7 @@ public class DefaultFlowContext extends SynchronizedMap<String, Object> implemen
 
     @Override
     public Object put(String key, Object value) {
-        Preconditions.checkArgument(StringUtils.isNotBlank(key), "flow context key must not be empty");
+        checkArgument(isNotBlank(key), "flow context key must not be empty");
         return super.put(key, value);
     }
 
@@ -47,7 +47,7 @@ public class DefaultFlowContext extends SynchronizedMap<String, Object> implemen
 
     @Override
     public void register(Disposable disposable) {
-        Preconditions.checkNotNull(disposable, "disposable object must not be null");
+        checkNotNull(disposable, "disposable object must not be null");
         disposableList.add(disposable);
     }
 

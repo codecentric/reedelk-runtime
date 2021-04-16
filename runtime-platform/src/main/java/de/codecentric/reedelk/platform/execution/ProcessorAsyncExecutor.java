@@ -1,6 +1,5 @@
 package de.codecentric.reedelk.platform.execution;
 
-import de.codecentric.reedelk.platform.commons.NextNode;
 import de.codecentric.reedelk.platform.configuration.RuntimeConfigurationProvider;
 import de.codecentric.reedelk.platform.execution.scheduler.SchedulerProvider;
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
@@ -17,6 +16,7 @@ import reactor.core.scheduler.Scheduler;
 
 import java.util.Optional;
 
+import static de.codecentric.reedelk.platform.commons.NextNode.ofOrThrow;
 import static java.time.Duration.ofMillis;
 
 /**
@@ -44,7 +44,7 @@ public class ProcessorAsyncExecutor implements FlowExecutor {
                     .orElse(callbackMono);
         });
 
-        ExecutionNode next = NextNode.ofOrThrow(currentNode, graph);
+        ExecutionNode next = ofOrThrow(currentNode, graph);
 
         return FlowExecutorFactory.get().execute(parent, next, graph);
     }

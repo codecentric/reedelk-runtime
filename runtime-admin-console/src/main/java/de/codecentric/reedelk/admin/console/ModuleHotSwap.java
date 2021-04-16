@@ -15,6 +15,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import static org.osgi.service.component.annotations.ServiceScope.PROTOTYPE;
+import static de.codecentric.reedelk.runtime.rest.api.InternalAPI.HotSwap;
 
 @ModuleComponent("Module hot swap")
 @Component(service = ModuleHotSwap.class, scope = PROTOTYPE)
@@ -39,7 +40,7 @@ public class ModuleHotSwap implements ProcessorSync {
     }
 
     private String hotSwap(String json, FlowContext flowContext) {
-        HotSwapPOSTReq hotSwapReq = InternalAPI.HotSwap.V1.POST.Req.deserialize(json);
+        HotSwapPOSTReq hotSwapReq = HotSwap.V1.POST.Req.deserialize(json);
 
         long hotSwappedModuleId;
         try {

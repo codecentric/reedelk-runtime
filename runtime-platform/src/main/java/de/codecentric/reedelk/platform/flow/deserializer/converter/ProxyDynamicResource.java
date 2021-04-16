@@ -1,6 +1,5 @@
 package de.codecentric.reedelk.platform.flow.deserializer.converter;
 
-import de.codecentric.reedelk.platform.commons.Messages;
 import de.codecentric.reedelk.platform.module.Module;
 import de.codecentric.reedelk.platform.services.resource.ResourceLoader;
 import de.codecentric.reedelk.runtime.api.resource.DynamicResource;
@@ -9,6 +8,8 @@ import org.reactivestreams.Publisher;
 
 import java.util.Collection;
 import java.util.Optional;
+
+import static de.codecentric.reedelk.platform.commons.Messages.Resource.RESOURCE_DYNAMIC_NOT_FOUND;
 
 public class ProxyDynamicResource extends DynamicResource {
 
@@ -29,7 +30,7 @@ public class ProxyDynamicResource extends DynamicResource {
                 .flatMap(loader -> Optional.of(loader.body(readBufferSize)))
                 .orElseThrow(() -> {
                     // The file at the given path was not found in the Module bundle.
-                    String message = Messages.Resource.RESOURCE_DYNAMIC_NOT_FOUND.format(evaluatedPath, value(), module.id(), module.name());
+                    String message = RESOURCE_DYNAMIC_NOT_FOUND.format(evaluatedPath, value(), module.id(), module.name());
                     return new ResourceNotFound(message);
                 });
     }

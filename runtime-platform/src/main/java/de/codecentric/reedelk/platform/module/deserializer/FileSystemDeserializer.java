@@ -1,8 +1,7 @@
 package de.codecentric.reedelk.platform.module.deserializer;
 
-import de.codecentric.reedelk.platform.commons.Messages;
-import de.codecentric.reedelk.runtime.api.commons.Unchecked;
 import de.codecentric.reedelk.runtime.api.commons.FileUtils;
+import de.codecentric.reedelk.runtime.api.commons.Unchecked;
 import de.codecentric.reedelk.runtime.api.exception.PlatformException;
 
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static de.codecentric.reedelk.platform.commons.Messages.Deserializer.ERROR_READING_FILES_FROM_RESOURCE_FOLDER;
 import static java.util.stream.Collectors.toList;
 
 public class FileSystemDeserializer extends AbstractModuleDeserializer {
@@ -49,7 +49,7 @@ public class FileSystemDeserializer extends AbstractModuleDeserializer {
                     .map(Unchecked.function(path -> path.toUri().toURL()))
                     .collect(toList());
         } catch (IOException exception) {
-            String errorMessage = Messages.Deserializer.ERROR_READING_FILES_FROM_RESOURCE_FOLDER.format(targetPath.toString());
+            String errorMessage = ERROR_READING_FILES_FROM_RESOURCE_FOLDER.format(targetPath.toString());
             throw new PlatformException(errorMessage, exception);
         }
     }

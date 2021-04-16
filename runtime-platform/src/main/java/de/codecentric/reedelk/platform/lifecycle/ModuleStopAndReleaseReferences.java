@@ -1,18 +1,19 @@
 package de.codecentric.reedelk.platform.lifecycle;
 
 import de.codecentric.reedelk.platform.commons.Log;
-import de.codecentric.reedelk.platform.commons.Messages;
-import de.codecentric.reedelk.platform.module.Module;
-import de.codecentric.reedelk.platform.module.state.ModuleState;
 import de.codecentric.reedelk.platform.exception.FlowStopException;
 import de.codecentric.reedelk.platform.flow.Flow;
-import de.codecentric.reedelk.runtime.api.commons.StringUtils;
+import de.codecentric.reedelk.platform.module.Module;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
+
+import static de.codecentric.reedelk.platform.commons.Messages.FlowErrorMessage.DEFAULT;
+import static de.codecentric.reedelk.platform.module.state.ModuleState.STARTED;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.EMPTY;
 
 public class ModuleStopAndReleaseReferences extends AbstractStep<Module, Module> {
 
@@ -22,7 +23,7 @@ public class ModuleStopAndReleaseReferences extends AbstractStep<Module, Module>
     public Module run(Module module) {
 
         // This step is applicable only to Started Modules.
-        if (module.state() != ModuleState.STARTED) return module;
+        if (module.state() != STARTED) return module;
 
         Collection<Flow> flows = module.flows();
         Collection<Exception> exceptions = new HashSet<>();
@@ -32,11 +33,11 @@ public class ModuleStopAndReleaseReferences extends AbstractStep<Module, Module>
                 Log.flowStopped(logger, flow);
             } catch (Exception exception) {
 
-                String errorMessage = Messages.FlowErrorMessage.DEFAULT.formatWith(module, flow, exception);
+                String errorMessage = DEFAULT.formatWith(module, flow, exception);
                 FlowStopException stopException = new FlowStopException(errorMessage, exception);
 
                 if (logger.isErrorEnabled()) {
-                    logger.error(StringUtils.EMPTY, stopException);
+                    logger.error(EMPTY, stopException);
                 }
 
                 exceptions.add(stopException);

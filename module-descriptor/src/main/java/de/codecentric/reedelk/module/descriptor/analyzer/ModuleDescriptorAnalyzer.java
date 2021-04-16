@@ -2,7 +2,7 @@ package de.codecentric.reedelk.module.descriptor.analyzer;
 
 import de.codecentric.reedelk.module.descriptor.ModuleDescriptorException;
 import de.codecentric.reedelk.module.descriptor.analyzer.commons.AssetUtils;
-import de.codecentric.reedelk.module.descriptor.analyzer.commons.Messages;
+import de.codecentric.reedelk.module.descriptor.analyzer.commons.Messages.Scan;
 import de.codecentric.reedelk.module.descriptor.analyzer.commons.ReadModuleDescriptor;
 import de.codecentric.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import de.codecentric.reedelk.module.descriptor.analyzer.component.ComponentAnalyzer;
@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
+import static de.codecentric.reedelk.module.descriptor.analyzer.commons.Messages.Analyzer.*;
 
 public class ModuleDescriptorAnalyzer {
 
@@ -49,7 +50,7 @@ public class ModuleDescriptorAnalyzer {
             } catch (ModuleDescriptorException exception) {
                 throw exception;
             } catch (Exception exception) {
-                String error = Messages.Analyzer.ERROR_FROM_JAR_PATH.format(targetJarPath, exception.getMessage());
+                String error = ERROR_FROM_JAR_PATH.format(targetJarPath, exception.getMessage());
                 throw new ModuleDescriptorException(error, exception);
             }
         });
@@ -73,7 +74,7 @@ public class ModuleDescriptorAnalyzer {
         } catch (ModuleDescriptorException exception) {
             throw exception;
         } catch (Exception exception) {
-            String error = Messages.Analyzer.ERROR_FROM_DIRECTORY.format(directory, moduleName, resolveImages, exception.getMessage());
+            String error = ERROR_FROM_DIRECTORY.format(directory, moduleName, resolveImages, exception.getMessage());
             throw new ModuleDescriptorException(error, exception);
         }
     }
@@ -104,7 +105,7 @@ public class ModuleDescriptorAnalyzer {
         } catch (ModuleDescriptorException exception) {
             throw exception;
         } catch (Exception exception) {
-            String error = Messages.Analyzer.ERROR_SCAN_API_TYPES.format(exception.getMessage());
+            String error = ERROR_SCAN_API_TYPES.format(exception.getMessage());
             throw new ModuleDescriptorException(error, exception);
         }
     }
@@ -134,7 +135,7 @@ public class ModuleDescriptorAnalyzer {
                         ComponentAnalyzer componentAnalyzer = ComponentAnalyzerFactory.get(scanResult);
                         return componentAnalyzer.analyze(classInfo);
                     } catch (Exception exception) {
-                        String message = Messages.Scan.ERROR_SCAN_COMPONENT.format(classInfo.getName(), exception.getMessage());
+                        String message = Scan.ERROR_SCAN_COMPONENT.format(classInfo.getName(), exception.getMessage());
                         throw new ModuleDescriptorException(message, exception);
                     }
                 })

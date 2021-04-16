@@ -2,7 +2,6 @@ package de.codecentric.reedelk.platform.graph;
 
 import de.codecentric.reedelk.runtime.api.component.Component;
 import de.codecentric.reedelk.runtime.api.component.Implementor;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import org.osgi.framework.ServiceReference;
 
 import java.util.ArrayList;
@@ -83,14 +82,14 @@ public class ExecutionNode {
         private ServiceReference<T> serviceReference;
 
         public ReferencePair(T implementor) {
-            Preconditions.checkArgument(implementor != null, "implementor");
+            checkArgument(implementor != null, "implementor");
             this.implementor = implementor;
             this.serviceReference = null;
         }
 
         public ReferencePair(T implementor, ServiceReference<T> serviceReference) {
-            Preconditions.checkArgument(implementor != null, "implementor");
-            Preconditions.checkArgument(serviceReference != null, "service reference");
+            checkArgument(implementor != null, "implementor");
+            checkArgument(serviceReference != null, "service reference");
             this.implementor = implementor;
             this.serviceReference = serviceReference;
         }

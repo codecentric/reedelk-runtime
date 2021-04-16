@@ -1,10 +1,9 @@
 package de.codecentric.reedelk.platform.lifecycle;
 
-import de.codecentric.reedelk.platform.module.ModulesManager;
 import de.codecentric.reedelk.platform.component.ComponentRegistry;
+import de.codecentric.reedelk.platform.module.ModulesManager;
 import de.codecentric.reedelk.runtime.api.configuration.ConfigurationService;
 import de.codecentric.reedelk.runtime.system.api.SystemProperty;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -56,7 +55,7 @@ public class StepRunner {
     }
 
     public StepRunner next(Step<?, ?> stepToAdd) {
-        Preconditions.checkArgument(stepToAdd != null, "added step was null.");
+        checkArgument(stepToAdd != null, "added step was null.");
         this.steps.add(stepToAdd);
         return this;
     }

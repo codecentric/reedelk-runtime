@@ -7,9 +7,11 @@ import de.codecentric.reedelk.platform.flow.deserializer.FlowDeserializerContext
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.runtime.component.Stop;
-import de.codecentric.reedelk.runtime.commons.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Implementor;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.TryCatch;
 
 public class TryCatchDeserializer extends AbstractDeserializer {
 
@@ -20,7 +22,7 @@ public class TryCatchDeserializer extends AbstractDeserializer {
     @Override
     public ExecutionNode deserialize(ExecutionNode parent, JSONObject componentDefinition) {
 
-        String componentName = JsonParser.Implementor.name(componentDefinition);
+        String componentName = Implementor.name(componentDefinition);
 
         ExecutionNode stopComponent = context.instantiateComponent(Stop.class);
         ExecutionNode tryCatchExecutionNode = context.instantiateComponent(componentName);
@@ -31,7 +33,7 @@ public class TryCatchDeserializer extends AbstractDeserializer {
 
         ExecutionNode currentNode = tryCatchExecutionNode;
 
-        JSONArray doTry = JsonParser.TryCatch.doTry(componentDefinition);
+        JSONArray doTry = TryCatch.doTry(componentDefinition);
 
         for (int i = 0; i < doTry.length(); i++) {
             JSONObject currentComponentDefinition = doTry.getJSONObject(i);
@@ -59,7 +61,7 @@ public class TryCatchDeserializer extends AbstractDeserializer {
 
         currentNode = tryCatchExecutionNode;
 
-        JSONArray doCatch = JsonParser.TryCatch.doCatch(componentDefinition);
+        JSONArray doCatch = TryCatch.doCatch(componentDefinition);
 
         for (int i = 0; i < doCatch.length(); i++) {
             JSONObject currentComponentDefinition = doCatch.getJSONObject(i);

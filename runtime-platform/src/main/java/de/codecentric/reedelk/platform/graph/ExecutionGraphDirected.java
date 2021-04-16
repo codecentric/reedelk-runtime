@@ -1,7 +1,5 @@
 package de.codecentric.reedelk.platform.graph;
 
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
-
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -17,7 +15,7 @@ class ExecutionGraphDirected {
     }
 
     void putEdge(ExecutionNode n1, ExecutionNode n2) {
-        Preconditions.checkState(adjacentNodes.containsKey(n1), "n1 must be already in graph in order to add an edge");
+        checkState(adjacentNodes.containsKey(n1), "n1 must be already in graph in order to add an edge");
         if (!adjacentNodes.containsKey(n2)) {
             adjacentNodes.put(n2, new ArrayList<>());
         }

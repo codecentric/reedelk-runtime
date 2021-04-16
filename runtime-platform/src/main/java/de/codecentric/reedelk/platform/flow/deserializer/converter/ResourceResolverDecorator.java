@@ -1,11 +1,10 @@
 package de.codecentric.reedelk.platform.flow.deserializer.converter;
 
-import de.codecentric.reedelk.platform.commons.Messages;
 import de.codecentric.reedelk.platform.module.DeSerializedModule;
 import de.codecentric.reedelk.platform.module.Module;
 import de.codecentric.reedelk.platform.services.resource.ResourceLoader;
-import de.codecentric.reedelk.runtime.api.resource.*;
 import de.codecentric.reedelk.runtime.api.commons.StreamUtils;
+import de.codecentric.reedelk.runtime.api.resource.*;
 import de.codecentric.reedelk.runtime.converter.DeserializerConverter;
 import de.codecentric.reedelk.runtime.converter.DeserializerConverterContext;
 import org.json.JSONArray;
@@ -15,6 +14,8 @@ import org.reactivestreams.Publisher;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
+
+import static de.codecentric.reedelk.platform.commons.Messages.Resource.RESOURCE_NOT_FOUND;
 
 public class ResourceResolverDecorator implements DeserializerConverter {
 
@@ -66,7 +67,7 @@ public class ResourceResolverDecorator implements DeserializerConverter {
                 .findFirst()
                 .flatMap(mappingFunction)
                 .orElseThrow(() -> {
-                    String message = Messages.Resource.RESOURCE_NOT_FOUND.format(resource.path(), module.id(), module.name());
+                    String message = RESOURCE_NOT_FOUND.format(resource.path(), module.id(), module.name());
                     return new ResourceNotFound(message);
                 });
     }

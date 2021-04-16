@@ -1,8 +1,7 @@
 package de.codecentric.reedelk.platform.flow;
 
-import de.codecentric.reedelk.platform.commons.ServiceReferenceProperty;
-import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.platform.component.RuntimeComponents;
+import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.runtime.api.component.Component;
 import de.codecentric.reedelk.runtime.api.component.Implementor;
 import org.osgi.framework.Bundle;
@@ -14,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 
+import static de.codecentric.reedelk.platform.commons.ServiceReferenceProperty.COMPONENT_NAME;
 import static org.osgi.framework.Bundle.ACTIVE;
 
 public class ReleaseReferenceConsumer implements Consumer<ExecutionNode> {
@@ -66,7 +66,7 @@ public class ReleaseReferenceConsumer implements Consumer<ExecutionNode> {
     }
 
     void warnServiceNotReleased(ServiceReference<?> serviceReference) {
-        logger.warn("Service Reference {} could not be released", ServiceReferenceProperty.COMPONENT_NAME.get(serviceReference));
+        logger.warn("Service Reference {} could not be released", COMPONENT_NAME.get(serviceReference));
     }
 
     private <T extends Implementor> void safeUnregisterImplementor(T implementor, ServiceObjects<T> serviceObjects) {

@@ -5,7 +5,6 @@ import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.runtime.commons.JsonParser;
 import de.codecentric.reedelk.runtime.component.Stop;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,7 +23,7 @@ public class FlowDeserializer {
 
         ExecutionNode current = null;
         for (Object componentDefinitionObject : flowComponents) {
-            Preconditions.checkState(componentDefinitionObject instanceof JSONObject, "not a JSON Object");
+            checkState(componentDefinitionObject instanceof JSONObject, "not a JSON Object");
 
             JSONObject componentDefinition = (JSONObject) componentDefinitionObject;
 

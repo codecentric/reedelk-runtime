@@ -1,22 +1,24 @@
 package de.codecentric.reedelk.platform.flow.deserializer;
 
-import de.codecentric.reedelk.platform.commons.Messages;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.runtime.api.component.Implementor;
 import de.codecentric.reedelk.runtime.api.exception.PlatformException;
 import de.codecentric.reedelk.runtime.commons.CollectionFactory;
 import de.codecentric.reedelk.runtime.commons.JsonParser;
-import de.codecentric.reedelk.runtime.commons.ReflectionUtils;
 import de.codecentric.reedelk.runtime.commons.SetterArgument;
 import de.codecentric.reedelk.runtime.converter.DeserializerConverter;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.*;
 
+import static de.codecentric.reedelk.platform.commons.Messages.Deserializer.CONFIGURATION_NOT_FOUND;
+import static de.codecentric.reedelk.platform.commons.Messages.Deserializer.UNSUPPORTED_COLLECTION_TYPE;
 import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkArgument;
 import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkState;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Component;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Config;
+import static de.codecentric.reedelk.runtime.commons.ReflectionUtils.*;
 
 public class GenericComponentDefinitionDeserializer {
 
@@ -32,19 +34,19 @@ public class GenericComponentDefinitionDeserializer {
         Iterator<String> iterator = componentDefinition.keys();
         while (iterator.hasNext()) {
             String propertyName = iterator.next();
-            ReflectionUtils.getSetter(implementor, propertyName).ifPresent(setter -> {
+            getSetter(implementor, propertyName).ifPresent(setter -> {
                 Optional<String> maybeReference = isReference(componentDefinition, propertyName);
                 Object deSerializedObject = maybeReference.isPresent() ?
                         deserialize(maybeReference.get()) :
                         deserialize(componentDefinition, implementor, propertyName);
-                ReflectionUtils.setProperty(implementor, setter, deSerializedObject);
+                setProperty(implementor, setter, deSerializedObject);
             });
         }
     }
 
     private Object deserialize(JSONObject componentDefinition, Implementor bean, String propertyName) {
         Object propertyValue = componentDefinition.get(propertyName);
-        SetterArgument setterArgument = ReflectionUtils.argumentOf(bean, propertyName);
+        SetterArgument setterArgument = argumentOf(bean, propertyName);
 
         // Dynamic Map or declared Implementor object
         if (propertyValue instanceof JSONObject) {
@@ -52,8 +54,8 @@ public class GenericComponentDefinitionDeserializer {
 
             // Collection
         } else if (propertyValue instanceof JSONArray) {
-            Preconditions.checkArgument(CollectionFactory.isSupported(setterArgument.getArgumentClazz()),
-                    Messages.Deserializer.UNSUPPORTED_COLLECTION_TYPE.format(propertyName));
+            checkArgument(CollectionFactory.isSupported(setterArgument.getArgumentClazz()),
+                    UNSUPPORTED_COLLECTION_TYPE.format(propertyName));
             return deserializeArray(componentDefinition, propertyName, setterArgument);
 
             // Enum
@@ -74,7 +76,7 @@ public class GenericComponentDefinitionDeserializer {
         if (setterArgument.isMap()) {
             // A map can only have as key type 'String'. This is because a
             // JSON object can have as property keys only strings.
-            Preconditions.checkState(String.class.getName().equals(setterArgument.getMapKeyType()),
+            checkState(String.class.getName().equals(setterArgument.getMapKeyType()),
                     "Map type supports only String type for keys.");
 
             // The map value type could be either:
@@ -133,7 +135,7 @@ public class GenericComponentDefinitionDeserializer {
 
         boolean isPrimitive = DeserializerConverter.getInstance().isPrimitive(collectionType);
         if (isPrimitive) {
-            Class<?> collectionTypeClazz = ReflectionUtils.asClass(collectionType);
+            Class<?> collectionTypeClazz = asClass(collectionType);
             for (int index = 0; index < array.length(); index++) {
                 Object converted = context.converter().convert(collectionTypeClazz, array, index);
                 collection.add(converted);
@@ -163,8 +165,8 @@ public class GenericComponentDefinitionDeserializer {
         Object propertyValue = componentDefinition.get(propertyName);
         if (propertyValue instanceof JSONObject) {
             JSONObject possibleReference = (JSONObject) propertyValue;
-            if (possibleReference.has(JsonParser.Component.ref())) {
-                return Optional.ofNullable(JsonParser.Component.ref(possibleReference));
+            if (possibleReference.has(Component.ref())) {
+                return Optional.ofNullable(Component.ref(possibleReference));
             }
         }
         return Optional.empty();
@@ -183,8 +185,8 @@ public class GenericComponentDefinitionDeserializer {
         return context.deserializedModule()
                 .getConfigurations()
                 .stream()
-                .filter(referenceJsonObject -> reference.equals(JsonParser.Config.id(referenceJsonObject)))
+                .filter(referenceJsonObject -> reference.equals(Config.id(referenceJsonObject)))
                 .findFirst()
-                .orElseThrow(() -> new PlatformException(Messages.Deserializer.CONFIGURATION_NOT_FOUND.format(reference)));
+                .orElseThrow(() -> new PlatformException(CONFIGURATION_NOT_FOUND.format(reference)));
     }
 }

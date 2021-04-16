@@ -2,8 +2,6 @@ package de.codecentric.reedelk.runtime;
 
 import de.codecentric.reedelk.runtime.adminconsole.AdminConsoleInstallTask;
 import de.codecentric.reedelk.runtime.commons.FileUtils;
-import de.codecentric.reedelk.runtime.commons.RuntimeMessage;
-import de.codecentric.reedelk.runtime.properties.RuntimeConfiguration;
 import de.codecentric.reedelk.runtime.properties.SystemConfiguration;
 import de.codecentric.reedelk.runtime.properties.Version;
 import de.codecentric.reedelk.runtime.validator.DirectoryExistsValidator;
@@ -17,6 +15,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static de.codecentric.reedelk.runtime.commons.RuntimeMessage.message;
+import static de.codecentric.reedelk.runtime.properties.RuntimeConfiguration.cacheDir;
+import static de.codecentric.reedelk.runtime.properties.SystemConfiguration.configDirectory;
+import static de.codecentric.reedelk.runtime.properties.SystemConfiguration.modulesDirectory;
 import static java.util.Arrays.asList;
 
 public class Launcher {
@@ -40,16 +42,16 @@ public class Launcher {
 
     public static void main(String[] args) {
 
-        String banner = RuntimeMessage.message("runtime.banner", "  ", " ", " ", " ", " ", " ", Version.getQualifier(), Version.getVersion());
+        String banner = message("runtime.banner", "  ", " ", " ", " ", " ", " ", Version.getQualifier(), Version.getVersion());
         System.out.println(banner);
 
         long start = System.currentTimeMillis();
 
-        logger.info(RuntimeMessage.message("runtime.starting"));
+        logger.info(message("runtime.starting"));
 
         Collection<String> errors = validateSystemContext();
         if (!errors.isEmpty()) {
-            logger.error(RuntimeMessage.message("runtime.start.error", String.join(",", errors)));
+            logger.error(message("runtime.start.error", String.join(",", errors)));
             return;
         }
 
@@ -65,14 +67,14 @@ public class Launcher {
 
             float delta = (end - start) / 1000.0f;
 
-            logger.info(RuntimeMessage.message("runtime.started.in", delta));
+            logger.info(message("runtime.started.in", delta));
 
             // Launch the Admin console.
             AdminConsoleInstallTask.execute(application);
 
         } catch (Exception exception) {
 
-            logger.error(RuntimeMessage.message("runtime.start.error", exception.getMessage()));
+            logger.error(message("runtime.start.error", exception.getMessage()));
 
             System.exit(1);
 
@@ -82,8 +84,8 @@ public class Launcher {
     private static Collection<String> validateSystemContext() {
         Collection<String> validationErrors = new ArrayList<>();
         List<Validator> validators = asList(
-                new DirectoryExistsValidator(SystemConfiguration.modulesDirectory()),
-                new DirectoryExistsValidator(SystemConfiguration.configDirectory()));
+                new DirectoryExistsValidator(modulesDirectory()),
+                new DirectoryExistsValidator(configDirectory()));
         validators.forEach(validator -> {
             if (!validator.validate()) {
                 validationErrors.add(validator.error());
@@ -104,9 +106,9 @@ public class Launcher {
             }
 
             // Remove cache directory.
-            FileUtils.silentlyRemoveDirectory(RuntimeConfiguration.cacheDir());
+            FileUtils.silentlyRemoveDirectory(cacheDir());
 
-            logger.info(RuntimeMessage.message("runtime.stopped"));
+            logger.info(message("runtime.stopped"));
         }));
     }
 }

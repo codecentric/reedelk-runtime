@@ -1,7 +1,6 @@
 package de.codecentric.reedelk.platform.graph;
 
 import de.codecentric.reedelk.runtime.api.component.Inbound;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -25,12 +24,12 @@ public class ExecutionGraph {
     }
 
     public void putEdge(ExecutionNode n1, ExecutionNode n2) {
-        Preconditions.checkArgument(n2 != null, "n2 must not be null");
+        checkArgument(n2 != null, "n2 must not be null");
 
         // If the parent is null, then the current execution node is the FIRST node of the graph
         if (n1 == null) {
-            Preconditions.checkState(root == null, "Root must be null for first component");
-            Preconditions.checkState(n2.getComponent() instanceof Inbound, "First component must be Inbound");
+            checkState(root == null, "Root must be null for first component");
+            checkState(n2.getComponent() instanceof Inbound, "First component must be Inbound");
             root = n2;
             graph.addNode(n2);
         } else {
@@ -43,25 +42,25 @@ public class ExecutionGraph {
     }
 
     public Collection<ExecutionNode> successors(ExecutionNode executionNode) {
-        Preconditions.checkArgument(executionNode != null, "could not determine successors of null execution node");
+        checkArgument(executionNode != null, "could not determine successors of null execution node");
         return graph.successors(executionNode);
     }
 
     public void applyOnNodes(Consumer<ExecutionNode> consumer) {
-        Preconditions.checkArgument(consumer != null, "consumer");
+        checkArgument(consumer != null, "consumer");
         if (hasRoot()) {
             graph.breadthFirstTraversal(root, consumer);
         }
     }
 
     public Optional<ExecutionNode> findOne(Predicate<ExecutionNode> predicate) {
-        Preconditions.checkArgument(predicate != null, "predicate");
+        checkArgument(predicate != null, "predicate");
         return graph.findOne(predicate);
     }
 
     public boolean isEmpty() {
         boolean empty = graph.isEmpty();
-        Preconditions.checkState(empty && !hasRoot() || !empty && hasRoot(),
+        checkState(empty && !hasRoot() || !empty && hasRoot(),
                 "execution graph state is not valid: empty=[" + empty + "], root=[" + root + "]");
         return empty;
     }

@@ -1,7 +1,6 @@
 package de.codecentric.reedelk.runtime;
 
 import de.codecentric.reedelk.runtime.commons.FileExtension;
-import de.codecentric.reedelk.runtime.commons.RuntimeMessage;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 import org.slf4j.Logger;
@@ -13,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static de.codecentric.reedelk.runtime.commons.RuntimeMessage.message;
 import static java.util.Arrays.stream;
 
 class ModuleInstaller {
@@ -48,14 +48,14 @@ class ModuleInstaller {
                     if (installedBundleNames.contains(installedBundleSymbolicName)) {
                         try {
 
-                            String warnMessage = RuntimeMessage.message("module.installer.warn.multiple.modules", installedBundleSymbolicName);
+                            String warnMessage = message("module.installer.warn.multiple.modules", installedBundleSymbolicName);
                             logger.warn(warnMessage);
 
                             installedBundle.uninstall();
 
                         } catch (BundleException exception) {
                             // We stop if we cannot un-install.
-                            String errorMessage = RuntimeMessage.message("module.installer.duplicated.module.uninstall.error", exception.getMessage());
+                            String errorMessage = message("module.installer.duplicated.module.uninstall.error", exception.getMessage());
                             logger.error(errorMessage);
                             application.stop();
                         }

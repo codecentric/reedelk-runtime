@@ -1,20 +1,21 @@
 package de.codecentric.reedelk.platform.lifecycle;
 
-import de.codecentric.reedelk.platform.commons.Messages;
+import de.codecentric.reedelk.platform.component.ComponentRegistry;
+import de.codecentric.reedelk.platform.exception.ModuleDeserializationException;
 import de.codecentric.reedelk.platform.module.DeSerializedModule;
 import de.codecentric.reedelk.platform.module.Module;
 import de.codecentric.reedelk.platform.module.ModulesManager;
-import de.codecentric.reedelk.platform.component.ComponentRegistry;
-import de.codecentric.reedelk.platform.exception.ModuleDeserializationException;
 import de.codecentric.reedelk.runtime.api.commons.StackTraceUtils;
 import de.codecentric.reedelk.runtime.api.configuration.ConfigurationService;
 import de.codecentric.reedelk.runtime.system.api.SystemProperty;
-import de.codecentric.reedelk.runtime.api.commons.StringUtils;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
+
+import static de.codecentric.reedelk.platform.commons.Messages.FlowErrorMessage.DEFAULT;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.EMPTY;
 
 public abstract class AbstractStep<I, O> implements Step<I, O> {
 
@@ -93,14 +94,14 @@ public abstract class AbstractStep<I, O> implements Step<I, O> {
         } catch (Exception exception) {
 
             String rootCauseMessage = StackTraceUtils.rootCauseMessageOf(exception);
-            String errorMessage = Messages.FlowErrorMessage.DEFAULT.format(module.id(), module.name(), null, null,
+            String errorMessage = DEFAULT.format(module.id(), module.name(), null, null,
                     null, exception.getClass().getName(), rootCauseMessage);
 
             ModuleDeserializationException moduleDeserializationException =
                     new ModuleDeserializationException(errorMessage, exception);
 
             if (logger.isErrorEnabled()) {
-                logger.error(StringUtils.EMPTY, moduleDeserializationException);
+                logger.error(EMPTY, moduleDeserializationException);
             }
 
             module.error(moduleDeserializationException);

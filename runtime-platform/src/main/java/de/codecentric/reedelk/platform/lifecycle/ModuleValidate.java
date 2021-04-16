@@ -1,10 +1,8 @@
 package de.codecentric.reedelk.platform.lifecycle;
 
 import de.codecentric.reedelk.platform.commons.Messages;
-import de.codecentric.reedelk.platform.module.Module;
 import de.codecentric.reedelk.platform.exception.FlowValidationException;
-import de.codecentric.reedelk.runtime.api.commons.StringUtils;
-import de.codecentric.reedelk.runtime.commons.JsonParser;
+import de.codecentric.reedelk.platform.module.Module;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.EMPTY;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.isBlank;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.*;
 
 public class ModuleValidate extends AbstractStep<Module, Module> {
 
@@ -42,7 +44,7 @@ public class ModuleValidate extends AbstractStep<Module, Module> {
 
             // If there is any error, the module transition to ERROR state.
             if (!errors.isEmpty()) {
-                errors.forEach(exception -> logger.error(StringUtils.EMPTY, exception));
+                errors.forEach(exception -> logger.error(EMPTY, exception));
                 module.error(errors);
             }
 
@@ -52,10 +54,10 @@ public class ModuleValidate extends AbstractStep<Module, Module> {
     }
 
     private Collection<Exception> validateFlows(Collection<JSONObject> flows, Module module) {
-        Collection<Exception> exceptions = new ArrayList<>(UniquePropertyValidator.from(JsonParser.Flow.id())
+        Collection<Exception> exceptions = new ArrayList<>(UniquePropertyValidator.from(Flow.id())
                         .validate(flows, Messages.Flow.VALIDATION_ID_NOT_UNIQUE.format(module.name())));
         flows.forEach(definition -> {
-            if (!JsonParser.Flow.hasId(definition) || StringUtils.isBlank(JsonParser.Flow.id(definition))) {
+            if (!Flow.hasId(definition) || isBlank(Flow.id(definition))) {
                 String message = Messages.Flow.VALIDATION_ID_NOT_VALID.format(module.name());
                 FlowValidationException exception = new FlowValidationException(message);
                 exceptions.add(exception);
@@ -65,10 +67,10 @@ public class ModuleValidate extends AbstractStep<Module, Module> {
     }
 
     private Collection<Exception> validateSubFlows(Collection<JSONObject> subflows, Module module) {
-        Collection<Exception> exceptions = new ArrayList<>(UniquePropertyValidator.from(JsonParser.Subflow.id())
+        Collection<Exception> exceptions = new ArrayList<>(UniquePropertyValidator.from(Subflow.id())
                         .validate(subflows, Messages.Subflow.VALIDATION_ID_NOT_UNIQUE.format(module.name())));
         subflows.forEach(definition -> {
-            if (!JsonParser.Subflow.hasId(definition) || StringUtils.isBlank(JsonParser.Subflow.id(definition))) {
+            if (!Subflow.hasId(definition) || isBlank(Subflow.id(definition))) {
                 String message = Messages.Subflow.VALIDATION_ID_NOT_VALID.format(module.name());
                 FlowValidationException exception = new FlowValidationException(message);
                 exceptions.add(exception);
@@ -78,10 +80,10 @@ public class ModuleValidate extends AbstractStep<Module, Module> {
     }
 
     private Collection<Exception> validateConfigurations(Collection<JSONObject> configurations, Module module) {
-        Collection<Exception> exceptions = new ArrayList<>(UniquePropertyValidator.from(JsonParser.Config.id())
+        Collection<Exception> exceptions = new ArrayList<>(UniquePropertyValidator.from(Config.id())
                         .validate(configurations, Messages.Config.VALIDATION_ID_NOT_UNIQUE.format(module.name())));
         configurations.forEach(definition -> {
-            if (!JsonParser.Config.hasId(definition) || StringUtils.isBlank(JsonParser.Config.id(definition))) {
+            if (!Config.hasId(definition) || isBlank(Config.id(definition))) {
                 String message = Messages.Config.VALIDATION_ID_NOT_VALID.format(module.name());
                 FlowValidationException exception = new FlowValidationException(message);
                 exceptions.add(exception);

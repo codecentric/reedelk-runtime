@@ -1,10 +1,9 @@
 package de.codecentric.reedelk.platform.module;
 
-import de.codecentric.reedelk.platform.commons.Messages;
-import de.codecentric.reedelk.platform.module.state.ModuleState;
 import de.codecentric.reedelk.platform.component.RuntimeComponents;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.platform.graph.ExecutionNode.ReferencePair;
+import de.codecentric.reedelk.platform.module.state.ModuleState;
 import de.codecentric.reedelk.runtime.api.component.Component;
 import de.codecentric.reedelk.runtime.api.component.Implementor;
 import de.codecentric.reedelk.runtime.api.exception.PlatformException;
@@ -18,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static de.codecentric.reedelk.platform.commons.Messages.Deserializer;
+import static de.codecentric.reedelk.platform.module.state.ModuleState.*;
 import static java.util.stream.Collectors.toList;
 
 public class ModulesManager {
@@ -60,8 +61,8 @@ public class ModulesManager {
     // We look only for modules in state: UNRESOLVED, RESOLVED, STOPPED, STARTED
     public Collection<Module> findModulesUsingComponent(String componentName) {
         return idModulesMap.values().stream()
-                .filter(module -> module.state() != ModuleState.INSTALLED)
-                .filter(module -> module.state() == ModuleState.UNRESOLVED || module.state() == ModuleState.RESOLVED || module.state() == ModuleState.ERROR ?
+                .filter(module -> module.state() != INSTALLED)
+                .filter(module -> module.state() == UNRESOLVED || module.state() == RESOLVED || module.state() == ERROR ?
                         module.resolvedComponents().contains(componentName) :
                         module.flows().stream().anyMatch(flow -> flow.isUsingComponent(componentName)))
                 .collect(toList());
@@ -86,7 +87,7 @@ public class ModulesManager {
     private <T extends Implementor> ReferencePair<T> instantiateImplementor(final BundleContext context, final String componentName) {
         Optional<ServiceReference<T>> optionalServiceReference = getImplementorReferenceByName(context, componentName);
         if (!optionalServiceReference.isPresent()) {
-            throw new IllegalStateException(Messages.Deserializer.ERROR_COMPONENT_NOT_FOUND.format(componentName));
+            throw new IllegalStateException(Deserializer.ERROR_COMPONENT_NOT_FOUND.format(componentName));
         }
 
         ServiceReference<T> serviceReference = optionalServiceReference.get();

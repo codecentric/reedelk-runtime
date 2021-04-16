@@ -1,6 +1,5 @@
 package de.codecentric.reedelk.module.descriptor.analyzer.type;
 
-import de.codecentric.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import de.codecentric.reedelk.module.descriptor.model.type.TypeDescriptor;
 import de.codecentric.reedelk.module.descriptor.model.type.TypeFunctionDescriptor;
 import de.codecentric.reedelk.module.descriptor.model.type.TypePropertyDescriptor;
@@ -15,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 import static de.codecentric.reedelk.module.descriptor.analyzer.commons.ScannerUtils.annotationParameterValueFrom;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.EMPTY;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.isNotBlank;
 import static java.util.stream.Collectors.toList;
 
 public class TypeAnalyzer {
@@ -30,8 +31,8 @@ public class TypeAnalyzer {
         ClassInfoList types = scanResult.getClassesWithAnnotation(Type.class.getName());
         return types.stream().map(classInfo -> {
 
-            boolean global = ScannerUtils.annotationParameterValueFrom(classInfo, Type.class, "global", false);
-            String description = ScannerUtils.annotationParameterValueFrom(classInfo, Type.class, "description", StringUtils.EMPTY);
+            boolean global = annotationParameterValueFrom(classInfo, Type.class, "global", false);
+            String description = annotationParameterValueFrom(classInfo, Type.class, "description", EMPTY);
             String mapValueType = getMapValueType(classInfo);
             String listItemType = getListItemType(classInfo);
             String displayName = getDisplayName(classInfo);
@@ -61,8 +62,8 @@ public class TypeAnalyzer {
     }
 
     private String getDisplayName(ClassInfo classInfo) {
-        String displayName = ScannerUtils.annotationParameterValueFrom(classInfo, Type.class, "displayName", StringUtils.EMPTY);
-        return StringUtils.isNotBlank(displayName) ? displayName : null;
+        String displayName = annotationParameterValueFrom(classInfo, Type.class, "displayName", StringUtils.EMPTY);
+        return isNotBlank(displayName) ? displayName : null;
     }
 
     private String superClassOf(ClassInfo classInfo) {
@@ -71,7 +72,7 @@ public class TypeAnalyzer {
     }
 
     private String getListItemType(ClassInfo classInfo) {
-        String listItemType = ScannerUtils.annotationParameterValueFrom(classInfo, Type.class, "listItemType", UseDefaultType.class.getName());
+        String listItemType = annotationParameterValueFrom(classInfo, Type.class, "listItemType", UseDefaultType.class.getName());
         if (UseDefaultType.class.getName().equals(listItemType)) {
             Class<?> aClass = classInfo.loadClass();
             return List.class.isAssignableFrom(aClass) ?
@@ -83,7 +84,7 @@ public class TypeAnalyzer {
     }
 
     private String getMapKeyType(ClassInfo classInfo) {
-        String mapKeyType = ScannerUtils.annotationParameterValueFrom(classInfo, Type.class, "mapKeyType", UseDefaultType.class.getName());
+        String mapKeyType = annotationParameterValueFrom(classInfo, Type.class, "mapKeyType", UseDefaultType.class.getName());
         if (UseDefaultType.class.getName().equals(mapKeyType)) {
             Class<?> aClass = classInfo.loadClass();
             return Map.class.isAssignableFrom(aClass) ?
@@ -95,7 +96,7 @@ public class TypeAnalyzer {
     }
 
     private String getMapValueType(ClassInfo classInfo) {
-        String mapValueType = ScannerUtils.annotationParameterValueFrom(classInfo, Type.class, "mapValueType", UseDefaultType.class.getName());
+        String mapValueType = annotationParameterValueFrom(classInfo, Type.class, "mapValueType", UseDefaultType.class.getName());
         if (UseDefaultType.class.getName().equals(mapValueType)) {
             Class<?> aClass = classInfo.loadClass();
             return Map.class.isAssignableFrom(aClass) ?

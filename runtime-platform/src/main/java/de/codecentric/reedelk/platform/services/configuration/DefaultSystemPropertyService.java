@@ -13,15 +13,15 @@ public class DefaultSystemPropertyService implements SystemProperty {
 
     public DefaultSystemPropertyService(BundleContext context) {
         // NAME_CONVENTION
-        configDirectory = context.getProperty("com.reedelk.system.api.configuration.config.directory");
+        configDirectory = context.getProperty("de.codecentric.reedelk.system.api.configuration.config.directory");
         // NAME_CONVENTION
-        homeDirectory = context.getProperty("com.reedelk.system.api.configuration.home.directory");
+        homeDirectory = context.getProperty("de.codecentric.reedelk.system.api.configuration.home.directory");
         // NAME_CONVENTION
-        modulesDirectory = context.getProperty("com.reedelk.system.api.configuration.modules.directory");
+        modulesDirectory = context.getProperty("de.codecentric.reedelk.system.api.configuration.modules.directory");
         // NAME_CONVENTION
-        runtimeVersion = context.getProperty("com.reedelk.system.api.configuration.runtime.version");
+        runtimeVersion = context.getProperty("de.codecentric.reedelk.system.api.configuration.runtime.version");
         // NAME_CONVENTION
-        runtimeQualifier = context.getProperty("com.reedelk.system.api.configuration.runtime.qualifier");
+        runtimeQualifier = context.getProperty("de.codecentric.reedelk.system.api.configuration.runtime.qualifier");
     }
 
     @Override

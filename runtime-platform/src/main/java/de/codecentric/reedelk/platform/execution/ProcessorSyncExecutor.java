@@ -1,6 +1,5 @@
 package de.codecentric.reedelk.platform.execution;
 
-import de.codecentric.reedelk.platform.commons.NextNode;
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.runtime.api.component.ProcessorSync;
@@ -13,6 +12,8 @@ import reactor.core.publisher.SynchronousSink;
 
 import java.util.function.BiConsumer;
 
+import static de.codecentric.reedelk.platform.commons.NextNode.ofOrThrow;
+
 public class ProcessorSyncExecutor implements FlowExecutor {
 
     @Override
@@ -22,7 +23,7 @@ public class ProcessorSyncExecutor implements FlowExecutor {
 
         Publisher<MessageAndContext> mono = Flux.from(publisher).handle(apply(processorSync));
 
-        ExecutionNode next = NextNode.ofOrThrow(currentNode, graph);
+        ExecutionNode next = ofOrThrow(currentNode, graph);
 
         // Move on building the flux for the following
         // processors in the execution graph definition.

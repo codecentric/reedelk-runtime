@@ -3,7 +3,6 @@ package de.codecentric.reedelk.platform.execution.scheduler;
 import de.codecentric.reedelk.platform.configuration.FlowExecutorConfig;
 import de.codecentric.reedelk.platform.configuration.RuntimeConfigurationProvider;
 import de.codecentric.reedelk.platform.configuration.SchedulerConfig;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
@@ -26,7 +25,7 @@ class FlowScheduler {
 
     private void initialize(SchedulerConfig config) {
         synchronized (INSTANCE) {
-            Preconditions.checkState(scheduler == null, "Scheduler already initialized.");
+            checkState(scheduler == null, "Scheduler already initialized.");
 
             if (config.isBounded()) {
                 BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>(config.queueSize());

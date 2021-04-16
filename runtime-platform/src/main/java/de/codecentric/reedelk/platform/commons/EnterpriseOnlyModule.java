@@ -2,7 +2,7 @@ package de.codecentric.reedelk.platform.commons;
 
 public class EnterpriseOnlyModule {
 
-    private static final String LICENSE_PACKAGE = "com.reedelk.license";
+    private static final String LICENSE_PACKAGE = "de.codecentric.reedelk.license";
 
     public static boolean is(Exception exception) {
         String message = exception.getMessage();

@@ -1,12 +1,13 @@
 package de.codecentric.reedelk.module.descriptor.model.property;
 
 import de.codecentric.reedelk.module.descriptor.model.component.ComponentDataHolder;
-import de.codecentric.reedelk.runtime.api.commons.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.EMPTY;
 
 public class ObjectDescriptor implements PropertyTypeDescriptor {
 
@@ -80,7 +81,7 @@ public class ObjectDescriptor implements PropertyTypeDescriptor {
 
     public static class TypeObject implements ComponentDataHolder {
 
-        public static final String DEFAULT_CONFIG_REF = StringUtils.EMPTY;
+        public static final String DEFAULT_CONFIG_REF = EMPTY;
 
         private Map<String, Object> objectDataHolder = new HashMap<>();
 

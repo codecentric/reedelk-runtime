@@ -1,21 +1,19 @@
 package de.codecentric.reedelk.platform.lifecycle;
 
-import de.codecentric.reedelk.platform.commons.Messages;
-import de.codecentric.reedelk.platform.flow.deserializer.converter.*;
-import de.codecentric.reedelk.platform.module.DeSerializedModule;
-import de.codecentric.reedelk.platform.module.ModulesManager;
-import de.codecentric.reedelk.platform.module.state.ModuleState;
 import de.codecentric.reedelk.platform.exception.FlowBuildException;
 import de.codecentric.reedelk.platform.execution.FlowExecutorEngine;
 import de.codecentric.reedelk.platform.flow.ErrorStateFlow;
 import de.codecentric.reedelk.platform.flow.Flow;
 import de.codecentric.reedelk.platform.flow.deserializer.FlowDeserializer;
 import de.codecentric.reedelk.platform.flow.deserializer.FlowDeserializerContext;
+import de.codecentric.reedelk.platform.flow.deserializer.converter.*;
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
+import de.codecentric.reedelk.platform.module.DeSerializedModule;
 import de.codecentric.reedelk.platform.module.Module;
+import de.codecentric.reedelk.platform.module.ModulesManager;
+import de.codecentric.reedelk.platform.module.state.ModuleState;
 import de.codecentric.reedelk.runtime.api.commons.StackTraceUtils;
 import de.codecentric.reedelk.runtime.converter.DeserializerConverter;
-import de.codecentric.reedelk.runtime.commons.JsonParser;
 import org.json.JSONObject;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
@@ -23,6 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
+import static de.codecentric.reedelk.platform.commons.Messages.FlowErrorMessage.DEFAULT;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Flow.*;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
@@ -75,8 +75,8 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
         Module module = modulesManager.getModuleById(bundle.getBundleId());
         long moduleId = module.id();
 
-        String flowId = JsonParser.Flow.id(flowDefinition);
-        String flowTitle = JsonParser.Flow.hasTitle(flowDefinition) ? JsonParser.Flow.title(flowDefinition) : null;
+        String flowId = id(flowDefinition);
+        String flowTitle = hasTitle(flowDefinition) ? title(flowDefinition) : null;
 
         DeserializerConverter converter = createDeserializerConverter(deSerializedModule, module, moduleId);
         try {
@@ -91,7 +91,7 @@ public class ModuleBuild extends AbstractStep<Module, Module> {
             // throw an exception if the bundle configuration is not correct. In order to provide the user a
             // meaningful and clear error message, we wrap the exception with the root cause details.
             String rootCauseMessage = StackTraceUtils.rootCauseMessageOf(exception);
-            String errorMessage = Messages.FlowErrorMessage.DEFAULT.format(moduleId, module.name(), flowId, flowTitle,
+            String errorMessage = DEFAULT.format(moduleId, module.name(), flowId, flowTitle,
                     null, exception.getClass().getName(), rootCauseMessage);
 
             FlowBuildException buildException = new FlowBuildException(errorMessage, exception);

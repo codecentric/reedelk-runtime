@@ -1,20 +1,19 @@
 package de.codecentric.reedelk.platform.component.foreach;
 
 import de.codecentric.reedelk.platform.commons.NextNode;
+import de.codecentric.reedelk.platform.component.commons.Combinator;
+import de.codecentric.reedelk.platform.component.commons.JoinConsumer;
+import de.codecentric.reedelk.platform.component.commons.JoinUtils;
 import de.codecentric.reedelk.platform.execution.FlowExecutor;
 import de.codecentric.reedelk.platform.execution.FlowExecutorFactory;
 import de.codecentric.reedelk.platform.execution.MessageAndContext;
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
-import de.codecentric.reedelk.platform.component.commons.Combinator;
-import de.codecentric.reedelk.platform.component.commons.JoinConsumer;
-import de.codecentric.reedelk.platform.component.commons.JoinUtils;
 import de.codecentric.reedelk.runtime.api.component.Join;
 import de.codecentric.reedelk.runtime.api.message.Message;
 import de.codecentric.reedelk.runtime.api.message.MessageBuilder;
 import de.codecentric.reedelk.runtime.api.message.content.Pair;
 import de.codecentric.reedelk.runtime.component.ForEach;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -137,7 +136,7 @@ public class ForEachExecutor implements FlowExecutor {
     }
 
     private static Serializable checkSerializableOrThrow(Object value, String message) {
-        Preconditions.checkArgument(value == null || value instanceof Serializable,
+        checkArgument(value == null || value instanceof Serializable,
                 "ForEach Component " + message + " must be serializable.");
         return (Serializable) value;
     }

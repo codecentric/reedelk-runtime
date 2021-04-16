@@ -1,7 +1,8 @@
 package de.codecentric.reedelk.platform.flow.deserializer.converter;
 
 import de.codecentric.reedelk.runtime.system.api.SystemProperty;
-import de.codecentric.reedelk.runtime.api.commons.ConfigurationPropertyUtils;
+
+import static de.codecentric.reedelk.runtime.api.commons.ConfigurationPropertyUtils.asConfigProperty;
 
 enum SystemConfigProperty {
 
@@ -10,7 +11,7 @@ enum SystemConfigProperty {
     // files from runtime config folder which might be user defined, e.g ${RUNTIME_CONFIG}/my.ssl.certificate.key.
     RUNTIME_CONFIG {
 
-        final String matchingText = ConfigurationPropertyUtils.asConfigProperty("RUNTIME_CONFIG");
+        final String matchingText = asConfigProperty("RUNTIME_CONFIG");
 
         @Override
         boolean matches(String input) {
@@ -25,7 +26,7 @@ enum SystemConfigProperty {
 
     RUNTIME_HOME {
 
-        final String matchingText = ConfigurationPropertyUtils.asConfigProperty("RUNTIME_HOME");
+        final String matchingText = asConfigProperty("RUNTIME_HOME");
 
         @Override
         boolean matches(String input) {
@@ -40,7 +41,7 @@ enum SystemConfigProperty {
 
     RUNTIME_VERSION {
 
-        final String matchingText = ConfigurationPropertyUtils.asConfigProperty("RUNTIME_VERSION");
+        final String matchingText = asConfigProperty("RUNTIME_VERSION");
 
         @Override
         boolean matches(String input) {
@@ -55,7 +56,7 @@ enum SystemConfigProperty {
 
     RUNTIME_MODULES {
 
-        final String matchingText = ConfigurationPropertyUtils.asConfigProperty("RUNTIME_MODULES");
+        final String matchingText = asConfigProperty("RUNTIME_MODULES");
 
         @Override
         boolean matches(String input) {

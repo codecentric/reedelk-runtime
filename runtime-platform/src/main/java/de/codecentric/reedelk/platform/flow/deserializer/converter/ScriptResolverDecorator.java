@@ -1,17 +1,19 @@
 package de.codecentric.reedelk.platform.flow.deserializer.converter;
 
-import de.codecentric.reedelk.platform.commons.Messages;
 import de.codecentric.reedelk.platform.module.DeSerializedModule;
 import de.codecentric.reedelk.runtime.api.exception.PlatformException;
 import de.codecentric.reedelk.runtime.api.resource.ResourceNotFound;
 import de.codecentric.reedelk.runtime.api.script.Script;
 import de.codecentric.reedelk.runtime.converter.DeserializerConverter;
 import de.codecentric.reedelk.runtime.converter.DeserializerConverterContext;
-import de.codecentric.reedelk.runtime.api.commons.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Optional;
+
+import static de.codecentric.reedelk.platform.commons.Messages.Deserializer.SCRIPT_SOURCE_EMPTY;
+import static de.codecentric.reedelk.platform.commons.Messages.Deserializer.SCRIPT_SOURCE_NOT_FOUND;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.isBlank;
 
 public class ScriptResolverDecorator implements DeserializerConverter {
 
@@ -44,8 +46,8 @@ public class ScriptResolverDecorator implements DeserializerConverter {
     }
 
     private Script loadScriptFromResources(Script script) {
-        if (StringUtils.isBlank(script.getScriptPath())) {
-            throw new PlatformException(Messages.Deserializer.SCRIPT_SOURCE_EMPTY.format());
+        if (isBlank(script.getScriptPath())) {
+            throw new PlatformException(SCRIPT_SOURCE_EMPTY.format());
         }
         return deSerializedModule.getScripts()
                 .stream()
@@ -53,7 +55,7 @@ public class ScriptResolverDecorator implements DeserializerConverter {
                 .findFirst()
                 .flatMap(resourceLoader -> Optional.of(new ProxyScript(script, resourceLoader.bodyAsString())))
                 .orElseThrow(() -> {
-                    String message = Messages.Deserializer.SCRIPT_SOURCE_NOT_FOUND.format(script.getScriptPath());
+                    String message = SCRIPT_SOURCE_NOT_FOUND.format(script.getScriptPath());
                     return new ResourceNotFound(message);
                 });
     }

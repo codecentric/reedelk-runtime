@@ -1,18 +1,18 @@
 package de.codecentric.reedelk.module.descriptor.analyzer.type;
 
 import de.codecentric.reedelk.module.descriptor.ModuleDescriptorException;
-import de.codecentric.reedelk.module.descriptor.analyzer.commons.ScannerUtils;
 import de.codecentric.reedelk.module.descriptor.model.type.TypeFunctionDescriptor;
 import de.codecentric.reedelk.runtime.api.annotation.TypeFunction;
 import de.codecentric.reedelk.runtime.api.annotation.TypeFunctions;
 import de.codecentric.reedelk.runtime.api.annotation.UseDefaultType;
-import de.codecentric.reedelk.runtime.api.commons.StringUtils;
 import io.github.classgraph.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.codecentric.reedelk.module.descriptor.analyzer.commons.ScannerUtils.parameterValueFrom;
 import static de.codecentric.reedelk.module.descriptor.analyzer.commons.ScannerUtils.repeatableAnnotation;
+import static de.codecentric.reedelk.runtime.api.commons.StringUtils.EMPTY;
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
@@ -42,12 +42,12 @@ public class TypeFunctionAnalyzer {
     }
 
     private List<TypeFunctionDescriptor> classLevelTypeFunctions() {
-        return ScannerUtils.repeatableAnnotation(classInfo, TypeFunction.class, TypeFunctions.class).stream().map(annotationInfo -> {
-            String signature = ScannerUtils.parameterValueFrom(annotationInfo, "signature", TypeFunction.USE_DEFAULT_SIGNATURE);
-            String name = ScannerUtils.parameterValueFrom(annotationInfo, "name", TypeFunction.USE_DEFAULT_NAME);
-            String description = ScannerUtils.parameterValueFrom(annotationInfo, "description", StringUtils.EMPTY);
-            String example = ScannerUtils.parameterValueFrom(annotationInfo, "example", StringUtils.EMPTY);
-            int cursorOffset = ScannerUtils.parameterValueFrom(annotationInfo, "cursorOffset", 0);
+        return repeatableAnnotation(classInfo, TypeFunction.class, TypeFunctions.class).stream().map(annotationInfo -> {
+            String signature = parameterValueFrom(annotationInfo, "signature", TypeFunction.USE_DEFAULT_SIGNATURE);
+            String name = parameterValueFrom(annotationInfo, "name", TypeFunction.USE_DEFAULT_NAME);
+            String description = parameterValueFrom(annotationInfo, "description", EMPTY);
+            String example = parameterValueFrom(annotationInfo, "example", EMPTY);
+            int cursorOffset = parameterValueFrom(annotationInfo, "cursorOffset", 0);
 
             if (TypeFunction.USE_DEFAULT_NAME.equals(name)) {
                 String error = format("Name property must be defined for class level @TypeFunction annotation (class: %s).", classInfo.getName());
@@ -82,10 +82,10 @@ public class TypeFunctionAnalyzer {
                 .stream()
                 .map(methodInfo -> {
                     AnnotationInfo annotationInfo = methodInfo.getAnnotationInfo(TypeFunction.class.getName());
-                    String name = ScannerUtils.parameterValueFrom(annotationInfo, "name", TypeFunction.USE_DEFAULT_NAME);
-                    String description = ScannerUtils.parameterValueFrom(annotationInfo, "description", StringUtils.EMPTY);
-                    String example = ScannerUtils.parameterValueFrom(annotationInfo, "example", StringUtils.EMPTY);
-                    int cursorOffset = ScannerUtils.parameterValueFrom(annotationInfo, "cursorOffset", 0);
+                    String name = parameterValueFrom(annotationInfo, "name", TypeFunction.USE_DEFAULT_NAME);
+                    String description = parameterValueFrom(annotationInfo, "description", EMPTY);
+                    String example = parameterValueFrom(annotationInfo, "example", EMPTY);
+                    int cursorOffset = parameterValueFrom(annotationInfo, "cursorOffset", 0);
 
                     // The real name is the method name if not specified in the annotation args.
                     String realName = TypeFunction.USE_DEFAULT_NAME.equals(name) ? methodInfo.getName() : name;
@@ -107,7 +107,7 @@ public class TypeFunctionAnalyzer {
     }
 
     private String getSignatureFrom(AnnotationInfo annotationInfo, MethodInfo methodInfo) {
-        String signature = ScannerUtils.parameterValueFrom(annotationInfo, "signature", TypeFunction.USE_DEFAULT_SIGNATURE);
+        String signature = parameterValueFrom(annotationInfo, "signature", TypeFunction.USE_DEFAULT_SIGNATURE);
         if (TypeFunction.USE_DEFAULT_SIGNATURE.equals(signature)) {
             return createSignatureFrom(methodInfo);
         } else {
@@ -116,7 +116,7 @@ public class TypeFunctionAnalyzer {
     }
 
     private String getReturnTypeFromOrThrowWhenDefault(AnnotationInfo annotationInfo) {
-        String returnType = ScannerUtils.parameterValueFrom(annotationInfo, "returnType", UseDefaultType.class.getName());
+        String returnType = parameterValueFrom(annotationInfo, "returnType", UseDefaultType.class.getName());
         if (UseDefaultType.class.getName().equals(returnType)) {
             throw new ModuleDescriptorException("Return type must be defined for class level @TypeFunction annotations.");
         } else {
@@ -125,7 +125,7 @@ public class TypeFunctionAnalyzer {
     }
 
     private String getReturnTypeFrom(AnnotationInfo annotationInfo, MethodInfo methodInfo) {
-        String returnType = ScannerUtils.parameterValueFrom(annotationInfo, "returnType", UseDefaultType.class.getName());
+        String returnType = parameterValueFrom(annotationInfo, "returnType", UseDefaultType.class.getName());
         if (UseDefaultType.class.getName().equals(returnType)) {
             TypeSignature resultType = methodInfo.getTypeDescriptor().getResultType();
             return resultType.toString(); // Fully qualified name

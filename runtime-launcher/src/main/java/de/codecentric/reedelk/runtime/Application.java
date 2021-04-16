@@ -1,7 +1,6 @@
 package de.codecentric.reedelk.runtime;
 
 import de.codecentric.reedelk.runtime.commons.EnterpriseOnlyModule;
-import de.codecentric.reedelk.runtime.commons.RuntimeMessage;
 import de.codecentric.reedelk.runtime.properties.RuntimeConfiguration;
 import de.codecentric.reedelk.runtime.properties.SystemBundle;
 import de.codecentric.reedelk.runtime.properties.SystemConfiguration;
@@ -22,6 +21,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
+import static de.codecentric.reedelk.runtime.commons.RuntimeMessage.message;
+
 public class Application {
 
     private final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -40,7 +41,7 @@ public class Application {
 
         installSystemBundles();
 
-        logger.info(RuntimeMessage.message("runtime.modules.starting"));
+        logger.info(message("runtime.modules.starting"));
 
         String autoDeployDirectory = SystemConfiguration.modulesDirectory();
 
@@ -50,11 +51,11 @@ public class Application {
     public void stop() {
         try {
             if (framework.getState() == Bundle.ACTIVE) {
-                logger.info(RuntimeMessage.message("runtime.stopping"));
+                logger.info(message("runtime.stopping"));
                 framework.stop();
             }
         } catch (BundleException exception) {
-            logger.error(RuntimeMessage.message("runtime.stop.error", exception.getMessage()));
+            logger.error(message("runtime.stop.error", exception.getMessage()));
         }
     }
 
@@ -82,7 +83,7 @@ public class Application {
         try (InputStream bundleInputStream = SystemBundle.class.getResourceAsStream(bundleResource)) {
             install(bundleResourceURL.getFile(), bundleInputStream);
         } catch (IOException exception) {
-            String errorMessage = RuntimeMessage.message("runtime.install.system.bundle.error", bundleName);
+            String errorMessage = message("runtime.install.system.bundle.error", bundleName);
             throw new PlatformLauncherException(errorMessage, exception);
         }
     }
@@ -93,8 +94,8 @@ public class Application {
         } catch (BundleException exception) {
             boolean enterpriseOnlyModule = EnterpriseOnlyModule.is(exception);
             String errorMessage = enterpriseOnlyModule ?
-                    RuntimeMessage.message("license.only.module", bundle.getSymbolicName()) :
-                    RuntimeMessage.message("runtime.start.module.error", bundle.getSymbolicName(), exception.getMessage());
+                    message("license.only.module", bundle.getSymbolicName()) :
+                    message("runtime.start.module.error", bundle.getSymbolicName(), exception.getMessage());
 
             logger.error(errorMessage);
 
@@ -105,7 +106,7 @@ public class Application {
                 // we must uninstall it. In this case there is nothing
                 // we can do to recover from this error:
                 // we just log a warning message.
-                String uninstallError = RuntimeMessage.message("runtime.start.error.uninstall.error", bundle.getSymbolicName(), exception.getMessage());
+                String uninstallError = message("runtime.start.error.uninstall.error", bundle.getSymbolicName(), exception.getMessage());
                 logger.warn(uninstallError);
             }
         }
@@ -123,14 +124,14 @@ public class Application {
                 return Optional.empty();
             }
         } catch (BundleException exception) {
-            String errorMessage = RuntimeMessage.message("runtime.install.module.error", file.toString(), exception.getMessage());
+            String errorMessage = message("runtime.install.module.error", file.toString(), exception.getMessage());
             throw new PlatformLauncherException(errorMessage, exception);
         }
     }
 
     private void install(String bundlePath, InputStream inputStream) {
         if (bundlePath == null) {
-            throw new IllegalStateException(RuntimeMessage.message("runtime.install.bundle.path.is.null"));
+            throw new IllegalStateException(message("runtime.install.bundle.path.is.null"));
         }
 
         BundleContext bundleContext = framework.getBundleContext();
@@ -153,6 +154,6 @@ public class Application {
             FrameworkFactory next = iterator.next();
             return next.newFramework(config);
         }
-        throw new IllegalStateException(RuntimeMessage.message("runtime.framework.service.load.error"));
+        throw new IllegalStateException(message("runtime.framework.service.load.error"));
     }
 }

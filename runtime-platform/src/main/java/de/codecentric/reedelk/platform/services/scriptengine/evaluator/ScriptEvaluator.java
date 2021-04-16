@@ -8,6 +8,9 @@ import org.reactivestreams.Publisher;
 
 import java.util.Optional;
 
+import static de.codecentric.reedelk.platform.services.scriptengine.evaluator.ValueProviders.OPTIONAL_PROVIDER;
+import static de.codecentric.reedelk.platform.services.scriptengine.evaluator.ValueProviders.STREAM_PROVIDER;
+
 @SuppressWarnings("unchecked")
 public class ScriptEvaluator extends AbstractDynamicValueEvaluator {
 
@@ -17,9 +20,9 @@ public class ScriptEvaluator extends AbstractDynamicValueEvaluator {
     @Override
     public <T> Optional<T> evaluate(Script script, Class<T> returnType, Object ...args) {
         if (script == null || script.isEmpty()) {
-            return ValueProviders.OPTIONAL_PROVIDER.empty();
+            return OPTIONAL_PROVIDER.empty();
         } else {
-            return (Optional<T>) evaluateScript(script, returnType, ValueProviders.OPTIONAL_PROVIDER, args);
+            return (Optional<T>) evaluateScript(script, returnType, OPTIONAL_PROVIDER, args);
         }
     }
 
@@ -28,9 +31,9 @@ public class ScriptEvaluator extends AbstractDynamicValueEvaluator {
         if (script == null) {
             return null;
         } else if (script.isEmpty()) {
-            return TypedPublisher.from(ValueProviders.STREAM_PROVIDER.empty(), returnType);
+            return TypedPublisher.from(STREAM_PROVIDER.empty(), returnType);
         } else {
-            Publisher<T> resultPublisher = (Publisher<T>) evaluateScript(script, returnType, ValueProviders.STREAM_PROVIDER, args);
+            Publisher<T> resultPublisher = (Publisher<T>) evaluateScript(script, returnType, STREAM_PROVIDER, args);
             return TypedPublisher.from(resultPublisher, returnType);
         }
     }

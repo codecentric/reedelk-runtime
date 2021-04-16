@@ -13,7 +13,6 @@
 
     <packaging>pom</packaging>
     <artifactId>module-parent</artifactId>
-    <name>module-parent</name>
 
     <dependencies>
         <dependency>
@@ -144,7 +143,7 @@
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
                             <updatePomFile>true</updatePomFile>
-                            <flattenMode>oss</flattenMode>
+                            <flattenMode>minimum</flattenMode>
                             <pomElements>
                                 <properties>interpolate</properties>
                                 <dependencies>resolve</dependencies>

@@ -10,7 +10,6 @@ import de.codecentric.reedelk.runtime.api.message.MessageBuilder;
 import de.codecentric.reedelk.runtime.api.message.content.Attachment;
 import de.codecentric.reedelk.runtime.system.api.ModuleService;
 import de.codecentric.reedelk.runtime.system.api.SystemProperty;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -43,11 +42,11 @@ public class ModuleDeploy implements ProcessorSync {
 
         Map<String, Attachment> parts = message.payload();
 
-        Preconditions.checkState(parts.containsKey(UPLOADED_MODULE_PART_NAME), "Expected form upload part missing");
+        checkState(parts.containsKey(UPLOADED_MODULE_PART_NAME), "Expected form upload part missing");
 
         Attachment part = parts.get(UPLOADED_MODULE_PART_NAME);
 
-        Preconditions.checkState(part.attributes().containsKey(ATTRIBUTE_FILE_NAME),
+        checkState(part.attributes().containsKey(ATTRIBUTE_FILE_NAME),
                 "Attribute file name missing");
 
         // Windows Explorer sends the file name including the path.
@@ -56,7 +55,7 @@ public class ModuleDeploy implements ProcessorSync {
 
         String jarFileName = new File(jarFileNameMaybeWithPath).getName();
 
-        Preconditions.checkArgument(StringUtils.isNotBlank(jarFileName), "Please specify a not empty Module file path.");
+        checkArgument(StringUtils.isNotBlank(jarFileName), "Please specify a not empty Module file path.");
 
         // We upload the file into the ESB 'modules' directory.
         String uploadDirectory = systemProperty.modulesDirectory();

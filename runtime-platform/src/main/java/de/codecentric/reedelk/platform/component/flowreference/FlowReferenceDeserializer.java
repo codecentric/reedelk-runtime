@@ -6,7 +6,6 @@ import de.codecentric.reedelk.platform.flow.deserializer.FlowDeserializerContext
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.runtime.api.exception.PlatformException;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import de.codecentric.reedelk.runtime.commons.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,6 +13,8 @@ import org.json.JSONObject;
 import java.util.Set;
 
 import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkState;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.FlowReference;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Subflow;
 
 public class FlowReferenceDeserializer extends AbstractDeserializer {
 
@@ -23,15 +24,15 @@ public class FlowReferenceDeserializer extends AbstractDeserializer {
 
     @Override
     public ExecutionNode deserialize(ExecutionNode parent, JSONObject componentDefinition) {
-        String flowReference = JsonParser.FlowReference.ref(componentDefinition);
+        String flowReference = FlowReference.ref(componentDefinition);
 
-        Preconditions.checkState(flowReference != null,
+        checkState(flowReference != null,
                 "ref property inside a FlowReference component cannot be null");
 
         Set<JSONObject> subflows = context.deserializedModule().getSubflows();
 
         JSONObject subflow = findSubflowByReference(subflows, flowReference);
-        JSONArray subflowComponents = JsonParser.Subflow.subflow(subflow);
+        JSONArray subflowComponents = Subflow.subflow(subflow);
 
         ExecutionNode currentNode = parent;
         for (int i = 0; i < subflowComponents.length(); i++) {

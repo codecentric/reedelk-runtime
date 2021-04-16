@@ -1,7 +1,6 @@
 package de.codecentric.reedelk.platform.configuration;
 
 import de.codecentric.reedelk.runtime.api.configuration.ConfigurationService;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 
 import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkState;
 
@@ -17,7 +16,7 @@ public class RuntimeConfigurationProvider {
 
     private void init(ConfigurationService configService) {
         synchronized (PROVIDER) {
-            Preconditions.checkState(this.configService == null, "Config service already initialized");
+            checkState(this.configService == null, "Config service already initialized");
             this.configService = configService;
             loadProperties();
         }

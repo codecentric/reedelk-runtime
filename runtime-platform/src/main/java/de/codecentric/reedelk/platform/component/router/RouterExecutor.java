@@ -1,13 +1,12 @@
 package de.codecentric.reedelk.platform.component.router;
 
-import de.codecentric.reedelk.platform.commons.NextNode;
+import de.codecentric.reedelk.platform.component.router.RouterWrapper.PathExpressionPair;
 import de.codecentric.reedelk.platform.execution.FlowExecutor;
 import de.codecentric.reedelk.platform.execution.FlowExecutorFactory;
 import de.codecentric.reedelk.platform.execution.MessageAndContext;
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.platform.services.scriptengine.ScriptEngine;
-import de.codecentric.reedelk.platform.component.router.RouterWrapper.PathExpressionPair;
 import de.codecentric.reedelk.runtime.api.flow.FlowContext;
 import de.codecentric.reedelk.runtime.api.message.Message;
 import de.codecentric.reedelk.runtime.api.script.dynamicvalue.DynamicString;
@@ -20,6 +19,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+import static de.codecentric.reedelk.platform.commons.NextNode.of;
 import static java.util.stream.Collectors.toList;
 
 public class RouterExecutor implements FlowExecutor {
@@ -55,7 +55,7 @@ public class RouterExecutor implements FlowExecutor {
 
         // If the Router is followed by other nodes, then we keep executing
         // the other nodes, otherwise we stop and we return the current publisher.
-        return NextNode.of(stopNode, graph)
+        return of(stopNode, graph)
                 .map(nodeAfterStop -> FlowExecutorFactory.get().execute(flux, nodeAfterStop, graph))
                 .orElse(flux); // The Router is the last execution node of the flow.
     }

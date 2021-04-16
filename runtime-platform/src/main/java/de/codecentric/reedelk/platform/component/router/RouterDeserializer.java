@@ -9,9 +9,11 @@ import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
 import de.codecentric.reedelk.runtime.api.script.dynamicvalue.DynamicString;
 import de.codecentric.reedelk.runtime.component.Stop;
-import de.codecentric.reedelk.runtime.commons.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Implementor;
+import static de.codecentric.reedelk.runtime.commons.JsonParser.Router;
 
 public class RouterDeserializer extends AbstractDeserializer {
 
@@ -21,7 +23,7 @@ public class RouterDeserializer extends AbstractDeserializer {
 
     @Override
     public ExecutionNode deserialize(ExecutionNode parent, JSONObject componentDefinition) {
-        String componentName = JsonParser.Implementor.name(componentDefinition);
+        String componentName = Implementor.name(componentDefinition);
 
         ExecutionNode stopComponent = context.instantiateComponent(Stop.class);
         ExecutionNode routerExecutionNode = context.instantiateComponent(componentName);
@@ -29,13 +31,13 @@ public class RouterDeserializer extends AbstractDeserializer {
 
         graph.putEdge(parent, routerExecutionNode);
 
-        JSONArray when = JsonParser.Router.when(componentDefinition);
+        JSONArray when = Router.when(componentDefinition);
 
         for (int i = 0; i < when.length(); i++) {
             ExecutionNode currentNode = routerExecutionNode;
 
             JSONObject component = when.getJSONObject(i);
-            JSONArray next = JsonParser.Router.next(component);
+            JSONArray next = Router.next(component);
 
             for (int j = 0; j < next.length(); j++) {
                 JSONObject currentComponentDef = next.getJSONObject(j);
@@ -49,7 +51,7 @@ public class RouterDeserializer extends AbstractDeserializer {
                 // The first component of A GIVEN router path,
                 // must be added as a router expression pair.
                 if (j == 0) {
-                    DynamicString expression = context.converter().convert(DynamicString.class, component, JsonParser.Router.condition());
+                    DynamicString expression = context.converter().convert(DynamicString.class, component, Router.condition());
                     // 'lastNode' might be the last stop node from another scoped execution node (e.g. Fork, Router, Try-Catch).
                     // We must find the *FIRST* node leading to that stop node, otherwise we would not execute the nested
                     // scoped node components.

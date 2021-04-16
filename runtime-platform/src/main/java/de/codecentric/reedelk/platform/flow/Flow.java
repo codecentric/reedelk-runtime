@@ -1,7 +1,6 @@
 package de.codecentric.reedelk.platform.flow;
 
 import de.codecentric.reedelk.platform.commons.CorrelationID;
-import de.codecentric.reedelk.platform.commons.Messages;
 import de.codecentric.reedelk.platform.execution.FlowExecutorEngine;
 import de.codecentric.reedelk.platform.graph.ExecutionGraph;
 import de.codecentric.reedelk.platform.graph.ExecutionNode;
@@ -12,13 +11,13 @@ import de.codecentric.reedelk.runtime.api.component.OnResult;
 import de.codecentric.reedelk.runtime.api.exception.FlowExecutionException;
 import de.codecentric.reedelk.runtime.api.flow.FlowContext;
 import de.codecentric.reedelk.runtime.api.message.Message;
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
+import static de.codecentric.reedelk.platform.commons.Messages.FlowErrorMessage.DEFAULT;
 import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkArgument;
 import static de.codecentric.reedelk.runtime.api.commons.Preconditions.checkState;
 
@@ -60,7 +59,7 @@ public class Flow implements InboundEventListener {
     }
 
     public boolean isUsingComponent(String targetComponentName) {
-        Preconditions.checkArgument(targetComponentName != null, "Component Name");
+        checkArgument(targetComponentName != null, "Component Name");
 
         Optional<ExecutionNode> found = executionGraph
                 .findOne(executionNode -> executionNode.isUsingComponent(targetComponentName));
@@ -68,7 +67,7 @@ public class Flow implements InboundEventListener {
     }
 
     public void releaseReferences(Bundle bundle) {
-        Preconditions.checkState(!isStarted(), "Flow references can be released only when the flow is stopped!");
+        checkState(!isStarted(), "Flow references can be released only when the flow is stopped!");
         executionGraph.applyOnNodes(ReleaseReferenceConsumer.get(bundle));
     }
 
@@ -174,7 +173,7 @@ public class Flow implements InboundEventListener {
         @Override
         public void onError(FlowContext flowContext, Throwable throwable) {
             String correlationId = CorrelationID.getOrNull(flowContext);
-            String error = Messages.FlowErrorMessage.DEFAULT.format(moduleId, moduleName, flowId, flowTitle, correlationId, throwable.getClass().getName(), throwable.getMessage());
+            String error = DEFAULT.format(moduleId, moduleName, flowId, flowTitle, correlationId, throwable.getClass().getName(), throwable.getMessage());
             FlowExecutionException wrapped = new FlowExecutionException(moduleId, moduleName, flowId, flowTitle, correlationId, error, throwable);
 
             if (logger.isErrorEnabled()) {

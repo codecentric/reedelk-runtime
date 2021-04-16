@@ -1,7 +1,5 @@
 package de.codecentric.reedelk.module.descriptor.model.property;
 
-import de.codecentric.reedelk.runtime.api.commons.Preconditions;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -215,8 +213,8 @@ public class PropertyDescriptor implements Serializable {
         }
 
         public PropertyDescriptor build() {
-            Preconditions.checkState(name != null, "propertyName");
-            Preconditions.checkState(type != null, "propertyType");
+            checkState(name != null, "propertyName");
+            checkState(type != null, "propertyType");
 
             PropertyDescriptor descriptor = new PropertyDescriptor();
             descriptor.name = name;
