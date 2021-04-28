@@ -18,7 +18,7 @@
     </distributionManagement>
 
     <properties>
-        <revision>1.0.6</revision>
+        <revision>1.0.8-SNAPSHOT</revision>
         <assertj.version>3.11.1</assertj.version>
         <groovy.version>3.0.3</groovy.version>
         <json.version>20190722</json.version>
