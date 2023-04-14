@@ -21,7 +21,7 @@
         <revision>1.0.8-SNAPSHOT</revision>
         <assertj.version>3.11.1</assertj.version>
         <groovy.version>3.0.3</groovy.version>
-        <json.version>20190722</json.version>
+        <json.version>20230227</json.version>
         <junit.version>5.5.2</junit.version>
         <jacoco.version>0.8.2</jacoco.version>
         <jsonassert.version>1.5.0</jsonassert.version>
